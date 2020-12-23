@@ -16,7 +16,12 @@
         "variables": {
             "authToken": {
                 "type": "string",
-                "description": "The API auth key for API operations.\n"
+                "description": "The API auth key for API operations.\n",
+                "defaultInfo": {
+                    "environment": [
+                        "PACKET_AUTH_TOKEN"
+                    ]
+                }
             }
         },
         "defaults": [
@@ -1138,12 +1143,14 @@
         "inputProperties": {
             "authToken": {
                 "type": "string",
-                "description": "The API auth key for API operations.\n"
+                "description": "The API auth key for API operations.\n",
+                "defaultInfo": {
+                    "environment": [
+                        "PACKET_AUTH_TOKEN"
+                    ]
+                }
             }
-        },
-        "requiredInputs": [
-            "authToken"
-        ]
+        }
     },
     "resources": {
         "equinix-metal:index/bgpSession:BgpSession": {

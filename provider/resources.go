@@ -81,28 +81,12 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:    "https://pulumi.io",
 		GitHubOrg:   "equinix",
 		Repository:  "https://github.com/pulumi/pulumi-equinix-metal",
-		Config:      map[string]*tfbridge.SchemaInfo{
-			//"client_id": {
-			//	Default: &tfbridge.DefaultInfo{
-			//		EnvVars: []string{"EQUINIX_API_CLIENTID"},
-			//	},
-			//},
-			//"client_secret": {
-			//	Default: &tfbridge.DefaultInfo{
-			//		EnvVars: []string{"EQUINIX_API_CLIENTSECRET"},
-			//	},
-			//},
-			//"endpoint": {
-			//	Default: &tfbridge.DefaultInfo{
-			//		EnvVars: []string{"EQUINIX_API_ENDPOINT"},
-			//		Value:   "https://api.equinix.com",
-			//	},
-			//},
-			//"request_timeout": {
-			//	Default: &tfbridge.DefaultInfo{
-			//		Value: 30,
-			//	},
-			//},
+		Config: map[string]*tfbridge.SchemaInfo{
+			"auth_token": {
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"PACKET_AUTH_TOKEN"},
+				},
+			},
 		},
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"metal_bgp_session": {Tok: makeResource(mainMod, "BgpSession")},

@@ -10,5 +10,9 @@ import (
 
 // The API auth key for API operations.
 func GetAuthToken(ctx *pulumi.Context) string {
-	return config.Get(ctx, "equinix-metal:authToken")
+	v, err := config.Try(ctx, "equinix-metal:authToken")
+	if err == nil {
+		return v
+	}
+	return getEnvOrDefault("", nil, "PACKET_AUTH_TOKEN").(string)
 }

@@ -46,8 +46,8 @@ class Provider(pulumi.ProviderResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = dict()
 
-            if auth_token is None and not opts.urn:
-                raise TypeError("Missing required property 'auth_token'")
+            if auth_token is None:
+                auth_token = _utilities.get_env('PACKET_AUTH_TOKEN')
             __props__['auth_token'] = auth_token
         super(Provider, __self__).__init__(
             'equinix-metal',

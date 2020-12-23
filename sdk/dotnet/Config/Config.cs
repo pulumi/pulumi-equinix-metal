@@ -11,7 +11,7 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// The API auth key for API operations.
         /// </summary>
-        public static string? AuthToken { get; set; } = __config.Get("authToken");
+        public static string? AuthToken { get; set; } = __config.Get("authToken") ?? Utilities.GetEnv("PACKET_AUTH_TOKEN");
 
     }
 }

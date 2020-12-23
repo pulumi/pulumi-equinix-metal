@@ -14,7 +14,7 @@ __all__ = [
 
 __config__ = pulumi.Config('equinix-metal')
 
-auth_token = __config__.get('authToken')
+auth_token = __config__.get('authToken') or _utilities.get_env('PACKET_AUTH_TOKEN')
 """
 The API auth key for API operations.
 """

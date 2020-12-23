@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
@@ -23,11 +22,11 @@ type Provider struct {
 func NewProvider(ctx *pulumi.Context,
 	name string, args *ProviderArgs, opts ...pulumi.ResourceOption) (*Provider, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &ProviderArgs{}
 	}
 
 	if args.AuthToken == nil {
-		return nil, errors.New("invalid value for required argument 'AuthToken'")
+		args.AuthToken = pulumi.StringPtr(getEnvOrDefault("", nil, "PACKET_AUTH_TOKEN").(string))
 	}
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:equinix-metal", name, args, &resource, opts...)
@@ -39,13 +38,13 @@ func NewProvider(ctx *pulumi.Context,
 
 type providerArgs struct {
 	// The API auth key for API operations.
-	AuthToken string `pulumi:"authToken"`
+	AuthToken *string `pulumi:"authToken"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
 	// The API auth key for API operations.
-	AuthToken pulumi.StringInput
+	AuthToken pulumi.StringPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
