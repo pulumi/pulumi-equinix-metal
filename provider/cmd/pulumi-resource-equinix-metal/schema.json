@@ -272,6 +272,42 @@
                 {
                     "name": "FRA2",
                     "value": "fra2"
+                },
+                {
+                    "name": "AM6",
+                    "value": "am6"
+                },
+                {
+                    "name": "DC13",
+                    "value": "dc13"
+                },
+                {
+                    "name": "CH3",
+                    "value": "ch3"
+                },
+                {
+                    "name": "DA3",
+                    "value": "da3"
+                },
+                {
+                    "name": "DA11",
+                    "value": "da11"
+                },
+                {
+                    "name": "LA4",
+                    "value": "la4"
+                },
+                {
+                    "name": "NY5",
+                    "value": "ny5"
+                },
+                {
+                    "name": "SG1",
+                    "value": "sg1"
+                },
+                {
+                    "name": "SV15",
+                    "value": "sv15"
                 }
             ]
         },
@@ -325,6 +361,10 @@
                     "value": "centos_7"
                 },
                 {
+                    "name": "CentOS8",
+                    "value": "centos_8"
+                },
+                {
                     "name": "CoreOSAlpha",
                     "value": "coreos_alpha"
                 },
@@ -347,6 +387,26 @@
                 {
                     "name": "Debian9",
                     "value": "debian_9"
+                },
+                {
+                    "name": "Debian10",
+                    "value": "debian_10"
+                },
+                {
+                    "name": "FlatcarAlpha",
+                    "value": "flatcar_alpha"
+                },
+                {
+                    "name": "FlatcarBeta",
+                    "value": "flatcar_beta"
+                },
+                {
+                    "name": "FlatcarEdge",
+                    "value": "flatcar_edge"
+                },
+                {
+                    "name": "FlatcarStable",
+                    "value": "flatcar_stable"
                 },
                 {
                     "name": "FreeBSD10_4",
@@ -385,6 +445,10 @@
                     "value": "rhel_7"
                 },
                 {
+                    "name": "RHEL8",
+                    "value": "rhel_8"
+                },
+                {
                     "name": "ScientificLinux6",
                     "value": "scientific_6"
                 },
@@ -409,8 +473,24 @@
                     "value": "ubuntu_18_04"
                 },
                 {
+                    "name": "Ubuntu2004",
+                    "value": "ubuntu_20_04"
+                },
+                {
+                    "name": "Ubuntu2010",
+                    "value": "ubuntu_20_10"
+                },
+                {
                     "name": "VMWareEsxi6_5",
                     "value": "vmware_esxi_6_5"
+                },
+                {
+                    "name": "VMWareEsxi6_7",
+                    "value": "vmware_esxi_6_7"
+                },
+                {
+                    "name": "VMWareEsxi7_0",
+                    "value": "vmware_esxi_7_0"
                 },
                 {
                     "name": "Windows2012R2",
@@ -419,6 +499,10 @@
                 {
                     "name": "Windows2016",
                     "value": "windows_2016"
+                },
+                {
+                    "name": "Windows2019",
+                    "value": "windows_2019"
                 }
             ]
         },
@@ -472,6 +556,38 @@
                 {
                     "name": "S1LargeX86",
                     "value": "baremetal_s"
+                },
+                {
+                    "name": "C3SmallX86",
+                    "value": "c3.small.x86"
+                },
+                {
+                    "name": "C3MediumX86",
+                    "value": "c3.medium.x86"
+                },
+                {
+                    "name": "F3MediumX86",
+                    "value": "f3.medium.x86"
+                },
+                {
+                    "name": "F3LargeX86",
+                    "value": "f3.large.x86"
+                },
+                {
+                    "name": "M3LargeX86",
+                    "value": "m3.large.x86"
+                },
+                {
+                    "name": "S3XLargeX86",
+                    "value": "s3.xlarge.x86"
+                },
+                {
+                    "name": "N2XLargeX86",
+                    "value": "n2.xlarge.x86"
+                },
+                {
+                    "name": "X2XLargeX86",
+                    "value": "x2.xlarge.x86"
                 }
             ]
         },
