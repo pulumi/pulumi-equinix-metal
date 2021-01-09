@@ -62,6 +62,15 @@ namespace Pulumi.EquinixMetal
         public static Facility MRS1 { get; } = new Facility("mrs1");
         public static Facility YYZ1 { get; } = new Facility("yyz1");
         public static Facility FRA2 { get; } = new Facility("fra2");
+        public static Facility AM6 { get; } = new Facility("am6");
+        public static Facility DC13 { get; } = new Facility("dc13");
+        public static Facility CH3 { get; } = new Facility("ch3");
+        public static Facility DA3 { get; } = new Facility("da3");
+        public static Facility DA11 { get; } = new Facility("da11");
+        public static Facility LA4 { get; } = new Facility("la4");
+        public static Facility NY5 { get; } = new Facility("ny5");
+        public static Facility SG1 { get; } = new Facility("sg1");
+        public static Facility SV15 { get; } = new Facility("sv15");
 
         public static bool operator ==(Facility left, Facility right) => left.Equals(right);
         public static bool operator !=(Facility left, Facility right) => !left.Equals(right);
@@ -149,12 +158,18 @@ namespace Pulumi.EquinixMetal
         public static OperatingSystem Alpine3 { get; } = new OperatingSystem("alpine_3");
         public static OperatingSystem CentOS6 { get; } = new OperatingSystem("centos_6");
         public static OperatingSystem CentOS7 { get; } = new OperatingSystem("centos_7");
+        public static OperatingSystem CentOS8 { get; } = new OperatingSystem("centos_8");
         public static OperatingSystem CoreOSAlpha { get; } = new OperatingSystem("coreos_alpha");
         public static OperatingSystem CoreOSBeta { get; } = new OperatingSystem("coreos_beta");
         public static OperatingSystem CoreOSStable { get; } = new OperatingSystem("coreos_stable");
         public static OperatingSystem CustomIPXE { get; } = new OperatingSystem("custom_ipxe");
         public static OperatingSystem Debian8 { get; } = new OperatingSystem("debian_8");
         public static OperatingSystem Debian9 { get; } = new OperatingSystem("debian_9");
+        public static OperatingSystem Debian10 { get; } = new OperatingSystem("debian_10");
+        public static OperatingSystem FlatcarAlpha { get; } = new OperatingSystem("flatcar_alpha");
+        public static OperatingSystem FlatcarBeta { get; } = new OperatingSystem("flatcar_beta");
+        public static OperatingSystem FlatcarEdge { get; } = new OperatingSystem("flatcar_edge");
+        public static OperatingSystem FlatcarStable { get; } = new OperatingSystem("flatcar_stable");
         public static OperatingSystem FreeBSD10_4 { get; } = new OperatingSystem("freebsd_10_4");
         public static OperatingSystem FreeBSD11_1 { get; } = new OperatingSystem("freebsd_11_1");
         public static OperatingSystem FreeBSD11_2 { get; } = new OperatingSystem("freebsd_11_2");
@@ -164,15 +179,21 @@ namespace Pulumi.EquinixMetal
         public static OperatingSystem OpenSUSE42_3 { get; } = new OperatingSystem("opensuse_42_3");
         public static OperatingSystem RancherOS { get; } = new OperatingSystem("rancher");
         public static OperatingSystem RHEL7 { get; } = new OperatingSystem("rhel_7");
+        public static OperatingSystem RHEL8 { get; } = new OperatingSystem("rhel_8");
         public static OperatingSystem ScientificLinux6 { get; } = new OperatingSystem("scientific_6");
         public static OperatingSystem SLES12SP3 { get; } = new OperatingSystem("suse_sles12_sp3");
         public static OperatingSystem Ubuntu1404 { get; } = new OperatingSystem("ubuntu_14_04");
         public static OperatingSystem Ubuntu1604 { get; } = new OperatingSystem("ubuntu_16_04");
         public static OperatingSystem Ubuntu1710 { get; } = new OperatingSystem("ubuntu_17_10");
         public static OperatingSystem Ubuntu1804 { get; } = new OperatingSystem("ubuntu_18_04");
+        public static OperatingSystem Ubuntu2004 { get; } = new OperatingSystem("ubuntu_20_04");
+        public static OperatingSystem Ubuntu2010 { get; } = new OperatingSystem("ubuntu_20_10");
         public static OperatingSystem VMWareEsxi6_5 { get; } = new OperatingSystem("vmware_esxi_6_5");
+        public static OperatingSystem VMWareEsxi6_7 { get; } = new OperatingSystem("vmware_esxi_6_7");
+        public static OperatingSystem VMWareEsxi7_0 { get; } = new OperatingSystem("vmware_esxi_7_0");
         public static OperatingSystem Windows2012R2 { get; } = new OperatingSystem("windows_2012_r2");
         public static OperatingSystem Windows2016 { get; } = new OperatingSystem("windows_2016");
+        public static OperatingSystem Windows2019 { get; } = new OperatingSystem("windows_2019");
 
         public static bool operator ==(OperatingSystem left, OperatingSystem right) => left.Equals(right);
         public static bool operator !=(OperatingSystem left, OperatingSystem right) => !left.Equals(right);
@@ -211,6 +232,13 @@ namespace Pulumi.EquinixMetal
         public static Plan M1XLargeX86 { get; } = new Plan("baremetal_2");
         public static Plan T1SmallX86 { get; } = new Plan("baremetal_0");
         public static Plan S1LargeX86 { get; } = new Plan("baremetal_s");
+        public static Plan C3SmallX86 { get; } = new Plan("c3.small.x86");
+        public static Plan C3MediumX86 { get; } = new Plan("c3.medium.x86");
+        public static Plan F3MediumX86 { get; } = new Plan("f3.medium.x86");
+        public static Plan F3LargeX86 { get; } = new Plan("f3.large.x86");
+        public static Plan M3LargeX86 { get; } = new Plan("m3.large.x86");
+        public static Plan S3XLargeX86 { get; } = new Plan("s3.xlarge.x86");
+        public static Plan N2XLargeX86 { get; } = new Plan("n2.xlarge.x86");
 
         public static bool operator ==(Plan left, Plan right) => left.Equals(right);
         public static bool operator !=(Plan left, Plan right) => !left.Equals(right);

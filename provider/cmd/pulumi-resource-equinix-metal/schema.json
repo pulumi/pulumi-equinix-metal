@@ -584,10 +584,6 @@
                 {
                     "name": "N2XLargeX86",
                     "value": "n2.xlarge.x86"
-                },
-                {
-                    "name": "X2XLargeX86",
-                    "value": "x2.xlarge.x86"
                 }
             ]
         },
