@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Update schema for facilities, plans, and operating systems.
 
 ---
 
