@@ -277,15 +277,15 @@ type PortVlanAttachmentInput interface {
 	ToPortVlanAttachmentOutputWithContext(ctx context.Context) PortVlanAttachmentOutput
 }
 
-func (PortVlanAttachment) ElementType() reflect.Type {
-	return reflect.TypeOf((*PortVlanAttachment)(nil)).Elem()
+func (*PortVlanAttachment) ElementType() reflect.Type {
+	return reflect.TypeOf((*PortVlanAttachment)(nil))
 }
 
-func (i PortVlanAttachment) ToPortVlanAttachmentOutput() PortVlanAttachmentOutput {
+func (i *PortVlanAttachment) ToPortVlanAttachmentOutput() PortVlanAttachmentOutput {
 	return i.ToPortVlanAttachmentOutputWithContext(context.Background())
 }
 
-func (i PortVlanAttachment) ToPortVlanAttachmentOutputWithContext(ctx context.Context) PortVlanAttachmentOutput {
+func (i *PortVlanAttachment) ToPortVlanAttachmentOutputWithContext(ctx context.Context) PortVlanAttachmentOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PortVlanAttachmentOutput)
 }
 
@@ -294,7 +294,7 @@ type PortVlanAttachmentOutput struct {
 }
 
 func (PortVlanAttachmentOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PortVlanAttachmentOutput)(nil)).Elem()
+	return reflect.TypeOf((*PortVlanAttachment)(nil))
 }
 
 func (o PortVlanAttachmentOutput) ToPortVlanAttachmentOutput() PortVlanAttachmentOutput {

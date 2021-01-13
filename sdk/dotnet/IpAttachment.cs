@@ -21,6 +21,7 @@ namespace Pulumi.EquinixMetal
     /// 
     /// Device and reserved block must be in the same facility.
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/ipAttachment:IpAttachment")]
     public partial class IpAttachment : Pulumi.CustomResource
     {
         [Output("address")]

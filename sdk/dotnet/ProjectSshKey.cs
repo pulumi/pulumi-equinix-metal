@@ -50,6 +50,7 @@ namespace Pulumi.EquinixMetal
     /// }
     /// ```
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/projectSshKey:ProjectSshKey")]
     public partial class ProjectSshKey : Pulumi.CustomResource
     {
         /// <summary>

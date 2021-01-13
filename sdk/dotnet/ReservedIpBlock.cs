@@ -105,6 +105,7 @@ namespace Pulumi.EquinixMetal
     /// }
     /// ```
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/reservedIpBlock:ReservedIpBlock")]
     public partial class ReservedIpBlock : Pulumi.CustomResource
     {
         [Output("address")]

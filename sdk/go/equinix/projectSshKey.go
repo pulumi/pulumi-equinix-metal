@@ -175,15 +175,15 @@ type ProjectSshKeyInput interface {
 	ToProjectSshKeyOutputWithContext(ctx context.Context) ProjectSshKeyOutput
 }
 
-func (ProjectSshKey) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectSshKey)(nil)).Elem()
+func (*ProjectSshKey) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProjectSshKey)(nil))
 }
 
-func (i ProjectSshKey) ToProjectSshKeyOutput() ProjectSshKeyOutput {
+func (i *ProjectSshKey) ToProjectSshKeyOutput() ProjectSshKeyOutput {
 	return i.ToProjectSshKeyOutputWithContext(context.Background())
 }
 
-func (i ProjectSshKey) ToProjectSshKeyOutputWithContext(ctx context.Context) ProjectSshKeyOutput {
+func (i *ProjectSshKey) ToProjectSshKeyOutputWithContext(ctx context.Context) ProjectSshKeyOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyOutput)
 }
 
@@ -192,7 +192,7 @@ type ProjectSshKeyOutput struct {
 }
 
 func (ProjectSshKeyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectSshKeyOutput)(nil)).Elem()
+	return reflect.TypeOf((*ProjectSshKey)(nil))
 }
 
 func (o ProjectSshKeyOutput) ToProjectSshKeyOutput() ProjectSshKeyOutput {

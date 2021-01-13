@@ -48,7 +48,7 @@ setup(name='pulumi_equinix_metal',
       packages=find_packages(),
       package_data={
           'pulumi_equinix_metal': [
-              'py.typed'
+              'py.typed',
           ]
       },
       install_requires=[

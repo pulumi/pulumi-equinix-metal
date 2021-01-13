@@ -9,6 +9,7 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal
 {
+    [EquinixMetalResourceType("equinix-metal:index/volumeAttachment:VolumeAttachment")]
     public partial class VolumeAttachment : Pulumi.CustomResource
     {
         /// <summary>

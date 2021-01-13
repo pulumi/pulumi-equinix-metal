@@ -39,6 +39,7 @@ namespace Pulumi.EquinixMetal
     /// }
     /// ```
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/vlan:Vlan")]
     public partial class Vlan : Pulumi.CustomResource
     {
         /// <summary>

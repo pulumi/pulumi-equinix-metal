@@ -77,4 +77,11 @@ namespace Pulumi.EquinixMetal
             }
         }
     }
+
+    internal sealed class EquinixMetalResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    {
+        public EquinixMetalResourceTypeAttribute(string type) : base(type, Utilities.Version)
+        {
+        }
+    }
 }
