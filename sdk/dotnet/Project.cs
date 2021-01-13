@@ -9,6 +9,7 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal
 {
+    [EquinixMetalResourceType("equinix-metal:index/project:Project")]
     public partial class Project : Pulumi.CustomResource
     {
         /// <summary>

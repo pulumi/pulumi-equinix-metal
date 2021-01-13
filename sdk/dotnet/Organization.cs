@@ -32,6 +32,7 @@ namespace Pulumi.EquinixMetal
     /// }
     /// ```
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/organization:Organization")]
     public partial class Organization : Pulumi.CustomResource
     {
         [Output("created")]

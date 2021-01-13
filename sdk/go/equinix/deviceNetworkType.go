@@ -105,15 +105,15 @@ type DeviceNetworkTypeInput interface {
 	ToDeviceNetworkTypeOutputWithContext(ctx context.Context) DeviceNetworkTypeOutput
 }
 
-func (DeviceNetworkType) ElementType() reflect.Type {
-	return reflect.TypeOf((*DeviceNetworkType)(nil)).Elem()
+func (*DeviceNetworkType) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceNetworkType)(nil))
 }
 
-func (i DeviceNetworkType) ToDeviceNetworkTypeOutput() DeviceNetworkTypeOutput {
+func (i *DeviceNetworkType) ToDeviceNetworkTypeOutput() DeviceNetworkTypeOutput {
 	return i.ToDeviceNetworkTypeOutputWithContext(context.Background())
 }
 
-func (i DeviceNetworkType) ToDeviceNetworkTypeOutputWithContext(ctx context.Context) DeviceNetworkTypeOutput {
+func (i *DeviceNetworkType) ToDeviceNetworkTypeOutputWithContext(ctx context.Context) DeviceNetworkTypeOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceNetworkTypeOutput)
 }
 
@@ -122,7 +122,7 @@ type DeviceNetworkTypeOutput struct {
 }
 
 func (DeviceNetworkTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DeviceNetworkTypeOutput)(nil)).Elem()
+	return reflect.TypeOf((*DeviceNetworkType)(nil))
 }
 
 func (o DeviceNetworkTypeOutput) ToDeviceNetworkTypeOutput() DeviceNetworkTypeOutput {

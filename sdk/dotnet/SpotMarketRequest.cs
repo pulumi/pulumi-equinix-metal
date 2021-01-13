@@ -47,6 +47,7 @@ namespace Pulumi.EquinixMetal
     /// }
     /// ```
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/spotMarketRequest:SpotMarketRequest")]
     public partial class SpotMarketRequest : Pulumi.CustomResource
     {
         /// <summary>

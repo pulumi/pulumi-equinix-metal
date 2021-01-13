@@ -116,15 +116,15 @@ type BgpSessionInput interface {
 	ToBgpSessionOutputWithContext(ctx context.Context) BgpSessionOutput
 }
 
-func (BgpSession) ElementType() reflect.Type {
-	return reflect.TypeOf((*BgpSession)(nil)).Elem()
+func (*BgpSession) ElementType() reflect.Type {
+	return reflect.TypeOf((*BgpSession)(nil))
 }
 
-func (i BgpSession) ToBgpSessionOutput() BgpSessionOutput {
+func (i *BgpSession) ToBgpSessionOutput() BgpSessionOutput {
 	return i.ToBgpSessionOutputWithContext(context.Background())
 }
 
-func (i BgpSession) ToBgpSessionOutputWithContext(ctx context.Context) BgpSessionOutput {
+func (i *BgpSession) ToBgpSessionOutputWithContext(ctx context.Context) BgpSessionOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionOutput)
 }
 
@@ -133,7 +133,7 @@ type BgpSessionOutput struct {
 }
 
 func (BgpSessionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*BgpSessionOutput)(nil)).Elem()
+	return reflect.TypeOf((*BgpSession)(nil))
 }
 
 func (o BgpSessionOutput) ToBgpSessionOutput() BgpSessionOutput {

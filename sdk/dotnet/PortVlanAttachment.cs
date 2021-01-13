@@ -133,6 +133,7 @@ namespace Pulumi.EquinixMetal
     /// * `vlan_id` - UUID of VLAN API resource
     /// * `port_id` - UUID of device port
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/portVlanAttachment:PortVlanAttachment")]
     public partial class PortVlanAttachment : Pulumi.CustomResource
     {
         /// <summary>

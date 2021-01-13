@@ -3,6 +3,8 @@ CHANGELOG
 
 ## HEAD (Unreleased)
 * Update schema for facilities, plans, and operating systems.
+* Upgrade to pulumi-terraform-bridge v2.17.0
+* Upgrade to Pulumi v2.17.0
 
 ---
 

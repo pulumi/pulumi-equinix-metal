@@ -193,6 +193,7 @@ namespace Pulumi.EquinixMetal
     /// }
     /// ```
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/device:Device")]
     public partial class Device : Pulumi.CustomResource
     {
         /// <summary>

@@ -279,15 +279,15 @@ type ReservedIpBlockInput interface {
 	ToReservedIpBlockOutputWithContext(ctx context.Context) ReservedIpBlockOutput
 }
 
-func (ReservedIpBlock) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReservedIpBlock)(nil)).Elem()
+func (*ReservedIpBlock) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReservedIpBlock)(nil))
 }
 
-func (i ReservedIpBlock) ToReservedIpBlockOutput() ReservedIpBlockOutput {
+func (i *ReservedIpBlock) ToReservedIpBlockOutput() ReservedIpBlockOutput {
 	return i.ToReservedIpBlockOutputWithContext(context.Background())
 }
 
-func (i ReservedIpBlock) ToReservedIpBlockOutputWithContext(ctx context.Context) ReservedIpBlockOutput {
+func (i *ReservedIpBlock) ToReservedIpBlockOutputWithContext(ctx context.Context) ReservedIpBlockOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReservedIpBlockOutput)
 }
 
@@ -296,7 +296,7 @@ type ReservedIpBlockOutput struct {
 }
 
 func (ReservedIpBlockOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReservedIpBlockOutput)(nil)).Elem()
+	return reflect.TypeOf((*ReservedIpBlock)(nil))
 }
 
 func (o ReservedIpBlockOutput) ToReservedIpBlockOutput() ReservedIpBlockOutput {

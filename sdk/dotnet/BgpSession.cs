@@ -16,6 +16,7 @@ namespace Pulumi.EquinixMetal
     /// 
     /// BGP session must be linked to a device running [BIRD](https://bird.network.cz) or other BGP routing daemon which will control route advertisements via the session to Equinix Metal's upstream routers.
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/bgpSession:BgpSession")]
     public partial class BgpSession : Pulumi.CustomResource
     {
         /// <summary>

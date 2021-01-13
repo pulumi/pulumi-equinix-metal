@@ -18,6 +18,7 @@ namespace Pulumi.EquinixMetal
     ///  $ pulumi import equinix-metal:index/deviceNetworkType:DeviceNetworkType metal_device_network_type {existing device_id}
     /// ```
     /// </summary>
+    [EquinixMetalResourceType("equinix-metal:index/deviceNetworkType:DeviceNetworkType")]
     public partial class DeviceNetworkType : Pulumi.CustomResource
     {
         /// <summary>
