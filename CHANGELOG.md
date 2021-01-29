@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Upgrade to pulumi-terraform-bridge v2.18.1
+_(none)_
 
 ---
+
+## 1.1.0 (2021-01-29)
+* Upgrade to pulumi-terraform-bridge v2.18.1
 
 ## 1.0.1 (2021-01-13)
 * Update schema for facilities, plans, and operating systems.
