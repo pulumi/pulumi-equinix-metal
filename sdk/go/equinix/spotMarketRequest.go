@@ -21,6 +21,7 @@ import (
 //
 // import (
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/go/equinix-metal/"
 // 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 // )
 //
