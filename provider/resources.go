@@ -32,7 +32,8 @@ import (
 // all of the token components used below.
 const (
 	// packages:
-	mainPkg = "equinix-metal"
+	mainPkg   = "equinix-metal"
+	goPkgName = "equinix"
 	// modules:
 	mainMod = "index" // the y module
 )
@@ -328,7 +329,7 @@ func Provider() tfbridge.ProviderInfo {
 				fmt.Sprintf("github.com/pulumi/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
-				mainPkg,
+				goPkgName,
 			),
 			GenerateResourceContainerTypes: true,
 		},
