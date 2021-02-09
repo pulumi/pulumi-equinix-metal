@@ -6,6 +6,9 @@ _(none)_
 
 ---
 
+## 1.1.1 (2021-02-09)
+* Regenerate Go SDK to fix examples generation
+
 ## 1.1.0 (2021-01-29)
 * Upgrade to pulumi-terraform-bridge v2.18.1
 
