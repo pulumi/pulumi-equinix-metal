@@ -72,7 +72,8 @@ export class Project extends pulumi.CustomResource {
     constructor(name: string, args?: ProjectArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ProjectArgs | ProjectState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as ProjectState | undefined;
             inputs["backendTransfer"] = state ? state.backendTransfer : undefined;
             inputs["bgpConfig"] = state ? state.bgpConfig : undefined;
@@ -91,12 +92,8 @@ export class Project extends pulumi.CustomResource {
             inputs["created"] = undefined /*out*/;
             inputs["updated"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Project.__pulumiType, name, inputs, opts);
     }

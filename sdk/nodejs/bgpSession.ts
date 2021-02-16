@@ -63,7 +63,8 @@ export class BgpSession extends pulumi.CustomResource {
     constructor(name: string, args: BgpSessionArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: BgpSessionArgs | BgpSessionState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as BgpSessionState | undefined;
             inputs["addressFamily"] = state ? state.addressFamily : undefined;
             inputs["defaultRoute"] = state ? state.defaultRoute : undefined;
@@ -71,10 +72,10 @@ export class BgpSession extends pulumi.CustomResource {
             inputs["status"] = state ? state.status : undefined;
         } else {
             const args = argsOrState as BgpSessionArgs | undefined;
-            if ((!args || args.addressFamily === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.addressFamily === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'addressFamily'");
             }
-            if ((!args || args.deviceId === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.deviceId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'deviceId'");
             }
             inputs["addressFamily"] = args ? args.addressFamily : undefined;
@@ -82,12 +83,8 @@ export class BgpSession extends pulumi.CustomResource {
             inputs["deviceId"] = args ? args.deviceId : undefined;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(BgpSession.__pulumiType, name, inputs, opts);
     }

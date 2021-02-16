@@ -92,7 +92,8 @@ export class IpAttachment extends pulumi.CustomResource {
     constructor(name: string, args: IpAttachmentArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: IpAttachmentArgs | IpAttachmentState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as IpAttachmentState | undefined;
             inputs["address"] = state ? state.address : undefined;
             inputs["addressFamily"] = state ? state.addressFamily : undefined;
@@ -108,10 +109,10 @@ export class IpAttachment extends pulumi.CustomResource {
             inputs["public"] = state ? state.public : undefined;
         } else {
             const args = argsOrState as IpAttachmentArgs | undefined;
-            if ((!args || args.cidrNotation === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.cidrNotation === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'cidrNotation'");
             }
-            if ((!args || args.deviceId === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.deviceId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'deviceId'");
             }
             inputs["cidrNotation"] = args ? args.cidrNotation : undefined;
@@ -127,12 +128,8 @@ export class IpAttachment extends pulumi.CustomResource {
             inputs["network"] = undefined /*out*/;
             inputs["public"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(IpAttachment.__pulumiType, name, inputs, opts);
     }

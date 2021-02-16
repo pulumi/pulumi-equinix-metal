@@ -9,4 +9,4 @@ let __config = new pulumi.Config("equinix-metal");
 /**
  * The API auth key for API operations.
  */
-export let authToken: string | undefined = __config.get("authToken") || utilities.getEnv("PACKET_AUTH_TOKEN");
+export let authToken: string | undefined = __config.get("authToken");

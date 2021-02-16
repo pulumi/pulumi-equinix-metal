@@ -33,17 +33,17 @@ export class Provider extends pulumi.ProviderResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ProviderArgs, opts?: pulumi.ResourceOptions) {
+    constructor(name: string, args: ProviderArgs, opts?: pulumi.ResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        opts = opts || {};
         {
-            inputs["authToken"] = (args ? args.authToken : undefined) || utilities.getEnv("PACKET_AUTH_TOKEN");
+            if ((!args || args.authToken === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'authToken'");
+            }
+            inputs["authToken"] = args ? args.authToken : undefined;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Provider.__pulumiType, name, inputs, opts);
     }
@@ -56,5 +56,5 @@ export interface ProviderArgs {
     /**
      * The API auth key for API operations.
      */
-    readonly authToken?: pulumi.Input<string>;
+    readonly authToken: pulumi.Input<string>;
 }

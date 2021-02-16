@@ -82,7 +82,8 @@ export class Vlan extends pulumi.CustomResource {
     constructor(name: string, args: VlanArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: VlanArgs | VlanState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as VlanState | undefined;
             inputs["description"] = state ? state.description : undefined;
             inputs["facility"] = state ? state.facility : undefined;
@@ -90,10 +91,10 @@ export class Vlan extends pulumi.CustomResource {
             inputs["vxlan"] = state ? state.vxlan : undefined;
         } else {
             const args = argsOrState as VlanArgs | undefined;
-            if ((!args || args.facility === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.facility === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'facility'");
             }
-            if ((!args || args.projectId === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
             inputs["description"] = args ? args.description : undefined;
@@ -101,12 +102,8 @@ export class Vlan extends pulumi.CustomResource {
             inputs["projectId"] = args ? args.projectId : undefined;
             inputs["vxlan"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Vlan.__pulumiType, name, inputs, opts);
     }

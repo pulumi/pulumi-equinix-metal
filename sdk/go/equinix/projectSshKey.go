@@ -20,7 +20,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/go/equinix/"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 // )
 //
@@ -187,6 +187,85 @@ func (i *ProjectSshKey) ToProjectSshKeyOutputWithContext(ctx context.Context) Pr
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyOutput)
 }
 
+func (i *ProjectSshKey) ToProjectSshKeyPtrOutput() ProjectSshKeyPtrOutput {
+	return i.ToProjectSshKeyPtrOutputWithContext(context.Background())
+}
+
+func (i *ProjectSshKey) ToProjectSshKeyPtrOutputWithContext(ctx context.Context) ProjectSshKeyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyPtrOutput)
+}
+
+type ProjectSshKeyPtrInput interface {
+	pulumi.Input
+
+	ToProjectSshKeyPtrOutput() ProjectSshKeyPtrOutput
+	ToProjectSshKeyPtrOutputWithContext(ctx context.Context) ProjectSshKeyPtrOutput
+}
+
+type projectSshKeyPtrType ProjectSshKeyArgs
+
+func (*projectSshKeyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectSshKey)(nil))
+}
+
+func (i *projectSshKeyPtrType) ToProjectSshKeyPtrOutput() ProjectSshKeyPtrOutput {
+	return i.ToProjectSshKeyPtrOutputWithContext(context.Background())
+}
+
+func (i *projectSshKeyPtrType) ToProjectSshKeyPtrOutputWithContext(ctx context.Context) ProjectSshKeyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyPtrOutput)
+}
+
+// ProjectSshKeyArrayInput is an input type that accepts ProjectSshKeyArray and ProjectSshKeyArrayOutput values.
+// You can construct a concrete instance of `ProjectSshKeyArrayInput` via:
+//
+//          ProjectSshKeyArray{ ProjectSshKeyArgs{...} }
+type ProjectSshKeyArrayInput interface {
+	pulumi.Input
+
+	ToProjectSshKeyArrayOutput() ProjectSshKeyArrayOutput
+	ToProjectSshKeyArrayOutputWithContext(context.Context) ProjectSshKeyArrayOutput
+}
+
+type ProjectSshKeyArray []ProjectSshKeyInput
+
+func (ProjectSshKeyArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ProjectSshKey)(nil))
+}
+
+func (i ProjectSshKeyArray) ToProjectSshKeyArrayOutput() ProjectSshKeyArrayOutput {
+	return i.ToProjectSshKeyArrayOutputWithContext(context.Background())
+}
+
+func (i ProjectSshKeyArray) ToProjectSshKeyArrayOutputWithContext(ctx context.Context) ProjectSshKeyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyArrayOutput)
+}
+
+// ProjectSshKeyMapInput is an input type that accepts ProjectSshKeyMap and ProjectSshKeyMapOutput values.
+// You can construct a concrete instance of `ProjectSshKeyMapInput` via:
+//
+//          ProjectSshKeyMap{ "key": ProjectSshKeyArgs{...} }
+type ProjectSshKeyMapInput interface {
+	pulumi.Input
+
+	ToProjectSshKeyMapOutput() ProjectSshKeyMapOutput
+	ToProjectSshKeyMapOutputWithContext(context.Context) ProjectSshKeyMapOutput
+}
+
+type ProjectSshKeyMap map[string]ProjectSshKeyInput
+
+func (ProjectSshKeyMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ProjectSshKey)(nil))
+}
+
+func (i ProjectSshKeyMap) ToProjectSshKeyMapOutput() ProjectSshKeyMapOutput {
+	return i.ToProjectSshKeyMapOutputWithContext(context.Background())
+}
+
+func (i ProjectSshKeyMap) ToProjectSshKeyMapOutputWithContext(ctx context.Context) ProjectSshKeyMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyMapOutput)
+}
+
 type ProjectSshKeyOutput struct {
 	*pulumi.OutputState
 }
@@ -203,6 +282,75 @@ func (o ProjectSshKeyOutput) ToProjectSshKeyOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o ProjectSshKeyOutput) ToProjectSshKeyPtrOutput() ProjectSshKeyPtrOutput {
+	return o.ToProjectSshKeyPtrOutputWithContext(context.Background())
+}
+
+func (o ProjectSshKeyOutput) ToProjectSshKeyPtrOutputWithContext(ctx context.Context) ProjectSshKeyPtrOutput {
+	return o.ApplyT(func(v ProjectSshKey) *ProjectSshKey {
+		return &v
+	}).(ProjectSshKeyPtrOutput)
+}
+
+type ProjectSshKeyPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ProjectSshKeyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProjectSshKey)(nil))
+}
+
+func (o ProjectSshKeyPtrOutput) ToProjectSshKeyPtrOutput() ProjectSshKeyPtrOutput {
+	return o
+}
+
+func (o ProjectSshKeyPtrOutput) ToProjectSshKeyPtrOutputWithContext(ctx context.Context) ProjectSshKeyPtrOutput {
+	return o
+}
+
+type ProjectSshKeyArrayOutput struct{ *pulumi.OutputState }
+
+func (ProjectSshKeyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProjectSshKey)(nil))
+}
+
+func (o ProjectSshKeyArrayOutput) ToProjectSshKeyArrayOutput() ProjectSshKeyArrayOutput {
+	return o
+}
+
+func (o ProjectSshKeyArrayOutput) ToProjectSshKeyArrayOutputWithContext(ctx context.Context) ProjectSshKeyArrayOutput {
+	return o
+}
+
+func (o ProjectSshKeyArrayOutput) Index(i pulumi.IntInput) ProjectSshKeyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectSshKey {
+		return vs[0].([]ProjectSshKey)[vs[1].(int)]
+	}).(ProjectSshKeyOutput)
+}
+
+type ProjectSshKeyMapOutput struct{ *pulumi.OutputState }
+
+func (ProjectSshKeyMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ProjectSshKey)(nil))
+}
+
+func (o ProjectSshKeyMapOutput) ToProjectSshKeyMapOutput() ProjectSshKeyMapOutput {
+	return o
+}
+
+func (o ProjectSshKeyMapOutput) ToProjectSshKeyMapOutputWithContext(ctx context.Context) ProjectSshKeyMapOutput {
+	return o
+}
+
+func (o ProjectSshKeyMapOutput) MapIndex(k pulumi.StringInput) ProjectSshKeyOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ProjectSshKey {
+		return vs[0].(map[string]ProjectSshKey)[vs[1].(string)]
+	}).(ProjectSshKeyOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ProjectSshKeyOutput{})
+	pulumi.RegisterOutputType(ProjectSshKeyPtrOutput{})
+	pulumi.RegisterOutputType(ProjectSshKeyArrayOutput{})
+	pulumi.RegisterOutputType(ProjectSshKeyMapOutput{})
 }

@@ -21,7 +21,6 @@ import (
 //
 // import (
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/go/equinix-metal"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/go/equinix/"
 // 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 // )
 //
@@ -210,6 +209,85 @@ func (i *SpotMarketRequest) ToSpotMarketRequestOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestOutput)
 }
 
+func (i *SpotMarketRequest) ToSpotMarketRequestPtrOutput() SpotMarketRequestPtrOutput {
+	return i.ToSpotMarketRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *SpotMarketRequest) ToSpotMarketRequestPtrOutputWithContext(ctx context.Context) SpotMarketRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestPtrOutput)
+}
+
+type SpotMarketRequestPtrInput interface {
+	pulumi.Input
+
+	ToSpotMarketRequestPtrOutput() SpotMarketRequestPtrOutput
+	ToSpotMarketRequestPtrOutputWithContext(ctx context.Context) SpotMarketRequestPtrOutput
+}
+
+type spotMarketRequestPtrType SpotMarketRequestArgs
+
+func (*spotMarketRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SpotMarketRequest)(nil))
+}
+
+func (i *spotMarketRequestPtrType) ToSpotMarketRequestPtrOutput() SpotMarketRequestPtrOutput {
+	return i.ToSpotMarketRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *spotMarketRequestPtrType) ToSpotMarketRequestPtrOutputWithContext(ctx context.Context) SpotMarketRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestPtrOutput)
+}
+
+// SpotMarketRequestArrayInput is an input type that accepts SpotMarketRequestArray and SpotMarketRequestArrayOutput values.
+// You can construct a concrete instance of `SpotMarketRequestArrayInput` via:
+//
+//          SpotMarketRequestArray{ SpotMarketRequestArgs{...} }
+type SpotMarketRequestArrayInput interface {
+	pulumi.Input
+
+	ToSpotMarketRequestArrayOutput() SpotMarketRequestArrayOutput
+	ToSpotMarketRequestArrayOutputWithContext(context.Context) SpotMarketRequestArrayOutput
+}
+
+type SpotMarketRequestArray []SpotMarketRequestInput
+
+func (SpotMarketRequestArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*SpotMarketRequest)(nil))
+}
+
+func (i SpotMarketRequestArray) ToSpotMarketRequestArrayOutput() SpotMarketRequestArrayOutput {
+	return i.ToSpotMarketRequestArrayOutputWithContext(context.Background())
+}
+
+func (i SpotMarketRequestArray) ToSpotMarketRequestArrayOutputWithContext(ctx context.Context) SpotMarketRequestArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestArrayOutput)
+}
+
+// SpotMarketRequestMapInput is an input type that accepts SpotMarketRequestMap and SpotMarketRequestMapOutput values.
+// You can construct a concrete instance of `SpotMarketRequestMapInput` via:
+//
+//          SpotMarketRequestMap{ "key": SpotMarketRequestArgs{...} }
+type SpotMarketRequestMapInput interface {
+	pulumi.Input
+
+	ToSpotMarketRequestMapOutput() SpotMarketRequestMapOutput
+	ToSpotMarketRequestMapOutputWithContext(context.Context) SpotMarketRequestMapOutput
+}
+
+type SpotMarketRequestMap map[string]SpotMarketRequestInput
+
+func (SpotMarketRequestMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*SpotMarketRequest)(nil))
+}
+
+func (i SpotMarketRequestMap) ToSpotMarketRequestMapOutput() SpotMarketRequestMapOutput {
+	return i.ToSpotMarketRequestMapOutputWithContext(context.Background())
+}
+
+func (i SpotMarketRequestMap) ToSpotMarketRequestMapOutputWithContext(ctx context.Context) SpotMarketRequestMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestMapOutput)
+}
+
 type SpotMarketRequestOutput struct {
 	*pulumi.OutputState
 }
@@ -226,6 +304,75 @@ func (o SpotMarketRequestOutput) ToSpotMarketRequestOutputWithContext(ctx contex
 	return o
 }
 
+func (o SpotMarketRequestOutput) ToSpotMarketRequestPtrOutput() SpotMarketRequestPtrOutput {
+	return o.ToSpotMarketRequestPtrOutputWithContext(context.Background())
+}
+
+func (o SpotMarketRequestOutput) ToSpotMarketRequestPtrOutputWithContext(ctx context.Context) SpotMarketRequestPtrOutput {
+	return o.ApplyT(func(v SpotMarketRequest) *SpotMarketRequest {
+		return &v
+	}).(SpotMarketRequestPtrOutput)
+}
+
+type SpotMarketRequestPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (SpotMarketRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SpotMarketRequest)(nil))
+}
+
+func (o SpotMarketRequestPtrOutput) ToSpotMarketRequestPtrOutput() SpotMarketRequestPtrOutput {
+	return o
+}
+
+func (o SpotMarketRequestPtrOutput) ToSpotMarketRequestPtrOutputWithContext(ctx context.Context) SpotMarketRequestPtrOutput {
+	return o
+}
+
+type SpotMarketRequestArrayOutput struct{ *pulumi.OutputState }
+
+func (SpotMarketRequestArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SpotMarketRequest)(nil))
+}
+
+func (o SpotMarketRequestArrayOutput) ToSpotMarketRequestArrayOutput() SpotMarketRequestArrayOutput {
+	return o
+}
+
+func (o SpotMarketRequestArrayOutput) ToSpotMarketRequestArrayOutputWithContext(ctx context.Context) SpotMarketRequestArrayOutput {
+	return o
+}
+
+func (o SpotMarketRequestArrayOutput) Index(i pulumi.IntInput) SpotMarketRequestOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SpotMarketRequest {
+		return vs[0].([]SpotMarketRequest)[vs[1].(int)]
+	}).(SpotMarketRequestOutput)
+}
+
+type SpotMarketRequestMapOutput struct{ *pulumi.OutputState }
+
+func (SpotMarketRequestMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]SpotMarketRequest)(nil))
+}
+
+func (o SpotMarketRequestMapOutput) ToSpotMarketRequestMapOutput() SpotMarketRequestMapOutput {
+	return o
+}
+
+func (o SpotMarketRequestMapOutput) ToSpotMarketRequestMapOutputWithContext(ctx context.Context) SpotMarketRequestMapOutput {
+	return o
+}
+
+func (o SpotMarketRequestMapOutput) MapIndex(k pulumi.StringInput) SpotMarketRequestOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) SpotMarketRequest {
+		return vs[0].(map[string]SpotMarketRequest)[vs[1].(string)]
+	}).(SpotMarketRequestOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(SpotMarketRequestOutput{})
+	pulumi.RegisterOutputType(SpotMarketRequestPtrOutput{})
+	pulumi.RegisterOutputType(SpotMarketRequestArrayOutput{})
+	pulumi.RegisterOutputType(SpotMarketRequestMapOutput{})
 }
