@@ -25,7 +25,7 @@ namespace Pulumi.EquinixMetal
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
+        public Provider(string name, ProviderArgs args, CustomResourceOptions? options = null)
             : base("equinix-metal", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
@@ -48,12 +48,11 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// The API auth key for API operations.
         /// </summary>
-        [Input("authToken")]
-        public Input<string>? AuthToken { get; set; }
+        [Input("authToken", required: true)]
+        public Input<string> AuthToken { get; set; } = null!;
 
         public ProviderArgs()
         {
-            AuthToken = Utilities.GetEnv("PACKET_AUTH_TOKEN");
         }
     }
 }

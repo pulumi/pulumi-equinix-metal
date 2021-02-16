@@ -128,6 +128,85 @@ func (i *BgpSession) ToBgpSessionOutputWithContext(ctx context.Context) BgpSessi
 	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionOutput)
 }
 
+func (i *BgpSession) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
+	return i.ToBgpSessionPtrOutputWithContext(context.Background())
+}
+
+func (i *BgpSession) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionPtrOutput)
+}
+
+type BgpSessionPtrInput interface {
+	pulumi.Input
+
+	ToBgpSessionPtrOutput() BgpSessionPtrOutput
+	ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput
+}
+
+type bgpSessionPtrType BgpSessionArgs
+
+func (*bgpSessionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**BgpSession)(nil))
+}
+
+func (i *bgpSessionPtrType) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
+	return i.ToBgpSessionPtrOutputWithContext(context.Background())
+}
+
+func (i *bgpSessionPtrType) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionPtrOutput)
+}
+
+// BgpSessionArrayInput is an input type that accepts BgpSessionArray and BgpSessionArrayOutput values.
+// You can construct a concrete instance of `BgpSessionArrayInput` via:
+//
+//          BgpSessionArray{ BgpSessionArgs{...} }
+type BgpSessionArrayInput interface {
+	pulumi.Input
+
+	ToBgpSessionArrayOutput() BgpSessionArrayOutput
+	ToBgpSessionArrayOutputWithContext(context.Context) BgpSessionArrayOutput
+}
+
+type BgpSessionArray []BgpSessionInput
+
+func (BgpSessionArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*BgpSession)(nil))
+}
+
+func (i BgpSessionArray) ToBgpSessionArrayOutput() BgpSessionArrayOutput {
+	return i.ToBgpSessionArrayOutputWithContext(context.Background())
+}
+
+func (i BgpSessionArray) ToBgpSessionArrayOutputWithContext(ctx context.Context) BgpSessionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionArrayOutput)
+}
+
+// BgpSessionMapInput is an input type that accepts BgpSessionMap and BgpSessionMapOutput values.
+// You can construct a concrete instance of `BgpSessionMapInput` via:
+//
+//          BgpSessionMap{ "key": BgpSessionArgs{...} }
+type BgpSessionMapInput interface {
+	pulumi.Input
+
+	ToBgpSessionMapOutput() BgpSessionMapOutput
+	ToBgpSessionMapOutputWithContext(context.Context) BgpSessionMapOutput
+}
+
+type BgpSessionMap map[string]BgpSessionInput
+
+func (BgpSessionMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*BgpSession)(nil))
+}
+
+func (i BgpSessionMap) ToBgpSessionMapOutput() BgpSessionMapOutput {
+	return i.ToBgpSessionMapOutputWithContext(context.Background())
+}
+
+func (i BgpSessionMap) ToBgpSessionMapOutputWithContext(ctx context.Context) BgpSessionMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionMapOutput)
+}
+
 type BgpSessionOutput struct {
 	*pulumi.OutputState
 }
@@ -144,6 +223,75 @@ func (o BgpSessionOutput) ToBgpSessionOutputWithContext(ctx context.Context) Bgp
 	return o
 }
 
+func (o BgpSessionOutput) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
+	return o.ToBgpSessionPtrOutputWithContext(context.Background())
+}
+
+func (o BgpSessionOutput) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
+	return o.ApplyT(func(v BgpSession) *BgpSession {
+		return &v
+	}).(BgpSessionPtrOutput)
+}
+
+type BgpSessionPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (BgpSessionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**BgpSession)(nil))
+}
+
+func (o BgpSessionPtrOutput) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
+	return o
+}
+
+func (o BgpSessionPtrOutput) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
+	return o
+}
+
+type BgpSessionArrayOutput struct{ *pulumi.OutputState }
+
+func (BgpSessionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]BgpSession)(nil))
+}
+
+func (o BgpSessionArrayOutput) ToBgpSessionArrayOutput() BgpSessionArrayOutput {
+	return o
+}
+
+func (o BgpSessionArrayOutput) ToBgpSessionArrayOutputWithContext(ctx context.Context) BgpSessionArrayOutput {
+	return o
+}
+
+func (o BgpSessionArrayOutput) Index(i pulumi.IntInput) BgpSessionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) BgpSession {
+		return vs[0].([]BgpSession)[vs[1].(int)]
+	}).(BgpSessionOutput)
+}
+
+type BgpSessionMapOutput struct{ *pulumi.OutputState }
+
+func (BgpSessionMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]BgpSession)(nil))
+}
+
+func (o BgpSessionMapOutput) ToBgpSessionMapOutput() BgpSessionMapOutput {
+	return o
+}
+
+func (o BgpSessionMapOutput) ToBgpSessionMapOutputWithContext(ctx context.Context) BgpSessionMapOutput {
+	return o
+}
+
+func (o BgpSessionMapOutput) MapIndex(k pulumi.StringInput) BgpSessionOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) BgpSession {
+		return vs[0].(map[string]BgpSession)[vs[1].(string)]
+	}).(BgpSessionOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(BgpSessionOutput{})
+	pulumi.RegisterOutputType(BgpSessionPtrOutput{})
+	pulumi.RegisterOutputType(BgpSessionArrayOutput{})
+	pulumi.RegisterOutputType(BgpSessionMapOutput{})
 }

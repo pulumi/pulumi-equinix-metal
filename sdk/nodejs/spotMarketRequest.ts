@@ -98,7 +98,8 @@ export class SpotMarketRequest extends pulumi.CustomResource {
     constructor(name: string, args: SpotMarketRequestArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: SpotMarketRequestArgs | SpotMarketRequestState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as SpotMarketRequestState | undefined;
             inputs["devicesMax"] = state ? state.devicesMax : undefined;
             inputs["devicesMin"] = state ? state.devicesMin : undefined;
@@ -109,22 +110,22 @@ export class SpotMarketRequest extends pulumi.CustomResource {
             inputs["waitForDevices"] = state ? state.waitForDevices : undefined;
         } else {
             const args = argsOrState as SpotMarketRequestArgs | undefined;
-            if ((!args || args.devicesMax === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.devicesMax === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'devicesMax'");
             }
-            if ((!args || args.devicesMin === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.devicesMin === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'devicesMin'");
             }
-            if ((!args || args.facilities === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.facilities === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'facilities'");
             }
-            if ((!args || args.instanceParameters === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.instanceParameters === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'instanceParameters'");
             }
-            if ((!args || args.maxBidPrice === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.maxBidPrice === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'maxBidPrice'");
             }
-            if ((!args || args.projectId === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
             inputs["devicesMax"] = args ? args.devicesMax : undefined;
@@ -135,12 +136,8 @@ export class SpotMarketRequest extends pulumi.CustomResource {
             inputs["projectId"] = args ? args.projectId : undefined;
             inputs["waitForDevices"] = args ? args.waitForDevices : undefined;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(SpotMarketRequest.__pulumiType, name, inputs, opts);
     }

@@ -80,7 +80,8 @@ export class Organization extends pulumi.CustomResource {
     constructor(name: string, args?: OrganizationArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: OrganizationArgs | OrganizationState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as OrganizationState | undefined;
             inputs["created"] = state ? state.created : undefined;
             inputs["description"] = state ? state.description : undefined;
@@ -99,12 +100,8 @@ export class Organization extends pulumi.CustomResource {
             inputs["created"] = undefined /*out*/;
             inputs["updated"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Organization.__pulumiType, name, inputs, opts);
     }

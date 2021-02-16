@@ -165,7 +165,8 @@ export class ReservedIpBlock extends pulumi.CustomResource {
     constructor(name: string, args: ReservedIpBlockArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ReservedIpBlockArgs | ReservedIpBlockState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as ReservedIpBlockState | undefined;
             inputs["address"] = state ? state.address : undefined;
             inputs["addressFamily"] = state ? state.addressFamily : undefined;
@@ -185,10 +186,10 @@ export class ReservedIpBlock extends pulumi.CustomResource {
             inputs["type"] = state ? state.type : undefined;
         } else {
             const args = argsOrState as ReservedIpBlockArgs | undefined;
-            if ((!args || args.projectId === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
-            if ((!args || args.quantity === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.quantity === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'quantity'");
             }
             inputs["description"] = args ? args.description : undefined;
@@ -208,12 +209,8 @@ export class ReservedIpBlock extends pulumi.CustomResource {
             inputs["network"] = undefined /*out*/;
             inputs["public"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(ReservedIpBlock.__pulumiType, name, inputs, opts);
     }

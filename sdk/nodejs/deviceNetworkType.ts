@@ -60,27 +60,24 @@ export class DeviceNetworkType extends pulumi.CustomResource {
     constructor(name: string, args: DeviceNetworkTypeArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: DeviceNetworkTypeArgs | DeviceNetworkTypeState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as DeviceNetworkTypeState | undefined;
             inputs["deviceId"] = state ? state.deviceId : undefined;
             inputs["type"] = state ? state.type : undefined;
         } else {
             const args = argsOrState as DeviceNetworkTypeArgs | undefined;
-            if ((!args || args.deviceId === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.deviceId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'deviceId'");
             }
-            if ((!args || args.type === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.type === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'type'");
             }
             inputs["deviceId"] = args ? args.deviceId : undefined;
             inputs["type"] = args ? args.type : undefined;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(DeviceNetworkType.__pulumiType, name, inputs, opts);
     }

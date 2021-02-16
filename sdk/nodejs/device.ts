@@ -315,7 +315,8 @@ export class Device extends pulumi.CustomResource {
     constructor(name: string, args: DeviceArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: DeviceArgs | DeviceState, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
+        opts = opts || {};
+        if (opts.id) {
             const state = argsOrState as DeviceState | undefined;
             inputs["accessPrivateIpv4"] = state ? state.accessPrivateIpv4 : undefined;
             inputs["accessPublicIpv4"] = state ? state.accessPublicIpv4 : undefined;
@@ -351,22 +352,22 @@ export class Device extends pulumi.CustomResource {
             inputs["waitForReservationDeprovision"] = state ? state.waitForReservationDeprovision : undefined;
         } else {
             const args = argsOrState as DeviceArgs | undefined;
-            if ((!args || args.billingCycle === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.billingCycle === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'billingCycle'");
             }
-            if ((!args || args.facilities === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.facilities === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'facilities'");
             }
-            if ((!args || args.hostname === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.hostname === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'hostname'");
             }
-            if ((!args || args.operatingSystem === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.operatingSystem === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'operatingSystem'");
             }
-            if ((!args || args.plan === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.plan === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'plan'");
             }
-            if ((!args || args.projectId === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
             inputs["alwaysPxe"] = args ? args.alwaysPxe : undefined;
@@ -402,12 +403,8 @@ export class Device extends pulumi.CustomResource {
             inputs["state"] = undefined /*out*/;
             inputs["updated"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Device.__pulumiType, name, inputs, opts);
     }
