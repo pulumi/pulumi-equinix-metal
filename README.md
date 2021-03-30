@@ -52,7 +52,7 @@ To use from .NET, install using `dotnet add package`:
 The following configuration points are available:
 
 - `equinix-metal:authToken` - (Required) This is your Equinix Metal API Auth token. This can also be specified with the
-  `PACKET_AUTH_TOKEN` shell environment variable.
+  `PACKET_AUTH_TOKEN` or `METAL_AUTH_TOKEN` shell environment variable.
 
 ## Reference
 

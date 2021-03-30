@@ -10,6 +10,7 @@ export * from "./device";
 export * from "./deviceNetworkType";
 export * from "./getDevice";
 export * from "./getDeviceBgpNeighbors";
+export * from "./getFacility";
 export * from "./getIpBlockRanges";
 export * from "./getOperatingSystem";
 export * from "./getOrganization";

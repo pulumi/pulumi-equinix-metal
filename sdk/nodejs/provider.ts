@@ -41,6 +41,8 @@ export class Provider extends pulumi.ProviderResource {
                 throw new Error("Missing required property 'authToken'");
             }
             inputs["authToken"] = args ? args.authToken : undefined;
+            inputs["maxRetries"] = pulumi.output(args ? args.maxRetries : undefined).apply(JSON.stringify);
+            inputs["maxRetryWaitSeconds"] = pulumi.output(args ? args.maxRetryWaitSeconds : undefined).apply(JSON.stringify);
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
@@ -57,4 +59,6 @@ export interface ProviderArgs {
      * The API auth key for API operations.
      */
     readonly authToken: pulumi.Input<string>;
+    readonly maxRetries?: pulumi.Input<number>;
+    readonly maxRetryWaitSeconds?: pulumi.Input<number>;
 }

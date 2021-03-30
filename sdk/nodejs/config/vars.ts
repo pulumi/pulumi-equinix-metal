@@ -10,3 +10,5 @@ let __config = new pulumi.Config("equinix-metal");
  * The API auth key for API operations.
  */
 export let authToken: string | undefined = __config.get("authToken");
+export let maxRetries: number | undefined = __config.getObject<number>("maxRetries");
+export let maxRetryWaitSeconds: number | undefined = __config.getObject<number>("maxRetryWaitSeconds");

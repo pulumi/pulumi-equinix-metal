@@ -12,3 +12,9 @@ import (
 func GetAuthToken(ctx *pulumi.Context) string {
 	return config.Get(ctx, "equinix-metal:authToken")
 }
+func GetMaxRetries(ctx *pulumi.Context) int {
+	return config.GetInt(ctx, "equinix-metal:maxRetries")
+}
+func GetMaxRetryWaitSeconds(ctx *pulumi.Context) int {
+	return config.GetInt(ctx, "equinix-metal:maxRetryWaitSeconds")
+}

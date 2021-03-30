@@ -10,6 +10,8 @@ from .. import _utilities, _tables
 
 __all__ = [
     'auth_token',
+    'max_retries',
+    'max_retry_wait_seconds',
 ]
 
 __config__ = pulumi.Config('equinix-metal')
@@ -18,4 +20,8 @@ auth_token = __config__.get('authToken')
 """
 The API auth key for API operations.
 """
+
+max_retries = __config__.get('maxRetries')
+
+max_retry_wait_seconds = __config__.get('maxRetryWaitSeconds')
 

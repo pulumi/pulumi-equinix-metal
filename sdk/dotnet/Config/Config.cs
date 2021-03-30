@@ -13,5 +13,9 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static string? AuthToken { get; set; } = __config.Get("authToken");
 
+        public static int? MaxRetries { get; set; } = __config.GetInt32("maxRetries");
+
+        public static int? MaxRetryWaitSeconds { get; set; } = __config.GetInt32("maxRetryWaitSeconds");
+
     }
 }
