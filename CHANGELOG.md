@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Upgrade to v1.1.0 of the Equinix Metal Terraform Provider
+_(none)_
 
 ---
+
+## 1.3.0 (2021-04-05)
+* Upgrade to v1.1.0 of the Equinix Metal Terraform Provider
 
 ## 1.2.1 (2021-03-23)
 * Upgrade to pulumi-terraform-bridge v2.22.1  
