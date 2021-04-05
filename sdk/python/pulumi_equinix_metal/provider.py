@@ -16,6 +16,8 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  auth_token: Optional[pulumi.Input[str]] = None,
+                 max_retries: Optional[pulumi.Input[int]] = None,
+                 max_retry_wait_seconds: Optional[pulumi.Input[int]] = None,
                  __props__=None,
                  __name__=None,
                  __opts__=None):
@@ -49,6 +51,8 @@ class Provider(pulumi.ProviderResource):
             if auth_token is None and not opts.urn:
                 raise TypeError("Missing required property 'auth_token'")
             __props__['auth_token'] = auth_token
+            __props__['max_retries'] = pulumi.Output.from_input(max_retries).apply(pulumi.runtime.to_json) if max_retries is not None else None
+            __props__['max_retry_wait_seconds'] = pulumi.Output.from_input(max_retry_wait_seconds).apply(pulumi.runtime.to_json) if max_retry_wait_seconds is not None else None
         super(Provider, __self__).__init__(
             'equinix-metal',
             resource_name,

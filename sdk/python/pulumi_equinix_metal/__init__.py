@@ -9,6 +9,7 @@ from .device import *
 from .device_network_type import *
 from .get_device import *
 from .get_device_bgp_neighbors import *
+from .get_facility import *
 from .get_ip_block_ranges import *
 from .get_operating_system import *
 from .get_organization import *

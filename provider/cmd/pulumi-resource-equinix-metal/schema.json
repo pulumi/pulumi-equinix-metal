@@ -17,6 +17,12 @@
             "authToken": {
                 "type": "string",
                 "description": "The API auth key for API operations.\n"
+            },
+            "maxRetries": {
+                "type": "integer"
+            },
+            "maxRetryWaitSeconds": {
+                "type": "integer"
             }
         },
         "defaults": [
@@ -1251,6 +1257,12 @@
             "authToken": {
                 "type": "string",
                 "description": "The API auth key for API operations.\n"
+            },
+            "maxRetries": {
+                "type": "integer"
+            },
+            "maxRetryWaitSeconds": {
+                "type": "integer"
             }
         },
         "requiredInputs": [
@@ -3317,6 +3329,63 @@
                 "required": [
                     "bgpNeighbors",
                     "deviceId",
+                    "id"
+                ]
+            }
+        },
+        "equinix-metal:index/getFacility:getFacility": {
+            "description": "Provides an Equinix Metal facility datasource.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as equinix_metal from \"@pulumi/equinix-metal\";\n\nconst ewr1 = equinix_metal.getFacility({\n    code: \"ewr1\",\n});\nexport const id = ewr1.then(ewr1 =\u003e ewr1.id);\n```\n```python\nimport pulumi\nimport pulumi_equinix_metal as equinix_metal\n\newr1 = equinix_metal.get_facility(code=\"ewr1\")\npulumi.export(\"id\", ewr1.id)\n```\n```csharp\nusing Pulumi;\nusing EquinixMetal = Pulumi.EquinixMetal;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var ewr1 = Output.Create(EquinixMetal.GetFacility.InvokeAsync(new EquinixMetal.GetFacilityArgs\n        {\n            Code = \"ewr1\",\n        }));\n        this.Id = ewr1.Apply(ewr1 =\u003e ewr1.Id);\n    }\n\n    [Output(\"id\")]\n    public Output\u003cstring\u003e Id { get; set; }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-equinix-metal/sdk/go/equinix-metal\"\n\t\"github.com/pulumi/pulumi/sdk/v2/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tewr1, err := equinix - metal.GetFacility(ctx, \u0026equinix-metal.GetFacilityArgs{\n\t\t\tCode: \"ewr1\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"id\", ewr1.Id)\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getFacility.\n",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "The facility code\n"
+                    },
+                    "features": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The features of the facility\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the facilityg system running on the device\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "code"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getFacility.\n",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "features": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The features of the facility\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the facilityg system running on the device\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "code",
+                    "features",
+                    "name",
                     "id"
                 ]
             }

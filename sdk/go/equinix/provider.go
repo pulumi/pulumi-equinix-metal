@@ -39,13 +39,17 @@ func NewProvider(ctx *pulumi.Context,
 
 type providerArgs struct {
 	// The API auth key for API operations.
-	AuthToken string `pulumi:"authToken"`
+	AuthToken           string `pulumi:"authToken"`
+	MaxRetries          *int   `pulumi:"maxRetries"`
+	MaxRetryWaitSeconds *int   `pulumi:"maxRetryWaitSeconds"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
 	// The API auth key for API operations.
-	AuthToken pulumi.StringInput
+	AuthToken           pulumi.StringInput
+	MaxRetries          pulumi.IntPtrInput
+	MaxRetryWaitSeconds pulumi.IntPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {

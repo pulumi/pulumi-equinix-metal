@@ -20,6 +20,7 @@
         "deviceNetworkType.ts",
         "getDevice.ts",
         "getDeviceBgpNeighbors.ts",
+        "getFacility.ts",
         "getIpBlockRanges.ts",
         "getOperatingSystem.ts",
         "getOrganization.ts",

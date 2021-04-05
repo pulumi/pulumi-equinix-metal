@@ -51,6 +51,12 @@ namespace Pulumi.EquinixMetal
         [Input("authToken", required: true)]
         public Input<string> AuthToken { get; set; } = null!;
 
+        [Input("maxRetries", json: true)]
+        public Input<int>? MaxRetries { get; set; }
+
+        [Input("maxRetryWaitSeconds", json: true)]
+        public Input<int>? MaxRetryWaitSeconds { get; set; }
+
         public ProviderArgs()
         {
         }
