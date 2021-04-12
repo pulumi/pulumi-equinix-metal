@@ -5,16 +5,312 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 from . import outputs
 from ._enums import *
 from ._inputs import *
 
-__all__ = ['Device']
+__all__ = ['DeviceArgs', 'Device']
+
+@pulumi.input_type
+class DeviceArgs:
+    def __init__(__self__, *,
+                 billing_cycle: pulumi.Input[Union[str, 'BillingCycle']],
+                 facilities: pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]],
+                 hostname: pulumi.Input[str],
+                 operating_system: pulumi.Input[Union[str, 'OperatingSystem']],
+                 plan: pulumi.Input[Union[str, 'Plan']],
+                 project_id: pulumi.Input[str],
+                 always_pxe: Optional[pulumi.Input[bool]] = None,
+                 custom_data: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 force_detach_volumes: Optional[pulumi.Input[bool]] = None,
+                 hardware_reservation_id: Optional[pulumi.Input[str]] = None,
+                 ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]] = None,
+                 ipxe_script_url: Optional[pulumi.Input[str]] = None,
+                 project_ssh_key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 storage: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 user_data: Optional[pulumi.Input[str]] = None,
+                 wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None):
+        """
+        The set of arguments for constructing a Device resource.
+        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
+        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        :param pulumi.Input[str] hostname: The device name
+        :param pulumi.Input[Union[str, 'OperatingSystem']] operating_system: The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
+        :param pulumi.Input[Union[str, 'Plan']] plan: The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
+        :param pulumi.Input[str] project_id: The ID of the project in which to create the device
+        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will
+               continue to boot via iPXE on reboots.
+        :param pulumi.Input[str] custom_data: A string of the desired Custom Data for the device.
+        :param pulumi.Input[str] description: Description string for the device
+        :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]] ip_addresses: A list of IP address types for the device (structure is documented below).
+        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More
+               information is in the
+               [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
+               doc.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ssh_key_ids: Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
+        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
+               * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags attached to the device
+        :param pulumi.Input[str] user_data: A string of the desired User Data for the device.
+        :param pulumi.Input[bool] wait_for_reservation_deprovision: Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+        """
+        pulumi.set(__self__, "billing_cycle", billing_cycle)
+        pulumi.set(__self__, "facilities", facilities)
+        pulumi.set(__self__, "hostname", hostname)
+        pulumi.set(__self__, "operating_system", operating_system)
+        pulumi.set(__self__, "plan", plan)
+        pulumi.set(__self__, "project_id", project_id)
+        if always_pxe is not None:
+            pulumi.set(__self__, "always_pxe", always_pxe)
+        if custom_data is not None:
+            pulumi.set(__self__, "custom_data", custom_data)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if force_detach_volumes is not None:
+            pulumi.set(__self__, "force_detach_volumes", force_detach_volumes)
+        if hardware_reservation_id is not None:
+            pulumi.set(__self__, "hardware_reservation_id", hardware_reservation_id)
+        if ip_addresses is not None:
+            pulumi.set(__self__, "ip_addresses", ip_addresses)
+        if ipxe_script_url is not None:
+            pulumi.set(__self__, "ipxe_script_url", ipxe_script_url)
+        if project_ssh_key_ids is not None:
+            pulumi.set(__self__, "project_ssh_key_ids", project_ssh_key_ids)
+        if storage is not None:
+            pulumi.set(__self__, "storage", storage)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
+        if user_data is not None:
+            pulumi.set(__self__, "user_data", user_data)
+        if wait_for_reservation_deprovision is not None:
+            pulumi.set(__self__, "wait_for_reservation_deprovision", wait_for_reservation_deprovision)
+
+    @property
+    @pulumi.getter(name="billingCycle")
+    def billing_cycle(self) -> pulumi.Input[Union[str, 'BillingCycle']]:
+        """
+        monthly or hourly
+        """
+        return pulumi.get(self, "billing_cycle")
+
+    @billing_cycle.setter
+    def billing_cycle(self, value: pulumi.Input[Union[str, 'BillingCycle']]):
+        pulumi.set(self, "billing_cycle", value)
+
+    @property
+    @pulumi.getter
+    def facilities(self) -> pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]:
+        """
+        List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        """
+        return pulumi.get(self, "facilities")
+
+    @facilities.setter
+    def facilities(self, value: pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]):
+        pulumi.set(self, "facilities", value)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> pulumi.Input[str]:
+        """
+        The device name
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: pulumi.Input[str]):
+        pulumi.set(self, "hostname", value)
+
+    @property
+    @pulumi.getter(name="operatingSystem")
+    def operating_system(self) -> pulumi.Input[Union[str, 'OperatingSystem']]:
+        """
+        The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
+        """
+        return pulumi.get(self, "operating_system")
+
+    @operating_system.setter
+    def operating_system(self, value: pulumi.Input[Union[str, 'OperatingSystem']]):
+        pulumi.set(self, "operating_system", value)
+
+    @property
+    @pulumi.getter
+    def plan(self) -> pulumi.Input[Union[str, 'Plan']]:
+        """
+        The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
+        """
+        return pulumi.get(self, "plan")
+
+    @plan.setter
+    def plan(self, value: pulumi.Input[Union[str, 'Plan']]):
+        pulumi.set(self, "plan", value)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        The ID of the project in which to create the device
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="alwaysPxe")
+    def always_pxe(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If true, a device with OS `custom_ipxe` will
+        continue to boot via iPXE on reboots.
+        """
+        return pulumi.get(self, "always_pxe")
+
+    @always_pxe.setter
+    def always_pxe(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "always_pxe", value)
+
+    @property
+    @pulumi.getter(name="customData")
+    def custom_data(self) -> Optional[pulumi.Input[str]]:
+        """
+        A string of the desired Custom Data for the device.
+        """
+        return pulumi.get(self, "custom_data")
+
+    @custom_data.setter
+    def custom_data(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "custom_data", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Description string for the device
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter(name="forceDetachVolumes")
+    def force_detach_volumes(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Delete device even if it has volumes attached. Only applies for destroy action.
+        """
+        return pulumi.get(self, "force_detach_volumes")
+
+    @force_detach_volumes.setter
+    def force_detach_volumes(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "force_detach_volumes", value)
+
+    @property
+    @pulumi.getter(name="hardwareReservationId")
+    def hardware_reservation_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "hardware_reservation_id")
+
+    @hardware_reservation_id.setter
+    def hardware_reservation_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "hardware_reservation_id", value)
+
+    @property
+    @pulumi.getter(name="ipAddresses")
+    def ip_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]]:
+        """
+        A list of IP address types for the device (structure is documented below).
+        """
+        return pulumi.get(self, "ip_addresses")
+
+    @ip_addresses.setter
+    def ip_addresses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]]):
+        pulumi.set(self, "ip_addresses", value)
+
+    @property
+    @pulumi.getter(name="ipxeScriptUrl")
+    def ipxe_script_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        URL pointing to a hosted iPXE script. More
+        information is in the
+        [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
+        doc.
+        """
+        return pulumi.get(self, "ipxe_script_url")
+
+    @ipxe_script_url.setter
+    def ipxe_script_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ipxe_script_url", value)
+
+    @property
+    @pulumi.getter(name="projectSshKeyIds")
+    def project_ssh_key_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
+        """
+        return pulumi.get(self, "project_ssh_key_ids")
+
+    @project_ssh_key_ids.setter
+    def project_ssh_key_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "project_ssh_key_ids", value)
+
+    @property
+    @pulumi.getter
+    def storage(self) -> Optional[pulumi.Input[str]]:
+        """
+        JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
+        * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        """
+        return pulumi.get(self, "storage")
+
+    @storage.setter
+    def storage(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "storage", value)
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Tags attached to the device
+        """
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "tags", value)
+
+    @property
+    @pulumi.getter(name="userData")
+    def user_data(self) -> Optional[pulumi.Input[str]]:
+        """
+        A string of the desired User Data for the device.
+        """
+        return pulumi.get(self, "user_data")
+
+    @user_data.setter
+    def user_data(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "user_data", value)
+
+    @property
+    @pulumi.getter(name="waitForReservationDeprovision")
+    def wait_for_reservation_deprovision(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+        """
+        return pulumi.get(self, "wait_for_reservation_deprovision")
+
+    @wait_for_reservation_deprovision.setter
+    def wait_for_reservation_deprovision(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "wait_for_reservation_deprovision", value)
 
 
 class Device(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -196,6 +492,180 @@ class Device(pulumi.CustomResource):
         :param pulumi.Input[str] user_data: A string of the desired User Data for the device.
         :param pulumi.Input[bool] wait_for_reservation_deprovision: Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: DeviceArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides an Equinix Metal device resource. This can be used to create,
+        modify, and delete devices.
+
+        > **Note:** All arguments including the `root_password` and `user_data` will be stored in
+         the raw state as plain-text.
+        [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
+
+        ## Example Usage
+
+        Create a device and add it to cool_project
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        web1 = equinix_metal.Device("web1",
+            hostname="tf.coreos2",
+            plan="t1.small.x86",
+            facilities=["ewr1"],
+            operating_system="coreos_stable",
+            billing_cycle="hourly",
+            project_id=local["project_id"])
+        ```
+
+        Same as above, but boot via iPXE initially, using the Ignition Provider for provisioning
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        pxe1 = equinix_metal.Device("pxe1",
+            hostname="tf.coreos2-pxe",
+            plan="t1.small.x86",
+            facilities=["ewr1"],
+            operating_system="custom_ipxe",
+            billing_cycle="hourly",
+            project_id=local["project_id"],
+            ipxe_script_url="https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe",
+            always_pxe=False,
+            user_data=data["ignition_config"]["example"]["rendered"])
+        ```
+
+        Create a device without a public IP address, with only a /30 private IPv4 subnet (4 IP addresses)
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        web1 = equinix_metal.Device("web1",
+            hostname="tf.coreos2",
+            plan="t1.small.x86",
+            facilities=["ewr1"],
+            operating_system="coreos_stable",
+            billing_cycle="hourly",
+            project_id=local["project_id"],
+            ip_addresses=[equinix_metal.DeviceIpAddressArgs(
+                type="private_ipv4",
+                cidr=30,
+            )])
+        ```
+
+        Deploy device on next-available reserved hardware and do custom partitioning.
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        web1 = equinix_metal.Device("web1",
+            hostname="tftest",
+            plan="t1.small.x86",
+            facilities=["sjc1"],
+            operating_system="ubuntu_16_04",
+            billing_cycle="hourly",
+            project_id=local["project_id"],
+            hardware_reservation_id="next-available",
+            storage=\"\"\"{
+          "disks": [
+            {
+              "device": "/dev/sda",
+              "wipeTable": true,
+              "partitions": [
+                {
+                  "label": "BIOS",
+                  "number": 1,
+                  "size": "4096"
+                },
+                {
+                  "label": "SWAP",
+                  "number": 2,
+                  "size": "3993600"
+                },
+                {
+                  "label": "ROOT",
+                  "number": 3,
+                  "size": "0"
+                }
+              ]
+            }
+          ],
+          "filesystems": [
+            {
+              "mount": {
+                "device": "/dev/sda3",
+                "format": "ext4",
+                "point": "/",
+                "create": {
+                  "options": [
+                    "-L",
+                    "ROOT"
+                  ]
+                }
+              }
+            },
+            {
+              "mount": {
+                "device": "/dev/sda2",
+                "format": "swap",
+                "point": "none",
+                "create": {
+                  "options": [
+                    "-L",
+                    "SWAP"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+        \"\"\")
+        ```
+
+        :param str resource_name: The name of the resource.
+        :param DeviceArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(DeviceArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 always_pxe: Optional[pulumi.Input[bool]] = None,
+                 billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+                 custom_data: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 facilities: Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]] = None,
+                 force_detach_volumes: Optional[pulumi.Input[bool]] = None,
+                 hardware_reservation_id: Optional[pulumi.Input[str]] = None,
+                 hostname: Optional[pulumi.Input[str]] = None,
+                 ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]]] = None,
+                 ipxe_script_url: Optional[pulumi.Input[str]] = None,
+                 operating_system: Optional[pulumi.Input[Union[str, 'OperatingSystem']]] = None,
+                 plan: Optional[pulumi.Input[Union[str, 'Plan']]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 project_ssh_key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 storage: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 user_data: Optional[pulumi.Input[str]] = None,
+                 wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

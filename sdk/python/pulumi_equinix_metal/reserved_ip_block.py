@@ -5,14 +5,100 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 from ._enums import *
 
-__all__ = ['ReservedIpBlock']
+__all__ = ['ReservedIpBlockArgs', 'ReservedIpBlock']
+
+@pulumi.input_type
+class ReservedIpBlockArgs:
+    def __init__(__self__, *,
+                 project_id: pulumi.Input[str],
+                 quantity: pulumi.Input[int],
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None):
+        """
+        The set of arguments for constructing a ReservedIpBlock resource.
+        :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
+        :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
+        :param pulumi.Input[str] description: Arbitrary description
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "quantity", quantity)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if facility is not None:
+            pulumi.set(__self__, "facility", facility)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        The metal project ID where to allocate the address block
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> pulumi.Input[int]:
+        """
+        The number of allocated /32 addresses, a power of 2
+        """
+        return pulumi.get(self, "quantity")
+
+    @quantity.setter
+    def quantity(self, value: pulumi.Input[int]):
+        pulumi.set(self, "quantity", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Arbitrary description
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
+        """
+        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        """
+        return pulumi.get(self, "facility")
+
+    @facility.setter
+    def facility(self, value: Optional[pulumi.Input[Union[str, 'Facility']]]):
+        pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[Union[str, 'IpBlockType']]]:
+        """
+        Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[Union[str, 'IpBlockType']]]):
+        pulumi.set(self, "type", value)
 
 
 class ReservedIpBlock(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -97,6 +183,100 @@ class ReservedIpBlock(pulumi.CustomResource):
         :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: ReservedIpBlockArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides a resource to create and manage blocks of reserved IP addresses in a project.
+
+        When a user provisions first device in a facility, Equinix Metal API automatically allocates IPv6/56 and private IPv4/25 blocks.
+        The new device then gets IPv6 and private IPv4 addresses from those block. It also gets a public IPv4/31 address.
+        Every new device in the project and facility will automatically get IPv6 and private IPv4 addresses from these pre-allocated blocks.
+        The IPv6 and private IPv4 blocks can't be created, only imported. With this resource, it's possible to create either public IPv4 blocks or global IPv4 blocks.
+
+        Public blocks are allocated in a facility. Addresses from public blocks can only be assigned to devices in the facility. Public blocks can have mask from /24 (256 addresses) to /32 (1 address). If you create public block with this resource, you must fill the facility argmument.
+
+        Addresses from global blocks can be assigned in any facility. Global blocks can have mask from /30 (4 addresses), to /32 (1 address). If you create global block with this resource, you must specify type = "global_ipv4" and you must omit the facility argument.
+
+        Once IP block is allocated or imported, an address from it can be assigned to device with the `IpAttachment` resource.
+
+        ## Example Usage
+
+        Allocate reserved IP blocks:
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        # Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1) for myproject
+        two_elastic_addresses = equinix_metal.ReservedIpBlock("twoElasticAddresses",
+            project_id=local["project_id"],
+            facility="ewr1",
+            quantity=2)
+        # Allocate 1 global floating IP, which can be assigned to device in any facility
+        test = equinix_metal.ReservedIpBlock("test",
+            project_id=local["project_id"],
+            type="global_ipv4",
+            quantity=1)
+        ```
+
+        Allocate a block and run a device with public IPv4 from the block
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        # Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1)
+        example = equinix_metal.ReservedIpBlock("example",
+            project_id=local["project_id"],
+            facility="ewr1",
+            quantity=2)
+        # Run a device with both public IPv4 from the block assigned
+        nodes = equinix_metal.Device("nodes",
+            project_id=local["project_id"],
+            facilities=["ewr1"],
+            plan="t1.small.x86",
+            operating_system="ubuntu_16_04",
+            hostname="test",
+            billing_cycle="hourly",
+            ip_addresses=[
+                equinix_metal.DeviceIpAddressArgs(
+                    type="public_ipv4",
+                    cidr=31,
+                    reservation_ids=[example.id],
+                ),
+                equinix_metal.DeviceIpAddressArgs(
+                    type="private_ipv4",
+                ),
+            ])
+        ```
+
+        :param str resource_name: The name of the resource.
+        :param ReservedIpBlockArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(ReservedIpBlockArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 quantity: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

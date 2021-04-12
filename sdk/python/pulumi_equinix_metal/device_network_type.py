@@ -5,13 +5,51 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 
-__all__ = ['DeviceNetworkType']
+__all__ = ['DeviceNetworkTypeArgs', 'DeviceNetworkType']
+
+@pulumi.input_type
+class DeviceNetworkTypeArgs:
+    def __init__(__self__, *,
+                 device_id: pulumi.Input[str],
+                 type: pulumi.Input[str]):
+        """
+        The set of arguments for constructing a DeviceNetworkType resource.
+        :param pulumi.Input[str] device_id: The ID of the device on which the network type should be set.
+        :param pulumi.Input[str] type: Network type to set. Must be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
+        """
+        pulumi.set(__self__, "device_id", device_id)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="deviceId")
+    def device_id(self) -> pulumi.Input[str]:
+        """
+        The ID of the device on which the network type should be set.
+        """
+        return pulumi.get(self, "device_id")
+
+    @device_id.setter
+    def device_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "device_id", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        """
+        Network type to set. Must be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
 
 
 class DeviceNetworkType(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -34,6 +72,41 @@ class DeviceNetworkType(pulumi.CustomResource):
         :param pulumi.Input[str] device_id: The ID of the device on which the network type should be set.
         :param pulumi.Input[str] type: Network type to set. Must be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: DeviceNetworkTypeArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        ## Import
+
+        This resource can also be imported using existing device ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/deviceNetworkType:DeviceNetworkType metal_device_network_type {existing device_id}
+        ```
+
+        :param str resource_name: The name of the resource.
+        :param DeviceNetworkTypeArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(DeviceNetworkTypeArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 device_id: Optional[pulumi.Input[str]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

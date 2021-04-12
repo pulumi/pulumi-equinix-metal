@@ -5,15 +5,103 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 from . import outputs
 from ._inputs import *
 
-__all__ = ['Project']
+__all__ = ['ProjectArgs', 'Project']
+
+@pulumi.input_type
+class ProjectArgs:
+    def __init__(__self__, *,
+                 backend_transfer: Optional[pulumi.Input[bool]] = None,
+                 bgp_config: Optional[pulumi.Input['ProjectBgpConfigArgs']] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 organization_id: Optional[pulumi.Input[str]] = None,
+                 payment_method_id: Optional[pulumi.Input[str]] = None):
+        """
+        The set of arguments for constructing a Project resource.
+        :param pulumi.Input[bool] backend_transfer: Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
+        :param pulumi.Input['ProjectBgpConfigArgs'] bgp_config: Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+        :param pulumi.Input[str] name: The name of the project
+        :param pulumi.Input[str] organization_id: The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
+        :param pulumi.Input[str] payment_method_id: The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
+        """
+        if backend_transfer is not None:
+            pulumi.set(__self__, "backend_transfer", backend_transfer)
+        if bgp_config is not None:
+            pulumi.set(__self__, "bgp_config", bgp_config)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if organization_id is not None:
+            pulumi.set(__self__, "organization_id", organization_id)
+        if payment_method_id is not None:
+            pulumi.set(__self__, "payment_method_id", payment_method_id)
+
+    @property
+    @pulumi.getter(name="backendTransfer")
+    def backend_transfer(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
+        """
+        return pulumi.get(self, "backend_transfer")
+
+    @backend_transfer.setter
+    def backend_transfer(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "backend_transfer", value)
+
+    @property
+    @pulumi.getter(name="bgpConfig")
+    def bgp_config(self) -> Optional[pulumi.Input['ProjectBgpConfigArgs']]:
+        """
+        Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+        """
+        return pulumi.get(self, "bgp_config")
+
+    @bgp_config.setter
+    def bgp_config(self, value: Optional[pulumi.Input['ProjectBgpConfigArgs']]):
+        pulumi.set(self, "bgp_config", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the project
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
+        """
+        return pulumi.get(self, "organization_id")
+
+    @organization_id.setter
+    def organization_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "organization_id", value)
+
+    @property
+    @pulumi.getter(name="paymentMethodId")
+    def payment_method_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
+        """
+        return pulumi.get(self, "payment_method_id")
+
+    @payment_method_id.setter
+    def payment_method_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "payment_method_id", value)
 
 
 class Project(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -35,6 +123,37 @@ class Project(pulumi.CustomResource):
         :param pulumi.Input[str] organization_id: The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
         :param pulumi.Input[str] payment_method_id: The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: Optional[ProjectArgs] = None,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Create a Project resource with the given unique name, props, and options.
+        :param str resource_name: The name of the resource.
+        :param ProjectArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(ProjectArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 backend_transfer: Optional[pulumi.Input[bool]] = None,
+                 bgp_config: Optional[pulumi.Input[pulumi.InputType['ProjectBgpConfigArgs']]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 organization_id: Optional[pulumi.Input[str]] = None,
+                 payment_method_id: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

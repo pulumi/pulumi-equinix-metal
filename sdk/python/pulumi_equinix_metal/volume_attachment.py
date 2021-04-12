@@ -5,13 +5,51 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 
-__all__ = ['VolumeAttachment']
+__all__ = ['VolumeAttachmentArgs', 'VolumeAttachment']
+
+@pulumi.input_type
+class VolumeAttachmentArgs:
+    def __init__(__self__, *,
+                 device_id: pulumi.Input[str],
+                 volume_id: pulumi.Input[str]):
+        """
+        The set of arguments for constructing a VolumeAttachment resource.
+        :param pulumi.Input[str] device_id: The ID of the device to which the volume should be attached
+        :param pulumi.Input[str] volume_id: The ID of the volume to attach
+        """
+        pulumi.set(__self__, "device_id", device_id)
+        pulumi.set(__self__, "volume_id", volume_id)
+
+    @property
+    @pulumi.getter(name="deviceId")
+    def device_id(self) -> pulumi.Input[str]:
+        """
+        The ID of the device to which the volume should be attached
+        """
+        return pulumi.get(self, "device_id")
+
+    @device_id.setter
+    def device_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "device_id", value)
+
+    @property
+    @pulumi.getter(name="volumeId")
+    def volume_id(self) -> pulumi.Input[str]:
+        """
+        The ID of the volume to attach
+        """
+        return pulumi.get(self, "volume_id")
+
+    @volume_id.setter
+    def volume_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "volume_id", value)
 
 
 class VolumeAttachment(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -27,6 +65,34 @@ class VolumeAttachment(pulumi.CustomResource):
         :param pulumi.Input[str] device_id: The ID of the device to which the volume should be attached
         :param pulumi.Input[str] volume_id: The ID of the volume to attach
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: VolumeAttachmentArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Create a VolumeAttachment resource with the given unique name, props, and options.
+        :param str resource_name: The name of the resource.
+        :param VolumeAttachmentArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(VolumeAttachmentArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 device_id: Optional[pulumi.Input[str]] = None,
+                 volume_id: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

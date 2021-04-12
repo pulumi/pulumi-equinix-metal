@@ -10,7 +10,7 @@ replace (
 require (
 	github.com/equinix/terraform-provider-metal v1.1.0
 	github.com/hashicorp/terraform-plugin-sdk v1.9.1
-	github.com/pulumi/pulumi-terraform-bridge/v2 v2.22.1
-	github.com/pulumi/pulumi/pkg/v2 v2.22.1-0.20210310211618-1f16423ede4c
-	github.com/pulumi/pulumi/sdk/v2 v2.22.1-0.20210310211618-1f16423ede4c
+	github.com/pulumi/pulumi-terraform-bridge/v2 v2.23.0
+	github.com/pulumi/pulumi/pkg/v2 v2.24.1-0.20210411193841-b7d403204449
+	github.com/pulumi/pulumi/sdk/v2 v2.24.1
 )

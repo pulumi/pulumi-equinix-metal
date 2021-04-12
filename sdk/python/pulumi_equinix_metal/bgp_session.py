@@ -5,13 +5,67 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 
-__all__ = ['BgpSession']
+__all__ = ['BgpSessionArgs', 'BgpSession']
+
+@pulumi.input_type
+class BgpSessionArgs:
+    def __init__(__self__, *,
+                 address_family: pulumi.Input[str],
+                 device_id: pulumi.Input[str],
+                 default_route: Optional[pulumi.Input[bool]] = None):
+        """
+        The set of arguments for constructing a BgpSession resource.
+        :param pulumi.Input[str] address_family: `ipv4` or `ipv6`
+        :param pulumi.Input[str] device_id: ID of device
+        :param pulumi.Input[bool] default_route: Boolean flag to set the default route policy. False by default.
+        """
+        pulumi.set(__self__, "address_family", address_family)
+        pulumi.set(__self__, "device_id", device_id)
+        if default_route is not None:
+            pulumi.set(__self__, "default_route", default_route)
+
+    @property
+    @pulumi.getter(name="addressFamily")
+    def address_family(self) -> pulumi.Input[str]:
+        """
+        `ipv4` or `ipv6`
+        """
+        return pulumi.get(self, "address_family")
+
+    @address_family.setter
+    def address_family(self, value: pulumi.Input[str]):
+        pulumi.set(self, "address_family", value)
+
+    @property
+    @pulumi.getter(name="deviceId")
+    def device_id(self) -> pulumi.Input[str]:
+        """
+        ID of device
+        """
+        return pulumi.get(self, "device_id")
+
+    @device_id.setter
+    def device_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "device_id", value)
+
+    @property
+    @pulumi.getter(name="defaultRoute")
+    def default_route(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Boolean flag to set the default route policy. False by default.
+        """
+        return pulumi.get(self, "default_route")
+
+    @default_route.setter
+    def default_route(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "default_route", value)
 
 
 class BgpSession(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -34,6 +88,40 @@ class BgpSession(pulumi.CustomResource):
         :param pulumi.Input[bool] default_route: Boolean flag to set the default route policy. False by default.
         :param pulumi.Input[str] device_id: ID of device
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: BgpSessionArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides a resource to manage BGP sessions in Equinix Metal Host. Refer to [Equinix Metal BGP documentation](https://metal.equinix.com/developers/docs/networking/local-global-bgp/) for more details.
+
+        You need to have BGP config enabled in your project.
+
+        BGP session must be linked to a device running [BIRD](https://bird.network.cz) or other BGP routing daemon which will control route advertisements via the session to Equinix Metal's upstream routers.
+
+        :param str resource_name: The name of the resource.
+        :param BgpSessionArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(BgpSessionArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 address_family: Optional[pulumi.Input[str]] = None,
+                 default_route: Optional[pulumi.Input[bool]] = None,
+                 device_id: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

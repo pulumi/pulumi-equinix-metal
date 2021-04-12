@@ -5,15 +5,129 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 from . import outputs
 from ._inputs import *
 
-__all__ = ['SpotMarketRequest']
+__all__ = ['SpotMarketRequestArgs', 'SpotMarketRequest']
+
+@pulumi.input_type
+class SpotMarketRequestArgs:
+    def __init__(__self__, *,
+                 devices_max: pulumi.Input[int],
+                 devices_min: pulumi.Input[int],
+                 facilities: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 instance_parameters: pulumi.Input['SpotMarketRequestInstanceParametersArgs'],
+                 max_bid_price: pulumi.Input[float],
+                 project_id: pulumi.Input[str],
+                 wait_for_devices: Optional[pulumi.Input[bool]] = None):
+        """
+        The set of arguments for constructing a SpotMarketRequest resource.
+        :param pulumi.Input[int] devices_max: Maximum number devices to be created
+        :param pulumi.Input[int] devices_min: Miniumum number devices to be created
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
+        :param pulumi.Input['SpotMarketRequestInstanceParametersArgs'] instance_parameters: Device parameters. See device resource for details
+        :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
+        :param pulumi.Input[str] project_id: Project ID
+        :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
+        """
+        pulumi.set(__self__, "devices_max", devices_max)
+        pulumi.set(__self__, "devices_min", devices_min)
+        pulumi.set(__self__, "facilities", facilities)
+        pulumi.set(__self__, "instance_parameters", instance_parameters)
+        pulumi.set(__self__, "max_bid_price", max_bid_price)
+        pulumi.set(__self__, "project_id", project_id)
+        if wait_for_devices is not None:
+            pulumi.set(__self__, "wait_for_devices", wait_for_devices)
+
+    @property
+    @pulumi.getter(name="devicesMax")
+    def devices_max(self) -> pulumi.Input[int]:
+        """
+        Maximum number devices to be created
+        """
+        return pulumi.get(self, "devices_max")
+
+    @devices_max.setter
+    def devices_max(self, value: pulumi.Input[int]):
+        pulumi.set(self, "devices_max", value)
+
+    @property
+    @pulumi.getter(name="devicesMin")
+    def devices_min(self) -> pulumi.Input[int]:
+        """
+        Miniumum number devices to be created
+        """
+        return pulumi.get(self, "devices_min")
+
+    @devices_min.setter
+    def devices_min(self, value: pulumi.Input[int]):
+        pulumi.set(self, "devices_min", value)
+
+    @property
+    @pulumi.getter
+    def facilities(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        """
+        Facility IDs where devices should be created
+        """
+        return pulumi.get(self, "facilities")
+
+    @facilities.setter
+    def facilities(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "facilities", value)
+
+    @property
+    @pulumi.getter(name="instanceParameters")
+    def instance_parameters(self) -> pulumi.Input['SpotMarketRequestInstanceParametersArgs']:
+        """
+        Device parameters. See device resource for details
+        """
+        return pulumi.get(self, "instance_parameters")
+
+    @instance_parameters.setter
+    def instance_parameters(self, value: pulumi.Input['SpotMarketRequestInstanceParametersArgs']):
+        pulumi.set(self, "instance_parameters", value)
+
+    @property
+    @pulumi.getter(name="maxBidPrice")
+    def max_bid_price(self) -> pulumi.Input[float]:
+        """
+        Maximum price user is willing to pay per hour per device
+        """
+        return pulumi.get(self, "max_bid_price")
+
+    @max_bid_price.setter
+    def max_bid_price(self, value: pulumi.Input[float]):
+        pulumi.set(self, "max_bid_price", value)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        Project ID
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="waitForDevices")
+    def wait_for_devices(self) -> Optional[pulumi.Input[bool]]:
+        """
+        On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
+        """
+        return pulumi.get(self, "wait_for_devices")
+
+    @wait_for_devices.setter
+    def wait_for_devices(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "wait_for_devices", value)
 
 
 class SpotMarketRequest(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -62,6 +176,62 @@ class SpotMarketRequest(pulumi.CustomResource):
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: SpotMarketRequestArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides an Equinix Metal Spot Market Request resource to allow you to
+        manage spot market requests on your account. For more detail on Spot Market, see [this article in Equinix Metal documentation](https://metal.equinix.com/developers/docs/deploy/spot-market/).
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        # Create a spot market request
+        req = equinix_metal.SpotMarketRequest("req",
+            project_id=local["project_id"],
+            max_bid_price=0.03,
+            facilities=["ewr1"],
+            devices_min=1,
+            devices_max=1,
+            instance_parameters=equinix_metal.SpotMarketRequestInstanceParametersArgs(
+                hostname="testspot",
+                billing_cycle="hourly",
+                operating_system="coreos_stable",
+                plan="t1.small.x86",
+            ))
+        ```
+
+        :param str resource_name: The name of the resource.
+        :param SpotMarketRequestArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(SpotMarketRequestArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 devices_max: Optional[pulumi.Input[int]] = None,
+                 devices_min: Optional[pulumi.Input[int]] = None,
+                 facilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 instance_parameters: Optional[pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']]] = None,
+                 max_bid_price: Optional[pulumi.Input[float]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 wait_for_devices: Optional[pulumi.Input[bool]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

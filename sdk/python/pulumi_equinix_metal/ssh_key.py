@@ -5,13 +5,54 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 
-__all__ = ['SshKey']
+__all__ = ['SshKeyArgs', 'SshKey']
+
+@pulumi.input_type
+class SshKeyArgs:
+    def __init__(__self__, *,
+                 public_key: pulumi.Input[str],
+                 name: Optional[pulumi.Input[str]] = None):
+        """
+        The set of arguments for constructing a SshKey resource.
+        :param pulumi.Input[str] public_key: The public key. If this is a file, it
+               can be read using the file interpolation function
+        :param pulumi.Input[str] name: The name of the SSH key for identification
+        """
+        pulumi.set(__self__, "public_key", public_key)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="publicKey")
+    def public_key(self) -> pulumi.Input[str]:
+        """
+        The public key. If this is a file, it
+        can be read using the file interpolation function
+        """
+        return pulumi.get(self, "public_key")
+
+    @public_key.setter
+    def public_key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "public_key", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the SSH key for identification
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
 
 class SshKey(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -51,6 +92,57 @@ class SshKey(pulumi.CustomResource):
         :param pulumi.Input[str] public_key: The public key. If this is a file, it
                can be read using the file interpolation function
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: SshKeyArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides a resource to manage User SSH keys on your Equinix Metal user account. If you create a new device in a project, all the keys of the project's collaborators will be injected to the device.
+
+        The link between User SSH key and device is implicit. If you want to make sure that a key will be copied to a device, you must ensure that the device resource `depends_on` the key resource.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        # Create a new SSH key
+        key1 = equinix_metal.SshKey("key1", public_key=(lambda path: open(path).read())("/home/terraform/.ssh/id_rsa.pub"))
+        # Create new device with "key1" included. The device resource "depends_on" the
+        # key, in order to make sure the key is created before the device.
+        test = equinix_metal.Device("test",
+            hostname="test-device",
+            plan="t1.small.x86",
+            facilities=["sjc1"],
+            operating_system="ubuntu_16_04",
+            billing_cycle="hourly",
+            project_id=local["project_id"],
+            opts=pulumi.ResourceOptions(depends_on=["metal_ssh_key.key1"]))
+        ```
+
+        :param str resource_name: The name of the resource.
+        :param SshKeyArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(SshKeyArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 public_key: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

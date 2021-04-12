@@ -21,37 +21,38 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "equinix-metal:index/bgpSession:BgpSession":
-		r, err = NewBgpSession(ctx, name, nil, pulumi.URN_(urn))
+		r = &BgpSession{}
 	case "equinix-metal:index/device:Device":
-		r, err = NewDevice(ctx, name, nil, pulumi.URN_(urn))
+		r = &Device{}
 	case "equinix-metal:index/deviceNetworkType:DeviceNetworkType":
-		r, err = NewDeviceNetworkType(ctx, name, nil, pulumi.URN_(urn))
+		r = &DeviceNetworkType{}
 	case "equinix-metal:index/ipAttachment:IpAttachment":
-		r, err = NewIpAttachment(ctx, name, nil, pulumi.URN_(urn))
+		r = &IpAttachment{}
 	case "equinix-metal:index/organization:Organization":
-		r, err = NewOrganization(ctx, name, nil, pulumi.URN_(urn))
+		r = &Organization{}
 	case "equinix-metal:index/portVlanAttachment:PortVlanAttachment":
-		r, err = NewPortVlanAttachment(ctx, name, nil, pulumi.URN_(urn))
+		r = &PortVlanAttachment{}
 	case "equinix-metal:index/project:Project":
-		r, err = NewProject(ctx, name, nil, pulumi.URN_(urn))
+		r = &Project{}
 	case "equinix-metal:index/projectSshKey:ProjectSshKey":
-		r, err = NewProjectSshKey(ctx, name, nil, pulumi.URN_(urn))
+		r = &ProjectSshKey{}
 	case "equinix-metal:index/reservedIpBlock:ReservedIpBlock":
-		r, err = NewReservedIpBlock(ctx, name, nil, pulumi.URN_(urn))
+		r = &ReservedIpBlock{}
 	case "equinix-metal:index/spotMarketRequest:SpotMarketRequest":
-		r, err = NewSpotMarketRequest(ctx, name, nil, pulumi.URN_(urn))
+		r = &SpotMarketRequest{}
 	case "equinix-metal:index/sshKey:SshKey":
-		r, err = NewSshKey(ctx, name, nil, pulumi.URN_(urn))
+		r = &SshKey{}
 	case "equinix-metal:index/vlan:Vlan":
-		r, err = NewVlan(ctx, name, nil, pulumi.URN_(urn))
+		r = &Vlan{}
 	case "equinix-metal:index/volume:Volume":
-		r, err = NewVolume(ctx, name, nil, pulumi.URN_(urn))
+		r = &Volume{}
 	case "equinix-metal:index/volumeAttachment:VolumeAttachment":
-		r, err = NewVolumeAttachment(ctx, name, nil, pulumi.URN_(urn))
+		r = &VolumeAttachment{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 
@@ -68,7 +69,9 @@ func (p *pkg) ConstructProvider(ctx *pulumi.Context, name, typ, urn string) (pul
 		return nil, fmt.Errorf("unknown provider type: %s", typ)
 	}
 
-	return NewProvider(ctx, name, nil, pulumi.URN_(urn))
+	r := &Provider{}
+	err := ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
+	return r, err
 }
 
 func init() {
