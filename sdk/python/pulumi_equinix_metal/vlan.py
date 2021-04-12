@@ -5,14 +5,68 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 from ._enums import *
 
-__all__ = ['Vlan']
+__all__ = ['VlanArgs', 'Vlan']
+
+@pulumi.input_type
+class VlanArgs:
+    def __init__(__self__, *,
+                 facility: pulumi.Input[Union[str, 'Facility']],
+                 project_id: pulumi.Input[str],
+                 description: Optional[pulumi.Input[str]] = None):
+        """
+        The set of arguments for constructing a Vlan resource.
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
+        :param pulumi.Input[str] project_id: ID of parent project
+        :param pulumi.Input[str] description: Description string
+        """
+        pulumi.set(__self__, "facility", facility)
+        pulumi.set(__self__, "project_id", project_id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+
+    @property
+    @pulumi.getter
+    def facility(self) -> pulumi.Input[Union[str, 'Facility']]:
+        """
+        Facility where to create the VLAN
+        """
+        return pulumi.get(self, "facility")
+
+    @facility.setter
+    def facility(self, value: pulumi.Input[Union[str, 'Facility']]):
+        pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        ID of parent project
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Description string
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
 
 
 class Vlan(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -49,6 +103,54 @@ class Vlan(pulumi.CustomResource):
         :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
         :param pulumi.Input[str] project_id: ID of parent project
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: VlanArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides a resource to allow users to manage Virtual Networks in their projects.
+
+        To learn more about Layer 2 networking in Equinix Metal, refer to
+
+        * <https://metal.equinix.com/developers/docs/networking/layer2/>
+        * <https://metal.equinix.com/developers/docs/networking/layer2-configs/>
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        # Create a new VLAN in datacenter "ewr1"
+        vlan1 = equinix_metal.Vlan("vlan1",
+            description="VLAN in New Jersey",
+            facility="ewr1",
+            project_id=local["project_id"])
+        ```
+
+        :param str resource_name: The name of the resource.
+        :param VlanArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(VlanArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

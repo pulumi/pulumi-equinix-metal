@@ -5,13 +5,53 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 
-__all__ = ['IpAttachment']
+__all__ = ['IpAttachmentArgs', 'IpAttachment']
+
+@pulumi.input_type
+class IpAttachmentArgs:
+    def __init__(__self__, *,
+                 cidr_notation: pulumi.Input[str],
+                 device_id: pulumi.Input[str]):
+        """
+        The set of arguments for constructing a IpAttachment resource.
+        :param pulumi.Input[str] cidr_notation: CIDR notation of subnet from block reserved in the same
+               project and facility as the device
+        :param pulumi.Input[str] device_id: ID of device to which to assign the subnet
+        """
+        pulumi.set(__self__, "cidr_notation", cidr_notation)
+        pulumi.set(__self__, "device_id", device_id)
+
+    @property
+    @pulumi.getter(name="cidrNotation")
+    def cidr_notation(self) -> pulumi.Input[str]:
+        """
+        CIDR notation of subnet from block reserved in the same
+        project and facility as the device
+        """
+        return pulumi.get(self, "cidr_notation")
+
+    @cidr_notation.setter
+    def cidr_notation(self, value: pulumi.Input[str]):
+        pulumi.set(self, "cidr_notation", value)
+
+    @property
+    @pulumi.getter(name="deviceId")
+    def device_id(self) -> pulumi.Input[str]:
+        """
+        ID of device to which to assign the subnet
+        """
+        return pulumi.get(self, "device_id")
+
+    @device_id.setter
+    def device_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "device_id", value)
 
 
 class IpAttachment(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -38,6 +78,44 @@ class IpAttachment(pulumi.CustomResource):
                project and facility as the device
         :param pulumi.Input[str] device_id: ID of device to which to assign the subnet
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: IpAttachmentArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides a resource to attach elastic IP subnets to devices.
+
+        To attach an IP subnet from a reserved block to a provisioned device, you must derive a subnet CIDR belonging to
+        one of your reserved blocks in the same project and facility as the target device.
+
+        For example, you have reserved IPv4 address block 147.229.10.152/30, you can choose to assign either the whole
+        block as one subnet to a device; or 2 subnets with CIDRs 147.229.10.152/31' and 147.229.10.154/31; or 4 subnets
+        with mask prefix length 32. More about the elastic IP subnets is [here](https://metal.equinix.com/developers/docs/networking/elastic-ips/).
+
+        Device and reserved block must be in the same facility.
+
+        :param str resource_name: The name of the resource.
+        :param IpAttachmentArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(IpAttachmentArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 cidr_notation: Optional[pulumi.Input[str]] = None,
+                 device_id: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

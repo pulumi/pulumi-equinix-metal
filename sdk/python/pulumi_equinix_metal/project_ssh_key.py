@@ -5,13 +5,67 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 
-__all__ = ['ProjectSshKey']
+__all__ = ['ProjectSshKeyArgs', 'ProjectSshKey']
+
+@pulumi.input_type
+class ProjectSshKeyArgs:
+    def __init__(__self__, *,
+                 project_id: pulumi.Input[str],
+                 public_key: pulumi.Input[str],
+                 name: Optional[pulumi.Input[str]] = None):
+        """
+        The set of arguments for constructing a ProjectSshKey resource.
+        :param pulumi.Input[str] project_id: The ID of parent project
+        :param pulumi.Input[str] public_key: The public key. If this is a file, it can be read using the file interpolation function
+        :param pulumi.Input[str] name: The name of the SSH key for identification
+        """
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "public_key", public_key)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        The ID of parent project
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="publicKey")
+    def public_key(self) -> pulumi.Input[str]:
+        """
+        The public key. If this is a file, it can be read using the file interpolation function
+        """
+        return pulumi.get(self, "public_key")
+
+    @public_key.setter
+    def public_key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "public_key", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the SSH key for identification
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
 
 class ProjectSshKey(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -51,6 +105,57 @@ class ProjectSshKey(pulumi.CustomResource):
         :param pulumi.Input[str] project_id: The ID of parent project
         :param pulumi.Input[str] public_key: The public key. If this is a file, it can be read using the file interpolation function
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: ProjectSshKeyArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Provides an Equinix Metal project SSH key resource to manage project-specific SSH keys.
+        Project SSH keys will only be populated onto servers that belong to that project, in contrast to User SSH Keys.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_equinix_metal as equinix_metal
+
+        project_id = "<UUID_of_your_project>"
+        test_project_ssh_key = equinix_metal.ProjectSshKey("testProjectSshKey",
+            public_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM/unxJeFqxsTJcu6mhqsMHSaVlpu+Jj/P+44zrm6X/MAoHSX3X9oLgujEjjZ74yLfdfe0bJrbL2YgJzNaEkIQQ1VPMHB5EhTKUBGnzlPP0hHTnxsjAm9qDHgUPgvgFDQSAMzdJRJ0Cexo16Ph9VxCoLh3dxiE7s2gaM2FdVg7P8aSxKypsxAhYV3D0AwqzoOyT6WWhBoQ0xZ85XevOTnJCpImSemEGs6nVGEsWcEc1d1YvdxFjAK4SdsKUMkj4Dsy/leKsdi/DEAf356vbMT1UHsXXvy5TlHu/Pa6qF53v32Enz+nhKy7/8W2Yt2yWx8HnQcT2rug9lvCXagJO6oauqRTO77C4QZn13ZLMZgLT66S/tNh2EX0gi6vmIs5dth8uF+K6nxIyKJXbcA4ASg7F1OJrHKFZdTc5v1cPeq6PcbqGgc+8SrPYQmzvQqLoMBuxyos2hUkYOmw3aeWJj9nFa8Wu5WaN89mUeOqSkU4S5cgUzWUOmKey56B/j/s1sVys9rMhZapVs0wL4L9GBBM48N5jAQZnnpo85A8KsZq5ME22bTLqnxsDXqDYZvS7PSI6Dxi7eleOFE/NYYDkrgDLHTQri8ucDMVeVWHgoMY2bPXdn7KKy5jW5jKsf8EPARXg77A4gRYmgKrcwIKqJEUPqyxJBe0CPoGTqgXPRsUiQ== tomk@hp2",
+            project_id=project_id)
+        test_device = equinix_metal.Device("testDevice",
+            hostname="test",
+            plan="baremetal_0",
+            facilities=["ewr1"],
+            operating_system="ubuntu_16_04",
+            billing_cycle="hourly",
+            project_ssh_key_ids=[test_project_ssh_key.id],
+            project_id=project_id)
+        ```
+
+        :param str resource_name: The name of the resource.
+        :param ProjectSshKeyArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(ProjectSshKeyArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 public_key: Optional[pulumi.Input[str]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

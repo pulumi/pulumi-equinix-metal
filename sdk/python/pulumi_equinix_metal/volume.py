@@ -5,16 +5,148 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities, _tables
 from . import outputs
 from ._enums import *
 from ._inputs import *
 
-__all__ = ['Volume']
+__all__ = ['VolumeArgs', 'Volume']
+
+@pulumi.input_type
+class VolumeArgs:
+    def __init__(__self__, *,
+                 facility: pulumi.Input[Union[str, 'Facility']],
+                 plan: pulumi.Input[str],
+                 project_id: pulumi.Input[str],
+                 size: pulumi.Input[int],
+                 billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 locked: Optional[pulumi.Input[bool]] = None,
+                 snapshot_policies: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]] = None):
+        """
+        The set of arguments for constructing a Volume resource.
+        :param pulumi.Input[Union[str, 'Facility']] facility: The facility to create the volume in
+        :param pulumi.Input[str] plan: The service plan slug of the volume
+        :param pulumi.Input[str] project_id: The metal project ID to deploy the volume in
+        :param pulumi.Input[int] size: The size in GB to make the volume
+        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: The billing cycle, defaults to "hourly"
+        :param pulumi.Input[str] description: Optional description for the volume
+        :param pulumi.Input[bool] locked: Lock or unlock the volume
+        :param pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]] snapshot_policies: Optional list of snapshot policies
+        """
+        pulumi.set(__self__, "facility", facility)
+        pulumi.set(__self__, "plan", plan)
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "size", size)
+        if billing_cycle is not None:
+            pulumi.set(__self__, "billing_cycle", billing_cycle)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if locked is not None:
+            pulumi.set(__self__, "locked", locked)
+        if snapshot_policies is not None:
+            pulumi.set(__self__, "snapshot_policies", snapshot_policies)
+
+    @property
+    @pulumi.getter
+    def facility(self) -> pulumi.Input[Union[str, 'Facility']]:
+        """
+        The facility to create the volume in
+        """
+        return pulumi.get(self, "facility")
+
+    @facility.setter
+    def facility(self, value: pulumi.Input[Union[str, 'Facility']]):
+        pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter
+    def plan(self) -> pulumi.Input[str]:
+        """
+        The service plan slug of the volume
+        """
+        return pulumi.get(self, "plan")
+
+    @plan.setter
+    def plan(self, value: pulumi.Input[str]):
+        pulumi.set(self, "plan", value)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> pulumi.Input[str]:
+        """
+        The metal project ID to deploy the volume in
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter
+    def size(self) -> pulumi.Input[int]:
+        """
+        The size in GB to make the volume
+        """
+        return pulumi.get(self, "size")
+
+    @size.setter
+    def size(self, value: pulumi.Input[int]):
+        pulumi.set(self, "size", value)
+
+    @property
+    @pulumi.getter(name="billingCycle")
+    def billing_cycle(self) -> Optional[pulumi.Input[Union[str, 'BillingCycle']]]:
+        """
+        The billing cycle, defaults to "hourly"
+        """
+        return pulumi.get(self, "billing_cycle")
+
+    @billing_cycle.setter
+    def billing_cycle(self, value: Optional[pulumi.Input[Union[str, 'BillingCycle']]]):
+        pulumi.set(self, "billing_cycle", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Optional description for the volume
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def locked(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Lock or unlock the volume
+        """
+        return pulumi.get(self, "locked")
+
+    @locked.setter
+    def locked(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "locked", value)
+
+    @property
+    @pulumi.getter(name="snapshotPolicies")
+    def snapshot_policies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]]:
+        """
+        Optional list of snapshot policies
+        """
+        return pulumi.get(self, "snapshot_policies")
+
+    @snapshot_policies.setter
+    def snapshot_policies(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]]):
+        pulumi.set(self, "snapshot_policies", value)
 
 
 class Volume(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -42,6 +174,40 @@ class Volume(pulumi.CustomResource):
         :param pulumi.Input[int] size: The size in GB to make the volume
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VolumeSnapshotPolicyArgs']]]] snapshot_policies: Optional list of snapshot policies
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: VolumeArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        Create a Volume resource with the given unique name, props, and options.
+        :param str resource_name: The name of the resource.
+        :param VolumeArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(VolumeArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 locked: Optional[pulumi.Input[bool]] = None,
+                 plan: Optional[pulumi.Input[str]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 size: Optional[pulumi.Input[int]] = None,
+                 snapshot_policies: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VolumeSnapshotPolicyArgs']]]]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__
