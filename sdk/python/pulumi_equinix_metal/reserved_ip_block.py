@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 from ._enums import *
 
 __all__ = ['ReservedIpBlockArgs', 'ReservedIpBlock']
@@ -83,6 +83,254 @@ class ReservedIpBlockArgs:
     @facility.setter
     def facility(self, value: Optional[pulumi.Input[Union[str, 'Facility']]]):
         pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[Union[str, 'IpBlockType']]]:
+        """
+        Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[Union[str, 'IpBlockType']]]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class _ReservedIpBlockState:
+    def __init__(__self__, *,
+                 address: Optional[pulumi.Input[str]] = None,
+                 address_family: Optional[pulumi.Input[int]] = None,
+                 cidr: Optional[pulumi.Input[int]] = None,
+                 cidr_notation: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 gateway: Optional[pulumi.Input[str]] = None,
+                 global_: Optional[pulumi.Input[bool]] = None,
+                 manageable: Optional[pulumi.Input[bool]] = None,
+                 management: Optional[pulumi.Input[bool]] = None,
+                 netmask: Optional[pulumi.Input[str]] = None,
+                 network: Optional[pulumi.Input[str]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 public: Optional[pulumi.Input[bool]] = None,
+                 quantity: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None):
+        """
+        Input properties used for looking up and filtering ReservedIpBlock resources.
+        :param pulumi.Input[int] address_family: Address family as integer (4 or 6)
+        :param pulumi.Input[int] cidr: length of CIDR prefix of the block as integer
+        :param pulumi.Input[str] cidr_notation: Address and mask in CIDR notation, e.g. "147.229.15.30/31"
+        :param pulumi.Input[str] description: Arbitrary description
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        :param pulumi.Input[bool] global_: boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
+        :param pulumi.Input[str] netmask: Mask in decimal notation, e.g. "255.255.255.0"
+        :param pulumi.Input[str] network: Network IP address portion of the block specification
+        :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
+        :param pulumi.Input[bool] public: boolean flag whether addresses from a block are public
+        :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
+        :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
+        """
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if address_family is not None:
+            pulumi.set(__self__, "address_family", address_family)
+        if cidr is not None:
+            pulumi.set(__self__, "cidr", cidr)
+        if cidr_notation is not None:
+            pulumi.set(__self__, "cidr_notation", cidr_notation)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if facility is not None:
+            pulumi.set(__self__, "facility", facility)
+        if gateway is not None:
+            pulumi.set(__self__, "gateway", gateway)
+        if global_ is not None:
+            pulumi.set(__self__, "global_", global_)
+        if manageable is not None:
+            pulumi.set(__self__, "manageable", manageable)
+        if management is not None:
+            pulumi.set(__self__, "management", management)
+        if netmask is not None:
+            pulumi.set(__self__, "netmask", netmask)
+        if network is not None:
+            pulumi.set(__self__, "network", network)
+        if project_id is not None:
+            pulumi.set(__self__, "project_id", project_id)
+        if public is not None:
+            pulumi.set(__self__, "public", public)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "address")
+
+    @address.setter
+    def address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "address", value)
+
+    @property
+    @pulumi.getter(name="addressFamily")
+    def address_family(self) -> Optional[pulumi.Input[int]]:
+        """
+        Address family as integer (4 or 6)
+        """
+        return pulumi.get(self, "address_family")
+
+    @address_family.setter
+    def address_family(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "address_family", value)
+
+    @property
+    @pulumi.getter
+    def cidr(self) -> Optional[pulumi.Input[int]]:
+        """
+        length of CIDR prefix of the block as integer
+        """
+        return pulumi.get(self, "cidr")
+
+    @cidr.setter
+    def cidr(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "cidr", value)
+
+    @property
+    @pulumi.getter(name="cidrNotation")
+    def cidr_notation(self) -> Optional[pulumi.Input[str]]:
+        """
+        Address and mask in CIDR notation, e.g. "147.229.15.30/31"
+        """
+        return pulumi.get(self, "cidr_notation")
+
+    @cidr_notation.setter
+    def cidr_notation(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cidr_notation", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Arbitrary description
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
+        """
+        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        """
+        return pulumi.get(self, "facility")
+
+    @facility.setter
+    def facility(self, value: Optional[pulumi.Input[Union[str, 'Facility']]]):
+        pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter
+    def gateway(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "gateway")
+
+    @gateway.setter
+    def gateway(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "gateway", value)
+
+    @property
+    @pulumi.getter(name="global")
+    def global_(self) -> Optional[pulumi.Input[bool]]:
+        """
+        boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
+        """
+        return pulumi.get(self, "global_")
+
+    @global_.setter
+    def global_(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "global_", value)
+
+    @property
+    @pulumi.getter
+    def manageable(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "manageable")
+
+    @manageable.setter
+    def manageable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "manageable", value)
+
+    @property
+    @pulumi.getter
+    def management(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "management")
+
+    @management.setter
+    def management(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "management", value)
+
+    @property
+    @pulumi.getter
+    def netmask(self) -> Optional[pulumi.Input[str]]:
+        """
+        Mask in decimal notation, e.g. "255.255.255.0"
+        """
+        return pulumi.get(self, "netmask")
+
+    @netmask.setter
+    def netmask(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "netmask", value)
+
+    @property
+    @pulumi.getter
+    def network(self) -> Optional[pulumi.Input[str]]:
+        """
+        Network IP address portion of the block specification
+        """
+        return pulumi.get(self, "network")
+
+    @network.setter
+    def network(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "network", value)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The metal project ID where to allocate the address block
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter
+    def public(self) -> Optional[pulumi.Input[bool]]:
+        """
+        boolean flag whether addresses from a block are public
+        """
+        return pulumi.get(self, "public")
+
+    @public.setter
+    def public(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "public", value)
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> Optional[pulumi.Input[int]]:
+        """
+        The number of allocated /32 addresses, a power of 2
+        """
+        return pulumi.get(self, "quantity")
+
+    @quantity.setter
+    def quantity(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "quantity", value)
 
     @property
     @pulumi.getter
@@ -292,28 +540,28 @@ class ReservedIpBlock(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ReservedIpBlockArgs.__new__(ReservedIpBlockArgs)
 
-            __props__['description'] = description
-            __props__['facility'] = facility
+            __props__.__dict__["description"] = description
+            __props__.__dict__["facility"] = facility
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
-            __props__['project_id'] = project_id
+            __props__.__dict__["project_id"] = project_id
             if quantity is None and not opts.urn:
                 raise TypeError("Missing required property 'quantity'")
-            __props__['quantity'] = quantity
-            __props__['type'] = type
-            __props__['address'] = None
-            __props__['address_family'] = None
-            __props__['cidr'] = None
-            __props__['cidr_notation'] = None
-            __props__['gateway'] = None
-            __props__['global_'] = None
-            __props__['manageable'] = None
-            __props__['management'] = None
-            __props__['netmask'] = None
-            __props__['network'] = None
-            __props__['public'] = None
+            __props__.__dict__["quantity"] = quantity
+            __props__.__dict__["type"] = type
+            __props__.__dict__["address"] = None
+            __props__.__dict__["address_family"] = None
+            __props__.__dict__["cidr"] = None
+            __props__.__dict__["cidr_notation"] = None
+            __props__.__dict__["gateway"] = None
+            __props__.__dict__["global_"] = None
+            __props__.__dict__["manageable"] = None
+            __props__.__dict__["management"] = None
+            __props__.__dict__["netmask"] = None
+            __props__.__dict__["network"] = None
+            __props__.__dict__["public"] = None
         super(ReservedIpBlock, __self__).__init__(
             'equinix-metal:index/reservedIpBlock:ReservedIpBlock',
             resource_name,
@@ -362,24 +610,24 @@ class ReservedIpBlock(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = _ReservedIpBlockState.__new__(_ReservedIpBlockState)
 
-        __props__["address"] = address
-        __props__["address_family"] = address_family
-        __props__["cidr"] = cidr
-        __props__["cidr_notation"] = cidr_notation
-        __props__["description"] = description
-        __props__["facility"] = facility
-        __props__["gateway"] = gateway
-        __props__["global_"] = global_
-        __props__["manageable"] = manageable
-        __props__["management"] = management
-        __props__["netmask"] = netmask
-        __props__["network"] = network
-        __props__["project_id"] = project_id
-        __props__["public"] = public
-        __props__["quantity"] = quantity
-        __props__["type"] = type
+        __props__.__dict__["address"] = address
+        __props__.__dict__["address_family"] = address_family
+        __props__.__dict__["cidr"] = cidr
+        __props__.__dict__["cidr_notation"] = cidr_notation
+        __props__.__dict__["description"] = description
+        __props__.__dict__["facility"] = facility
+        __props__.__dict__["gateway"] = gateway
+        __props__.__dict__["global_"] = global_
+        __props__.__dict__["manageable"] = manageable
+        __props__.__dict__["management"] = management
+        __props__.__dict__["netmask"] = netmask
+        __props__.__dict__["network"] = network
+        __props__.__dict__["project_id"] = project_id
+        __props__.__dict__["public"] = public
+        __props__.__dict__["quantity"] = quantity
+        __props__.__dict__["type"] = type
         return ReservedIpBlock(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -497,10 +745,4 @@ class ReservedIpBlock(pulumi.CustomResource):
         Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
         return pulumi.get(self, "type")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

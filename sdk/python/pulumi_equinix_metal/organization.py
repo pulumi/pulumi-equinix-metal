@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 
 __all__ = ['OrganizationArgs', 'Organization']
 
@@ -84,6 +84,118 @@ class OrganizationArgs:
     @twitter.setter
     def twitter(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "twitter", value)
+
+    @property
+    @pulumi.getter
+    def website(self) -> Optional[pulumi.Input[str]]:
+        """
+        Website link
+        """
+        return pulumi.get(self, "website")
+
+    @website.setter
+    def website(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "website", value)
+
+
+@pulumi.input_type
+class _OrganizationState:
+    def __init__(__self__, *,
+                 created: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 logo: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 twitter: Optional[pulumi.Input[str]] = None,
+                 updated: Optional[pulumi.Input[str]] = None,
+                 website: Optional[pulumi.Input[str]] = None):
+        """
+        Input properties used for looking up and filtering Organization resources.
+        :param pulumi.Input[str] description: Description string
+        :param pulumi.Input[str] logo: Logo URL
+        :param pulumi.Input[str] name: The name of the Organization
+        :param pulumi.Input[str] twitter: Twitter handle
+        :param pulumi.Input[str] website: Website link
+        """
+        if created is not None:
+            pulumi.set(__self__, "created", created)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if logo is not None:
+            pulumi.set(__self__, "logo", logo)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if twitter is not None:
+            pulumi.set(__self__, "twitter", twitter)
+        if updated is not None:
+            pulumi.set(__self__, "updated", updated)
+        if website is not None:
+            pulumi.set(__self__, "website", website)
+
+    @property
+    @pulumi.getter
+    def created(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "created")
+
+    @created.setter
+    def created(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "created", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Description string
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def logo(self) -> Optional[pulumi.Input[str]]:
+        """
+        Logo URL
+        """
+        return pulumi.get(self, "logo")
+
+    @logo.setter
+    def logo(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "logo", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the Organization
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def twitter(self) -> Optional[pulumi.Input[str]]:
+        """
+        Twitter handle
+        """
+        return pulumi.get(self, "twitter")
+
+    @twitter.setter
+    def twitter(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "twitter", value)
+
+    @property
+    @pulumi.getter
+    def updated(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "updated")
+
+    @updated.setter
+    def updated(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "updated", value)
 
     @property
     @pulumi.getter
@@ -189,15 +301,15 @@ class Organization(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = OrganizationArgs.__new__(OrganizationArgs)
 
-            __props__['description'] = description
-            __props__['logo'] = logo
-            __props__['name'] = name
-            __props__['twitter'] = twitter
-            __props__['website'] = website
-            __props__['created'] = None
-            __props__['updated'] = None
+            __props__.__dict__["description"] = description
+            __props__.__dict__["logo"] = logo
+            __props__.__dict__["name"] = name
+            __props__.__dict__["twitter"] = twitter
+            __props__.__dict__["website"] = website
+            __props__.__dict__["created"] = None
+            __props__.__dict__["updated"] = None
         super(Organization, __self__).__init__(
             'equinix-metal:index/organization:Organization',
             resource_name,
@@ -230,15 +342,15 @@ class Organization(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = _OrganizationState.__new__(_OrganizationState)
 
-        __props__["created"] = created
-        __props__["description"] = description
-        __props__["logo"] = logo
-        __props__["name"] = name
-        __props__["twitter"] = twitter
-        __props__["updated"] = updated
-        __props__["website"] = website
+        __props__.__dict__["created"] = created
+        __props__.__dict__["description"] = description
+        __props__.__dict__["logo"] = logo
+        __props__.__dict__["name"] = name
+        __props__.__dict__["twitter"] = twitter
+        __props__.__dict__["updated"] = updated
+        __props__.__dict__["website"] = website
         return Organization(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -290,10 +402,4 @@ class Organization(pulumi.CustomResource):
         Website link
         """
         return pulumi.get(self, "website")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 
 __all__ = ['BgpSessionArgs', 'BgpSession']
 
@@ -62,6 +62,74 @@ class BgpSessionArgs:
     @default_route.setter
     def default_route(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "default_route", value)
+
+
+@pulumi.input_type
+class _BgpSessionState:
+    def __init__(__self__, *,
+                 address_family: Optional[pulumi.Input[str]] = None,
+                 default_route: Optional[pulumi.Input[bool]] = None,
+                 device_id: Optional[pulumi.Input[str]] = None,
+                 status: Optional[pulumi.Input[str]] = None):
+        """
+        Input properties used for looking up and filtering BgpSession resources.
+        :param pulumi.Input[str] address_family: `ipv4` or `ipv6`
+        :param pulumi.Input[bool] default_route: Boolean flag to set the default route policy. False by default.
+        :param pulumi.Input[str] device_id: ID of device
+        """
+        if address_family is not None:
+            pulumi.set(__self__, "address_family", address_family)
+        if default_route is not None:
+            pulumi.set(__self__, "default_route", default_route)
+        if device_id is not None:
+            pulumi.set(__self__, "device_id", device_id)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="addressFamily")
+    def address_family(self) -> Optional[pulumi.Input[str]]:
+        """
+        `ipv4` or `ipv6`
+        """
+        return pulumi.get(self, "address_family")
+
+    @address_family.setter
+    def address_family(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "address_family", value)
+
+    @property
+    @pulumi.getter(name="defaultRoute")
+    def default_route(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Boolean flag to set the default route policy. False by default.
+        """
+        return pulumi.get(self, "default_route")
+
+    @default_route.setter
+    def default_route(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "default_route", value)
+
+    @property
+    @pulumi.getter(name="deviceId")
+    def device_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        ID of device
+        """
+        return pulumi.get(self, "device_id")
+
+    @device_id.setter
+    def device_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "device_id", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "status", value)
 
 
 class BgpSession(pulumi.CustomResource):
@@ -137,16 +205,16 @@ class BgpSession(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = BgpSessionArgs.__new__(BgpSessionArgs)
 
             if address_family is None and not opts.urn:
                 raise TypeError("Missing required property 'address_family'")
-            __props__['address_family'] = address_family
-            __props__['default_route'] = default_route
+            __props__.__dict__["address_family"] = address_family
+            __props__.__dict__["default_route"] = default_route
             if device_id is None and not opts.urn:
                 raise TypeError("Missing required property 'device_id'")
-            __props__['device_id'] = device_id
-            __props__['status'] = None
+            __props__.__dict__["device_id"] = device_id
+            __props__.__dict__["status"] = None
         super(BgpSession, __self__).__init__(
             'equinix-metal:index/bgpSession:BgpSession',
             resource_name,
@@ -174,12 +242,12 @@ class BgpSession(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = _BgpSessionState.__new__(_BgpSessionState)
 
-        __props__["address_family"] = address_family
-        __props__["default_route"] = default_route
-        __props__["device_id"] = device_id
-        __props__["status"] = status
+        __props__.__dict__["address_family"] = address_family
+        __props__.__dict__["default_route"] = default_route
+        __props__.__dict__["device_id"] = device_id
+        __props__.__dict__["status"] = status
         return BgpSession(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -210,10 +278,4 @@ class BgpSession(pulumi.CustomResource):
     @pulumi.getter
     def status(self) -> pulumi.Output[str]:
         return pulumi.get(self, "status")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

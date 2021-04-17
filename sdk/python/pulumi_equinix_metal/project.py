@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 from . import outputs
 from ._inputs import *
 
@@ -100,6 +100,126 @@ class ProjectArgs:
         pulumi.set(self, "payment_method_id", value)
 
 
+@pulumi.input_type
+class _ProjectState:
+    def __init__(__self__, *,
+                 backend_transfer: Optional[pulumi.Input[bool]] = None,
+                 bgp_config: Optional[pulumi.Input['ProjectBgpConfigArgs']] = None,
+                 created: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 organization_id: Optional[pulumi.Input[str]] = None,
+                 payment_method_id: Optional[pulumi.Input[str]] = None,
+                 updated: Optional[pulumi.Input[str]] = None):
+        """
+        Input properties used for looking up and filtering Project resources.
+        :param pulumi.Input[bool] backend_transfer: Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
+        :param pulumi.Input['ProjectBgpConfigArgs'] bgp_config: Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+        :param pulumi.Input[str] created: The timestamp for when the project was created
+        :param pulumi.Input[str] name: The name of the project
+        :param pulumi.Input[str] organization_id: The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
+        :param pulumi.Input[str] payment_method_id: The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
+        :param pulumi.Input[str] updated: The timestamp for the last time the project was updated
+        """
+        if backend_transfer is not None:
+            pulumi.set(__self__, "backend_transfer", backend_transfer)
+        if bgp_config is not None:
+            pulumi.set(__self__, "bgp_config", bgp_config)
+        if created is not None:
+            pulumi.set(__self__, "created", created)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if organization_id is not None:
+            pulumi.set(__self__, "organization_id", organization_id)
+        if payment_method_id is not None:
+            pulumi.set(__self__, "payment_method_id", payment_method_id)
+        if updated is not None:
+            pulumi.set(__self__, "updated", updated)
+
+    @property
+    @pulumi.getter(name="backendTransfer")
+    def backend_transfer(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
+        """
+        return pulumi.get(self, "backend_transfer")
+
+    @backend_transfer.setter
+    def backend_transfer(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "backend_transfer", value)
+
+    @property
+    @pulumi.getter(name="bgpConfig")
+    def bgp_config(self) -> Optional[pulumi.Input['ProjectBgpConfigArgs']]:
+        """
+        Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+        """
+        return pulumi.get(self, "bgp_config")
+
+    @bgp_config.setter
+    def bgp_config(self, value: Optional[pulumi.Input['ProjectBgpConfigArgs']]):
+        pulumi.set(self, "bgp_config", value)
+
+    @property
+    @pulumi.getter
+    def created(self) -> Optional[pulumi.Input[str]]:
+        """
+        The timestamp for when the project was created
+        """
+        return pulumi.get(self, "created")
+
+    @created.setter
+    def created(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "created", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the project
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
+        """
+        return pulumi.get(self, "organization_id")
+
+    @organization_id.setter
+    def organization_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "organization_id", value)
+
+    @property
+    @pulumi.getter(name="paymentMethodId")
+    def payment_method_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
+        """
+        return pulumi.get(self, "payment_method_id")
+
+    @payment_method_id.setter
+    def payment_method_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "payment_method_id", value)
+
+    @property
+    @pulumi.getter
+    def updated(self) -> Optional[pulumi.Input[str]]:
+        """
+        The timestamp for the last time the project was updated
+        """
+        return pulumi.get(self, "updated")
+
+    @updated.setter
+    def updated(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "updated", value)
+
+
 class Project(pulumi.CustomResource):
     @overload
     def __init__(__self__,
@@ -169,15 +289,15 @@ class Project(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ProjectArgs.__new__(ProjectArgs)
 
-            __props__['backend_transfer'] = backend_transfer
-            __props__['bgp_config'] = bgp_config
-            __props__['name'] = name
-            __props__['organization_id'] = organization_id
-            __props__['payment_method_id'] = payment_method_id
-            __props__['created'] = None
-            __props__['updated'] = None
+            __props__.__dict__["backend_transfer"] = backend_transfer
+            __props__.__dict__["bgp_config"] = bgp_config
+            __props__.__dict__["name"] = name
+            __props__.__dict__["organization_id"] = organization_id
+            __props__.__dict__["payment_method_id"] = payment_method_id
+            __props__.__dict__["created"] = None
+            __props__.__dict__["updated"] = None
         super(Project, __self__).__init__(
             'equinix-metal:index/project:Project',
             resource_name,
@@ -212,15 +332,15 @@ class Project(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = _ProjectState.__new__(_ProjectState)
 
-        __props__["backend_transfer"] = backend_transfer
-        __props__["bgp_config"] = bgp_config
-        __props__["created"] = created
-        __props__["name"] = name
-        __props__["organization_id"] = organization_id
-        __props__["payment_method_id"] = payment_method_id
-        __props__["updated"] = updated
+        __props__.__dict__["backend_transfer"] = backend_transfer
+        __props__.__dict__["bgp_config"] = bgp_config
+        __props__.__dict__["created"] = created
+        __props__.__dict__["name"] = name
+        __props__.__dict__["organization_id"] = organization_id
+        __props__.__dict__["payment_method_id"] = payment_method_id
+        __props__.__dict__["updated"] = updated
         return Project(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -278,10 +398,4 @@ class Project(pulumi.CustomResource):
         The timestamp for the last time the project was updated
         """
         return pulumi.get(self, "updated")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

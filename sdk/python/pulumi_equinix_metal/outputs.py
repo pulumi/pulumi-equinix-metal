@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 from . import outputs
 from ._enums import *
 
@@ -29,6 +29,23 @@ __all__ = [
 
 @pulumi.output_type
 class DeviceIpAddress(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "reservationIds":
+            suggest = "reservation_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceIpAddress. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceIpAddress.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceIpAddress.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  type: str,
                  cidr: Optional[int] = None,
@@ -67,9 +84,6 @@ class DeviceIpAddress(dict):
         String of UUID of IP block reservations from which the public IPv4 address should be taken.
         """
         return pulumi.get(self, "reservation_ids")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -140,9 +154,6 @@ class DeviceNetwork(dict):
         """
         return pulumi.get(self, "public")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DevicePort(dict):
@@ -212,12 +223,28 @@ class DevicePort(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ProjectBgpConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "deploymentType":
+            suggest = "deployment_type"
+        elif key == "maxPrefix":
+            suggest = "max_prefix"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectBgpConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectBgpConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectBgpConfig.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  asn: int,
                  deployment_type: str,
@@ -280,12 +307,38 @@ class ProjectBgpConfig(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SpotMarketRequestInstanceParameters(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "billingCycle":
+            suggest = "billing_cycle"
+        elif key == "operatingSystem":
+            suggest = "operating_system"
+        elif key == "alwaysPxe":
+            suggest = "always_pxe"
+        elif key == "ipxeScriptUrl":
+            suggest = "ipxe_script_url"
+        elif key == "projectSshKeys":
+            suggest = "project_ssh_keys"
+        elif key == "termintationTime":
+            suggest = "termintation_time"
+        elif key == "userSshKeys":
+            suggest = "user_ssh_keys"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SpotMarketRequestInstanceParameters. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SpotMarketRequestInstanceParameters.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SpotMarketRequestInstanceParameters.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  billing_cycle: str,
                  hostname: str,
@@ -404,9 +457,6 @@ class SpotMarketRequestInstanceParameters(dict):
     def userdata(self) -> Optional[str]:
         return pulumi.get(self, "userdata")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachment(dict):
@@ -420,12 +470,28 @@ class VolumeAttachment(dict):
     def href(self) -> Optional[str]:
         return pulumi.get(self, "href")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeSnapshotPolicy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "snapshotCount":
+            suggest = "snapshot_count"
+        elif key == "snapshotFrequency":
+            suggest = "snapshot_frequency"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeSnapshotPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeSnapshotPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeSnapshotPolicy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  snapshot_count: int,
                  snapshot_frequency: str):
@@ -441,9 +507,6 @@ class VolumeSnapshotPolicy(dict):
     @pulumi.getter(name="snapshotFrequency")
     def snapshot_frequency(self) -> str:
         return pulumi.get(self, "snapshot_frequency")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type

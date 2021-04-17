@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 
 __all__ = ['PortVlanAttachmentArgs', 'PortVlanAttachment']
 
@@ -93,6 +93,118 @@ class PortVlanAttachmentArgs:
     @native.setter
     def native(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "native", value)
+
+
+@pulumi.input_type
+class _PortVlanAttachmentState:
+    def __init__(__self__, *,
+                 device_id: Optional[pulumi.Input[str]] = None,
+                 force_bond: Optional[pulumi.Input[bool]] = None,
+                 native: Optional[pulumi.Input[bool]] = None,
+                 port_id: Optional[pulumi.Input[str]] = None,
+                 port_name: Optional[pulumi.Input[str]] = None,
+                 vlan_id: Optional[pulumi.Input[str]] = None,
+                 vlan_vnid: Optional[pulumi.Input[int]] = None):
+        """
+        Input properties used for looking up and filtering PortVlanAttachment resources.
+        :param pulumi.Input[str] device_id: ID of device to be assigned to the VLAN
+        :param pulumi.Input[bool] force_bond: Add port back to the bond when this resource is removed. Default is false.
+        :param pulumi.Input[bool] native: Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `depends_on` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
+        :param pulumi.Input[str] port_name: Name of network port to be assigned to the VLAN
+        :param pulumi.Input[int] vlan_vnid: VXLAN Network Identifier, integer
+        """
+        if device_id is not None:
+            pulumi.set(__self__, "device_id", device_id)
+        if force_bond is not None:
+            pulumi.set(__self__, "force_bond", force_bond)
+        if native is not None:
+            pulumi.set(__self__, "native", native)
+        if port_id is not None:
+            pulumi.set(__self__, "port_id", port_id)
+        if port_name is not None:
+            pulumi.set(__self__, "port_name", port_name)
+        if vlan_id is not None:
+            pulumi.set(__self__, "vlan_id", vlan_id)
+        if vlan_vnid is not None:
+            pulumi.set(__self__, "vlan_vnid", vlan_vnid)
+
+    @property
+    @pulumi.getter(name="deviceId")
+    def device_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        ID of device to be assigned to the VLAN
+        """
+        return pulumi.get(self, "device_id")
+
+    @device_id.setter
+    def device_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "device_id", value)
+
+    @property
+    @pulumi.getter(name="forceBond")
+    def force_bond(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Add port back to the bond when this resource is removed. Default is false.
+        """
+        return pulumi.get(self, "force_bond")
+
+    @force_bond.setter
+    def force_bond(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "force_bond", value)
+
+    @property
+    @pulumi.getter
+    def native(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `depends_on` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
+        """
+        return pulumi.get(self, "native")
+
+    @native.setter
+    def native(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "native", value)
+
+    @property
+    @pulumi.getter(name="portId")
+    def port_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "port_id")
+
+    @port_id.setter
+    def port_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "port_id", value)
+
+    @property
+    @pulumi.getter(name="portName")
+    def port_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Name of network port to be assigned to the VLAN
+        """
+        return pulumi.get(self, "port_name")
+
+    @port_name.setter
+    def port_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "port_name", value)
+
+    @property
+    @pulumi.getter(name="vlanId")
+    def vlan_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "vlan_id")
+
+    @vlan_id.setter
+    def vlan_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "vlan_id", value)
+
+    @property
+    @pulumi.getter(name="vlanVnid")
+    def vlan_vnid(self) -> Optional[pulumi.Input[int]]:
+        """
+        VXLAN Network Identifier, integer
+        """
+        return pulumi.get(self, "vlan_vnid")
+
+    @vlan_vnid.setter
+    def vlan_vnid(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "vlan_vnid", value)
 
 
 class PortVlanAttachment(pulumi.CustomResource):
@@ -318,21 +430,21 @@ class PortVlanAttachment(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = PortVlanAttachmentArgs.__new__(PortVlanAttachmentArgs)
 
             if device_id is None and not opts.urn:
                 raise TypeError("Missing required property 'device_id'")
-            __props__['device_id'] = device_id
-            __props__['force_bond'] = force_bond
-            __props__['native'] = native
+            __props__.__dict__["device_id"] = device_id
+            __props__.__dict__["force_bond"] = force_bond
+            __props__.__dict__["native"] = native
             if port_name is None and not opts.urn:
                 raise TypeError("Missing required property 'port_name'")
-            __props__['port_name'] = port_name
+            __props__.__dict__["port_name"] = port_name
             if vlan_vnid is None and not opts.urn:
                 raise TypeError("Missing required property 'vlan_vnid'")
-            __props__['vlan_vnid'] = vlan_vnid
-            __props__['port_id'] = None
-            __props__['vlan_id'] = None
+            __props__.__dict__["vlan_vnid"] = vlan_vnid
+            __props__.__dict__["port_id"] = None
+            __props__.__dict__["vlan_id"] = None
         super(PortVlanAttachment, __self__).__init__(
             'equinix-metal:index/portVlanAttachment:PortVlanAttachment',
             resource_name,
@@ -365,15 +477,15 @@ class PortVlanAttachment(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = _PortVlanAttachmentState.__new__(_PortVlanAttachmentState)
 
-        __props__["device_id"] = device_id
-        __props__["force_bond"] = force_bond
-        __props__["native"] = native
-        __props__["port_id"] = port_id
-        __props__["port_name"] = port_name
-        __props__["vlan_id"] = vlan_id
-        __props__["vlan_vnid"] = vlan_vnid
+        __props__.__dict__["device_id"] = device_id
+        __props__.__dict__["force_bond"] = force_bond
+        __props__.__dict__["native"] = native
+        __props__.__dict__["port_id"] = port_id
+        __props__.__dict__["port_name"] = port_name
+        __props__.__dict__["vlan_id"] = vlan_id
+        __props__.__dict__["vlan_vnid"] = vlan_vnid
         return PortVlanAttachment(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -425,10 +537,4 @@ class PortVlanAttachment(pulumi.CustomResource):
         VXLAN Network Identifier, integer
         """
         return pulumi.get(self, "vlan_vnid")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

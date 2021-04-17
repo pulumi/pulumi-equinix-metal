@@ -15,10 +15,10 @@
 package main
 
 import (
-	"github.com/pulumi/pulumi-terraform-bridge/v2/pkg/tfgen"
+	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfgen"
 
-	equinixMetal "github.com/pulumi/pulumi-equinix-metal/provider"
-	"github.com/pulumi/pulumi-equinix-metal/provider/pkg/version"
+	equinixMetal "github.com/pulumi/pulumi-equinix-metal/provider/v2"
+	"github.com/pulumi/pulumi-equinix-metal/provider/v2/pkg/version"
 )
 
 func main() {
