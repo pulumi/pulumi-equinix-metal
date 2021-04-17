@@ -4,7 +4,7 @@
 package equinix
 
 import (
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func LookupSpotMarketRequest(ctx *pulumi.Context, args *LookupSpotMarketRequestArgs, opts ...pulumi.InvokeOption) (*LookupSpotMarketRequestResult, error) {

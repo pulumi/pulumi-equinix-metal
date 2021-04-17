@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 from ._enums import *
 
 __all__ = ['VlanArgs', 'Vlan']
@@ -63,6 +63,78 @@ class VlanArgs:
     @description.setter
     def description(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "description", value)
+
+
+@pulumi.input_type
+class _VlanState:
+    def __init__(__self__, *,
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 vxlan: Optional[pulumi.Input[int]] = None):
+        """
+        Input properties used for looking up and filtering Vlan resources.
+        :param pulumi.Input[str] description: Description string
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
+        :param pulumi.Input[str] project_id: ID of parent project
+        :param pulumi.Input[int] vxlan: VXLAN segment ID
+        """
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if facility is not None:
+            pulumi.set(__self__, "facility", facility)
+        if project_id is not None:
+            pulumi.set(__self__, "project_id", project_id)
+        if vxlan is not None:
+            pulumi.set(__self__, "vxlan", vxlan)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Description string
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
+        """
+        Facility where to create the VLAN
+        """
+        return pulumi.get(self, "facility")
+
+    @facility.setter
+    def facility(self, value: Optional[pulumi.Input[Union[str, 'Facility']]]):
+        pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        ID of parent project
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter
+    def vxlan(self) -> Optional[pulumi.Input[int]]:
+        """
+        VXLAN segment ID
+        """
+        return pulumi.get(self, "vxlan")
+
+    @vxlan.setter
+    def vxlan(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "vxlan", value)
 
 
 class Vlan(pulumi.CustomResource):
@@ -166,16 +238,16 @@ class Vlan(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = VlanArgs.__new__(VlanArgs)
 
-            __props__['description'] = description
+            __props__.__dict__["description"] = description
             if facility is None and not opts.urn:
                 raise TypeError("Missing required property 'facility'")
-            __props__['facility'] = facility
+            __props__.__dict__["facility"] = facility
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
-            __props__['project_id'] = project_id
-            __props__['vxlan'] = None
+            __props__.__dict__["project_id"] = project_id
+            __props__.__dict__["vxlan"] = None
         super(Vlan, __self__).__init__(
             'equinix-metal:index/vlan:Vlan',
             resource_name,
@@ -204,12 +276,12 @@ class Vlan(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = _VlanState.__new__(_VlanState)
 
-        __props__["description"] = description
-        __props__["facility"] = facility
-        __props__["project_id"] = project_id
-        __props__["vxlan"] = vxlan
+        __props__.__dict__["description"] = description
+        __props__.__dict__["facility"] = facility
+        __props__.__dict__["project_id"] = project_id
+        __props__.__dict__["vxlan"] = vxlan
         return Vlan(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -243,10 +315,4 @@ class Vlan(pulumi.CustomResource):
         VXLAN segment ID
         """
         return pulumi.get(self, "vxlan")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

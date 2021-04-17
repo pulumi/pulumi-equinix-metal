@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities, _tables
+from . import _utilities
 from . import outputs
 from ._enums import *
 from ._inputs import *
@@ -145,6 +145,222 @@ class VolumeArgs:
         pulumi.set(self, "snapshot_policies", value)
 
 
+@pulumi.input_type
+class _VolumeState:
+    def __init__(__self__, *,
+                 attachments: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeAttachmentArgs']]]] = None,
+                 billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+                 created: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 locked: Optional[pulumi.Input[bool]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 plan: Optional[pulumi.Input[str]] = None,
+                 project_id: Optional[pulumi.Input[str]] = None,
+                 size: Optional[pulumi.Input[int]] = None,
+                 snapshot_policies: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]] = None,
+                 state: Optional[pulumi.Input[str]] = None,
+                 updated: Optional[pulumi.Input[str]] = None):
+        """
+        Input properties used for looking up and filtering Volume resources.
+        :param pulumi.Input[Sequence[pulumi.Input['VolumeAttachmentArgs']]] attachments: A list of attachments, each with it's own `href` attribute
+        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: The billing cycle, defaults to "hourly"
+        :param pulumi.Input[str] created: The timestamp for when the volume was created
+        :param pulumi.Input[str] description: Optional description for the volume
+        :param pulumi.Input[Union[str, 'Facility']] facility: The facility to create the volume in
+        :param pulumi.Input[bool] locked: Lock or unlock the volume
+        :param pulumi.Input[str] name: The name of the volume
+        :param pulumi.Input[str] plan: The service plan slug of the volume
+        :param pulumi.Input[str] project_id: The metal project ID to deploy the volume in
+        :param pulumi.Input[int] size: The size in GB to make the volume
+        :param pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]] snapshot_policies: Optional list of snapshot policies
+        :param pulumi.Input[str] state: The state of the volume
+        :param pulumi.Input[str] updated: The timestamp for the last time the volume was updated
+        """
+        if attachments is not None:
+            pulumi.set(__self__, "attachments", attachments)
+        if billing_cycle is not None:
+            pulumi.set(__self__, "billing_cycle", billing_cycle)
+        if created is not None:
+            pulumi.set(__self__, "created", created)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if facility is not None:
+            pulumi.set(__self__, "facility", facility)
+        if locked is not None:
+            pulumi.set(__self__, "locked", locked)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if plan is not None:
+            pulumi.set(__self__, "plan", plan)
+        if project_id is not None:
+            pulumi.set(__self__, "project_id", project_id)
+        if size is not None:
+            pulumi.set(__self__, "size", size)
+        if snapshot_policies is not None:
+            pulumi.set(__self__, "snapshot_policies", snapshot_policies)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+        if updated is not None:
+            pulumi.set(__self__, "updated", updated)
+
+    @property
+    @pulumi.getter
+    def attachments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VolumeAttachmentArgs']]]]:
+        """
+        A list of attachments, each with it's own `href` attribute
+        """
+        return pulumi.get(self, "attachments")
+
+    @attachments.setter
+    def attachments(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeAttachmentArgs']]]]):
+        pulumi.set(self, "attachments", value)
+
+    @property
+    @pulumi.getter(name="billingCycle")
+    def billing_cycle(self) -> Optional[pulumi.Input[Union[str, 'BillingCycle']]]:
+        """
+        The billing cycle, defaults to "hourly"
+        """
+        return pulumi.get(self, "billing_cycle")
+
+    @billing_cycle.setter
+    def billing_cycle(self, value: Optional[pulumi.Input[Union[str, 'BillingCycle']]]):
+        pulumi.set(self, "billing_cycle", value)
+
+    @property
+    @pulumi.getter
+    def created(self) -> Optional[pulumi.Input[str]]:
+        """
+        The timestamp for when the volume was created
+        """
+        return pulumi.get(self, "created")
+
+    @created.setter
+    def created(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "created", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Optional description for the volume
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
+        """
+        The facility to create the volume in
+        """
+        return pulumi.get(self, "facility")
+
+    @facility.setter
+    def facility(self, value: Optional[pulumi.Input[Union[str, 'Facility']]]):
+        pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter
+    def locked(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Lock or unlock the volume
+        """
+        return pulumi.get(self, "locked")
+
+    @locked.setter
+    def locked(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "locked", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        The name of the volume
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def plan(self) -> Optional[pulumi.Input[str]]:
+        """
+        The service plan slug of the volume
+        """
+        return pulumi.get(self, "plan")
+
+    @plan.setter
+    def plan(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "plan", value)
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The metal project ID to deploy the volume in
+        """
+        return pulumi.get(self, "project_id")
+
+    @project_id.setter
+    def project_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter
+    def size(self) -> Optional[pulumi.Input[int]]:
+        """
+        The size in GB to make the volume
+        """
+        return pulumi.get(self, "size")
+
+    @size.setter
+    def size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "size", value)
+
+    @property
+    @pulumi.getter(name="snapshotPolicies")
+    def snapshot_policies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]]:
+        """
+        Optional list of snapshot policies
+        """
+        return pulumi.get(self, "snapshot_policies")
+
+    @snapshot_policies.setter
+    def snapshot_policies(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]]):
+        pulumi.set(self, "snapshot_policies", value)
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[pulumi.Input[str]]:
+        """
+        The state of the volume
+        """
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "state", value)
+
+    @property
+    @pulumi.getter
+    def updated(self) -> Optional[pulumi.Input[str]]:
+        """
+        The timestamp for the last time the volume was updated
+        """
+        return pulumi.get(self, "updated")
+
+    @updated.setter
+    def updated(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "updated", value)
+
+
 class Volume(pulumi.CustomResource):
     @overload
     def __init__(__self__,
@@ -223,29 +439,29 @@ class Volume(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = VolumeArgs.__new__(VolumeArgs)
 
-            __props__['billing_cycle'] = billing_cycle
-            __props__['description'] = description
+            __props__.__dict__["billing_cycle"] = billing_cycle
+            __props__.__dict__["description"] = description
             if facility is None and not opts.urn:
                 raise TypeError("Missing required property 'facility'")
-            __props__['facility'] = facility
-            __props__['locked'] = locked
+            __props__.__dict__["facility"] = facility
+            __props__.__dict__["locked"] = locked
             if plan is None and not opts.urn:
                 raise TypeError("Missing required property 'plan'")
-            __props__['plan'] = plan
+            __props__.__dict__["plan"] = plan
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
-            __props__['project_id'] = project_id
+            __props__.__dict__["project_id"] = project_id
             if size is None and not opts.urn:
                 raise TypeError("Missing required property 'size'")
-            __props__['size'] = size
-            __props__['snapshot_policies'] = snapshot_policies
-            __props__['attachments'] = None
-            __props__['created'] = None
-            __props__['name'] = None
-            __props__['state'] = None
-            __props__['updated'] = None
+            __props__.__dict__["size"] = size
+            __props__.__dict__["snapshot_policies"] = snapshot_policies
+            __props__.__dict__["attachments"] = None
+            __props__.__dict__["created"] = None
+            __props__.__dict__["name"] = None
+            __props__.__dict__["state"] = None
+            __props__.__dict__["updated"] = None
         super(Volume, __self__).__init__(
             'equinix-metal:index/volume:Volume',
             resource_name,
@@ -292,21 +508,21 @@ class Volume(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = _VolumeState.__new__(_VolumeState)
 
-        __props__["attachments"] = attachments
-        __props__["billing_cycle"] = billing_cycle
-        __props__["created"] = created
-        __props__["description"] = description
-        __props__["facility"] = facility
-        __props__["locked"] = locked
-        __props__["name"] = name
-        __props__["plan"] = plan
-        __props__["project_id"] = project_id
-        __props__["size"] = size
-        __props__["snapshot_policies"] = snapshot_policies
-        __props__["state"] = state
-        __props__["updated"] = updated
+        __props__.__dict__["attachments"] = attachments
+        __props__.__dict__["billing_cycle"] = billing_cycle
+        __props__.__dict__["created"] = created
+        __props__.__dict__["description"] = description
+        __props__.__dict__["facility"] = facility
+        __props__.__dict__["locked"] = locked
+        __props__.__dict__["name"] = name
+        __props__.__dict__["plan"] = plan
+        __props__.__dict__["project_id"] = project_id
+        __props__.__dict__["size"] = size
+        __props__.__dict__["snapshot_policies"] = snapshot_policies
+        __props__.__dict__["state"] = state
+        __props__.__dict__["updated"] = updated
         return Volume(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -412,10 +628,4 @@ class Volume(pulumi.CustomResource):
         The timestamp for the last time the volume was updated
         """
         return pulumi.get(self, "updated")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

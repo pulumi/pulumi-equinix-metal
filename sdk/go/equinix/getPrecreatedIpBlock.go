@@ -4,7 +4,7 @@
 package equinix
 
 import (
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Use this data source to get CIDR expression for precreated IPv6 and IPv4 blocks in Equinix Metal.

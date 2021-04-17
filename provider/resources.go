@@ -22,11 +22,11 @@ import (
 
 	"github.com/equinix/terraform-provider-metal/metal"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/pulumi/pulumi-equinix-metal/provider/pkg/version"
-	"github.com/pulumi/pulumi-terraform-bridge/v2/pkg/tfbridge"
-	shimv1 "github.com/pulumi/pulumi-terraform-bridge/v2/pkg/tfshim/sdk-v1"
-	pulumiSchema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/tokens"
+	"github.com/pulumi/pulumi-equinix-metal/provider/v2/pkg/version"
+	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	shimv1 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v1"
+	pulumiSchema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 )
 
 // all of the token components used below.
@@ -312,10 +312,10 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{
-				"@pulumi/pulumi": "^2.15.0",
+				"@pulumi/pulumi": "^3.0.0-alpha.0",
 			},
 			DevDependencies: map[string]string{
-				"@types/node": "^8.0.25", // so we can access strongly typed node definitions.
+				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
 		},
@@ -330,12 +330,12 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Python: &tfbridge.PythonInfo{
 			Requires: map[string]string{
-				"pulumi": ">=2.15.0,<3.0.0",
+				"pulumi": ">=3.0.0a1,<4.0.0",
 			},
 		},
 		CSharp: &tfbridge.CSharpInfo{
 			PackageReferences: map[string]string{
-				"Pulumi":                       "2.*",
+				"Pulumi":                       "3.*-*",
 				"System.Collections.Immutable": "1.6.0",
 			},
 			Namespaces: namespaceMap,
