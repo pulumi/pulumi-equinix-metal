@@ -19,13 +19,16 @@ class GetSpotMarketPriceResult:
     """
     A collection of values returned by getSpotMarketPrice.
     """
-    def __init__(__self__, facility=None, id=None, plan=None, price=None):
+    def __init__(__self__, facility=None, id=None, metro=None, plan=None, price=None):
         if facility and not isinstance(facility, str):
             raise TypeError("Expected argument 'facility' to be a str")
         pulumi.set(__self__, "facility", facility)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if metro and not isinstance(metro, str):
+            raise TypeError("Expected argument 'metro' to be a str")
+        pulumi.set(__self__, "metro", metro)
         if plan and not isinstance(plan, str):
             raise TypeError("Expected argument 'plan' to be a str")
         pulumi.set(__self__, "plan", plan)
@@ -35,7 +38,7 @@ class GetSpotMarketPriceResult:
 
     @property
     @pulumi.getter
-    def facility(self) -> str:
+    def facility(self) -> Optional[str]:
         return pulumi.get(self, "facility")
 
     @property
@@ -45,6 +48,11 @@ class GetSpotMarketPriceResult:
         The provider-assigned unique ID for this managed resource.
         """
         return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def metro(self) -> Optional[str]:
+        return pulumi.get(self, "metro")
 
     @property
     @pulumi.getter
@@ -68,11 +76,13 @@ class AwaitableGetSpotMarketPriceResult(GetSpotMarketPriceResult):
         return GetSpotMarketPriceResult(
             facility=self.facility,
             id=self.id,
+            metro=self.metro,
             plan=self.plan,
             price=self.price)
 
 
 def get_spot_market_price(facility: Optional[str] = None,
+                          metro: Optional[str] = None,
                           plan: Optional[str] = None,
                           opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSpotMarketPriceResult:
     """
@@ -84,8 +94,8 @@ def get_spot_market_price(facility: Optional[str] = None,
     import pulumi
     import pulumi_equinix_metal as equinix_metal
 
-    example = equinix_metal.get_spot_market_price(facility="ewr1",
-        plan="c1.small.x86")
+    example = equinix_metal.get_spot_market_price(facility="ny5",
+        plan="c3.small.x86")
     ```
 
 
@@ -94,6 +104,7 @@ def get_spot_market_price(facility: Optional[str] = None,
     """
     __args__ = dict()
     __args__['facility'] = facility
+    __args__['metro'] = metro
     __args__['plan'] = plan
     if opts is None:
         opts = pulumi.InvokeOptions()
@@ -104,5 +115,6 @@ def get_spot_market_price(facility: Optional[str] = None,
     return AwaitableGetSpotMarketPriceResult(
         facility=__ret__.facility,
         id=__ret__.id,
+        metro=__ret__.metro,
         plan=__ret__.plan,
         price=__ret__.price)

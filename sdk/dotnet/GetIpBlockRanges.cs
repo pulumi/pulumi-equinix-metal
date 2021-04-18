@@ -12,9 +12,9 @@ namespace Pulumi.EquinixMetal
     public static class GetIpBlockRanges
     {
         /// <summary>
-        /// Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility.
+        /// Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
         /// 
-        /// There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 block is allocated in a facility, and addresses from it can only be assigned to devices in that facility. Addresses from Global IPv4 block can be assigned to a device in any facility.
+        /// There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 blocks are allocated in a facility or metro, and addresses from it can only be assigned to devices in that location. Addresses from Global IPv4 block can be assigned to a device in any metro.
         /// 
         /// The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`&lt;network&gt;/&lt;mask&gt;`) of respective blocks from the project.
         /// 
@@ -53,10 +53,16 @@ namespace Pulumi.EquinixMetal
     public sealed class GetIpBlockRangesArgs : Pulumi.InvokeArgs
     {
         /// <summary>
-        /// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this, all the block from the project will be listed.
+        /// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
         /// </summary>
         [Input("facility")]
         public string? Facility { get; set; }
+
+        /// <summary>
+        /// Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
+        /// </summary>
+        [Input("metro")]
+        public string? Metro { get; set; }
 
         /// <summary>
         /// ID of the project from which to list the blocks.
@@ -86,6 +92,7 @@ namespace Pulumi.EquinixMetal
         /// list of CIDR expressions for IPv6 blocks in the project
         /// </summary>
         public readonly ImmutableArray<string> Ipv6s;
+        public readonly string? Metro;
         /// <summary>
         /// list of CIDR expressions for Private IPv4 blocks in the project
         /// </summary>
@@ -106,6 +113,8 @@ namespace Pulumi.EquinixMetal
 
             ImmutableArray<string> ipv6s,
 
+            string? metro,
+
             ImmutableArray<string> privateIpv4s,
 
             string projectId,
@@ -116,6 +125,7 @@ namespace Pulumi.EquinixMetal
             GlobalIpv4s = globalIpv4s;
             Id = id;
             Ipv6s = ipv6s;
+            Metro = metro;
             PrivateIpv4s = privateIpv4s;
             ProjectId = projectId;
             PublicIpv4s = publicIpv4s;

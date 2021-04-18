@@ -133,6 +133,10 @@ namespace Pulumi.EquinixMetal
         public readonly string Id;
         public readonly string IpxeScriptUrl;
         /// <summary>
+        /// The metro where the device is deployed
+        /// </summary>
+        public readonly string Metro;
+        /// <summary>
         /// L2 network type of the device, one of "layer3", "layer2-bonded", "layer2-individual", "hybrid"
         /// </summary>
         public readonly string NetworkType;
@@ -202,6 +206,8 @@ namespace Pulumi.EquinixMetal
 
             string ipxeScriptUrl,
 
+            string metro,
+
             string networkType,
 
             ImmutableArray<Outputs.GetDeviceNetworkResult> networks,
@@ -236,6 +242,7 @@ namespace Pulumi.EquinixMetal
             Hostname = hostname;
             Id = id;
             IpxeScriptUrl = ipxeScriptUrl;
+            Metro = metro;
             NetworkType = networkType;
             Networks = networks;
             OperatingSystem = operatingSystem;

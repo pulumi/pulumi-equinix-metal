@@ -309,6 +309,9 @@ func Provider() tfbridge.ProviderInfo {
 			"metal_spot_market_request":  {Tok: makeDataSource(mainMod, "getSpotMarketRequest")},
 			"metal_volume":               {Tok: makeDataSource(mainMod, "getVolume")},
 			"metal_facility":             {Tok: makeDataSource(mainMod, "getFacility")},
+			"metal_metro":                {Tok: makeDataSource(mainMod, "getMetro")},
+			"metal_connection":           {Tok: makeDataSource(mainMod, "getConnection")},
+			"metal_virtual_circuit":      {Tok: makeDataSource(mainMod, "getVirtualCircuit")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{

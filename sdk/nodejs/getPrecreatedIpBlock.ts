@@ -21,6 +21,7 @@ export function getPrecreatedIpBlock(args: GetPrecreatedIpBlockArgs, opts?: pulu
         "addressFamily": args.addressFamily,
         "facility": args.facility,
         "global": args.global,
+        "metro": args.metro,
         "projectId": args.projectId,
         "public": args.public,
     }, opts);
@@ -35,13 +36,17 @@ export interface GetPrecreatedIpBlockArgs {
      */
     readonly addressFamily: number;
     /**
-     * Facility of the searched block. (Optional) Only allowed for non-global blocks.
+     * Facility of the searched block. (for non-global blocks).
      */
     readonly facility?: string;
     /**
      * Whether to look for global block. Default is false for backward compatibility.
      */
     readonly global?: boolean;
+    /**
+     * Metro of the searched block (for non-global blocks).
+     */
+    readonly metro?: string;
     /**
      * ID of the project where the searched block should be.
      */
@@ -72,6 +77,7 @@ export interface GetPrecreatedIpBlockResult {
     readonly id: string;
     readonly manageable: boolean;
     readonly management: boolean;
+    readonly metro?: string;
     readonly netmask: string;
     readonly network: string;
     readonly projectId: string;

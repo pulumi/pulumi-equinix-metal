@@ -7,9 +7,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility.
+// Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
 //
-// There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 block is allocated in a facility, and addresses from it can only be assigned to devices in that facility. Addresses from Global IPv4 block can be assigned to a device in any facility.
+// There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 blocks are allocated in a facility or metro, and addresses from it can only be assigned to devices in that location. Addresses from Global IPv4 block can be assigned to a device in any metro.
 //
 // The datasource has 4 list attributes: `globalIpv4`, `publicIpv4`, `privateIpv4` and `ipv6`, each listing CIDR notation (`<network>/<mask>`) of respective blocks from the project.
 //
@@ -48,8 +48,10 @@ func GetIpBlockRanges(ctx *pulumi.Context, args *GetIpBlockRangesArgs, opts ...p
 
 // A collection of arguments for invoking getIpBlockRanges.
 type GetIpBlockRangesArgs struct {
-	// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this, all the block from the project will be listed.
+	// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
 	Facility *string `pulumi:"facility"`
+	// Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
+	Metro *string `pulumi:"metro"`
 	// ID of the project from which to list the blocks.
 	ProjectId string `pulumi:"projectId"`
 }
@@ -63,6 +65,7 @@ type GetIpBlockRangesResult struct {
 	Id string `pulumi:"id"`
 	// list of CIDR expressions for IPv6 blocks in the project
 	Ipv6s []string `pulumi:"ipv6s"`
+	Metro *string  `pulumi:"metro"`
 	// list of CIDR expressions for Private IPv4 blocks in the project
 	PrivateIpv4s []string `pulumi:"privateIpv4s"`
 	ProjectId    string   `pulumi:"projectId"`

@@ -67,6 +67,33 @@ export interface DevicePort {
     type: string;
 }
 
+export interface GetConnectionPort {
+    /**
+     * Port link status
+     */
+    linkStatus: string;
+    /**
+     * Port name
+     */
+    name: string;
+    /**
+     * Port role - primary or secondary
+     */
+    role: string;
+    /**
+     * Port speed in bits per second
+     */
+    speed: number;
+    /**
+     * Port status
+     */
+    status: string;
+    /**
+     * List of IDs of virtual cicruits attached to this port
+     */
+    virtualCircuitIds: any[];
+}
+
 export interface GetDeviceBgpNeighborsBgpNeighbor {
     /**
      * IP address version, 4 or 6

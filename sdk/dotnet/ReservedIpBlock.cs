@@ -35,15 +35,23 @@ namespace Pulumi.EquinixMetal
     /// {
     ///     public MyStack()
     ///     {
-    ///         // Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1) for myproject
+    ///         // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility for myproject
     ///         var twoElasticAddresses = new EquinixMetal.ReservedIpBlock("twoElasticAddresses", new EquinixMetal.ReservedIpBlockArgs
     ///         {
     ///             ProjectId = local.Project_id,
-    ///             Facility = "ewr1",
+    ///             Facility = "sv15",
     ///             Quantity = 2,
     ///         });
+    ///         // Allocate 1 floating IP in Sillicon Valley (sv) metro
+    ///         var testReservedIpBlock = new EquinixMetal.ReservedIpBlock("testReservedIpBlock", new EquinixMetal.ReservedIpBlockArgs
+    ///         {
+    ///             ProjectId = local.Project_id,
+    ///             Type = "public_ipv4",
+    ///             Metro = "sv",
+    ///             Quantity = 1,
+    ///         });
     ///         // Allocate 1 global floating IP, which can be assigned to device in any facility
-    ///         var test = new EquinixMetal.ReservedIpBlock("test", new EquinixMetal.ReservedIpBlockArgs
+    ///         var testIndex_reservedIpBlockReservedIpBlock = new EquinixMetal.ReservedIpBlock("testIndex/reservedIpBlockReservedIpBlock", new EquinixMetal.ReservedIpBlockArgs
     ///         {
     ///             ProjectId = local.Project_id,
     ///             Type = "global_ipv4",
@@ -64,11 +72,11 @@ namespace Pulumi.EquinixMetal
     /// {
     ///     public MyStack()
     ///     {
-    ///         // Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1)
+    ///         // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility
     ///         var example = new EquinixMetal.ReservedIpBlock("example", new EquinixMetal.ReservedIpBlockArgs
     ///         {
     ///             ProjectId = local.Project_id,
-    ///             Facility = "ewr1",
+    ///             Facility = "sv15",
     ///             Quantity = 2,
     ///         });
     ///         // Run a device with both public IPv4 from the block assigned
@@ -77,10 +85,10 @@ namespace Pulumi.EquinixMetal
     ///             ProjectId = local.Project_id,
     ///             Facilities = 
     ///             {
-    ///                 "ewr1",
+    ///                 "sv15",
     ///             },
-    ///             Plan = "t1.small.x86",
-    ///             OperatingSystem = "ubuntu_16_04",
+    ///             Plan = "c3.small.x86",
+    ///             OperatingSystem = "ubuntu_20_04",
     ///             Hostname = "test",
     ///             BillingCycle = "hourly",
     ///             IpAddresses = 
@@ -136,7 +144,7 @@ namespace Pulumi.EquinixMetal
         public Output<string?> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        /// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         /// </summary>
         [Output("facility")]
         public Output<string?> Facility { get; private set; } = null!;
@@ -155,6 +163,12 @@ namespace Pulumi.EquinixMetal
 
         [Output("management")]
         public Output<bool> Management { get; private set; } = null!;
+
+        /// <summary>
+        /// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+        /// </summary>
+        [Output("metro")]
+        public Output<string?> Metro { get; private set; } = null!;
 
         /// <summary>
         /// Mask in decimal notation, e.g. "255.255.255.0"
@@ -245,10 +259,16 @@ namespace Pulumi.EquinixMetal
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        /// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         /// </summary>
         [Input("facility")]
         public InputUnion<string, Pulumi.EquinixMetal.Facility>? Facility { get; set; }
+
+        /// <summary>
+        /// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
 
         /// <summary>
         /// The metal project ID where to allocate the address block
@@ -303,7 +323,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        /// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         /// </summary>
         [Input("facility")]
         public InputUnion<string, Pulumi.EquinixMetal.Facility>? Facility { get; set; }
@@ -322,6 +342,12 @@ namespace Pulumi.EquinixMetal
 
         [Input("management")]
         public Input<bool>? Management { get; set; }
+
+        /// <summary>
+        /// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
 
         /// <summary>
         /// Mask in decimal notation, e.g. "255.255.255.0"

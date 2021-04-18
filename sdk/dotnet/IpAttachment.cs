@@ -58,6 +58,9 @@ namespace Pulumi.EquinixMetal
         [Output("gateway")]
         public Output<string> Gateway { get; private set; } = null!;
 
+        /// <summary>
+        /// Flag indicating whether IP block is global, i.e. assignable in any location
+        /// </summary>
         [Output("global")]
         public Output<bool> Global { get; private set; } = null!;
 
@@ -185,6 +188,9 @@ namespace Pulumi.EquinixMetal
         [Input("gateway")]
         public Input<string>? Gateway { get; set; }
 
+        /// <summary>
+        /// Flag indicating whether IP block is global, i.e. assignable in any location
+        /// </summary>
         [Input("global")]
         public Input<bool>? Global { get; set; }
 

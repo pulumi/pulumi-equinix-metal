@@ -20,7 +20,7 @@ class GetDeviceResult:
     """
     A collection of values returned by getDevice.
     """
-    def __init__(__self__, access_private_ipv4=None, access_public_ipv4=None, access_public_ipv6=None, always_pxe=None, billing_cycle=None, description=None, device_id=None, facility=None, hardware_reservation_id=None, hostname=None, id=None, ipxe_script_url=None, network_type=None, networks=None, operating_system=None, plan=None, ports=None, project_id=None, root_password=None, ssh_key_ids=None, state=None, storage=None, tags=None):
+    def __init__(__self__, access_private_ipv4=None, access_public_ipv4=None, access_public_ipv6=None, always_pxe=None, billing_cycle=None, description=None, device_id=None, facility=None, hardware_reservation_id=None, hostname=None, id=None, ipxe_script_url=None, metro=None, network_type=None, networks=None, operating_system=None, plan=None, ports=None, project_id=None, root_password=None, ssh_key_ids=None, state=None, storage=None, tags=None):
         if access_private_ipv4 and not isinstance(access_private_ipv4, str):
             raise TypeError("Expected argument 'access_private_ipv4' to be a str")
         pulumi.set(__self__, "access_private_ipv4", access_private_ipv4)
@@ -57,6 +57,9 @@ class GetDeviceResult:
         if ipxe_script_url and not isinstance(ipxe_script_url, str):
             raise TypeError("Expected argument 'ipxe_script_url' to be a str")
         pulumi.set(__self__, "ipxe_script_url", ipxe_script_url)
+        if metro and not isinstance(metro, str):
+            raise TypeError("Expected argument 'metro' to be a str")
+        pulumi.set(__self__, "metro", metro)
         if network_type and not isinstance(network_type, str):
             raise TypeError("Expected argument 'network_type' to be a str")
         pulumi.set(__self__, "network_type", network_type)
@@ -176,6 +179,14 @@ class GetDeviceResult:
         return pulumi.get(self, "ipxe_script_url")
 
     @property
+    @pulumi.getter
+    def metro(self) -> str:
+        """
+        The metro where the device is deployed
+        """
+        return pulumi.get(self, "metro")
+
+    @property
     @pulumi.getter(name="networkType")
     def network_type(self) -> str:
         """
@@ -281,6 +292,7 @@ class AwaitableGetDeviceResult(GetDeviceResult):
             hostname=self.hostname,
             id=self.id,
             ipxe_script_url=self.ipxe_script_url,
+            metro=self.metro,
             network_type=self.network_type,
             networks=self.networks,
             operating_system=self.operating_system,
@@ -352,6 +364,7 @@ def get_device(device_id: Optional[str] = None,
         hostname=__ret__.hostname,
         id=__ret__.id,
         ipxe_script_url=__ret__.ipxe_script_url,
+        metro=__ret__.metro,
         network_type=__ret__.network_type,
         networks=__ret__.networks,
         operating_system=__ret__.operating_system,

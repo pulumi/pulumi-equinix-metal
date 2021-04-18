@@ -36,11 +36,11 @@ import (
 // 		}
 // 		_, err = equinix - metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
 // 			Hostname: pulumi.String("test"),
-// 			Plan:     pulumi.String("baremetal_0"),
+// 			Plan:     pulumi.String("c3.medium.x86"),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
+// 				pulumi.String("ny5"),
 // 			},
-// 			OperatingSystem: pulumi.String("ubuntu_16_04"),
+// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
 // 			BillingCycle:    pulumi.String("hourly"),
 // 			ProjectSshKeyIds: pulumi.StringArray{
 // 				testProjectSshKey.ID(),

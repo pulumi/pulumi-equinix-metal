@@ -15,8 +15,8 @@ import * as utilities from "./utilities";
  * import * as metal from "@pulumi/metal";
  *
  * const example = pulumi.output(metal.getSpotMarketPrice({
- *     facility: "ewr1",
- *     plan: "c1.small.x86",
+ *     facility: "ny5",
+ *     plan: "c3.small.x86",
  * }, { async: true }));
  * ```
  */
@@ -30,6 +30,7 @@ export function getSpotMarketPrice(args: GetSpotMarketPriceArgs, opts?: pulumi.I
     }
     return pulumi.runtime.invoke("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", {
         "facility": args.facility,
+        "metro": args.metro,
         "plan": args.plan,
     }, opts);
 }
@@ -41,7 +42,8 @@ export interface GetSpotMarketPriceArgs {
     /**
      * Name of the facility.
      */
-    readonly facility: string;
+    readonly facility?: string;
+    readonly metro?: string;
     /**
      * Name of the plan.
      */
@@ -52,11 +54,12 @@ export interface GetSpotMarketPriceArgs {
  * A collection of values returned by getSpotMarketPrice.
  */
 export interface GetSpotMarketPriceResult {
-    readonly facility: string;
+    readonly facility?: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    readonly metro?: string;
     readonly plan: string;
     /**
      * Current spot market price for given plan in given facility.

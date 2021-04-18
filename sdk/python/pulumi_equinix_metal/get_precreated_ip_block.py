@@ -19,7 +19,7 @@ class GetPrecreatedIpBlockResult:
     """
     A collection of values returned by getPrecreatedIpBlock.
     """
-    def __init__(__self__, address=None, address_family=None, cidr=None, cidr_notation=None, facility=None, gateway=None, global_=None, id=None, manageable=None, management=None, netmask=None, network=None, project_id=None, public=None, quantity=None, type=None):
+    def __init__(__self__, address=None, address_family=None, cidr=None, cidr_notation=None, facility=None, gateway=None, global_=None, id=None, manageable=None, management=None, metro=None, netmask=None, network=None, project_id=None, public=None, quantity=None, type=None):
         if address and not isinstance(address, str):
             raise TypeError("Expected argument 'address' to be a str")
         pulumi.set(__self__, "address", address)
@@ -50,6 +50,9 @@ class GetPrecreatedIpBlockResult:
         if management and not isinstance(management, bool):
             raise TypeError("Expected argument 'management' to be a bool")
         pulumi.set(__self__, "management", management)
+        if metro and not isinstance(metro, str):
+            raise TypeError("Expected argument 'metro' to be a str")
+        pulumi.set(__self__, "metro", metro)
         if netmask and not isinstance(netmask, str):
             raise TypeError("Expected argument 'netmask' to be a str")
         pulumi.set(__self__, "netmask", netmask)
@@ -127,6 +130,11 @@ class GetPrecreatedIpBlockResult:
 
     @property
     @pulumi.getter
+    def metro(self) -> Optional[str]:
+        return pulumi.get(self, "metro")
+
+    @property
+    @pulumi.getter
     def netmask(self) -> str:
         return pulumi.get(self, "netmask")
 
@@ -172,6 +180,7 @@ class AwaitableGetPrecreatedIpBlockResult(GetPrecreatedIpBlockResult):
             id=self.id,
             manageable=self.manageable,
             management=self.management,
+            metro=self.metro,
             netmask=self.netmask,
             network=self.network,
             project_id=self.project_id,
@@ -183,6 +192,7 @@ class AwaitableGetPrecreatedIpBlockResult(GetPrecreatedIpBlockResult):
 def get_precreated_ip_block(address_family: Optional[int] = None,
                             facility: Optional[str] = None,
                             global_: Optional[bool] = None,
+                            metro: Optional[str] = None,
                             project_id: Optional[str] = None,
                             public: Optional[bool] = None,
                             opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPrecreatedIpBlockResult:
@@ -192,8 +202,9 @@ def get_precreated_ip_block(address_family: Optional[int] = None,
 
 
     :param int address_family: 4 or 6, depending on which block you are looking for.
-    :param str facility: Facility of the searched block. (Optional) Only allowed for non-global blocks.
+    :param str facility: Facility of the searched block. (for non-global blocks).
     :param bool global_: Whether to look for global block. Default is false for backward compatibility.
+    :param str metro: Metro of the searched block (for non-global blocks).
     :param str project_id: ID of the project where the searched block should be.
     :param bool public: Whether to look for public or private block.
     """
@@ -201,6 +212,7 @@ def get_precreated_ip_block(address_family: Optional[int] = None,
     __args__['addressFamily'] = address_family
     __args__['facility'] = facility
     __args__['global'] = global_
+    __args__['metro'] = metro
     __args__['projectId'] = project_id
     __args__['public'] = public
     if opts is None:
@@ -220,6 +232,7 @@ def get_precreated_ip_block(address_family: Optional[int] = None,
         id=__ret__.id,
         manageable=__ret__.manageable,
         management=__ret__.management,
+        metro=__ret__.metro,
         netmask=__ret__.netmask,
         network=__ret__.network,
         project_id=__ret__.project_id,

@@ -21,24 +21,22 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		opt0 := "Container Linux"
-// 		opt1 := "coreos"
-// 		opt2 := "alpha"
-// 		opt3 := "c1.small.x86"
+// 		opt0 := "ubuntu"
+// 		opt1 := "20.04"
+// 		opt2 := "c3.medium.x86"
 // 		example, err := equinix - metal.GetOperatingSystem(ctx, &equinix-metal.GetOperatingSystemArgs{
-// 			Name:            &opt0,
-// 			Distro:          &opt1,
-// 			Version:         &opt2,
-// 			ProvisionableOn: &opt3,
+// 			Distro:          &opt0,
+// 			Version:         &opt1,
+// 			ProvisionableOn: &opt2,
 // 		}, nil)
 // 		if err != nil {
 // 			return err
 // 		}
 // 		_, err = equinix - metal.NewDevice(ctx, "server", &equinix-metal.DeviceArgs{
-// 			Hostname: pulumi.String("tf.coreos2"),
-// 			Plan:     pulumi.String("c1.small.x86"),
+// 			Hostname: pulumi.String("tf.ubuntu"),
+// 			Plan:     pulumi.String("c3.medium.x86"),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
+// 				pulumi.String("ny5"),
 // 			},
 // 			OperatingSystem: pulumi.String(example.Id),
 // 			BillingCycle:    pulumi.String("hourly"),

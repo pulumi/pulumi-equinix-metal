@@ -28,8 +28,8 @@ namespace Pulumi.EquinixMetal
         ///     {
         ///         var example = Output.Create(EquinixMetal.GetSpotMarketPrice.InvokeAsync(new EquinixMetal.GetSpotMarketPriceArgs
         ///         {
-        ///             Facility = "ewr1",
-        ///             Plan = "c1.small.x86",
+        ///             Facility = "ny5",
+        ///             Plan = "c3.small.x86",
         ///         }));
         ///     }
         /// 
@@ -48,8 +48,11 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// Name of the facility.
         /// </summary>
-        [Input("facility", required: true)]
-        public string Facility { get; set; } = null!;
+        [Input("facility")]
+        public string? Facility { get; set; }
+
+        [Input("metro")]
+        public string? Metro { get; set; }
 
         /// <summary>
         /// Name of the plan.
@@ -66,11 +69,12 @@ namespace Pulumi.EquinixMetal
     [OutputType]
     public sealed class GetSpotMarketPriceResult
     {
-        public readonly string Facility;
+        public readonly string? Facility;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        public readonly string? Metro;
         public readonly string Plan;
         /// <summary>
         /// Current spot market price for given plan in given facility.
@@ -79,9 +83,11 @@ namespace Pulumi.EquinixMetal
 
         [OutputConstructor]
         private GetSpotMarketPriceResult(
-            string facility,
+            string? facility,
 
             string id,
+
+            string? metro,
 
             string plan,
 
@@ -89,6 +95,7 @@ namespace Pulumi.EquinixMetal
         {
             Facility = facility;
             Id = id;
+            Metro = metro;
             Plan = plan;
             Price = price;
         }

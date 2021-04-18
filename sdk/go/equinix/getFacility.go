@@ -21,13 +21,13 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		ewr1, err := equinix - metal.GetFacility(ctx, &equinix-metal.GetFacilityArgs{
-// 			Code: "ewr1",
+// 		ny5, err := equinix - metal.GetFacility(ctx, &equinix-metal.GetFacilityArgs{
+// 			Code: "ny5",
 // 		}, nil)
 // 		if err != nil {
 // 			return err
 // 		}
-// 		ctx.Export("id", ewr1.Id)
+// 		ctx.Export("id", ny5.Id)
 // 		return nil
 // 	})
 // }
@@ -45,10 +45,6 @@ func GetFacility(ctx *pulumi.Context, args *GetFacilityArgs, opts ...pulumi.Invo
 type GetFacilityArgs struct {
 	// The facility code
 	Code string `pulumi:"code"`
-	// The features of the facility
-	Features []string `pulumi:"features"`
-	// The name of the facilityg system running on the device
-	Name *string `pulumi:"name"`
 }
 
 // A collection of values returned by getFacility.
@@ -58,6 +54,8 @@ type GetFacilityResult struct {
 	Features []string `pulumi:"features"`
 	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
-	// The name of the facilityg system running on the device
+	// The metro code the facility is part of
+	Metro string `pulumi:"metro"`
+	// The name of the facility
 	Name string `pulumi:"name"`
 }

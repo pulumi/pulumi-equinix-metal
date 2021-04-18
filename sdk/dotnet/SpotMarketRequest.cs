@@ -30,7 +30,7 @@ namespace Pulumi.EquinixMetal
     ///             MaxBidPrice = 0.03,
     ///             Facilities = 
     ///             {
-    ///                 "ewr1",
+    ///                 "ny5",
     ///             },
     ///             DevicesMin = 1,
     ///             DevicesMax = 1,
@@ -38,8 +38,8 @@ namespace Pulumi.EquinixMetal
     ///             {
     ///                 Hostname = "testspot",
     ///                 BillingCycle = "hourly",
-    ///                 OperatingSystem = "coreos_stable",
-    ///                 Plan = "t1.small.x86",
+    ///                 OperatingSystem = "ubuntu_20_04",
+    ///                 Plan = "c3.small.x86",
     ///             },
     ///         });
     ///     }
@@ -79,6 +79,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Output("maxBidPrice")]
         public Output<double> MaxBidPrice { get; private set; } = null!;
+
+        /// <summary>
+        /// Metro where devices should be created.
+        /// </summary>
+        [Output("metro")]
+        public Output<string?> Metro { get; private set; } = null!;
 
         /// <summary>
         /// Project ID
@@ -150,7 +156,7 @@ namespace Pulumi.EquinixMetal
         [Input("devicesMin", required: true)]
         public Input<int> DevicesMin { get; set; } = null!;
 
-        [Input("facilities", required: true)]
+        [Input("facilities")]
         private InputList<string>? _facilities;
 
         /// <summary>
@@ -173,6 +179,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Input("maxBidPrice", required: true)]
         public Input<double> MaxBidPrice { get; set; } = null!;
+
+        /// <summary>
+        /// Metro where devices should be created.
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
 
         /// <summary>
         /// Project ID
@@ -228,6 +240,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Input("maxBidPrice")]
         public Input<double>? MaxBidPrice { get; set; }
+
+        /// <summary>
+        /// Metro where devices should be created.
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
 
         /// <summary>
         /// Project ID

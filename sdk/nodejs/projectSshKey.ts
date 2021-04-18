@@ -21,9 +21,9 @@ import * as utilities from "./utilities";
  * });
  * const testDevice = new equinix_metal.Device("testDevice", {
  *     hostname: "test",
- *     plan: "baremetal_0",
- *     facilities: ["ewr1"],
- *     operatingSystem: "ubuntu_16_04",
+ *     plan: "c3.medium.x86",
+ *     facilities: ["ny5"],
+ *     operatingSystem: "ubuntu_20_04",
  *     billingCycle: "hourly",
  *     projectSshKeyIds: [testProjectSshKey.id],
  *     projectId: projectId,

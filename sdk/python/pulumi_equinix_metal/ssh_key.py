@@ -184,9 +184,9 @@ class SshKey(pulumi.CustomResource):
         # key, in order to make sure the key is created before the device.
         test = equinix_metal.Device("test",
             hostname="test-device",
-            plan="t1.small.x86",
+            plan="c3.small.x86",
             facilities=["sjc1"],
-            operating_system="ubuntu_16_04",
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"],
             opts=pulumi.ResourceOptions(depends_on=["metal_ssh_key.key1"]))
@@ -221,9 +221,9 @@ class SshKey(pulumi.CustomResource):
         # key, in order to make sure the key is created before the device.
         test = equinix_metal.Device("test",
             hostname="test-device",
-            plan="t1.small.x86",
+            plan="c3.small.x86",
             facilities=["sjc1"],
-            operating_system="ubuntu_16_04",
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"],
             opts=pulumi.ResourceOptions(depends_on=["metal_ssh_key.key1"]))

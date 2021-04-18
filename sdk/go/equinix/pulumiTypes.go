@@ -1134,6 +1134,148 @@ func (o VolumeSnapshotPolicyArrayOutput) Index(i pulumi.IntInput) VolumeSnapshot
 	}).(VolumeSnapshotPolicyOutput)
 }
 
+type GetConnectionPort struct {
+	// Port link status
+	LinkStatus string `pulumi:"linkStatus"`
+	// Port name
+	Name string `pulumi:"name"`
+	// Port role - primary or secondary
+	Role string `pulumi:"role"`
+	// Port speed in bits per second
+	Speed int `pulumi:"speed"`
+	// Port status
+	Status string `pulumi:"status"`
+	// List of IDs of virtual cicruits attached to this port
+	VirtualCircuitIds []interface{} `pulumi:"virtualCircuitIds"`
+}
+
+// GetConnectionPortInput is an input type that accepts GetConnectionPortArgs and GetConnectionPortOutput values.
+// You can construct a concrete instance of `GetConnectionPortInput` via:
+//
+//          GetConnectionPortArgs{...}
+type GetConnectionPortInput interface {
+	pulumi.Input
+
+	ToGetConnectionPortOutput() GetConnectionPortOutput
+	ToGetConnectionPortOutputWithContext(context.Context) GetConnectionPortOutput
+}
+
+type GetConnectionPortArgs struct {
+	// Port link status
+	LinkStatus pulumi.StringInput `pulumi:"linkStatus"`
+	// Port name
+	Name pulumi.StringInput `pulumi:"name"`
+	// Port role - primary or secondary
+	Role pulumi.StringInput `pulumi:"role"`
+	// Port speed in bits per second
+	Speed pulumi.IntInput `pulumi:"speed"`
+	// Port status
+	Status pulumi.StringInput `pulumi:"status"`
+	// List of IDs of virtual cicruits attached to this port
+	VirtualCircuitIds pulumi.ArrayInput `pulumi:"virtualCircuitIds"`
+}
+
+func (GetConnectionPortArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetConnectionPort)(nil)).Elem()
+}
+
+func (i GetConnectionPortArgs) ToGetConnectionPortOutput() GetConnectionPortOutput {
+	return i.ToGetConnectionPortOutputWithContext(context.Background())
+}
+
+func (i GetConnectionPortArgs) ToGetConnectionPortOutputWithContext(ctx context.Context) GetConnectionPortOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetConnectionPortOutput)
+}
+
+// GetConnectionPortArrayInput is an input type that accepts GetConnectionPortArray and GetConnectionPortArrayOutput values.
+// You can construct a concrete instance of `GetConnectionPortArrayInput` via:
+//
+//          GetConnectionPortArray{ GetConnectionPortArgs{...} }
+type GetConnectionPortArrayInput interface {
+	pulumi.Input
+
+	ToGetConnectionPortArrayOutput() GetConnectionPortArrayOutput
+	ToGetConnectionPortArrayOutputWithContext(context.Context) GetConnectionPortArrayOutput
+}
+
+type GetConnectionPortArray []GetConnectionPortInput
+
+func (GetConnectionPortArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetConnectionPort)(nil)).Elem()
+}
+
+func (i GetConnectionPortArray) ToGetConnectionPortArrayOutput() GetConnectionPortArrayOutput {
+	return i.ToGetConnectionPortArrayOutputWithContext(context.Background())
+}
+
+func (i GetConnectionPortArray) ToGetConnectionPortArrayOutputWithContext(ctx context.Context) GetConnectionPortArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetConnectionPortArrayOutput)
+}
+
+type GetConnectionPortOutput struct{ *pulumi.OutputState }
+
+func (GetConnectionPortOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetConnectionPort)(nil)).Elem()
+}
+
+func (o GetConnectionPortOutput) ToGetConnectionPortOutput() GetConnectionPortOutput {
+	return o
+}
+
+func (o GetConnectionPortOutput) ToGetConnectionPortOutputWithContext(ctx context.Context) GetConnectionPortOutput {
+	return o
+}
+
+// Port link status
+func (o GetConnectionPortOutput) LinkStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v GetConnectionPort) string { return v.LinkStatus }).(pulumi.StringOutput)
+}
+
+// Port name
+func (o GetConnectionPortOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetConnectionPort) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Port role - primary or secondary
+func (o GetConnectionPortOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v GetConnectionPort) string { return v.Role }).(pulumi.StringOutput)
+}
+
+// Port speed in bits per second
+func (o GetConnectionPortOutput) Speed() pulumi.IntOutput {
+	return o.ApplyT(func(v GetConnectionPort) int { return v.Speed }).(pulumi.IntOutput)
+}
+
+// Port status
+func (o GetConnectionPortOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v GetConnectionPort) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// List of IDs of virtual cicruits attached to this port
+func (o GetConnectionPortOutput) VirtualCircuitIds() pulumi.ArrayOutput {
+	return o.ApplyT(func(v GetConnectionPort) []interface{} { return v.VirtualCircuitIds }).(pulumi.ArrayOutput)
+}
+
+type GetConnectionPortArrayOutput struct{ *pulumi.OutputState }
+
+func (GetConnectionPortArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetConnectionPort)(nil)).Elem()
+}
+
+func (o GetConnectionPortArrayOutput) ToGetConnectionPortArrayOutput() GetConnectionPortArrayOutput {
+	return o
+}
+
+func (o GetConnectionPortArrayOutput) ToGetConnectionPortArrayOutputWithContext(ctx context.Context) GetConnectionPortArrayOutput {
+	return o
+}
+
+func (o GetConnectionPortArrayOutput) Index(i pulumi.IntInput) GetConnectionPortOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetConnectionPort {
+		return vs[0].([]GetConnectionPort)[vs[1].(int)]
+	}).(GetConnectionPortOutput)
+}
+
 type GetDeviceBgpNeighborsBgpNeighbor struct {
 	// IP address version, 4 or 6
 	AddressFamily int `pulumi:"addressFamily"`
@@ -1997,6 +2139,8 @@ func init() {
 	pulumi.RegisterOutputType(VolumeAttachmentTypeArrayOutput{})
 	pulumi.RegisterOutputType(VolumeSnapshotPolicyOutput{})
 	pulumi.RegisterOutputType(VolumeSnapshotPolicyArrayOutput{})
+	pulumi.RegisterOutputType(GetConnectionPortOutput{})
+	pulumi.RegisterOutputType(GetConnectionPortArrayOutput{})
 	pulumi.RegisterOutputType(GetDeviceBgpNeighborsBgpNeighborOutput{})
 	pulumi.RegisterOutputType(GetDeviceBgpNeighborsBgpNeighborArrayOutput{})
 	pulumi.RegisterOutputType(GetDeviceBgpNeighborsBgpNeighborRoutesInOutput{})

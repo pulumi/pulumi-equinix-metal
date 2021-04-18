@@ -21,9 +21,10 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		opt0 := "ny5"
 // 		_, err := equinix - metal.GetSpotMarketPrice(ctx, &equinix-metal.GetSpotMarketPriceArgs{
-// 			Facility: "ewr1",
-// 			Plan:     "c1.small.x86",
+// 			Facility: &opt0,
+// 			Plan:     "c3.small.x86",
 // 		}, nil)
 // 		if err != nil {
 // 			return err
@@ -44,17 +45,19 @@ func GetSpotMarketPrice(ctx *pulumi.Context, args *GetSpotMarketPriceArgs, opts 
 // A collection of arguments for invoking getSpotMarketPrice.
 type GetSpotMarketPriceArgs struct {
 	// Name of the facility.
-	Facility string `pulumi:"facility"`
+	Facility *string `pulumi:"facility"`
+	Metro    *string `pulumi:"metro"`
 	// Name of the plan.
 	Plan string `pulumi:"plan"`
 }
 
 // A collection of values returned by getSpotMarketPrice.
 type GetSpotMarketPriceResult struct {
-	Facility string `pulumi:"facility"`
+	Facility *string `pulumi:"facility"`
 	// The provider-assigned unique ID for this managed resource.
-	Id   string `pulumi:"id"`
-	Plan string `pulumi:"plan"`
+	Id    string  `pulumi:"id"`
+	Metro *string `pulumi:"metro"`
+	Plan  string  `pulumi:"plan"`
 	// Current spot market price for given plan in given facility.
 	Price float64 `pulumi:"price"`
 }

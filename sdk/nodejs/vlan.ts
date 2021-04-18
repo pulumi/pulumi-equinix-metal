@@ -19,11 +19,18 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as equinix_metal from "@pulumi/equinix-metal";
  *
- * // Create a new VLAN in datacenter "ewr1"
- * const vlan1 = new equinix_metal.Vlan("vlan1", {
+ * // Create a new VLAN in facility "sv15"
+ * const vlan1Vlan = new equinix_metal.Vlan("vlan1Vlan", {
  *     description: "VLAN in New Jersey",
- *     facility: "ewr1",
+ *     facility: "sv15",
  *     projectId: local.project_id,
+ * });
+ * // Create a new VLAN in metro "esv"
+ * const vlan1Index_vlanVlan = new equinix_metal.Vlan("vlan1Index/vlanVlan", {
+ *     description: "VLAN in New Jersey",
+ *     metro: "sv",
+ *     projectId: local.project_id,
+ *     vxlan: 1040,
  * });
  * ```
  */
@@ -62,15 +69,16 @@ export class Vlan extends pulumi.CustomResource {
     /**
      * Facility where to create the VLAN
      */
-    public readonly facility!: pulumi.Output<string>;
+    public readonly facility!: pulumi.Output<string | undefined>;
+    public readonly metro!: pulumi.Output<string | undefined>;
     /**
      * ID of parent project
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * VXLAN segment ID
+     * VLAN ID, must be unique in metro
      */
-    public /*out*/ readonly vxlan!: pulumi.Output<number>;
+    public readonly vxlan!: pulumi.Output<number>;
 
     /**
      * Create a Vlan resource with the given unique name, arguments, and options.
@@ -87,20 +95,19 @@ export class Vlan extends pulumi.CustomResource {
             const state = argsOrState as VlanState | undefined;
             inputs["description"] = state ? state.description : undefined;
             inputs["facility"] = state ? state.facility : undefined;
+            inputs["metro"] = state ? state.metro : undefined;
             inputs["projectId"] = state ? state.projectId : undefined;
             inputs["vxlan"] = state ? state.vxlan : undefined;
         } else {
             const args = argsOrState as VlanArgs | undefined;
-            if ((!args || args.facility === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'facility'");
-            }
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
             inputs["description"] = args ? args.description : undefined;
             inputs["facility"] = args ? args.facility : undefined;
+            inputs["metro"] = args ? args.metro : undefined;
             inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["vxlan"] = undefined /*out*/;
+            inputs["vxlan"] = args ? args.vxlan : undefined;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
@@ -121,12 +128,13 @@ export interface VlanState {
      * Facility where to create the VLAN
      */
     readonly facility?: pulumi.Input<string | enums.Facility>;
+    readonly metro?: pulumi.Input<string>;
     /**
      * ID of parent project
      */
     readonly projectId?: pulumi.Input<string>;
     /**
-     * VXLAN segment ID
+     * VLAN ID, must be unique in metro
      */
     readonly vxlan?: pulumi.Input<number>;
 }
@@ -142,9 +150,14 @@ export interface VlanArgs {
     /**
      * Facility where to create the VLAN
      */
-    readonly facility: pulumi.Input<string | enums.Facility>;
+    readonly facility?: pulumi.Input<string | enums.Facility>;
+    readonly metro?: pulumi.Input<string>;
     /**
      * ID of parent project
      */
     readonly projectId: pulumi.Input<string>;
+    /**
+     * VLAN ID, must be unique in metro
+     */
+    readonly vxlan?: pulumi.Input<number>;
 }

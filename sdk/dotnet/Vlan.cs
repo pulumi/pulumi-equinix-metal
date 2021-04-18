@@ -27,12 +27,20 @@ namespace Pulumi.EquinixMetal
     /// {
     ///     public MyStack()
     ///     {
-    ///         // Create a new VLAN in datacenter "ewr1"
-    ///         var vlan1 = new EquinixMetal.Vlan("vlan1", new EquinixMetal.VlanArgs
+    ///         // Create a new VLAN in facility "sv15"
+    ///         var vlan1Vlan = new EquinixMetal.Vlan("vlan1Vlan", new EquinixMetal.VlanArgs
     ///         {
     ///             Description = "VLAN in New Jersey",
-    ///             Facility = "ewr1",
+    ///             Facility = "sv15",
     ///             ProjectId = local.Project_id,
+    ///         });
+    ///         // Create a new VLAN in metro "esv"
+    ///         var vlan1Index_vlanVlan = new EquinixMetal.Vlan("vlan1Index/vlanVlan", new EquinixMetal.VlanArgs
+    ///         {
+    ///             Description = "VLAN in New Jersey",
+    ///             Metro = "sv",
+    ///             ProjectId = local.Project_id,
+    ///             Vxlan = 1040,
     ///         });
     ///     }
     /// 
@@ -52,7 +60,10 @@ namespace Pulumi.EquinixMetal
         /// Facility where to create the VLAN
         /// </summary>
         [Output("facility")]
-        public Output<string> Facility { get; private set; } = null!;
+        public Output<string?> Facility { get; private set; } = null!;
+
+        [Output("metro")]
+        public Output<string?> Metro { get; private set; } = null!;
 
         /// <summary>
         /// ID of parent project
@@ -61,7 +72,7 @@ namespace Pulumi.EquinixMetal
         public Output<string> ProjectId { get; private set; } = null!;
 
         /// <summary>
-        /// VXLAN segment ID
+        /// VLAN ID, must be unique in metro
         /// </summary>
         [Output("vxlan")]
         public Output<int> Vxlan { get; private set; } = null!;
@@ -121,14 +132,23 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// Facility where to create the VLAN
         /// </summary>
-        [Input("facility", required: true)]
-        public InputUnion<string, Pulumi.EquinixMetal.Facility> Facility { get; set; } = null!;
+        [Input("facility")]
+        public InputUnion<string, Pulumi.EquinixMetal.Facility>? Facility { get; set; }
+
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
 
         /// <summary>
         /// ID of parent project
         /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
+
+        /// <summary>
+        /// VLAN ID, must be unique in metro
+        /// </summary>
+        [Input("vxlan")]
+        public Input<int>? Vxlan { get; set; }
 
         public VlanArgs()
         {
@@ -149,6 +169,9 @@ namespace Pulumi.EquinixMetal
         [Input("facility")]
         public InputUnion<string, Pulumi.EquinixMetal.Facility>? Facility { get; set; }
 
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
+
         /// <summary>
         /// ID of parent project
         /// </summary>
@@ -156,7 +179,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? ProjectId { get; set; }
 
         /// <summary>
-        /// VXLAN segment ID
+        /// VLAN ID, must be unique in metro
         /// </summary>
         [Input("vxlan")]
         public Input<int>? Vxlan { get; set; }

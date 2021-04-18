@@ -9,29 +9,26 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
-    'GetFacilityResult',
-    'AwaitableGetFacilityResult',
-    'get_facility',
+    'GetMetroResult',
+    'AwaitableGetMetroResult',
+    'get_metro',
 ]
 
 @pulumi.output_type
-class GetFacilityResult:
+class GetMetroResult:
     """
-    A collection of values returned by getFacility.
+    A collection of values returned by getMetro.
     """
-    def __init__(__self__, code=None, features=None, id=None, metro=None, name=None):
+    def __init__(__self__, code=None, country=None, id=None, name=None):
         if code and not isinstance(code, str):
             raise TypeError("Expected argument 'code' to be a str")
         pulumi.set(__self__, "code", code)
-        if features and not isinstance(features, list):
-            raise TypeError("Expected argument 'features' to be a list")
-        pulumi.set(__self__, "features", features)
+        if country and not isinstance(country, str):
+            raise TypeError("Expected argument 'country' to be a str")
+        pulumi.set(__self__, "country", country)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
-        if metro and not isinstance(metro, str):
-            raise TypeError("Expected argument 'metro' to be a str")
-        pulumi.set(__self__, "metro", metro)
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
@@ -39,58 +36,52 @@ class GetFacilityResult:
     @property
     @pulumi.getter
     def code(self) -> str:
+        """
+        The code of the metro
+        """
         return pulumi.get(self, "code")
 
     @property
     @pulumi.getter
-    def features(self) -> Sequence[str]:
+    def country(self) -> str:
         """
-        The features of the facility
+        The country of the metro
         """
-        return pulumi.get(self, "features")
+        return pulumi.get(self, "country")
 
     @property
     @pulumi.getter
     def id(self) -> str:
         """
-        The provider-assigned unique ID for this managed resource.
+        The ID of the metro
         """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
-    def metro(self) -> str:
-        """
-        The metro code the facility is part of
-        """
-        return pulumi.get(self, "metro")
-
-    @property
-    @pulumi.getter
     def name(self) -> str:
         """
-        The name of the facility
+        The name of the metro
         """
         return pulumi.get(self, "name")
 
 
-class AwaitableGetFacilityResult(GetFacilityResult):
+class AwaitableGetMetroResult(GetMetroResult):
     # pylint: disable=using-constant-test
     def __await__(self):
         if False:
             yield self
-        return GetFacilityResult(
+        return GetMetroResult(
             code=self.code,
-            features=self.features,
+            country=self.country,
             id=self.id,
-            metro=self.metro,
             name=self.name)
 
 
-def get_facility(code: Optional[str] = None,
-                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetFacilityResult:
+def get_metro(code: Optional[str] = None,
+              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMetroResult:
     """
-    Provides an Equinix Metal facility datasource.
+    Provides an Equinix Metal metro datasource.
 
     ## Example Usage
 
@@ -98,12 +89,12 @@ def get_facility(code: Optional[str] = None,
     import pulumi
     import pulumi_equinix_metal as equinix_metal
 
-    ny5 = equinix_metal.get_facility(code="ny5")
-    pulumi.export("id", ny5.id)
+    sv = equinix_metal.get_metro(code="sv")
+    pulumi.export("id", sv.id)
     ```
 
 
-    :param str code: The facility code
+    :param str code: The metro code
     """
     __args__ = dict()
     __args__['code'] = code
@@ -111,11 +102,10 @@ def get_facility(code: Optional[str] = None,
         opts = pulumi.InvokeOptions()
     if opts.version is None:
         opts.version = _utilities.get_version()
-    __ret__ = pulumi.runtime.invoke('equinix-metal:index/getFacility:getFacility', __args__, opts=opts, typ=GetFacilityResult).value
+    __ret__ = pulumi.runtime.invoke('equinix-metal:index/getMetro:getMetro', __args__, opts=opts, typ=GetMetroResult).value
 
-    return AwaitableGetFacilityResult(
+    return AwaitableGetMetroResult(
         code=__ret__.code,
-        features=__ret__.features,
+        country=__ret__.country,
         id=__ret__.id,
-        metro=__ret__.metro,
         name=__ret__.name)

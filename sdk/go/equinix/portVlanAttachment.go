@@ -37,7 +37,7 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
 // 			Description: pulumi.String("VLAN in New Jersey"),
-// 			Facility:    pulumi.String("ewr1"),
+// 			Facility:    pulumi.String("ny5"),
 // 			ProjectId:   pulumi.Any(local.Project_id),
 // 		})
 // 		if err != nil {
@@ -45,11 +45,11 @@ import (
 // 		}
 // 		testDevice, err := equinix - metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
 // 			Hostname: pulumi.String("test"),
-// 			Plan:     pulumi.String("m1.xlarge.x86"),
+// 			Plan:     pulumi.String("c3.small.x86"),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
+// 				pulumi.String("ny5"),
 // 			},
-// 			OperatingSystem: pulumi.String("ubuntu_16_04"),
+// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
 // 			BillingCycle:    pulumi.String("hourly"),
 // 			ProjectId:       pulumi.Any(local.Project_id),
 // 		})
@@ -89,11 +89,11 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		testDevice, err := equinix - metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
 // 			Hostname: pulumi.String("test"),
-// 			Plan:     pulumi.String("m1.xlarge.x86"),
+// 			Plan:     pulumi.String("c3.small.x86"),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
+// 				pulumi.String("ny5"),
 // 			},
-// 			OperatingSystem: pulumi.String("ubuntu_16_04"),
+// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
 // 			BillingCycle:    pulumi.String("hourly"),
 // 			ProjectId:       pulumi.Any(local.Project_id),
 // 		})
@@ -109,7 +109,7 @@ import (
 // 		}
 // 		test1Vlan, err := equinix - metal.NewVlan(ctx, "test1Vlan", &equinix-metal.VlanArgs{
 // 			Description: pulumi.String("VLAN in New Jersey"),
-// 			Facility:    pulumi.String("ewr1"),
+// 			Facility:    pulumi.String("ny5"),
 // 			ProjectId:   pulumi.Any(local.Project_id),
 // 		})
 // 		if err != nil {
@@ -117,7 +117,7 @@ import (
 // 		}
 // 		test2Vlan, err := equinix - metal.NewVlan(ctx, "test2Vlan", &equinix-metal.VlanArgs{
 // 			Description: pulumi.String("VLAN in New Jersey"),
-// 			Facility:    pulumi.String("ewr1"),
+// 			Facility:    pulumi.String("ny5"),
 // 			ProjectId:   pulumi.Any(local.Project_id),
 // 		})
 // 		if err != nil {

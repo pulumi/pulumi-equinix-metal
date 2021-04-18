@@ -241,13 +241,13 @@ class PortVlanAttachment(pulumi.CustomResource):
 
         test_vlan = equinix_metal.Vlan("testVlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="ny5",
             project_id=local["project_id"])
         test_device = equinix_metal.Device("testDevice",
             hostname="test",
-            plan="m1.xlarge.x86",
-            facilities=["ewr1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"])
         test_device_network_type = equinix_metal.DeviceNetworkType("testDeviceNetworkType",
@@ -266,9 +266,9 @@ class PortVlanAttachment(pulumi.CustomResource):
 
         test_device = equinix_metal.Device("testDevice",
             hostname="test",
-            plan="m1.xlarge.x86",
-            facilities=["ewr1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"])
         test_device_network_type = equinix_metal.DeviceNetworkType("testDeviceNetworkType",
@@ -276,11 +276,11 @@ class PortVlanAttachment(pulumi.CustomResource):
             type="layer2-individual")
         test1_vlan = equinix_metal.Vlan("test1Vlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="ny5",
             project_id=local["project_id"])
         test2_vlan = equinix_metal.Vlan("test2Vlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="ny5",
             project_id=local["project_id"])
         test1_port_vlan_attachment = equinix_metal.PortVlanAttachment("test1PortVlanAttachment",
             device_id=test_device_network_type.id,
@@ -334,13 +334,13 @@ class PortVlanAttachment(pulumi.CustomResource):
 
         test_vlan = equinix_metal.Vlan("testVlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="ny5",
             project_id=local["project_id"])
         test_device = equinix_metal.Device("testDevice",
             hostname="test",
-            plan="m1.xlarge.x86",
-            facilities=["ewr1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"])
         test_device_network_type = equinix_metal.DeviceNetworkType("testDeviceNetworkType",
@@ -359,9 +359,9 @@ class PortVlanAttachment(pulumi.CustomResource):
 
         test_device = equinix_metal.Device("testDevice",
             hostname="test",
-            plan="m1.xlarge.x86",
-            facilities=["ewr1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"])
         test_device_network_type = equinix_metal.DeviceNetworkType("testDeviceNetworkType",
@@ -369,11 +369,11 @@ class PortVlanAttachment(pulumi.CustomResource):
             type="layer2-individual")
         test1_vlan = equinix_metal.Vlan("test1Vlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="ny5",
             project_id=local["project_id"])
         test2_vlan = equinix_metal.Vlan("test2Vlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="ny5",
             project_id=local["project_id"])
         test1_port_vlan_attachment = equinix_metal.PortVlanAttachment("test1PortVlanAttachment",
             device_id=test_device_network_type.id,

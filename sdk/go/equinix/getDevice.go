@@ -100,6 +100,8 @@ type LookupDeviceResult struct {
 	// The provider-assigned unique ID for this managed resource.
 	Id            string `pulumi:"id"`
 	IpxeScriptUrl string `pulumi:"ipxeScriptUrl"`
+	// The metro where the device is deployed
+	Metro string `pulumi:"metro"`
 	// L2 network type of the device, one of "layer3", "layer2-bonded", "layer2-individual", "hybrid"
 	NetworkType string `pulumi:"networkType"`
 	// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:

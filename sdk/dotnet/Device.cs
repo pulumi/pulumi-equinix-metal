@@ -32,12 +32,9 @@ namespace Pulumi.EquinixMetal
     ///         var web1 = new EquinixMetal.Device("web1", new EquinixMetal.DeviceArgs
     ///         {
     ///             Hostname = "tf.coreos2",
-    ///             Plan = "t1.small.x86",
-    ///             Facilities = 
-    ///             {
-    ///                 "ewr1",
-    ///             },
-    ///             OperatingSystem = "coreos_stable",
+    ///             Plan = "c3.small.x86",
+    ///             Metro = "sv",
+    ///             OperatingSystem = "ubuntu_20_04",
     ///             BillingCycle = "hourly",
     ///             ProjectId = local.Project_id,
     ///         });
@@ -59,11 +56,8 @@ namespace Pulumi.EquinixMetal
     ///         var pxe1 = new EquinixMetal.Device("pxe1", new EquinixMetal.DeviceArgs
     ///         {
     ///             Hostname = "tf.coreos2-pxe",
-    ///             Plan = "t1.small.x86",
-    ///             Facilities = 
-    ///             {
-    ///                 "ewr1",
-    ///             },
+    ///             Plan = "c3.small.x86",
+    ///             Metro = "sv",
     ///             OperatingSystem = "custom_ipxe",
     ///             BillingCycle = "hourly",
     ///             ProjectId = local.Project_id,
@@ -76,7 +70,7 @@ namespace Pulumi.EquinixMetal
     /// }
     /// ```
     /// 
-    /// Create a device without a public IP address, with only a /30 private IPv4 subnet (4 IP addresses)
+    /// Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
     /// 
     /// ```csharp
     /// using Pulumi;
@@ -89,12 +83,12 @@ namespace Pulumi.EquinixMetal
     ///         var web1 = new EquinixMetal.Device("web1", new EquinixMetal.DeviceArgs
     ///         {
     ///             Hostname = "tf.coreos2",
-    ///             Plan = "t1.small.x86",
+    ///             Plan = "c3.small.x86",
     ///             Facilities = 
     ///             {
-    ///                 "ewr1",
+    ///                 "ny5",
     ///             },
-    ///             OperatingSystem = "coreos_stable",
+    ///             OperatingSystem = "ubuntu_20_04",
     ///             BillingCycle = "hourly",
     ///             ProjectId = local.Project_id,
     ///             IpAddresses = 
@@ -124,12 +118,12 @@ namespace Pulumi.EquinixMetal
     ///         var web1 = new EquinixMetal.Device("web1", new EquinixMetal.DeviceArgs
     ///         {
     ///             Hostname = "tftest",
-    ///             Plan = "t1.small.x86",
+    ///             Plan = "c3.small.x86",
     ///             Facilities = 
     ///             {
-    ///                 "sjc1",
+    ///                 "ny5",
     ///             },
-    ///             OperatingSystem = "ubuntu_16_04",
+    ///             OperatingSystem = "ubuntu_20_04",
     ///             BillingCycle = "hourly",
     ///             ProjectId = local.Project_id,
     ///             HardwareReservationId = "next-available",
@@ -258,7 +252,7 @@ namespace Pulumi.EquinixMetal
         public Output<string?> Description { get; private set; } = null!;
 
         /// <summary>
-        /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         /// </summary>
         [Output("facilities")]
         public Output<ImmutableArray<string>> Facilities { get; private set; } = null!;
@@ -298,6 +292,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Output("locked")]
         public Output<bool> Locked { get; private set; } = null!;
+
+        /// <summary>
+        /// Metro area for the new device. Conflicts with `facilities`.
+        /// </summary>
+        [Output("metro")]
+        public Output<string?> Metro { get; private set; } = null!;
 
         [Output("networkType")]
         public Output<string> NetworkType { get; private set; } = null!;
@@ -463,12 +463,13 @@ namespace Pulumi.EquinixMetal
         [Input("description")]
         public Input<string>? Description { get; set; }
 
-        [Input("facilities", required: true)]
+        [Input("facilities")]
         private InputList<Union<string, Pulumi.EquinixMetal.Facility>>? _facilities;
 
         /// <summary>
-        /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         /// </summary>
+        [Obsolete(@"Use metro attribute instead")]
         public InputList<Union<string, Pulumi.EquinixMetal.Facility>> Facilities
         {
             get => _facilities ?? (_facilities = new InputList<Union<string, Pulumi.EquinixMetal.Facility>>());
@@ -510,6 +511,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Input("ipxeScriptUrl")]
         public Input<string>? IpxeScriptUrl { get; set; }
+
+        /// <summary>
+        /// Metro area for the new device. Conflicts with `facilities`.
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
 
         /// <summary>
         /// The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
@@ -644,8 +651,9 @@ namespace Pulumi.EquinixMetal
         private InputList<Union<string, Pulumi.EquinixMetal.Facility>>? _facilities;
 
         /// <summary>
-        /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         /// </summary>
+        [Obsolete(@"Use metro attribute instead")]
         public InputList<Union<string, Pulumi.EquinixMetal.Facility>> Facilities
         {
             get => _facilities ?? (_facilities = new InputList<Union<string, Pulumi.EquinixMetal.Facility>>());
@@ -693,6 +701,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
+
+        /// <summary>
+        /// Metro area for the new device. Conflicts with `facilities`.
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
 
         [Input("networkType")]
         public InputUnion<string, Pulumi.EquinixMetal.NetworkType>? NetworkType { get; set; }

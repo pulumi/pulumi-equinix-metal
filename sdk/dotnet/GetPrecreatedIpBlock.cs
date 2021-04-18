@@ -29,7 +29,7 @@ namespace Pulumi.EquinixMetal
         public int AddressFamily { get; set; }
 
         /// <summary>
-        /// Facility of the searched block. (Optional) Only allowed for non-global blocks.
+        /// Facility of the searched block. (for non-global blocks).
         /// </summary>
         [Input("facility")]
         public string? Facility { get; set; }
@@ -39,6 +39,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Input("global")]
         public bool? Global { get; set; }
+
+        /// <summary>
+        /// Metro of the searched block (for non-global blocks).
+        /// </summary>
+        [Input("metro")]
+        public string? Metro { get; set; }
 
         /// <summary>
         /// ID of the project where the searched block should be.
@@ -77,6 +83,7 @@ namespace Pulumi.EquinixMetal
         public readonly string Id;
         public readonly bool Manageable;
         public readonly bool Management;
+        public readonly string? Metro;
         public readonly string Netmask;
         public readonly string Network;
         public readonly string ProjectId;
@@ -106,6 +113,8 @@ namespace Pulumi.EquinixMetal
 
             bool management,
 
+            string? metro,
+
             string netmask,
 
             string network,
@@ -128,6 +137,7 @@ namespace Pulumi.EquinixMetal
             Id = id;
             Manageable = manageable;
             Management = management;
+            Metro = metro;
             Netmask = netmask;
             Network = network;
             ProjectId = projectId;
