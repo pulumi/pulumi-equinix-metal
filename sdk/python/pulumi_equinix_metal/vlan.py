@@ -14,31 +14,27 @@ __all__ = ['VlanArgs', 'Vlan']
 @pulumi.input_type
 class VlanArgs:
     def __init__(__self__, *,
-                 facility: pulumi.Input[Union[str, 'Facility']],
                  project_id: pulumi.Input[str],
-                 description: Optional[pulumi.Input[str]] = None):
+                 description: Optional[pulumi.Input[str]] = None,
+                 facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
+                 vxlan: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a Vlan resource.
-        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
         :param pulumi.Input[str] project_id: ID of parent project
         :param pulumi.Input[str] description: Description string
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
+        :param pulumi.Input[int] vxlan: VLAN ID, must be unique in metro
         """
-        pulumi.set(__self__, "facility", facility)
         pulumi.set(__self__, "project_id", project_id)
         if description is not None:
             pulumi.set(__self__, "description", description)
-
-    @property
-    @pulumi.getter
-    def facility(self) -> pulumi.Input[Union[str, 'Facility']]:
-        """
-        Facility where to create the VLAN
-        """
-        return pulumi.get(self, "facility")
-
-    @facility.setter
-    def facility(self, value: pulumi.Input[Union[str, 'Facility']]):
-        pulumi.set(self, "facility", value)
+        if facility is not None:
+            pulumi.set(__self__, "facility", facility)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
+        if vxlan is not None:
+            pulumi.set(__self__, "vxlan", vxlan)
 
     @property
     @pulumi.getter(name="projectId")
@@ -64,12 +60,46 @@ class VlanArgs:
     def description(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "description", value)
 
+    @property
+    @pulumi.getter
+    def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
+        """
+        Facility where to create the VLAN
+        """
+        return pulumi.get(self, "facility")
+
+    @facility.setter
+    def facility(self, value: Optional[pulumi.Input[Union[str, 'Facility']]]):
+        pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
+
+    @property
+    @pulumi.getter
+    def vxlan(self) -> Optional[pulumi.Input[int]]:
+        """
+        VLAN ID, must be unique in metro
+        """
+        return pulumi.get(self, "vxlan")
+
+    @vxlan.setter
+    def vxlan(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "vxlan", value)
+
 
 @pulumi.input_type
 class _VlanState:
     def __init__(__self__, *,
                  description: Optional[pulumi.Input[str]] = None,
                  facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  vxlan: Optional[pulumi.Input[int]] = None):
         """
@@ -77,12 +107,14 @@ class _VlanState:
         :param pulumi.Input[str] description: Description string
         :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
         :param pulumi.Input[str] project_id: ID of parent project
-        :param pulumi.Input[int] vxlan: VXLAN segment ID
+        :param pulumi.Input[int] vxlan: VLAN ID, must be unique in metro
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
         if facility is not None:
             pulumi.set(__self__, "facility", facility)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
         if vxlan is not None:
@@ -113,6 +145,15 @@ class _VlanState:
         pulumi.set(self, "facility", value)
 
     @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
+
+    @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -128,7 +169,7 @@ class _VlanState:
     @pulumi.getter
     def vxlan(self) -> Optional[pulumi.Input[int]]:
         """
-        VXLAN segment ID
+        VLAN ID, must be unique in metro
         """
         return pulumi.get(self, "vxlan")
 
@@ -144,7 +185,9 @@ class Vlan(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
+                 vxlan: Optional[pulumi.Input[int]] = None,
                  __props__=None,
                  __name__=None,
                  __opts__=None):
@@ -162,11 +205,17 @@ class Vlan(pulumi.CustomResource):
         import pulumi
         import pulumi_equinix_metal as equinix_metal
 
-        # Create a new VLAN in datacenter "ewr1"
-        vlan1 = equinix_metal.Vlan("vlan1",
+        # Create a new VLAN in facility "sv15"
+        vlan1_vlan = equinix_metal.Vlan("vlan1Vlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="sv15",
             project_id=local["project_id"])
+        # Create a new VLAN in metro "esv"
+        vlan1_index_vlan_vlan = equinix_metal.Vlan("vlan1Index/vlanVlan",
+            description="VLAN in New Jersey",
+            metro="sv",
+            project_id=local["project_id"],
+            vxlan=1040)
         ```
 
         :param str resource_name: The name of the resource.
@@ -174,6 +223,7 @@ class Vlan(pulumi.CustomResource):
         :param pulumi.Input[str] description: Description string
         :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
         :param pulumi.Input[str] project_id: ID of parent project
+        :param pulumi.Input[int] vxlan: VLAN ID, must be unique in metro
         """
         ...
     @overload
@@ -195,11 +245,17 @@ class Vlan(pulumi.CustomResource):
         import pulumi
         import pulumi_equinix_metal as equinix_metal
 
-        # Create a new VLAN in datacenter "ewr1"
-        vlan1 = equinix_metal.Vlan("vlan1",
+        # Create a new VLAN in facility "sv15"
+        vlan1_vlan = equinix_metal.Vlan("vlan1Vlan",
             description="VLAN in New Jersey",
-            facility="ewr1",
+            facility="sv15",
             project_id=local["project_id"])
+        # Create a new VLAN in metro "esv"
+        vlan1_index_vlan_vlan = equinix_metal.Vlan("vlan1Index/vlanVlan",
+            description="VLAN in New Jersey",
+            metro="sv",
+            project_id=local["project_id"],
+            vxlan=1040)
         ```
 
         :param str resource_name: The name of the resource.
@@ -219,7 +275,9 @@ class Vlan(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
+                 vxlan: Optional[pulumi.Input[int]] = None,
                  __props__=None,
                  __name__=None,
                  __opts__=None):
@@ -241,13 +299,12 @@ class Vlan(pulumi.CustomResource):
             __props__ = VlanArgs.__new__(VlanArgs)
 
             __props__.__dict__["description"] = description
-            if facility is None and not opts.urn:
-                raise TypeError("Missing required property 'facility'")
             __props__.__dict__["facility"] = facility
+            __props__.__dict__["metro"] = metro
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
-            __props__.__dict__["vxlan"] = None
+            __props__.__dict__["vxlan"] = vxlan
         super(Vlan, __self__).__init__(
             'equinix-metal:index/vlan:Vlan',
             resource_name,
@@ -260,6 +317,7 @@ class Vlan(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None,
             description: Optional[pulumi.Input[str]] = None,
             facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+            metro: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
             vxlan: Optional[pulumi.Input[int]] = None) -> 'Vlan':
         """
@@ -272,7 +330,7 @@ class Vlan(pulumi.CustomResource):
         :param pulumi.Input[str] description: Description string
         :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
         :param pulumi.Input[str] project_id: ID of parent project
-        :param pulumi.Input[int] vxlan: VXLAN segment ID
+        :param pulumi.Input[int] vxlan: VLAN ID, must be unique in metro
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -280,6 +338,7 @@ class Vlan(pulumi.CustomResource):
 
         __props__.__dict__["description"] = description
         __props__.__dict__["facility"] = facility
+        __props__.__dict__["metro"] = metro
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["vxlan"] = vxlan
         return Vlan(resource_name, opts=opts, __props__=__props__)
@@ -294,11 +353,16 @@ class Vlan(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def facility(self) -> pulumi.Output[str]:
+    def facility(self) -> pulumi.Output[Optional[str]]:
         """
         Facility where to create the VLAN
         """
         return pulumi.get(self, "facility")
+
+    @property
+    @pulumi.getter
+    def metro(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "metro")
 
     @property
     @pulumi.getter(name="projectId")
@@ -312,7 +376,7 @@ class Vlan(pulumi.CustomResource):
     @pulumi.getter
     def vxlan(self) -> pulumi.Output[int]:
         """
-        VXLAN segment ID
+        VLAN ID, must be unique in metro
         """
         return pulumi.get(self, "vxlan")
 

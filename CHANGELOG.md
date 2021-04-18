@@ -2,7 +2,9 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Upgrade to v2.0.1 of the Equinix Metal Terraform Provider.
+  **Please Note:**  
+  This release introduces the new concept of "Equinix Metal Metros". You can read more about this in the [Equinix Metal documentation](https://feedback.equinixmetal.com/changelog/new-metros-feature-live)
 
 ---
 

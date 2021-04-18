@@ -9,10 +9,10 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal
 {
-    public static class GetFacility
+    public static class GetMetro
     {
         /// <summary>
-        /// Provides an Equinix Metal facility datasource.
+        /// Provides an Equinix Metal metro datasource.
         /// 
         /// {{% examples %}}
         /// ## Example Usage
@@ -26,11 +26,11 @@ namespace Pulumi.EquinixMetal
         /// {
         ///     public MyStack()
         ///     {
-        ///         var ny5 = Output.Create(EquinixMetal.GetFacility.InvokeAsync(new EquinixMetal.GetFacilityArgs
+        ///         var sv = Output.Create(EquinixMetal.GetMetro.InvokeAsync(new EquinixMetal.GetMetroArgs
         ///         {
-        ///             Code = "ny5",
+        ///             Code = "sv",
         ///         }));
-        ///         this.Id = ny5.Apply(ny5 =&gt; ny5.Id);
+        ///         this.Id = sv.Apply(sv =&gt; sv.Id);
         ///     }
         /// 
         ///     [Output("id")]
@@ -40,62 +40,58 @@ namespace Pulumi.EquinixMetal
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
-        public static Task<GetFacilityResult> InvokeAsync(GetFacilityArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityArgs(), options.WithVersion());
+        public static Task<GetMetroResult> InvokeAsync(GetMetroArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.InvokeAsync<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroArgs(), options.WithVersion());
     }
 
 
-    public sealed class GetFacilityArgs : Pulumi.InvokeArgs
+    public sealed class GetMetroArgs : Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The facility code
+        /// The metro code
         /// </summary>
         [Input("code", required: true)]
         public string Code { get; set; } = null!;
 
-        public GetFacilityArgs()
+        public GetMetroArgs()
         {
         }
     }
 
 
     [OutputType]
-    public sealed class GetFacilityResult
+    public sealed class GetMetroResult
     {
+        /// <summary>
+        /// The code of the metro
+        /// </summary>
         public readonly string Code;
         /// <summary>
-        /// The features of the facility
+        /// The country of the metro
         /// </summary>
-        public readonly ImmutableArray<string> Features;
+        public readonly string Country;
         /// <summary>
-        /// The provider-assigned unique ID for this managed resource.
+        /// The ID of the metro
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// The metro code the facility is part of
-        /// </summary>
-        public readonly string Metro;
-        /// <summary>
-        /// The name of the facility
+        /// The name of the metro
         /// </summary>
         public readonly string Name;
 
         [OutputConstructor]
-        private GetFacilityResult(
+        private GetMetroResult(
             string code,
 
-            ImmutableArray<string> features,
+            string country,
 
             string id,
-
-            string metro,
 
             string name)
         {
             Code = code;
-            Features = features;
+            Country = country;
             Id = id;
-            Metro = metro;
             Name = name;
         }
     }

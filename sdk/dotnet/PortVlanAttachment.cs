@@ -35,18 +35,18 @@ namespace Pulumi.EquinixMetal
     ///         var testVlan = new EquinixMetal.Vlan("testVlan", new EquinixMetal.VlanArgs
     ///         {
     ///             Description = "VLAN in New Jersey",
-    ///             Facility = "ewr1",
+    ///             Facility = "ny5",
     ///             ProjectId = local.Project_id,
     ///         });
     ///         var testDevice = new EquinixMetal.Device("testDevice", new EquinixMetal.DeviceArgs
     ///         {
     ///             Hostname = "test",
-    ///             Plan = "m1.xlarge.x86",
+    ///             Plan = "c3.small.x86",
     ///             Facilities = 
     ///             {
-    ///                 "ewr1",
+    ///                 "ny5",
     ///             },
-    ///             OperatingSystem = "ubuntu_16_04",
+    ///             OperatingSystem = "ubuntu_20_04",
     ///             BillingCycle = "hourly",
     ///             ProjectId = local.Project_id,
     ///         });
@@ -78,12 +78,12 @@ namespace Pulumi.EquinixMetal
     ///         var testDevice = new EquinixMetal.Device("testDevice", new EquinixMetal.DeviceArgs
     ///         {
     ///             Hostname = "test",
-    ///             Plan = "m1.xlarge.x86",
+    ///             Plan = "c3.small.x86",
     ///             Facilities = 
     ///             {
-    ///                 "ewr1",
+    ///                 "ny5",
     ///             },
-    ///             OperatingSystem = "ubuntu_16_04",
+    ///             OperatingSystem = "ubuntu_20_04",
     ///             BillingCycle = "hourly",
     ///             ProjectId = local.Project_id,
     ///         });
@@ -95,13 +95,13 @@ namespace Pulumi.EquinixMetal
     ///         var test1Vlan = new EquinixMetal.Vlan("test1Vlan", new EquinixMetal.VlanArgs
     ///         {
     ///             Description = "VLAN in New Jersey",
-    ///             Facility = "ewr1",
+    ///             Facility = "ny5",
     ///             ProjectId = local.Project_id,
     ///         });
     ///         var test2Vlan = new EquinixMetal.Vlan("test2Vlan", new EquinixMetal.VlanArgs
     ///         {
     ///             Description = "VLAN in New Jersey",
-    ///             Facility = "ewr1",
+    ///             Facility = "ny5",
     ///             ProjectId = local.Project_id,
     ///         });
     ///         var test1PortVlanAttachment = new EquinixMetal.PortVlanAttachment("test1PortVlanAttachment", new EquinixMetal.PortVlanAttachmentArgs

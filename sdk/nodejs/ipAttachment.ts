@@ -66,6 +66,9 @@ export class IpAttachment extends pulumi.CustomResource {
      * IP address of gateway for the subnet
      */
     public /*out*/ readonly gateway!: pulumi.Output<string>;
+    /**
+     * Flag indicating whether IP block is global, i.e. assignable in any location
+     */
     public /*out*/ readonly global!: pulumi.Output<boolean>;
     public /*out*/ readonly manageable!: pulumi.Output<boolean>;
     public /*out*/ readonly management!: pulumi.Output<boolean>;
@@ -161,6 +164,9 @@ export interface IpAttachmentState {
      * IP address of gateway for the subnet
      */
     readonly gateway?: pulumi.Input<string>;
+    /**
+     * Flag indicating whether IP block is global, i.e. assignable in any location
+     */
     readonly global?: pulumi.Input<boolean>;
     readonly manageable?: pulumi.Input<boolean>;
     readonly management?: pulumi.Input<boolean>;

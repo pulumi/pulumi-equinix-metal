@@ -22,10 +22,12 @@ func GetPrecreatedIpBlock(ctx *pulumi.Context, args *GetPrecreatedIpBlockArgs, o
 type GetPrecreatedIpBlockArgs struct {
 	// 4 or 6, depending on which block you are looking for.
 	AddressFamily int `pulumi:"addressFamily"`
-	// Facility of the searched block. (Optional) Only allowed for non-global blocks.
+	// Facility of the searched block. (for non-global blocks).
 	Facility *string `pulumi:"facility"`
 	// Whether to look for global block. Default is false for backward compatibility.
 	Global *bool `pulumi:"global"`
+	// Metro of the searched block (for non-global blocks).
+	Metro *string `pulumi:"metro"`
 	// ID of the project where the searched block should be.
 	ProjectId string `pulumi:"projectId"`
 	// Whether to look for public or private block.
@@ -43,13 +45,14 @@ type GetPrecreatedIpBlockResult struct {
 	Gateway      string  `pulumi:"gateway"`
 	Global       *bool   `pulumi:"global"`
 	// The provider-assigned unique ID for this managed resource.
-	Id         string `pulumi:"id"`
-	Manageable bool   `pulumi:"manageable"`
-	Management bool   `pulumi:"management"`
-	Netmask    string `pulumi:"netmask"`
-	Network    string `pulumi:"network"`
-	ProjectId  string `pulumi:"projectId"`
-	Public     bool   `pulumi:"public"`
-	Quantity   int    `pulumi:"quantity"`
-	Type       string `pulumi:"type"`
+	Id         string  `pulumi:"id"`
+	Manageable bool    `pulumi:"manageable"`
+	Management bool    `pulumi:"management"`
+	Metro      *string `pulumi:"metro"`
+	Netmask    string  `pulumi:"netmask"`
+	Network    string  `pulumi:"network"`
+	ProjectId  string  `pulumi:"projectId"`
+	Public     bool    `pulumi:"public"`
+	Quantity   int     `pulumi:"quantity"`
+	Type       string  `pulumi:"type"`
 }

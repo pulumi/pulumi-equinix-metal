@@ -19,7 +19,7 @@ class GetIpBlockRangesResult:
     """
     A collection of values returned by getIpBlockRanges.
     """
-    def __init__(__self__, facility=None, global_ipv4s=None, id=None, ipv6s=None, private_ipv4s=None, project_id=None, public_ipv4s=None):
+    def __init__(__self__, facility=None, global_ipv4s=None, id=None, ipv6s=None, metro=None, private_ipv4s=None, project_id=None, public_ipv4s=None):
         if facility and not isinstance(facility, str):
             raise TypeError("Expected argument 'facility' to be a str")
         pulumi.set(__self__, "facility", facility)
@@ -32,6 +32,9 @@ class GetIpBlockRangesResult:
         if ipv6s and not isinstance(ipv6s, list):
             raise TypeError("Expected argument 'ipv6s' to be a list")
         pulumi.set(__self__, "ipv6s", ipv6s)
+        if metro and not isinstance(metro, str):
+            raise TypeError("Expected argument 'metro' to be a str")
+        pulumi.set(__self__, "metro", metro)
         if private_ipv4s and not isinstance(private_ipv4s, list):
             raise TypeError("Expected argument 'private_ipv4s' to be a list")
         pulumi.set(__self__, "private_ipv4s", private_ipv4s)
@@ -72,6 +75,11 @@ class GetIpBlockRangesResult:
         return pulumi.get(self, "ipv6s")
 
     @property
+    @pulumi.getter
+    def metro(self) -> Optional[str]:
+        return pulumi.get(self, "metro")
+
+    @property
     @pulumi.getter(name="privateIpv4s")
     def private_ipv4s(self) -> Sequence[str]:
         """
@@ -103,18 +111,20 @@ class AwaitableGetIpBlockRangesResult(GetIpBlockRangesResult):
             global_ipv4s=self.global_ipv4s,
             id=self.id,
             ipv6s=self.ipv6s,
+            metro=self.metro,
             private_ipv4s=self.private_ipv4s,
             project_id=self.project_id,
             public_ipv4s=self.public_ipv4s)
 
 
 def get_ip_block_ranges(facility: Optional[str] = None,
+                        metro: Optional[str] = None,
                         project_id: Optional[str] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetIpBlockRangesResult:
     """
-    Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility.
+    Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
 
-    There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 block is allocated in a facility, and addresses from it can only be assigned to devices in that facility. Addresses from Global IPv4 block can be assigned to a device in any facility.
+    There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 blocks are allocated in a facility or metro, and addresses from it can only be assigned to devices in that location. Addresses from Global IPv4 block can be assigned to a device in any metro.
 
     The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`<network>/<mask>`) of respective blocks from the project.
 
@@ -130,11 +140,13 @@ def get_ip_block_ranges(facility: Optional[str] = None,
     ```
 
 
-    :param str facility: Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this, all the block from the project will be listed.
+    :param str facility: Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
+    :param str metro: Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
     :param str project_id: ID of the project from which to list the blocks.
     """
     __args__ = dict()
     __args__['facility'] = facility
+    __args__['metro'] = metro
     __args__['projectId'] = project_id
     if opts is None:
         opts = pulumi.InvokeOptions()
@@ -147,6 +159,7 @@ def get_ip_block_ranges(facility: Optional[str] = None,
         global_ipv4s=__ret__.global_ipv4s,
         id=__ret__.id,
         ipv6s=__ret__.ipv6s,
+        metro=__ret__.metro,
         private_ipv4s=__ret__.private_ipv4s,
         project_id=__ret__.project_id,
         public_ipv4s=__ret__.public_ipv4s)

@@ -33,12 +33,10 @@ import (
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
-// 			Hostname: pulumi.String("tf.coreos2"),
-// 			Plan:     pulumi.String("t1.small.x86"),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
-// 			},
-// 			OperatingSystem: pulumi.String("coreos_stable"),
+// 			Hostname:        pulumi.String("tf.coreos2"),
+// 			Plan:            pulumi.String("c3.small.x86"),
+// 			Metro:           pulumi.String("sv"),
+// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
 // 			BillingCycle:    pulumi.String("hourly"),
 // 			ProjectId:       pulumi.Any(local.Project_id),
 // 		})
@@ -63,11 +61,9 @@ import (
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := equinix - metal.NewDevice(ctx, "pxe1", &equinix-metal.DeviceArgs{
-// 			Hostname: pulumi.String("tf.coreos2-pxe"),
-// 			Plan:     pulumi.String("t1.small.x86"),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
-// 			},
+// 			Hostname:        pulumi.String("tf.coreos2-pxe"),
+// 			Plan:            pulumi.String("c3.small.x86"),
+// 			Metro:           pulumi.String("sv"),
 // 			OperatingSystem: pulumi.String("custom_ipxe"),
 // 			BillingCycle:    pulumi.String("hourly"),
 // 			ProjectId:       pulumi.Any(local.Project_id),
@@ -83,7 +79,7 @@ import (
 // }
 // ```
 //
-// Create a device without a public IP address, with only a /30 private IPv4 subnet (4 IP addresses)
+// Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
 //
 // ```go
 // package main
@@ -97,11 +93,11 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
 // 			Hostname: pulumi.String("tf.coreos2"),
-// 			Plan:     pulumi.String("t1.small.x86"),
+// 			Plan:     pulumi.String("c3.small.x86"),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
+// 				pulumi.String("ny5"),
 // 			},
-// 			OperatingSystem: pulumi.String("coreos_stable"),
+// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
 // 			BillingCycle:    pulumi.String("hourly"),
 // 			ProjectId:       pulumi.Any(local.Project_id),
 // 			IpAddresses: equinix - metal.DeviceIpAddressArray{
@@ -135,11 +131,11 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
 // 			Hostname: pulumi.String("tftest"),
-// 			Plan:     pulumi.String("t1.small.x86"),
+// 			Plan:     pulumi.String("c3.small.x86"),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("sjc1"),
+// 				pulumi.String("ny5"),
 // 			},
-// 			OperatingSystem:       pulumi.String("ubuntu_16_04"),
+// 			OperatingSystem:       pulumi.String("ubuntu_20_04"),
 // 			BillingCycle:          pulumi.String("hourly"),
 // 			ProjectId:             pulumi.Any(local.Project_id),
 // 			HardwareReservationId: pulumi.String("next-available"),
@@ -176,7 +172,9 @@ type Device struct {
 	DeployedHardwareReservationId pulumi.StringOutput `pulumi:"deployedHardwareReservationId"`
 	// Description string for the device
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+	//
+	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayOutput `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    pulumi.BoolPtrOutput   `pulumi:"forceDetachVolumes"`
@@ -192,6 +190,8 @@ type Device struct {
 	IpxeScriptUrl pulumi.StringPtrOutput `pulumi:"ipxeScriptUrl"`
 	// Whether the device is locked
 	Locked pulumi.BoolOutput `pulumi:"locked"`
+	// Metro area for the new device. Conflicts with `facilities`.
+	Metro pulumi.StringPtrOutput `pulumi:"metro"`
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType pulumi.StringOutput `pulumi:"networkType"`
 	// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
@@ -239,9 +239,6 @@ func NewDevice(ctx *pulumi.Context,
 
 	if args.BillingCycle == nil {
 		return nil, errors.New("invalid value for required argument 'BillingCycle'")
-	}
-	if args.Facilities == nil {
-		return nil, errors.New("invalid value for required argument 'Facilities'")
 	}
 	if args.Hostname == nil {
 		return nil, errors.New("invalid value for required argument 'Hostname'")
@@ -298,7 +295,9 @@ type deviceState struct {
 	DeployedHardwareReservationId *string `pulumi:"deployedHardwareReservationId"`
 	// Description string for the device
 	Description *string `pulumi:"description"`
-	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+	//
+	// Deprecated: Use metro attribute instead
 	Facilities []string `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    *bool   `pulumi:"forceDetachVolumes"`
@@ -314,6 +313,8 @@ type deviceState struct {
 	IpxeScriptUrl *string `pulumi:"ipxeScriptUrl"`
 	// Whether the device is locked
 	Locked *bool `pulumi:"locked"`
+	// Metro area for the new device. Conflicts with `facilities`.
+	Metro *string `pulumi:"metro"`
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType *string `pulumi:"networkType"`
 	// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
@@ -374,7 +375,9 @@ type DeviceState struct {
 	DeployedHardwareReservationId pulumi.StringPtrInput
 	// Description string for the device
 	Description pulumi.StringPtrInput
-	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+	//
+	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayInput
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    pulumi.BoolPtrInput
@@ -390,6 +393,8 @@ type DeviceState struct {
 	IpxeScriptUrl pulumi.StringPtrInput
 	// Whether the device is locked
 	Locked pulumi.BoolPtrInput
+	// Metro area for the new device. Conflicts with `facilities`.
+	Metro pulumi.StringPtrInput
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType pulumi.StringPtrInput
 	// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
@@ -442,7 +447,9 @@ type deviceArgs struct {
 	CustomData *string `pulumi:"customData"`
 	// Description string for the device
 	Description *string `pulumi:"description"`
-	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+	//
+	// Deprecated: Use metro attribute instead
 	Facilities []string `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    *bool   `pulumi:"forceDetachVolumes"`
@@ -456,6 +463,8 @@ type deviceArgs struct {
 	// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
 	// doc.
 	IpxeScriptUrl *string `pulumi:"ipxeScriptUrl"`
+	// Metro area for the new device. Conflicts with `facilities`.
+	Metro *string `pulumi:"metro"`
 	// The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
 	OperatingSystem string `pulumi:"operatingSystem"`
 	// The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
@@ -486,7 +495,9 @@ type DeviceArgs struct {
 	CustomData pulumi.StringPtrInput
 	// Description string for the device
 	Description pulumi.StringPtrInput
-	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+	//
+	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayInput
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    pulumi.BoolPtrInput
@@ -500,6 +511,8 @@ type DeviceArgs struct {
 	// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
 	// doc.
 	IpxeScriptUrl pulumi.StringPtrInput
+	// Metro area for the new device. Conflicts with `facilities`.
+	Metro pulumi.StringPtrInput
 	// The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
 	OperatingSystem pulumi.StringInput
 	// The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.

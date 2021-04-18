@@ -30,15 +30,15 @@ import (
 // 			ProjectId:   pulumi.Any(local.Project_id),
 // 			MaxBidPrice: pulumi.Float64(0.03),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
+// 				pulumi.String("ny5"),
 // 			},
 // 			DevicesMin: pulumi.Int(1),
 // 			DevicesMax: pulumi.Int(1),
 // 			InstanceParameters: &equinix - metal.SpotMarketRequestInstanceParametersArgs{
 // 				Hostname:        pulumi.String("testspot"),
 // 				BillingCycle:    pulumi.String("hourly"),
-// 				OperatingSystem: pulumi.String("coreos_stable"),
-// 				Plan:            pulumi.String("t1.small.x86"),
+// 				OperatingSystem: pulumi.String("ubuntu_20_04"),
+// 				Plan:            pulumi.String("c3.small.x86"),
 // 			},
 // 		})
 // 		if err != nil {
@@ -61,6 +61,8 @@ type SpotMarketRequest struct {
 	InstanceParameters SpotMarketRequestInstanceParametersOutput `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64Output `pulumi:"maxBidPrice"`
+	// Metro where devices should be created.
+	Metro pulumi.StringPtrOutput `pulumi:"metro"`
 	// Project ID
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
@@ -79,9 +81,6 @@ func NewSpotMarketRequest(ctx *pulumi.Context,
 	}
 	if args.DevicesMin == nil {
 		return nil, errors.New("invalid value for required argument 'DevicesMin'")
-	}
-	if args.Facilities == nil {
-		return nil, errors.New("invalid value for required argument 'Facilities'")
 	}
 	if args.InstanceParameters == nil {
 		return nil, errors.New("invalid value for required argument 'InstanceParameters'")
@@ -124,6 +123,8 @@ type spotMarketRequestState struct {
 	InstanceParameters *SpotMarketRequestInstanceParameters `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice *float64 `pulumi:"maxBidPrice"`
+	// Metro where devices should be created.
+	Metro *string `pulumi:"metro"`
 	// Project ID
 	ProjectId *string `pulumi:"projectId"`
 	// On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
@@ -141,6 +142,8 @@ type SpotMarketRequestState struct {
 	InstanceParameters SpotMarketRequestInstanceParametersPtrInput
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64PtrInput
+	// Metro where devices should be created.
+	Metro pulumi.StringPtrInput
 	// Project ID
 	ProjectId pulumi.StringPtrInput
 	// On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
@@ -162,6 +165,8 @@ type spotMarketRequestArgs struct {
 	InstanceParameters SpotMarketRequestInstanceParameters `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice float64 `pulumi:"maxBidPrice"`
+	// Metro where devices should be created.
+	Metro *string `pulumi:"metro"`
 	// Project ID
 	ProjectId string `pulumi:"projectId"`
 	// On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
@@ -180,6 +185,8 @@ type SpotMarketRequestArgs struct {
 	InstanceParameters SpotMarketRequestInstanceParametersInput
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64Input
+	// Metro where devices should be created.
+	Metro pulumi.StringPtrInput
 	// Project ID
 	ProjectId pulumi.StringInput
 	// On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed

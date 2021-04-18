@@ -32,12 +32,12 @@ namespace Pulumi.EquinixMetal
     ///         var testDevice = new EquinixMetal.Device("testDevice", new EquinixMetal.DeviceArgs
     ///         {
     ///             Hostname = "test",
-    ///             Plan = "baremetal_0",
+    ///             Plan = "c3.medium.x86",
     ///             Facilities = 
     ///             {
-    ///                 "ewr1",
+    ///                 "ny5",
     ///             },
-    ///             OperatingSystem = "ubuntu_16_04",
+    ///             OperatingSystem = "ubuntu_20_04",
     ///             BillingCycle = "hourly",
     ///             ProjectSshKeyIds = 
     ///             {

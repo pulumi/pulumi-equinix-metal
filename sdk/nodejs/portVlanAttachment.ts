@@ -25,14 +25,14 @@ import * as utilities from "./utilities";
  *
  * const testVlan = new equinix_metal.Vlan("testVlan", {
  *     description: "VLAN in New Jersey",
- *     facility: "ewr1",
+ *     facility: "ny5",
  *     projectId: local.project_id,
  * });
  * const testDevice = new equinix_metal.Device("testDevice", {
  *     hostname: "test",
- *     plan: "m1.xlarge.x86",
- *     facilities: ["ewr1"],
- *     operatingSystem: "ubuntu_16_04",
+ *     plan: "c3.small.x86",
+ *     facilities: ["ny5"],
+ *     operatingSystem: "ubuntu_20_04",
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  * });
@@ -54,9 +54,9 @@ import * as utilities from "./utilities";
  *
  * const testDevice = new equinix_metal.Device("testDevice", {
  *     hostname: "test",
- *     plan: "m1.xlarge.x86",
- *     facilities: ["ewr1"],
- *     operatingSystem: "ubuntu_16_04",
+ *     plan: "c3.small.x86",
+ *     facilities: ["ny5"],
+ *     operatingSystem: "ubuntu_20_04",
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  * });
@@ -66,12 +66,12 @@ import * as utilities from "./utilities";
  * });
  * const test1Vlan = new equinix_metal.Vlan("test1Vlan", {
  *     description: "VLAN in New Jersey",
- *     facility: "ewr1",
+ *     facility: "ny5",
  *     projectId: local.project_id,
  * });
  * const test2Vlan = new equinix_metal.Vlan("test2Vlan", {
  *     description: "VLAN in New Jersey",
- *     facility: "ewr1",
+ *     facility: "ny5",
  *     projectId: local.project_id,
  * });
  * const test1PortVlanAttachment = new equinix_metal.PortVlanAttachment("test1PortVlanAttachment", {

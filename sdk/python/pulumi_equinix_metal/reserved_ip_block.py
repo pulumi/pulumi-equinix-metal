@@ -18,13 +18,15 @@ class ReservedIpBlockArgs:
                  quantity: pulumi.Input[int],
                  description: Optional[pulumi.Input[str]] = None,
                  facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None):
         """
         The set of arguments for constructing a ReservedIpBlock resource.
         :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
         :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
         :param pulumi.Input[str] description: Arbitrary description
-        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
+        :param pulumi.Input[str] metro: Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
         pulumi.set(__self__, "project_id", project_id)
@@ -33,6 +35,8 @@ class ReservedIpBlockArgs:
             pulumi.set(__self__, "description", description)
         if facility is not None:
             pulumi.set(__self__, "facility", facility)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
@@ -76,13 +80,25 @@ class ReservedIpBlockArgs:
     @pulumi.getter
     def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
         """
-        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         """
         return pulumi.get(self, "facility")
 
     @facility.setter
     def facility(self, value: Optional[pulumi.Input[Union[str, 'Facility']]]):
         pulumi.set(self, "facility", value)
+
+    @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        """
+        Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+        """
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
 
     @property
     @pulumi.getter
@@ -110,6 +126,7 @@ class _ReservedIpBlockState:
                  global_: Optional[pulumi.Input[bool]] = None,
                  manageable: Optional[pulumi.Input[bool]] = None,
                  management: Optional[pulumi.Input[bool]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  netmask: Optional[pulumi.Input[str]] = None,
                  network: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -122,8 +139,9 @@ class _ReservedIpBlockState:
         :param pulumi.Input[int] cidr: length of CIDR prefix of the block as integer
         :param pulumi.Input[str] cidr_notation: Address and mask in CIDR notation, e.g. "147.229.15.30/31"
         :param pulumi.Input[str] description: Arbitrary description
-        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         :param pulumi.Input[bool] global_: boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
+        :param pulumi.Input[str] metro: Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
         :param pulumi.Input[str] netmask: Mask in decimal notation, e.g. "255.255.255.0"
         :param pulumi.Input[str] network: Network IP address portion of the block specification
         :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
@@ -151,6 +169,8 @@ class _ReservedIpBlockState:
             pulumi.set(__self__, "manageable", manageable)
         if management is not None:
             pulumi.set(__self__, "management", management)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
         if netmask is not None:
             pulumi.set(__self__, "netmask", netmask)
         if network is not None:
@@ -225,7 +245,7 @@ class _ReservedIpBlockState:
     @pulumi.getter
     def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
         """
-        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         """
         return pulumi.get(self, "facility")
 
@@ -271,6 +291,18 @@ class _ReservedIpBlockState:
     @management.setter
     def management(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "management", value)
+
+    @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        """
+        Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+        """
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
 
     @property
     @pulumi.getter
@@ -352,6 +384,7 @@ class ReservedIpBlock(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  quantity: Optional[pulumi.Input[int]] = None,
                  type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None,
@@ -380,13 +413,19 @@ class ReservedIpBlock(pulumi.CustomResource):
         import pulumi
         import pulumi_equinix_metal as equinix_metal
 
-        # Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1) for myproject
+        # Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility for myproject
         two_elastic_addresses = equinix_metal.ReservedIpBlock("twoElasticAddresses",
             project_id=local["project_id"],
-            facility="ewr1",
+            facility="sv15",
             quantity=2)
+        # Allocate 1 floating IP in Sillicon Valley (sv) metro
+        test_reserved_ip_block = equinix_metal.ReservedIpBlock("testReservedIpBlock",
+            project_id=local["project_id"],
+            type="public_ipv4",
+            metro="sv",
+            quantity=1)
         # Allocate 1 global floating IP, which can be assigned to device in any facility
-        test = equinix_metal.ReservedIpBlock("test",
+        test_index_reserved_ip_block_reserved_ip_block = equinix_metal.ReservedIpBlock("testIndex/reservedIpBlockReservedIpBlock",
             project_id=local["project_id"],
             type="global_ipv4",
             quantity=1)
@@ -398,17 +437,17 @@ class ReservedIpBlock(pulumi.CustomResource):
         import pulumi
         import pulumi_equinix_metal as equinix_metal
 
-        # Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1)
+        # Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility
         example = equinix_metal.ReservedIpBlock("example",
             project_id=local["project_id"],
-            facility="ewr1",
+            facility="sv15",
             quantity=2)
         # Run a device with both public IPv4 from the block assigned
         nodes = equinix_metal.Device("nodes",
             project_id=local["project_id"],
-            facilities=["ewr1"],
-            plan="t1.small.x86",
-            operating_system="ubuntu_16_04",
+            facilities=["sv15"],
+            plan="c3.small.x86",
+            operating_system="ubuntu_20_04",
             hostname="test",
             billing_cycle="hourly",
             ip_addresses=[
@@ -426,7 +465,8 @@ class ReservedIpBlock(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Arbitrary description
-        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
+        :param pulumi.Input[str] metro: Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
         :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
         :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
@@ -459,13 +499,19 @@ class ReservedIpBlock(pulumi.CustomResource):
         import pulumi
         import pulumi_equinix_metal as equinix_metal
 
-        # Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1) for myproject
+        # Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility for myproject
         two_elastic_addresses = equinix_metal.ReservedIpBlock("twoElasticAddresses",
             project_id=local["project_id"],
-            facility="ewr1",
+            facility="sv15",
             quantity=2)
+        # Allocate 1 floating IP in Sillicon Valley (sv) metro
+        test_reserved_ip_block = equinix_metal.ReservedIpBlock("testReservedIpBlock",
+            project_id=local["project_id"],
+            type="public_ipv4",
+            metro="sv",
+            quantity=1)
         # Allocate 1 global floating IP, which can be assigned to device in any facility
-        test = equinix_metal.ReservedIpBlock("test",
+        test_index_reserved_ip_block_reserved_ip_block = equinix_metal.ReservedIpBlock("testIndex/reservedIpBlockReservedIpBlock",
             project_id=local["project_id"],
             type="global_ipv4",
             quantity=1)
@@ -477,17 +523,17 @@ class ReservedIpBlock(pulumi.CustomResource):
         import pulumi
         import pulumi_equinix_metal as equinix_metal
 
-        # Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1)
+        # Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility
         example = equinix_metal.ReservedIpBlock("example",
             project_id=local["project_id"],
-            facility="ewr1",
+            facility="sv15",
             quantity=2)
         # Run a device with both public IPv4 from the block assigned
         nodes = equinix_metal.Device("nodes",
             project_id=local["project_id"],
-            facilities=["ewr1"],
-            plan="t1.small.x86",
-            operating_system="ubuntu_16_04",
+            facilities=["sv15"],
+            plan="c3.small.x86",
+            operating_system="ubuntu_20_04",
             hostname="test",
             billing_cycle="hourly",
             ip_addresses=[
@@ -519,6 +565,7 @@ class ReservedIpBlock(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  quantity: Optional[pulumi.Input[int]] = None,
                  type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None,
@@ -544,6 +591,7 @@ class ReservedIpBlock(pulumi.CustomResource):
 
             __props__.__dict__["description"] = description
             __props__.__dict__["facility"] = facility
+            __props__.__dict__["metro"] = metro
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
@@ -582,6 +630,7 @@ class ReservedIpBlock(pulumi.CustomResource):
             global_: Optional[pulumi.Input[bool]] = None,
             manageable: Optional[pulumi.Input[bool]] = None,
             management: Optional[pulumi.Input[bool]] = None,
+            metro: Optional[pulumi.Input[str]] = None,
             netmask: Optional[pulumi.Input[str]] = None,
             network: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
@@ -599,8 +648,9 @@ class ReservedIpBlock(pulumi.CustomResource):
         :param pulumi.Input[int] cidr: length of CIDR prefix of the block as integer
         :param pulumi.Input[str] cidr_notation: Address and mask in CIDR notation, e.g. "147.229.15.30/31"
         :param pulumi.Input[str] description: Arbitrary description
-        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         :param pulumi.Input[bool] global_: boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
+        :param pulumi.Input[str] metro: Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
         :param pulumi.Input[str] netmask: Mask in decimal notation, e.g. "255.255.255.0"
         :param pulumi.Input[str] network: Network IP address portion of the block specification
         :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
@@ -622,6 +672,7 @@ class ReservedIpBlock(pulumi.CustomResource):
         __props__.__dict__["global_"] = global_
         __props__.__dict__["manageable"] = manageable
         __props__.__dict__["management"] = management
+        __props__.__dict__["metro"] = metro
         __props__.__dict__["netmask"] = netmask
         __props__.__dict__["network"] = network
         __props__.__dict__["project_id"] = project_id
@@ -671,7 +722,7 @@ class ReservedIpBlock(pulumi.CustomResource):
     @pulumi.getter
     def facility(self) -> pulumi.Output[Optional[str]]:
         """
-        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+        Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         """
         return pulumi.get(self, "facility")
 
@@ -697,6 +748,14 @@ class ReservedIpBlock(pulumi.CustomResource):
     @pulumi.getter
     def management(self) -> pulumi.Output[bool]:
         return pulumi.get(self, "management")
+
+    @property
+    @pulumi.getter
+    def metro(self) -> pulumi.Output[Optional[str]]:
+        """
+        Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+        """
+        return pulumi.get(self, "metro")
 
     @property
     @pulumi.getter

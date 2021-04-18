@@ -14,10 +14,10 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as equinix_metal from "@pulumi/equinix-metal";
  *
- * const ewr1 = equinix_metal.getFacility({
- *     code: "ewr1",
+ * const ny5 = equinix_metal.getFacility({
+ *     code: "ny5",
  * });
- * export const id = ewr1.then(ewr1 => ewr1.id);
+ * export const id = ny5.then(ny5 => ny5.id);
  * ```
  */
 export function getFacility(args: GetFacilityArgs, opts?: pulumi.InvokeOptions): Promise<GetFacilityResult> {
@@ -30,8 +30,6 @@ export function getFacility(args: GetFacilityArgs, opts?: pulumi.InvokeOptions):
     }
     return pulumi.runtime.invoke("equinix-metal:index/getFacility:getFacility", {
         "code": args.code,
-        "features": args.features,
-        "name": args.name,
     }, opts);
 }
 
@@ -43,14 +41,6 @@ export interface GetFacilityArgs {
      * The facility code
      */
     readonly code: string;
-    /**
-     * The features of the facility
-     */
-    readonly features?: string[];
-    /**
-     * The name of the facilityg system running on the device
-     */
-    readonly name?: string;
 }
 
 /**
@@ -67,7 +57,11 @@ export interface GetFacilityResult {
      */
     readonly id: string;
     /**
-     * The name of the facilityg system running on the device
+     * The metro code the facility is part of
+     */
+    readonly metro: string;
+    /**
+     * The name of the facility
      */
     readonly name: string;
 }

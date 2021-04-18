@@ -18,6 +18,7 @@ __all__ = [
     'SpotMarketRequestInstanceParameters',
     'VolumeAttachment',
     'VolumeSnapshotPolicy',
+    'GetConnectionPortResult',
     'GetDeviceBgpNeighborsBgpNeighborResult',
     'GetDeviceBgpNeighborsBgpNeighborRoutesInResult',
     'GetDeviceBgpNeighborsBgpNeighborRoutesOutResult',
@@ -507,6 +508,79 @@ class VolumeSnapshotPolicy(dict):
     @pulumi.getter(name="snapshotFrequency")
     def snapshot_frequency(self) -> str:
         return pulumi.get(self, "snapshot_frequency")
+
+
+@pulumi.output_type
+class GetConnectionPortResult(dict):
+    def __init__(__self__, *,
+                 link_status: str,
+                 name: str,
+                 role: str,
+                 speed: int,
+                 status: str,
+                 virtual_circuit_ids: Sequence[Any]):
+        """
+        :param str link_status: Port link status
+        :param str name: Port name
+        :param str role: Port role - primary or secondary
+        :param int speed: Port speed in bits per second
+        :param str status: Port status
+        :param Sequence[Any] virtual_circuit_ids: List of IDs of virtual cicruits attached to this port
+        """
+        pulumi.set(__self__, "link_status", link_status)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "role", role)
+        pulumi.set(__self__, "speed", speed)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "virtual_circuit_ids", virtual_circuit_ids)
+
+    @property
+    @pulumi.getter(name="linkStatus")
+    def link_status(self) -> str:
+        """
+        Port link status
+        """
+        return pulumi.get(self, "link_status")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Port name
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def role(self) -> str:
+        """
+        Port role - primary or secondary
+        """
+        return pulumi.get(self, "role")
+
+    @property
+    @pulumi.getter
+    def speed(self) -> int:
+        """
+        Port speed in bits per second
+        """
+        return pulumi.get(self, "speed")
+
+    @property
+    @pulumi.getter
+    def status(self) -> str:
+        """
+        Port status
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="virtualCircuitIds")
+    def virtual_circuit_ids(self) -> Sequence[Any]:
+        """
+        List of IDs of virtual cicruits attached to this port
+        """
+        return pulumi.get(self, "virtual_circuit_ids")
 
 
 @pulumi.output_type

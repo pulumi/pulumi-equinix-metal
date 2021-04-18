@@ -22,9 +22,9 @@ import * as utilities from "./utilities";
  * // key, in order to make sure the key is created before the device.
  * const test = new equinix_metal.Device("test", {
  *     hostname: "test-device",
- *     plan: "t1.small.x86",
+ *     plan: "c3.small.x86",
  *     facilities: ["sjc1"],
- *     operatingSystem: "ubuntu_16_04",
+ *     operatingSystem: "ubuntu_20_04",
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  * }, {

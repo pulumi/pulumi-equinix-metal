@@ -108,6 +108,10 @@ export interface GetDeviceResult {
     readonly id: string;
     readonly ipxeScriptUrl: string;
     /**
+     * The metro where the device is deployed
+     */
+    readonly metro: string;
+    /**
      * L2 network type of the device, one of "layer3", "layer2-bonded", "layer2-individual", "hybrid"
      */
     readonly networkType: string;

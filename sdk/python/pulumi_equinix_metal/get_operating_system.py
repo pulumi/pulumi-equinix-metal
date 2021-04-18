@@ -104,14 +104,13 @@ def get_operating_system(distro: Optional[str] = None,
     import pulumi
     import pulumi_equinix_metal as equinix_metal
 
-    example = equinix_metal.get_operating_system(name="Container Linux",
-        distro="coreos",
-        version="alpha",
-        provisionable_on="c1.small.x86")
+    example = equinix_metal.get_operating_system(distro="ubuntu",
+        version="20.04",
+        provisionable_on="c3.medium.x86")
     server = equinix_metal.Device("server",
-        hostname="tf.coreos2",
-        plan="c1.small.x86",
-        facilities=["ewr1"],
+        hostname="tf.ubuntu",
+        plan="c3.medium.x86",
+        facilities=["ny5"],
         operating_system=example.id,
         billing_cycle="hourly",
         project_id=local["project_id"])

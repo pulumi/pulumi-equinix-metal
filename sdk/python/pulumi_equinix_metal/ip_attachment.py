@@ -73,6 +73,7 @@ class _IpAttachmentState:
                project and facility as the device
         :param pulumi.Input[str] device_id: ID of device to which to assign the subnet
         :param pulumi.Input[str] gateway: IP address of gateway for the subnet
+        :param pulumi.Input[bool] global_: Flag indicating whether IP block is global, i.e. assignable in any location
         :param pulumi.Input[str] netmask: Subnet mask in decimal notation, e.g. "255.255.255.0"
         :param pulumi.Input[str] network: Subnet network address
         :param pulumi.Input[bool] public: boolean flag whether subnet is reachable from the Internet
@@ -175,6 +176,9 @@ class _IpAttachmentState:
     @property
     @pulumi.getter(name="global")
     def global_(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Flag indicating whether IP block is global, i.e. assignable in any location
+        """
         return pulumi.get(self, "global_")
 
     @global_.setter
@@ -370,6 +374,7 @@ class IpAttachment(pulumi.CustomResource):
                project and facility as the device
         :param pulumi.Input[str] device_id: ID of device to which to assign the subnet
         :param pulumi.Input[str] gateway: IP address of gateway for the subnet
+        :param pulumi.Input[bool] global_: Flag indicating whether IP block is global, i.e. assignable in any location
         :param pulumi.Input[str] netmask: Subnet mask in decimal notation, e.g. "255.255.255.0"
         :param pulumi.Input[str] network: Subnet network address
         :param pulumi.Input[bool] public: boolean flag whether subnet is reachable from the Internet
@@ -441,6 +446,9 @@ class IpAttachment(pulumi.CustomResource):
     @property
     @pulumi.getter(name="global")
     def global_(self) -> pulumi.Output[bool]:
+        """
+        Flag indicating whether IP block is global, i.e. assignable in any location
+        """
         return pulumi.get(self, "global_")
 
     @property

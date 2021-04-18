@@ -30,10 +30,19 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewVlan(ctx, "vlan1", &equinix-metal.VlanArgs{
+// 		_, err := equinix - metal.NewVlan(ctx, "vlan1Vlan", &equinix-metal.VlanArgs{
 // 			Description: pulumi.String("VLAN in New Jersey"),
-// 			Facility:    pulumi.String("ewr1"),
+// 			Facility:    pulumi.String("sv15"),
 // 			ProjectId:   pulumi.Any(local.Project_id),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = equinix - metal.NewVlan(ctx, "vlan1Index_vlanVlan", &equinix-metal.VlanArgs{
+// 			Description: pulumi.String("VLAN in New Jersey"),
+// 			Metro:       pulumi.String("sv"),
+// 			ProjectId:   pulumi.Any(local.Project_id),
+// 			Vxlan:       pulumi.Int(1040),
 // 		})
 // 		if err != nil {
 // 			return err
@@ -48,10 +57,11 @@ type Vlan struct {
 	// Description string
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Facility where to create the VLAN
-	Facility pulumi.StringOutput `pulumi:"facility"`
+	Facility pulumi.StringPtrOutput `pulumi:"facility"`
+	Metro    pulumi.StringPtrOutput `pulumi:"metro"`
 	// ID of parent project
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// VXLAN segment ID
+	// VLAN ID, must be unique in metro
 	Vxlan pulumi.IntOutput `pulumi:"vxlan"`
 }
 
@@ -62,9 +72,6 @@ func NewVlan(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Facility == nil {
-		return nil, errors.New("invalid value for required argument 'Facility'")
-	}
 	if args.ProjectId == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectId'")
 	}
@@ -94,9 +101,10 @@ type vlanState struct {
 	Description *string `pulumi:"description"`
 	// Facility where to create the VLAN
 	Facility *string `pulumi:"facility"`
+	Metro    *string `pulumi:"metro"`
 	// ID of parent project
 	ProjectId *string `pulumi:"projectId"`
-	// VXLAN segment ID
+	// VLAN ID, must be unique in metro
 	Vxlan *int `pulumi:"vxlan"`
 }
 
@@ -105,9 +113,10 @@ type VlanState struct {
 	Description pulumi.StringPtrInput
 	// Facility where to create the VLAN
 	Facility pulumi.StringPtrInput
+	Metro    pulumi.StringPtrInput
 	// ID of parent project
 	ProjectId pulumi.StringPtrInput
-	// VXLAN segment ID
+	// VLAN ID, must be unique in metro
 	Vxlan pulumi.IntPtrInput
 }
 
@@ -119,9 +128,12 @@ type vlanArgs struct {
 	// Description string
 	Description *string `pulumi:"description"`
 	// Facility where to create the VLAN
-	Facility string `pulumi:"facility"`
+	Facility *string `pulumi:"facility"`
+	Metro    *string `pulumi:"metro"`
 	// ID of parent project
 	ProjectId string `pulumi:"projectId"`
+	// VLAN ID, must be unique in metro
+	Vxlan *int `pulumi:"vxlan"`
 }
 
 // The set of arguments for constructing a Vlan resource.
@@ -129,9 +141,12 @@ type VlanArgs struct {
 	// Description string
 	Description pulumi.StringPtrInput
 	// Facility where to create the VLAN
-	Facility pulumi.StringInput
+	Facility pulumi.StringPtrInput
+	Metro    pulumi.StringPtrInput
 	// ID of parent project
 	ProjectId pulumi.StringInput
+	// VLAN ID, must be unique in metro
+	Vxlan pulumi.IntPtrInput
 }
 
 func (VlanArgs) ElementType() reflect.Type {

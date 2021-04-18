@@ -40,13 +40,22 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := equinix - metal.NewReservedIpBlock(ctx, "twoElasticAddresses", &equinix-metal.ReservedIpBlockArgs{
 // 			ProjectId: pulumi.Any(local.Project_id),
-// 			Facility:  pulumi.String("ewr1"),
+// 			Facility:  pulumi.String("sv15"),
 // 			Quantity:  pulumi.Int(2),
 // 		})
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = equinix - metal.NewReservedIpBlock(ctx, "test", &equinix-metal.ReservedIpBlockArgs{
+// 		_, err = equinix - metal.NewReservedIpBlock(ctx, "testReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
+// 			ProjectId: pulumi.Any(local.Project_id),
+// 			Type:      pulumi.String("public_ipv4"),
+// 			Metro:     pulumi.String("sv"),
+// 			Quantity:  pulumi.Int(1),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = equinix - metal.NewReservedIpBlock(ctx, "testIndex_reservedIpBlockReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
 // 			ProjectId: pulumi.Any(local.Project_id),
 // 			Type:      pulumi.String("global_ipv4"),
 // 			Quantity:  pulumi.Int(1),
@@ -73,7 +82,7 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		example, err := equinix - metal.NewReservedIpBlock(ctx, "example", &equinix-metal.ReservedIpBlockArgs{
 // 			ProjectId: pulumi.Any(local.Project_id),
-// 			Facility:  pulumi.String("ewr1"),
+// 			Facility:  pulumi.String("sv15"),
 // 			Quantity:  pulumi.Int(2),
 // 		})
 // 		if err != nil {
@@ -82,10 +91,10 @@ import (
 // 		_, err = equinix - metal.NewDevice(ctx, "nodes", &equinix-metal.DeviceArgs{
 // 			ProjectId: pulumi.Any(local.Project_id),
 // 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ewr1"),
+// 				pulumi.String("sv15"),
 // 			},
-// 			Plan:            pulumi.String("t1.small.x86"),
-// 			OperatingSystem: pulumi.String("ubuntu_16_04"),
+// 			Plan:            pulumi.String("c3.small.x86"),
+// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
 // 			Hostname:        pulumi.String("test"),
 // 			BillingCycle:    pulumi.String("hourly"),
 // 			IpAddresses: equinix - metal.DeviceIpAddressArray{
@@ -120,13 +129,15 @@ type ReservedIpBlock struct {
 	CidrNotation pulumi.StringOutput `pulumi:"cidrNotation"`
 	// Arbitrary description
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
 	Facility pulumi.StringPtrOutput `pulumi:"facility"`
 	Gateway  pulumi.StringOutput    `pulumi:"gateway"`
 	// boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
 	Global     pulumi.BoolOutput `pulumi:"global"`
 	Manageable pulumi.BoolOutput `pulumi:"manageable"`
 	Management pulumi.BoolOutput `pulumi:"management"`
+	// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+	Metro pulumi.StringPtrOutput `pulumi:"metro"`
 	// Mask in decimal notation, e.g. "255.255.255.0"
 	Netmask pulumi.StringOutput `pulumi:"netmask"`
 	// Network IP address portion of the block specification
@@ -185,13 +196,15 @@ type reservedIpBlockState struct {
 	CidrNotation *string `pulumi:"cidrNotation"`
 	// Arbitrary description
 	Description *string `pulumi:"description"`
-	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
 	Facility *string `pulumi:"facility"`
 	Gateway  *string `pulumi:"gateway"`
 	// boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
 	Global     *bool `pulumi:"global"`
 	Manageable *bool `pulumi:"manageable"`
 	Management *bool `pulumi:"management"`
+	// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+	Metro *string `pulumi:"metro"`
 	// Mask in decimal notation, e.g. "255.255.255.0"
 	Netmask *string `pulumi:"netmask"`
 	// Network IP address portion of the block specification
@@ -216,13 +229,15 @@ type ReservedIpBlockState struct {
 	CidrNotation pulumi.StringPtrInput
 	// Arbitrary description
 	Description pulumi.StringPtrInput
-	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
 	Facility pulumi.StringPtrInput
 	Gateway  pulumi.StringPtrInput
 	// boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
 	Global     pulumi.BoolPtrInput
 	Manageable pulumi.BoolPtrInput
 	Management pulumi.BoolPtrInput
+	// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+	Metro pulumi.StringPtrInput
 	// Mask in decimal notation, e.g. "255.255.255.0"
 	Netmask pulumi.StringPtrInput
 	// Network IP address portion of the block specification
@@ -244,8 +259,10 @@ func (ReservedIpBlockState) ElementType() reflect.Type {
 type reservedIpBlockArgs struct {
 	// Arbitrary description
 	Description *string `pulumi:"description"`
-	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
 	Facility *string `pulumi:"facility"`
+	// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+	Metro *string `pulumi:"metro"`
 	// The metal project ID where to allocate the address block
 	ProjectId string `pulumi:"projectId"`
 	// The number of allocated /32 addresses, a power of 2
@@ -258,8 +275,10 @@ type reservedIpBlockArgs struct {
 type ReservedIpBlockArgs struct {
 	// Arbitrary description
 	Description pulumi.StringPtrInput
-	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+	// Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
 	Facility pulumi.StringPtrInput
+	// Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+	Metro pulumi.StringPtrInput
 	// The metal project ID where to allocate the address block
 	ProjectId pulumi.StringInput
 	// The number of allocated /32 addresses, a power of 2

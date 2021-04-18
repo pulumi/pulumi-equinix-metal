@@ -15,15 +15,14 @@ import * as utilities from "./utilities";
  * import * as equinix_metal from "@pulumi/equinix-metal";
  *
  * const example = equinix_metal.getOperatingSystem({
- *     name: "Container Linux",
- *     distro: "coreos",
- *     version: "alpha",
- *     provisionableOn: "c1.small.x86",
+ *     distro: "ubuntu",
+ *     version: "20.04",
+ *     provisionableOn: "c3.medium.x86",
  * });
  * const server = new equinix_metal.Device("server", {
- *     hostname: "tf.coreos2",
- *     plan: "c1.small.x86",
- *     facilities: ["ewr1"],
+ *     hostname: "tf.ubuntu",
+ *     plan: "c3.medium.x86",
+ *     facilities: ["ny5"],
  *     operatingSystem: example.then(example => example.id),
  *     billingCycle: "hourly",
  *     projectId: local.project_id,

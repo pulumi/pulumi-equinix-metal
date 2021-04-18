@@ -27,14 +27,21 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as equinix_metal from "@pulumi/equinix-metal";
  *
- * // Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1) for myproject
+ * // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility for myproject
  * const twoElasticAddresses = new equinix_metal.ReservedIpBlock("twoElasticAddresses", {
  *     projectId: local.project_id,
- *     facility: "ewr1",
+ *     facility: "sv15",
  *     quantity: 2,
  * });
+ * // Allocate 1 floating IP in Sillicon Valley (sv) metro
+ * const testReservedIpBlock = new equinix_metal.ReservedIpBlock("testReservedIpBlock", {
+ *     projectId: local.project_id,
+ *     type: "public_ipv4",
+ *     metro: "sv",
+ *     quantity: 1,
+ * });
  * // Allocate 1 global floating IP, which can be assigned to device in any facility
- * const test = new equinix_metal.ReservedIpBlock("test", {
+ * const testIndex_reservedIpBlockReservedIpBlock = new equinix_metal.ReservedIpBlock("testIndex/reservedIpBlockReservedIpBlock", {
  *     projectId: local.project_id,
  *     type: "global_ipv4",
  *     quantity: 1,
@@ -47,18 +54,18 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as equinix_metal from "@pulumi/equinix-metal";
  *
- * // Allocate /31 block of max 2 public IPv4 addresses in Parsippany, NJ (ewr1)
+ * // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility
  * const example = new equinix_metal.ReservedIpBlock("example", {
  *     projectId: local.project_id,
- *     facility: "ewr1",
+ *     facility: "sv15",
  *     quantity: 2,
  * });
  * // Run a device with both public IPv4 from the block assigned
  * const nodes = new equinix_metal.Device("nodes", {
  *     projectId: local.project_id,
- *     facilities: ["ewr1"],
- *     plan: "t1.small.x86",
- *     operatingSystem: "ubuntu_16_04",
+ *     facilities: ["sv15"],
+ *     plan: "c3.small.x86",
+ *     operatingSystem: "ubuntu_20_04",
  *     hostname: "test",
  *     billingCycle: "hourly",
  *     ipAddresses: [
@@ -120,7 +127,7 @@ export class ReservedIpBlock extends pulumi.CustomResource {
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
-     * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+     * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
      */
     public readonly facility!: pulumi.Output<string | undefined>;
     public /*out*/ readonly gateway!: pulumi.Output<string>;
@@ -130,6 +137,10 @@ export class ReservedIpBlock extends pulumi.CustomResource {
     public /*out*/ readonly global!: pulumi.Output<boolean>;
     public /*out*/ readonly manageable!: pulumi.Output<boolean>;
     public /*out*/ readonly management!: pulumi.Output<boolean>;
+    /**
+     * Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+     */
+    public readonly metro!: pulumi.Output<string | undefined>;
     /**
      * Mask in decimal notation, e.g. "255.255.255.0"
      */
@@ -178,6 +189,7 @@ export class ReservedIpBlock extends pulumi.CustomResource {
             inputs["global"] = state ? state.global : undefined;
             inputs["manageable"] = state ? state.manageable : undefined;
             inputs["management"] = state ? state.management : undefined;
+            inputs["metro"] = state ? state.metro : undefined;
             inputs["netmask"] = state ? state.netmask : undefined;
             inputs["network"] = state ? state.network : undefined;
             inputs["projectId"] = state ? state.projectId : undefined;
@@ -194,6 +206,7 @@ export class ReservedIpBlock extends pulumi.CustomResource {
             }
             inputs["description"] = args ? args.description : undefined;
             inputs["facility"] = args ? args.facility : undefined;
+            inputs["metro"] = args ? args.metro : undefined;
             inputs["projectId"] = args ? args.projectId : undefined;
             inputs["quantity"] = args ? args.quantity : undefined;
             inputs["type"] = args ? args.type : undefined;
@@ -238,7 +251,7 @@ export interface ReservedIpBlockState {
      */
     readonly description?: pulumi.Input<string>;
     /**
-     * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+     * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
      */
     readonly facility?: pulumi.Input<string | enums.Facility>;
     readonly gateway?: pulumi.Input<string>;
@@ -248,6 +261,10 @@ export interface ReservedIpBlockState {
     readonly global?: pulumi.Input<boolean>;
     readonly manageable?: pulumi.Input<boolean>;
     readonly management?: pulumi.Input<boolean>;
+    /**
+     * Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+     */
+    readonly metro?: pulumi.Input<string>;
     /**
      * Mask in decimal notation, e.g. "255.255.255.0"
      */
@@ -283,9 +300,13 @@ export interface ReservedIpBlockArgs {
      */
     readonly description?: pulumi.Input<string>;
     /**
-     * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4
+     * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
      */
     readonly facility?: pulumi.Input<string | enums.Facility>;
+    /**
+     * Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+     */
+    readonly metro?: pulumi.Input<string>;
     /**
      * The metal project ID where to allocate the address block
      */

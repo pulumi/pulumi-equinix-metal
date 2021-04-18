@@ -28,18 +28,17 @@ namespace Pulumi.EquinixMetal
         ///     {
         ///         var example = Output.Create(EquinixMetal.GetOperatingSystem.InvokeAsync(new EquinixMetal.GetOperatingSystemArgs
         ///         {
-        ///             Name = "Container Linux",
-        ///             Distro = "coreos",
-        ///             Version = "alpha",
-        ///             ProvisionableOn = "c1.small.x86",
+        ///             Distro = "ubuntu",
+        ///             Version = "20.04",
+        ///             ProvisionableOn = "c3.medium.x86",
         ///         }));
         ///         var server = new EquinixMetal.Device("server", new EquinixMetal.DeviceArgs
         ///         {
-        ///             Hostname = "tf.coreos2",
-        ///             Plan = "c1.small.x86",
+        ///             Hostname = "tf.ubuntu",
+        ///             Plan = "c3.medium.x86",
         ///             Facilities = 
         ///             {
-        ///                 "ewr1",
+        ///                 "ny5",
         ///             },
         ///             OperatingSystem = example.Apply(example =&gt; example.Id),
         ///             BillingCycle = "hourly",

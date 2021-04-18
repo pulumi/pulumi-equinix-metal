@@ -17,7 +17,6 @@ __all__ = ['DeviceArgs', 'Device']
 class DeviceArgs:
     def __init__(__self__, *,
                  billing_cycle: pulumi.Input[Union[str, 'BillingCycle']],
-                 facilities: pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]],
                  hostname: pulumi.Input[str],
                  operating_system: pulumi.Input[Union[str, 'OperatingSystem']],
                  plan: pulumi.Input[Union[str, 'Plan']],
@@ -25,10 +24,12 @@ class DeviceArgs:
                  always_pxe: Optional[pulumi.Input[bool]] = None,
                  custom_data: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
+                 facilities: Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]] = None,
                  force_detach_volumes: Optional[pulumi.Input[bool]] = None,
                  hardware_reservation_id: Optional[pulumi.Input[str]] = None,
                  ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]] = None,
                  ipxe_script_url: Optional[pulumi.Input[str]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_ssh_key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  storage: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -37,7 +38,6 @@ class DeviceArgs:
         """
         The set of arguments for constructing a Device resource.
         :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
-        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[str] hostname: The device name
         :param pulumi.Input[Union[str, 'OperatingSystem']] operating_system: The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[Union[str, 'Plan']] plan: The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
@@ -46,12 +46,14 @@ class DeviceArgs:
                continue to boot via iPXE on reboots.
         :param pulumi.Input[str] custom_data: A string of the desired Custom Data for the device.
         :param pulumi.Input[str] description: Description string for the device
+        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]] ip_addresses: A list of IP address types for the device (structure is documented below).
         :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More
                information is in the
                [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
                doc.
+        :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ssh_key_ids: Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
         :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
                * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
@@ -60,7 +62,6 @@ class DeviceArgs:
         :param pulumi.Input[bool] wait_for_reservation_deprovision: Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
         """
         pulumi.set(__self__, "billing_cycle", billing_cycle)
-        pulumi.set(__self__, "facilities", facilities)
         pulumi.set(__self__, "hostname", hostname)
         pulumi.set(__self__, "operating_system", operating_system)
         pulumi.set(__self__, "plan", plan)
@@ -71,6 +72,11 @@ class DeviceArgs:
             pulumi.set(__self__, "custom_data", custom_data)
         if description is not None:
             pulumi.set(__self__, "description", description)
+        if facilities is not None:
+            warnings.warn("""Use metro attribute instead""", DeprecationWarning)
+            pulumi.log.warn("""facilities is deprecated: Use metro attribute instead""")
+        if facilities is not None:
+            pulumi.set(__self__, "facilities", facilities)
         if force_detach_volumes is not None:
             pulumi.set(__self__, "force_detach_volumes", force_detach_volumes)
         if hardware_reservation_id is not None:
@@ -79,6 +85,8 @@ class DeviceArgs:
             pulumi.set(__self__, "ip_addresses", ip_addresses)
         if ipxe_script_url is not None:
             pulumi.set(__self__, "ipxe_script_url", ipxe_script_url)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
         if project_ssh_key_ids is not None:
             pulumi.set(__self__, "project_ssh_key_ids", project_ssh_key_ids)
         if storage is not None:
@@ -101,18 +109,6 @@ class DeviceArgs:
     @billing_cycle.setter
     def billing_cycle(self, value: pulumi.Input[Union[str, 'BillingCycle']]):
         pulumi.set(self, "billing_cycle", value)
-
-    @property
-    @pulumi.getter
-    def facilities(self) -> pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]:
-        """
-        List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
-        """
-        return pulumi.get(self, "facilities")
-
-    @facilities.setter
-    def facilities(self, value: pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]):
-        pulumi.set(self, "facilities", value)
 
     @property
     @pulumi.getter
@@ -200,6 +196,18 @@ class DeviceArgs:
         pulumi.set(self, "description", value)
 
     @property
+    @pulumi.getter
+    def facilities(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]]:
+        """
+        List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+        """
+        return pulumi.get(self, "facilities")
+
+    @facilities.setter
+    def facilities(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]]):
+        pulumi.set(self, "facilities", value)
+
+    @property
     @pulumi.getter(name="forceDetachVolumes")
     def force_detach_volumes(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -246,6 +254,18 @@ class DeviceArgs:
     @ipxe_script_url.setter
     def ipxe_script_url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ipxe_script_url", value)
+
+    @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        """
+        Metro area for the new device. Conflicts with `facilities`.
+        """
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
 
     @property
     @pulumi.getter(name="projectSshKeyIds")
@@ -329,6 +349,7 @@ class _DeviceState:
                  ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]] = None,
                  ipxe_script_url: Optional[pulumi.Input[str]] = None,
                  locked: Optional[pulumi.Input[bool]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  network_type: Optional[pulumi.Input[Union[str, 'NetworkType']]] = None,
                  networks: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceNetworkArgs']]]] = None,
                  operating_system: Optional[pulumi.Input[Union[str, 'OperatingSystem']]] = None,
@@ -357,7 +378,7 @@ class _DeviceState:
         :param pulumi.Input[str] deployed_facility: The facility where the device is deployed.
         :param pulumi.Input[str] deployed_hardware_reservation_id: ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
         :param pulumi.Input[str] description: Description string for the device
-        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[str] hostname: The device name
         :param pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]] ip_addresses: A list of IP address types for the device (structure is documented below).
@@ -366,6 +387,7 @@ class _DeviceState:
                [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
                doc.
         :param pulumi.Input[bool] locked: Whether the device is locked
+        :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceNetworkArgs']]] networks: The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
                * Public IPv4 at `metal_device.name.network.0`
                * IPv6 at `metal_device.name.network.1`
@@ -408,6 +430,9 @@ class _DeviceState:
         if description is not None:
             pulumi.set(__self__, "description", description)
         if facilities is not None:
+            warnings.warn("""Use metro attribute instead""", DeprecationWarning)
+            pulumi.log.warn("""facilities is deprecated: Use metro attribute instead""")
+        if facilities is not None:
             pulumi.set(__self__, "facilities", facilities)
         if force_detach_volumes is not None:
             pulumi.set(__self__, "force_detach_volumes", force_detach_volumes)
@@ -421,6 +446,8 @@ class _DeviceState:
             pulumi.set(__self__, "ipxe_script_url", ipxe_script_url)
         if locked is not None:
             pulumi.set(__self__, "locked", locked)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
         if network_type is not None:
             warnings.warn("""You should handle Network Type with the new metal_device_network_type resource.""", DeprecationWarning)
             pulumi.log.warn("""network_type is deprecated: You should handle Network Type with the new metal_device_network_type resource.""")
@@ -580,7 +607,7 @@ class _DeviceState:
     @pulumi.getter
     def facilities(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]]:
         """
-        List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         """
         return pulumi.get(self, "facilities")
 
@@ -659,6 +686,18 @@ class _DeviceState:
     @locked.setter
     def locked(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "locked", value)
+
+    @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        """
+        Metro area for the new device. Conflicts with `facilities`.
+        """
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
 
     @property
     @pulumi.getter(name="networkType")
@@ -859,6 +898,7 @@ class Device(pulumi.CustomResource):
                  hostname: Optional[pulumi.Input[str]] = None,
                  ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]]] = None,
                  ipxe_script_url: Optional[pulumi.Input[str]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  operating_system: Optional[pulumi.Input[Union[str, 'OperatingSystem']]] = None,
                  plan: Optional[pulumi.Input[Union[str, 'Plan']]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -888,9 +928,9 @@ class Device(pulumi.CustomResource):
 
         web1 = equinix_metal.Device("web1",
             hostname="tf.coreos2",
-            plan="t1.small.x86",
-            facilities=["ewr1"],
-            operating_system="coreos_stable",
+            plan="c3.small.x86",
+            metro="sv",
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"])
         ```
@@ -903,8 +943,8 @@ class Device(pulumi.CustomResource):
 
         pxe1 = equinix_metal.Device("pxe1",
             hostname="tf.coreos2-pxe",
-            plan="t1.small.x86",
-            facilities=["ewr1"],
+            plan="c3.small.x86",
+            metro="sv",
             operating_system="custom_ipxe",
             billing_cycle="hourly",
             project_id=local["project_id"],
@@ -913,7 +953,7 @@ class Device(pulumi.CustomResource):
             user_data=data["ignition_config"]["example"]["rendered"])
         ```
 
-        Create a device without a public IP address, with only a /30 private IPv4 subnet (4 IP addresses)
+        Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
 
         ```python
         import pulumi
@@ -921,9 +961,9 @@ class Device(pulumi.CustomResource):
 
         web1 = equinix_metal.Device("web1",
             hostname="tf.coreos2",
-            plan="t1.small.x86",
-            facilities=["ewr1"],
-            operating_system="coreos_stable",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"],
             ip_addresses=[equinix_metal.DeviceIpAddressArgs(
@@ -940,9 +980,9 @@ class Device(pulumi.CustomResource):
 
         web1 = equinix_metal.Device("web1",
             hostname="tftest",
-            plan="t1.small.x86",
-            facilities=["sjc1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"],
             hardware_reservation_id="next-available",
@@ -1009,7 +1049,7 @@ class Device(pulumi.CustomResource):
         :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
         :param pulumi.Input[str] custom_data: A string of the desired Custom Data for the device.
         :param pulumi.Input[str] description: Description string for the device
-        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[str] hostname: The device name
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]] ip_addresses: A list of IP address types for the device (structure is documented below).
@@ -1017,6 +1057,7 @@ class Device(pulumi.CustomResource):
                information is in the
                [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
                doc.
+        :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Union[str, 'OperatingSystem']] operating_system: The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[Union[str, 'Plan']] plan: The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[str] project_id: The ID of the project in which to create the device
@@ -1051,9 +1092,9 @@ class Device(pulumi.CustomResource):
 
         web1 = equinix_metal.Device("web1",
             hostname="tf.coreos2",
-            plan="t1.small.x86",
-            facilities=["ewr1"],
-            operating_system="coreos_stable",
+            plan="c3.small.x86",
+            metro="sv",
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"])
         ```
@@ -1066,8 +1107,8 @@ class Device(pulumi.CustomResource):
 
         pxe1 = equinix_metal.Device("pxe1",
             hostname="tf.coreos2-pxe",
-            plan="t1.small.x86",
-            facilities=["ewr1"],
+            plan="c3.small.x86",
+            metro="sv",
             operating_system="custom_ipxe",
             billing_cycle="hourly",
             project_id=local["project_id"],
@@ -1076,7 +1117,7 @@ class Device(pulumi.CustomResource):
             user_data=data["ignition_config"]["example"]["rendered"])
         ```
 
-        Create a device without a public IP address, with only a /30 private IPv4 subnet (4 IP addresses)
+        Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
 
         ```python
         import pulumi
@@ -1084,9 +1125,9 @@ class Device(pulumi.CustomResource):
 
         web1 = equinix_metal.Device("web1",
             hostname="tf.coreos2",
-            plan="t1.small.x86",
-            facilities=["ewr1"],
-            operating_system="coreos_stable",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"],
             ip_addresses=[equinix_metal.DeviceIpAddressArgs(
@@ -1103,9 +1144,9 @@ class Device(pulumi.CustomResource):
 
         web1 = equinix_metal.Device("web1",
             hostname="tftest",
-            plan="t1.small.x86",
-            facilities=["sjc1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.small.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_id=local["project_id"],
             hardware_reservation_id="next-available",
@@ -1190,6 +1231,7 @@ class Device(pulumi.CustomResource):
                  hostname: Optional[pulumi.Input[str]] = None,
                  ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]]] = None,
                  ipxe_script_url: Optional[pulumi.Input[str]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  operating_system: Optional[pulumi.Input[Union[str, 'OperatingSystem']]] = None,
                  plan: Optional[pulumi.Input[Union[str, 'Plan']]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
@@ -1224,8 +1266,9 @@ class Device(pulumi.CustomResource):
             __props__.__dict__["billing_cycle"] = billing_cycle
             __props__.__dict__["custom_data"] = custom_data
             __props__.__dict__["description"] = description
-            if facilities is None and not opts.urn:
-                raise TypeError("Missing required property 'facilities'")
+            if facilities is not None and not opts.urn:
+                warnings.warn("""Use metro attribute instead""", DeprecationWarning)
+                pulumi.log.warn("""facilities is deprecated: Use metro attribute instead""")
             __props__.__dict__["facilities"] = facilities
             __props__.__dict__["force_detach_volumes"] = force_detach_volumes
             __props__.__dict__["hardware_reservation_id"] = hardware_reservation_id
@@ -1234,6 +1277,7 @@ class Device(pulumi.CustomResource):
             __props__.__dict__["hostname"] = hostname
             __props__.__dict__["ip_addresses"] = ip_addresses
             __props__.__dict__["ipxe_script_url"] = ipxe_script_url
+            __props__.__dict__["metro"] = metro
             if operating_system is None and not opts.urn:
                 raise TypeError("Missing required property 'operating_system'")
             __props__.__dict__["operating_system"] = operating_system
@@ -1289,6 +1333,7 @@ class Device(pulumi.CustomResource):
             ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]]] = None,
             ipxe_script_url: Optional[pulumi.Input[str]] = None,
             locked: Optional[pulumi.Input[bool]] = None,
+            metro: Optional[pulumi.Input[str]] = None,
             network_type: Optional[pulumi.Input[Union[str, 'NetworkType']]] = None,
             networks: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceNetworkArgs']]]]] = None,
             operating_system: Optional[pulumi.Input[Union[str, 'OperatingSystem']]] = None,
@@ -1322,7 +1367,7 @@ class Device(pulumi.CustomResource):
         :param pulumi.Input[str] deployed_facility: The facility where the device is deployed.
         :param pulumi.Input[str] deployed_hardware_reservation_id: ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
         :param pulumi.Input[str] description: Description string for the device
-        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[str] hostname: The device name
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]] ip_addresses: A list of IP address types for the device (structure is documented below).
@@ -1331,6 +1376,7 @@ class Device(pulumi.CustomResource):
                [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
                doc.
         :param pulumi.Input[bool] locked: Whether the device is locked
+        :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceNetworkArgs']]]] networks: The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
                * Public IPv4 at `metal_device.name.network.0`
                * IPv6 at `metal_device.name.network.1`
@@ -1373,6 +1419,7 @@ class Device(pulumi.CustomResource):
         __props__.__dict__["ip_addresses"] = ip_addresses
         __props__.__dict__["ipxe_script_url"] = ipxe_script_url
         __props__.__dict__["locked"] = locked
+        __props__.__dict__["metro"] = metro
         __props__.__dict__["network_type"] = network_type
         __props__.__dict__["networks"] = networks
         __props__.__dict__["operating_system"] = operating_system
@@ -1473,9 +1520,9 @@ class Device(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def facilities(self) -> pulumi.Output[Sequence[str]]:
+    def facilities(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
-        List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+        List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         """
         return pulumi.get(self, "facilities")
 
@@ -1526,6 +1573,14 @@ class Device(pulumi.CustomResource):
         Whether the device is locked
         """
         return pulumi.get(self, "locked")
+
+    @property
+    @pulumi.getter
+    def metro(self) -> pulumi.Output[Optional[str]]:
+        """
+        Metro area for the new device. Conflicts with `facilities`.
+        """
+        return pulumi.get(self, "metro")
 
     @property
     @pulumi.getter(name="networkType")

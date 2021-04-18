@@ -7,10 +7,12 @@ from ._enums import *
 from .bgp_session import *
 from .device import *
 from .device_network_type import *
+from .get_connection import *
 from .get_device import *
 from .get_device_bgp_neighbors import *
 from .get_facility import *
 from .get_ip_block_ranges import *
+from .get_metro import *
 from .get_operating_system import *
 from .get_organization import *
 from .get_precreated_ip_block import *
@@ -18,6 +20,7 @@ from .get_project import *
 from .get_project_ssh_key import *
 from .get_spot_market_price import *
 from .get_spot_market_request import *
+from .get_virtual_circuit import *
 from .get_volume import *
 from .ip_attachment import *
 from .organization import *

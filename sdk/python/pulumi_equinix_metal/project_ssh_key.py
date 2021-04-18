@@ -211,9 +211,9 @@ class ProjectSshKey(pulumi.CustomResource):
             project_id=project_id)
         test_device = equinix_metal.Device("testDevice",
             hostname="test",
-            plan="baremetal_0",
-            facilities=["ewr1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.medium.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_ssh_key_ids=[test_project_ssh_key.id],
             project_id=project_id)
@@ -247,9 +247,9 @@ class ProjectSshKey(pulumi.CustomResource):
             project_id=project_id)
         test_device = equinix_metal.Device("testDevice",
             hostname="test",
-            plan="baremetal_0",
-            facilities=["ewr1"],
-            operating_system="ubuntu_16_04",
+            plan="c3.medium.x86",
+            facilities=["ny5"],
+            operating_system="ubuntu_20_04",
             billing_cycle="hourly",
             project_ssh_key_ids=[test_project_ssh_key.id],
             project_id=project_id)

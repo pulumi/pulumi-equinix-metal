@@ -17,27 +17,32 @@ class SpotMarketRequestArgs:
     def __init__(__self__, *,
                  devices_max: pulumi.Input[int],
                  devices_min: pulumi.Input[int],
-                 facilities: pulumi.Input[Sequence[pulumi.Input[str]]],
                  instance_parameters: pulumi.Input['SpotMarketRequestInstanceParametersArgs'],
                  max_bid_price: pulumi.Input[float],
                  project_id: pulumi.Input[str],
+                 facilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  wait_for_devices: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a SpotMarketRequest resource.
         :param pulumi.Input[int] devices_max: Maximum number devices to be created
         :param pulumi.Input[int] devices_min: Miniumum number devices to be created
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
         :param pulumi.Input['SpotMarketRequestInstanceParametersArgs'] instance_parameters: Device parameters. See device resource for details
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
         :param pulumi.Input[str] project_id: Project ID
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
+        :param pulumi.Input[str] metro: Metro where devices should be created.
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
         pulumi.set(__self__, "devices_max", devices_max)
         pulumi.set(__self__, "devices_min", devices_min)
-        pulumi.set(__self__, "facilities", facilities)
         pulumi.set(__self__, "instance_parameters", instance_parameters)
         pulumi.set(__self__, "max_bid_price", max_bid_price)
         pulumi.set(__self__, "project_id", project_id)
+        if facilities is not None:
+            pulumi.set(__self__, "facilities", facilities)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
         if wait_for_devices is not None:
             pulumi.set(__self__, "wait_for_devices", wait_for_devices)
 
@@ -64,18 +69,6 @@ class SpotMarketRequestArgs:
     @devices_min.setter
     def devices_min(self, value: pulumi.Input[int]):
         pulumi.set(self, "devices_min", value)
-
-    @property
-    @pulumi.getter
-    def facilities(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        Facility IDs where devices should be created
-        """
-        return pulumi.get(self, "facilities")
-
-    @facilities.setter
-    def facilities(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "facilities", value)
 
     @property
     @pulumi.getter(name="instanceParameters")
@@ -114,6 +107,30 @@ class SpotMarketRequestArgs:
         pulumi.set(self, "project_id", value)
 
     @property
+    @pulumi.getter
+    def facilities(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Facility IDs where devices should be created
+        """
+        return pulumi.get(self, "facilities")
+
+    @facilities.setter
+    def facilities(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "facilities", value)
+
+    @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        """
+        Metro where devices should be created.
+        """
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
+
+    @property
     @pulumi.getter(name="waitForDevices")
     def wait_for_devices(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -134,6 +151,7 @@ class _SpotMarketRequestState:
                  facilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  instance_parameters: Optional[pulumi.Input['SpotMarketRequestInstanceParametersArgs']] = None,
                  max_bid_price: Optional[pulumi.Input[float]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  wait_for_devices: Optional[pulumi.Input[bool]] = None):
         """
@@ -143,6 +161,7 @@ class _SpotMarketRequestState:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
         :param pulumi.Input['SpotMarketRequestInstanceParametersArgs'] instance_parameters: Device parameters. See device resource for details
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
+        :param pulumi.Input[str] metro: Metro where devices should be created.
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
@@ -156,6 +175,8 @@ class _SpotMarketRequestState:
             pulumi.set(__self__, "instance_parameters", instance_parameters)
         if max_bid_price is not None:
             pulumi.set(__self__, "max_bid_price", max_bid_price)
+        if metro is not None:
+            pulumi.set(__self__, "metro", metro)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
         if wait_for_devices is not None:
@@ -222,6 +243,18 @@ class _SpotMarketRequestState:
         pulumi.set(self, "max_bid_price", value)
 
     @property
+    @pulumi.getter
+    def metro(self) -> Optional[pulumi.Input[str]]:
+        """
+        Metro where devices should be created.
+        """
+        return pulumi.get(self, "metro")
+
+    @metro.setter
+    def metro(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "metro", value)
+
+    @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -256,6 +289,7 @@ class SpotMarketRequest(pulumi.CustomResource):
                  facilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  instance_parameters: Optional[pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']]] = None,
                  max_bid_price: Optional[pulumi.Input[float]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  wait_for_devices: Optional[pulumi.Input[bool]] = None,
                  __props__=None,
@@ -275,14 +309,14 @@ class SpotMarketRequest(pulumi.CustomResource):
         req = equinix_metal.SpotMarketRequest("req",
             project_id=local["project_id"],
             max_bid_price=0.03,
-            facilities=["ewr1"],
+            facilities=["ny5"],
             devices_min=1,
             devices_max=1,
             instance_parameters=equinix_metal.SpotMarketRequestInstanceParametersArgs(
                 hostname="testspot",
                 billing_cycle="hourly",
-                operating_system="coreos_stable",
-                plan="t1.small.x86",
+                operating_system="ubuntu_20_04",
+                plan="c3.small.x86",
             ))
         ```
 
@@ -293,6 +327,7 @@ class SpotMarketRequest(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
         :param pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']] instance_parameters: Device parameters. See device resource for details
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
+        :param pulumi.Input[str] metro: Metro where devices should be created.
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
@@ -316,14 +351,14 @@ class SpotMarketRequest(pulumi.CustomResource):
         req = equinix_metal.SpotMarketRequest("req",
             project_id=local["project_id"],
             max_bid_price=0.03,
-            facilities=["ewr1"],
+            facilities=["ny5"],
             devices_min=1,
             devices_max=1,
             instance_parameters=equinix_metal.SpotMarketRequestInstanceParametersArgs(
                 hostname="testspot",
                 billing_cycle="hourly",
-                operating_system="coreos_stable",
-                plan="t1.small.x86",
+                operating_system="ubuntu_20_04",
+                plan="c3.small.x86",
             ))
         ```
 
@@ -347,6 +382,7 @@ class SpotMarketRequest(pulumi.CustomResource):
                  facilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  instance_parameters: Optional[pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']]] = None,
                  max_bid_price: Optional[pulumi.Input[float]] = None,
+                 metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  wait_for_devices: Optional[pulumi.Input[bool]] = None,
                  __props__=None,
@@ -375,8 +411,6 @@ class SpotMarketRequest(pulumi.CustomResource):
             if devices_min is None and not opts.urn:
                 raise TypeError("Missing required property 'devices_min'")
             __props__.__dict__["devices_min"] = devices_min
-            if facilities is None and not opts.urn:
-                raise TypeError("Missing required property 'facilities'")
             __props__.__dict__["facilities"] = facilities
             if instance_parameters is None and not opts.urn:
                 raise TypeError("Missing required property 'instance_parameters'")
@@ -384,6 +418,7 @@ class SpotMarketRequest(pulumi.CustomResource):
             if max_bid_price is None and not opts.urn:
                 raise TypeError("Missing required property 'max_bid_price'")
             __props__.__dict__["max_bid_price"] = max_bid_price
+            __props__.__dict__["metro"] = metro
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
@@ -403,6 +438,7 @@ class SpotMarketRequest(pulumi.CustomResource):
             facilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             instance_parameters: Optional[pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']]] = None,
             max_bid_price: Optional[pulumi.Input[float]] = None,
+            metro: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
             wait_for_devices: Optional[pulumi.Input[bool]] = None) -> 'SpotMarketRequest':
         """
@@ -417,6 +453,7 @@ class SpotMarketRequest(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
         :param pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']] instance_parameters: Device parameters. See device resource for details
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
+        :param pulumi.Input[str] metro: Metro where devices should be created.
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
@@ -429,6 +466,7 @@ class SpotMarketRequest(pulumi.CustomResource):
         __props__.__dict__["facilities"] = facilities
         __props__.__dict__["instance_parameters"] = instance_parameters
         __props__.__dict__["max_bid_price"] = max_bid_price
+        __props__.__dict__["metro"] = metro
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["wait_for_devices"] = wait_for_devices
         return SpotMarketRequest(resource_name, opts=opts, __props__=__props__)
@@ -472,6 +510,14 @@ class SpotMarketRequest(pulumi.CustomResource):
         Maximum price user is willing to pay per hour per device
         """
         return pulumi.get(self, "max_bid_price")
+
+    @property
+    @pulumi.getter
+    def metro(self) -> pulumi.Output[Optional[str]]:
+        """
+        Metro where devices should be created.
+        """
+        return pulumi.get(self, "metro")
 
     @property
     @pulumi.getter(name="projectId")

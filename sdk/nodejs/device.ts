@@ -23,9 +23,9 @@ import * as utilities from "./utilities";
  *
  * const web1 = new equinix_metal.Device("web1", {
  *     hostname: "tf.coreos2",
- *     plan: "t1.small.x86",
- *     facilities: ["ewr1"],
- *     operatingSystem: "coreos_stable",
+ *     plan: "c3.small.x86",
+ *     metro: "sv",
+ *     operatingSystem: "ubuntu_20_04",
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  * });
@@ -39,8 +39,8 @@ import * as utilities from "./utilities";
  *
  * const pxe1 = new equinix_metal.Device("pxe1", {
  *     hostname: "tf.coreos2-pxe",
- *     plan: "t1.small.x86",
- *     facilities: ["ewr1"],
+ *     plan: "c3.small.x86",
+ *     metro: "sv",
  *     operatingSystem: "custom_ipxe",
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
@@ -50,7 +50,7 @@ import * as utilities from "./utilities";
  * });
  * ```
  *
- * Create a device without a public IP address, with only a /30 private IPv4 subnet (4 IP addresses)
+ * Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
@@ -58,9 +58,9 @@ import * as utilities from "./utilities";
  *
  * const web1 = new equinix_metal.Device("web1", {
  *     hostname: "tf.coreos2",
- *     plan: "t1.small.x86",
- *     facilities: ["ewr1"],
- *     operatingSystem: "coreos_stable",
+ *     plan: "c3.small.x86",
+ *     facilities: ["ny5"],
+ *     operatingSystem: "ubuntu_20_04",
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  *     ipAddresses: [{
@@ -78,9 +78,9 @@ import * as utilities from "./utilities";
  *
  * const web1 = new equinix_metal.Device("web1", {
  *     hostname: "tftest",
- *     plan: "t1.small.x86",
- *     facilities: ["sjc1"],
- *     operatingSystem: "ubuntu_16_04",
+ *     plan: "c3.small.x86",
+ *     facilities: ["ny5"],
+ *     operatingSystem: "ubuntu_20_04",
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  *     hardwareReservationId: "next-available",
@@ -211,9 +211,11 @@ export class Device extends pulumi.CustomResource {
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
-     * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+     * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+     *
+     * @deprecated Use metro attribute instead
      */
-    public readonly facilities!: pulumi.Output<string[]>;
+    public readonly facilities!: pulumi.Output<string[] | undefined>;
     /**
      * Delete device even if it has volumes attached. Only applies for destroy action.
      */
@@ -238,6 +240,10 @@ export class Device extends pulumi.CustomResource {
      * Whether the device is locked
      */
     public /*out*/ readonly locked!: pulumi.Output<boolean>;
+    /**
+     * Metro area for the new device. Conflicts with `facilities`.
+     */
+    public readonly metro!: pulumi.Output<string | undefined>;
     /**
      * @deprecated You should handle Network Type with the new metal_device_network_type resource.
      */
@@ -335,6 +341,7 @@ export class Device extends pulumi.CustomResource {
             inputs["ipAddresses"] = state ? state.ipAddresses : undefined;
             inputs["ipxeScriptUrl"] = state ? state.ipxeScriptUrl : undefined;
             inputs["locked"] = state ? state.locked : undefined;
+            inputs["metro"] = state ? state.metro : undefined;
             inputs["networkType"] = state ? state.networkType : undefined;
             inputs["networks"] = state ? state.networks : undefined;
             inputs["operatingSystem"] = state ? state.operatingSystem : undefined;
@@ -354,9 +361,6 @@ export class Device extends pulumi.CustomResource {
             const args = argsOrState as DeviceArgs | undefined;
             if ((!args || args.billingCycle === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'billingCycle'");
-            }
-            if ((!args || args.facilities === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'facilities'");
             }
             if ((!args || args.hostname === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'hostname'");
@@ -380,6 +384,7 @@ export class Device extends pulumi.CustomResource {
             inputs["hostname"] = args ? args.hostname : undefined;
             inputs["ipAddresses"] = args ? args.ipAddresses : undefined;
             inputs["ipxeScriptUrl"] = args ? args.ipxeScriptUrl : undefined;
+            inputs["metro"] = args ? args.metro : undefined;
             inputs["operatingSystem"] = args ? args.operatingSystem : undefined;
             inputs["plan"] = args ? args.plan : undefined;
             inputs["projectId"] = args ? args.projectId : undefined;
@@ -456,7 +461,9 @@ export interface DeviceState {
      */
     readonly description?: pulumi.Input<string>;
     /**
-     * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+     * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+     *
+     * @deprecated Use metro attribute instead
      */
     readonly facilities?: pulumi.Input<pulumi.Input<string | enums.Facility>[]>;
     /**
@@ -483,6 +490,10 @@ export interface DeviceState {
      * Whether the device is locked
      */
     readonly locked?: pulumi.Input<boolean>;
+    /**
+     * Metro area for the new device. Conflicts with `facilities`.
+     */
+    readonly metro?: pulumi.Input<string>;
     /**
      * @deprecated You should handle Network Type with the new metal_device_network_type resource.
      */
@@ -573,9 +584,11 @@ export interface DeviceArgs {
      */
     readonly description?: pulumi.Input<string>;
     /**
-     * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response.
+     * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+     *
+     * @deprecated Use metro attribute instead
      */
-    readonly facilities: pulumi.Input<pulumi.Input<string | enums.Facility>[]>;
+    readonly facilities?: pulumi.Input<pulumi.Input<string | enums.Facility>[]>;
     /**
      * Delete device even if it has volumes attached. Only applies for destroy action.
      */
@@ -596,6 +609,10 @@ export interface DeviceArgs {
      * doc.
      */
     readonly ipxeScriptUrl?: pulumi.Input<string>;
+    /**
+     * Metro area for the new device. Conflicts with `facilities`.
+     */
+    readonly metro?: pulumi.Input<string>;
     /**
      * The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
      */

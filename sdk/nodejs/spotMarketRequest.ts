@@ -19,14 +19,14 @@ import * as utilities from "./utilities";
  * const req = new equinix_metal.SpotMarketRequest("req", {
  *     projectId: local.project_id,
  *     maxBidPrice: 0.03,
- *     facilities: ["ewr1"],
+ *     facilities: ["ny5"],
  *     devicesMin: 1,
  *     devicesMax: 1,
  *     instanceParameters: {
  *         hostname: "testspot",
  *         billingCycle: "hourly",
- *         operatingSystem: "coreos_stable",
- *         plan: "t1.small.x86",
+ *         operatingSystem: "ubuntu_20_04",
+ *         plan: "c3.small.x86",
  *     },
  * });
  * ```
@@ -80,6 +80,10 @@ export class SpotMarketRequest extends pulumi.CustomResource {
      */
     public readonly maxBidPrice!: pulumi.Output<number>;
     /**
+     * Metro where devices should be created.
+     */
+    public readonly metro!: pulumi.Output<string | undefined>;
+    /**
      * Project ID
      */
     public readonly projectId!: pulumi.Output<string>;
@@ -106,6 +110,7 @@ export class SpotMarketRequest extends pulumi.CustomResource {
             inputs["facilities"] = state ? state.facilities : undefined;
             inputs["instanceParameters"] = state ? state.instanceParameters : undefined;
             inputs["maxBidPrice"] = state ? state.maxBidPrice : undefined;
+            inputs["metro"] = state ? state.metro : undefined;
             inputs["projectId"] = state ? state.projectId : undefined;
             inputs["waitForDevices"] = state ? state.waitForDevices : undefined;
         } else {
@@ -115,9 +120,6 @@ export class SpotMarketRequest extends pulumi.CustomResource {
             }
             if ((!args || args.devicesMin === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'devicesMin'");
-            }
-            if ((!args || args.facilities === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'facilities'");
             }
             if ((!args || args.instanceParameters === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'instanceParameters'");
@@ -133,6 +135,7 @@ export class SpotMarketRequest extends pulumi.CustomResource {
             inputs["facilities"] = args ? args.facilities : undefined;
             inputs["instanceParameters"] = args ? args.instanceParameters : undefined;
             inputs["maxBidPrice"] = args ? args.maxBidPrice : undefined;
+            inputs["metro"] = args ? args.metro : undefined;
             inputs["projectId"] = args ? args.projectId : undefined;
             inputs["waitForDevices"] = args ? args.waitForDevices : undefined;
         }
@@ -168,6 +171,10 @@ export interface SpotMarketRequestState {
      */
     readonly maxBidPrice?: pulumi.Input<number>;
     /**
+     * Metro where devices should be created.
+     */
+    readonly metro?: pulumi.Input<string>;
+    /**
      * Project ID
      */
     readonly projectId?: pulumi.Input<string>;
@@ -192,7 +199,7 @@ export interface SpotMarketRequestArgs {
     /**
      * Facility IDs where devices should be created
      */
-    readonly facilities: pulumi.Input<pulumi.Input<string>[]>;
+    readonly facilities?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Device parameters. See device resource for details
      */
@@ -201,6 +208,10 @@ export interface SpotMarketRequestArgs {
      * Maximum price user is willing to pay per hour per device
      */
     readonly maxBidPrice: pulumi.Input<number>;
+    /**
+     * Metro where devices should be created.
+     */
+    readonly metro?: pulumi.Input<string>;
     /**
      * Project ID
      */
