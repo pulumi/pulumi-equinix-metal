@@ -9,42 +9,4 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal.Inputs
 {
-
-    public sealed class DeviceNetworkArgs : Pulumi.ResourceArgs
-    {
-        /// <summary>
-        /// IPv4 or IPv6 address string
-        /// </summary>
-        [Input("address")]
-        public Input<string>? Address { get; set; }
-
-        /// <summary>
-        /// CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
-        /// </summary>
-        [Input("cidr")]
-        public Input<int>? Cidr { get; set; }
-
-        /// <summary>
-        /// IP version - "4" or "6"
-        /// * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
-        /// </summary>
-        [Input("family")]
-        public Input<int>? Family { get; set; }
-
-        /// <summary>
-        /// address of router
-        /// </summary>
-        [Input("gateway")]
-        public Input<string>? Gateway { get; set; }
-
-        /// <summary>
-        /// whether the address is routable from the Internet
-        /// </summary>
-        [Input("public")]
-        public Input<bool>? Public { get; set; }
-
-        public DeviceNetworkArgs()
-        {
-        }
-    }
 }

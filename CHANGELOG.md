@@ -2,11 +2,16 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
+_(none)_
+
+---
+
+## 2.0.0 (2021-04-19)
+* Depend on Pulumi 3.0, which includes improvements to Python resource arguments and key translation, Go SDK performance,
+  Node SDK performance, general availability of Automation API, and more.
 * Upgrade to v2.0.1 of the Equinix Metal Terraform Provider.
   **Please Note:**  
   This release introduces the new concept of "Equinix Metal Metros". You can read more about this in the [Equinix Metal documentation](https://feedback.equinixmetal.com/changelog/new-metros-feature-live)
-
----
 
 ## 1.4.0 (2021-04-12)
 * Upgrade to pulumi-terraform-bridge v2.23.0
