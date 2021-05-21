@@ -54,6 +54,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing SSH Key ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/sshKey:SshKey metal_ssh_key {existing_sshkey_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/sshKey:SshKey")]
     public partial class SshKey : Pulumi.CustomResource

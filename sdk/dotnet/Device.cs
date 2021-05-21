@@ -186,6 +186,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing device ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/device:Device")]
     public partial class Device : Pulumi.CustomResource
@@ -469,7 +477,6 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         /// </summary>
-        [Obsolete(@"Use metro attribute instead")]
         public InputList<Union<string, Pulumi.EquinixMetal.Facility>> Facilities
         {
             get => _facilities ?? (_facilities = new InputList<Union<string, Pulumi.EquinixMetal.Facility>>());
@@ -653,7 +660,6 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         /// </summary>
-        [Obsolete(@"Use metro attribute instead")]
         public InputList<Union<string, Pulumi.EquinixMetal.Facility>> Facilities
         {
             get => _facilities ?? (_facilities = new InputList<Union<string, Pulumi.EquinixMetal.Facility>>());

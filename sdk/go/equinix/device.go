@@ -148,6 +148,14 @@ import (
 // 	})
 // }
 // ```
+//
+// ## Import
+//
+// This resource can be imported using an existing device ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+// ```
 type Device struct {
 	pulumi.CustomResourceState
 
@@ -173,8 +181,6 @@ type Device struct {
 	// Description string for the device
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayOutput `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    pulumi.BoolPtrOutput   `pulumi:"forceDetachVolumes"`
@@ -296,8 +302,6 @@ type deviceState struct {
 	// Description string for the device
 	Description *string `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities []string `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    *bool   `pulumi:"forceDetachVolumes"`
@@ -376,8 +380,6 @@ type DeviceState struct {
 	// Description string for the device
 	Description pulumi.StringPtrInput
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayInput
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    pulumi.BoolPtrInput
@@ -448,8 +450,6 @@ type deviceArgs struct {
 	// Description string for the device
 	Description *string `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities []string `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    *bool   `pulumi:"forceDetachVolumes"`
@@ -496,8 +496,6 @@ type DeviceArgs struct {
 	// Description string for the device
 	Description pulumi.StringPtrInput
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayInput
 	// Delete device even if it has volumes attached. Only applies for destroy action.
 	ForceDetachVolumes    pulumi.BoolPtrInput

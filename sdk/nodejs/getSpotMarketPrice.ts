@@ -6,9 +6,11 @@ import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
- * Use this data source to get Equinix Metal Spot Market Price.
+ * Use this data source to get Equinix Metal Spot Market Price for a plan.
  *
  * ## Example Usage
+ *
+ * Lookup by facility:
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
@@ -16,6 +18,18 @@ import * as utilities from "./utilities";
  *
  * const example = pulumi.output(metal.getSpotMarketPrice({
  *     facility: "ny5",
+ *     plan: "c3.small.x86",
+ * }, { async: true }));
+ * ```
+ *
+ * Lookup by metro:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as metal from "@pulumi/metal";
+ *
+ * const example = pulumi.output(metal.getSpotMarketPrice({
+ *     metro: "sv",
  *     plan: "c3.small.x86",
  * }, { async: true }));
  * ```
@@ -43,6 +57,9 @@ export interface GetSpotMarketPriceArgs {
      * Name of the facility.
      */
     readonly facility?: string;
+    /**
+     * Name of the metro.
+     */
     readonly metro?: string;
     /**
      * Name of the plan.

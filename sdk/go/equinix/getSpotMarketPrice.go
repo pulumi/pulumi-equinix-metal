@@ -7,9 +7,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Use this data source to get Equinix Metal Spot Market Price.
+// Use this data source to get Equinix Metal Spot Market Price for a plan.
 //
 // ## Example Usage
+//
+// Lookup by facility:
 //
 // ```go
 // package main
@@ -33,6 +35,31 @@ import (
 // 	})
 // }
 // ```
+//
+// Lookup by metro:
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		opt0 := "sv"
+// 		_, err := equinix - metal.GetSpotMarketPrice(ctx, &equinix-metal.GetSpotMarketPriceArgs{
+// 			Metro: &opt0,
+// 			Plan:  "c3.small.x86",
+// 		}, nil)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
 func GetSpotMarketPrice(ctx *pulumi.Context, args *GetSpotMarketPriceArgs, opts ...pulumi.InvokeOption) (*GetSpotMarketPriceResult, error) {
 	var rv GetSpotMarketPriceResult
 	err := ctx.Invoke("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", args, &rv, opts...)
@@ -46,7 +73,8 @@ func GetSpotMarketPrice(ctx *pulumi.Context, args *GetSpotMarketPriceArgs, opts 
 type GetSpotMarketPriceArgs struct {
 	// Name of the facility.
 	Facility *string `pulumi:"facility"`
-	Metro    *string `pulumi:"metro"`
+	// Name of the metro.
+	Metro *string `pulumi:"metro"`
 	// Name of the plan.
 	Plan string `pulumi:"plan"`
 }

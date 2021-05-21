@@ -5,6 +5,15 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * ## Import
+ *
+ * This resource can be imported using an existing project ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/project:Project metal_project {existing_project_id}
+ * ```
+ */
 export class Project extends pulumi.CustomResource {
     /**
      * Get an existing Project resource's state with the given name, ID, and optional extra

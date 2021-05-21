@@ -159,6 +159,8 @@ func Provider() tfbridge.ProviderInfo {
 				},
 			},
 			"metal_volume_attachment": {Tok: makeResource(mainMod, "VolumeAttachment")},
+			"metal_connection":        {Tok: makeResource(mainMod, "Connection")},
+			"metal_virtual_circuit":   {Tok: makeResource(mainMod, "VirtualCircuit")},
 		},
 		ExtraTypes: map[string]pulumiSchema.ComplexTypeSpec{
 			"equinix-metal:index/BillingCycle:BillingCycle": {
@@ -312,10 +314,14 @@ func Provider() tfbridge.ProviderInfo {
 			"metal_metro":                {Tok: makeDataSource(mainMod, "getMetro")},
 			"metal_connection":           {Tok: makeDataSource(mainMod, "getConnection")},
 			"metal_virtual_circuit":      {Tok: makeDataSource(mainMod, "getVirtualCircuit")},
+			"metal_hardware_reservation": {Tok: makeDataSource(mainMod, "getHardwareReservation")},
+			"metal_port":                 {Tok: makeDataSource(mainMod, "getPort")},
+			"metal_reserved_ip_block":    {Tok: makeDataSource(mainMod, "getReservedIpBlock")},
+			"metal_vlan":                 {Tok: makeDataSource(mainMod, "getVlan")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{
-				"@pulumi/pulumi": "^3.0.0-alpha.0",
+				"@pulumi/pulumi": "^3.0.0",
 			},
 			DevDependencies: map[string]string{
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
@@ -333,12 +339,12 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Python: &tfbridge.PythonInfo{
 			Requires: map[string]string{
-				"pulumi": ">=3.0.0a1,<4.0.0",
+				"pulumi": ">=3.0.0,<4.0.0",
 			},
 		},
 		CSharp: &tfbridge.CSharpInfo{
 			PackageReferences: map[string]string{
-				"Pulumi":                       "3.*-*",
+				"Pulumi":                       "3.*",
 				"System.Collections.Immutable": "1.6.0",
 			},
 			Namespaces: namespaceMap,

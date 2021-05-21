@@ -216,6 +216,14 @@ class Vlan(pulumi.CustomResource):
             vxlan=1040)
         ```
 
+        ## Import
+
+        This resource can be imported using an existing VLAN ID (UUID)
+
+        ```sh
+         $ pulumi import equinix-metal:index/vlan:Vlan metal_vlan {existing_vlan_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Description string
@@ -254,6 +262,14 @@ class Vlan(pulumi.CustomResource):
             metro="sv",
             project_id=local["project_id"],
             vxlan=1040)
+        ```
+
+        ## Import
+
+        This resource can be imported using an existing VLAN ID (UUID)
+
+        ```sh
+         $ pulumi import equinix-metal:index/vlan:Vlan metal_vlan {existing_vlan_id}
         ```
 
         :param str resource_name: The name of the resource.

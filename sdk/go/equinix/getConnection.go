@@ -21,7 +21,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.GetConnection(ctx, &equinix-metal.GetConnectionArgs{
+// 		_, err := equinix - metal.LookupConnection(ctx, &equinix-metal.LookupConnectionArgs{
 // 			ConnectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
 // 		}, nil)
 // 		if err != nil {
@@ -31,8 +31,8 @@ import (
 // 	})
 // }
 // ```
-func GetConnection(ctx *pulumi.Context, args *GetConnectionArgs, opts ...pulumi.InvokeOption) (*GetConnectionResult, error) {
-	var rv GetConnectionResult
+func LookupConnection(ctx *pulumi.Context, args *LookupConnectionArgs, opts ...pulumi.InvokeOption) (*LookupConnectionResult, error) {
+	var rv LookupConnectionResult
 	err := ctx.Invoke("equinix-metal:index/getConnection:getConnection", args, &rv, opts...)
 	if err != nil {
 		return nil, err
@@ -41,13 +41,13 @@ func GetConnection(ctx *pulumi.Context, args *GetConnectionArgs, opts ...pulumi.
 }
 
 // A collection of arguments for invoking getConnection.
-type GetConnectionArgs struct {
+type LookupConnectionArgs struct {
 	// ID of the connection resource
 	ConnectionId string `pulumi:"connectionId"`
 }
 
 // A collection of values returned by getConnection.
-type GetConnectionResult struct {
+type LookupConnectionResult struct {
 	ConnectionId string `pulumi:"connectionId"`
 	// Description of the connection resource
 	Description string `pulumi:"description"`
@@ -55,6 +55,8 @@ type GetConnectionResult struct {
 	Facility string `pulumi:"facility"`
 	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
+	// Slug of a metro to which the connection belongs
+	Metro string `pulumi:"metro"`
 	// Port name
 	Name string `pulumi:"name"`
 	// ID of organization to which the connection belongs

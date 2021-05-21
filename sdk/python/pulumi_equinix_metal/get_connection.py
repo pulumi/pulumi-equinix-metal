@@ -20,7 +20,7 @@ class GetConnectionResult:
     """
     A collection of values returned by getConnection.
     """
-    def __init__(__self__, connection_id=None, description=None, facility=None, id=None, name=None, organization_id=None, ports=None, redundancy=None, speed=None, status=None, token=None, type=None):
+    def __init__(__self__, connection_id=None, description=None, facility=None, id=None, metro=None, name=None, organization_id=None, ports=None, redundancy=None, speed=None, status=None, token=None, type=None):
         if connection_id and not isinstance(connection_id, str):
             raise TypeError("Expected argument 'connection_id' to be a str")
         pulumi.set(__self__, "connection_id", connection_id)
@@ -33,6 +33,9 @@ class GetConnectionResult:
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if metro and not isinstance(metro, str):
+            raise TypeError("Expected argument 'metro' to be a str")
+        pulumi.set(__self__, "metro", metro)
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
@@ -86,6 +89,14 @@ class GetConnectionResult:
         The provider-assigned unique ID for this managed resource.
         """
         return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def metro(self) -> str:
+        """
+        Slug of a metro to which the connection belongs
+        """
+        return pulumi.get(self, "metro")
 
     @property
     @pulumi.getter
@@ -162,6 +173,7 @@ class AwaitableGetConnectionResult(GetConnectionResult):
             description=self.description,
             facility=self.facility,
             id=self.id,
+            metro=self.metro,
             name=self.name,
             organization_id=self.organization_id,
             ports=self.ports,
@@ -202,6 +214,7 @@ def get_connection(connection_id: Optional[str] = None,
         description=__ret__.description,
         facility=__ret__.facility,
         id=__ret__.id,
+        metro=__ret__.metro,
         name=__ret__.name,
         organization_id=__ret__.organization_id,
         ports=__ret__.ports,

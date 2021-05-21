@@ -6,22 +6,27 @@ import * as utilities from "./utilities";
 
 // Export members:
 export * from "./bgpSession";
+export * from "./connection";
 export * from "./device";
 export * from "./deviceNetworkType";
 export * from "./getConnection";
 export * from "./getDevice";
 export * from "./getDeviceBgpNeighbors";
 export * from "./getFacility";
+export * from "./getHardwareReservation";
 export * from "./getIpBlockRanges";
 export * from "./getMetro";
 export * from "./getOperatingSystem";
 export * from "./getOrganization";
+export * from "./getPort";
 export * from "./getPrecreatedIpBlock";
 export * from "./getProject";
 export * from "./getProjectSshKey";
+export * from "./getReservedIpBlock";
 export * from "./getSpotMarketPrice";
 export * from "./getSpotMarketRequest";
 export * from "./getVirtualCircuit";
+export * from "./getVlan";
 export * from "./getVolume";
 export * from "./ipAttachment";
 export * from "./organization";
@@ -32,6 +37,7 @@ export * from "./provider";
 export * from "./reservedIpBlock";
 export * from "./spotMarketRequest";
 export * from "./sshKey";
+export * from "./virtualCircuit";
 export * from "./vlan";
 export * from "./volume";
 export * from "./volumeAttachment";
@@ -50,6 +56,7 @@ export {
 
 // Import resources to register:
 import { BgpSession } from "./bgpSession";
+import { Connection } from "./connection";
 import { Device } from "./device";
 import { DeviceNetworkType } from "./deviceNetworkType";
 import { IpAttachment } from "./ipAttachment";
@@ -60,6 +67,7 @@ import { ProjectSshKey } from "./projectSshKey";
 import { ReservedIpBlock } from "./reservedIpBlock";
 import { SpotMarketRequest } from "./spotMarketRequest";
 import { SshKey } from "./sshKey";
+import { VirtualCircuit } from "./virtualCircuit";
 import { Vlan } from "./vlan";
 import { Volume } from "./volume";
 import { VolumeAttachment } from "./volumeAttachment";
@@ -70,6 +78,8 @@ const _module = {
         switch (type) {
             case "equinix-metal:index/bgpSession:BgpSession":
                 return new BgpSession(name, <any>undefined, { urn })
+            case "equinix-metal:index/connection:Connection":
+                return new Connection(name, <any>undefined, { urn })
             case "equinix-metal:index/device:Device":
                 return new Device(name, <any>undefined, { urn })
             case "equinix-metal:index/deviceNetworkType:DeviceNetworkType":
@@ -90,6 +100,8 @@ const _module = {
                 return new SpotMarketRequest(name, <any>undefined, { urn })
             case "equinix-metal:index/sshKey:SshKey":
                 return new SshKey(name, <any>undefined, { urn })
+            case "equinix-metal:index/virtualCircuit:VirtualCircuit":
+                return new VirtualCircuit(name, <any>undefined, { urn })
             case "equinix-metal:index/vlan:Vlan":
                 return new Vlan(name, <any>undefined, { urn })
             case "equinix-metal:index/volume:Volume":
@@ -102,6 +114,7 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("equinix-metal", "index/bgpSession", _module)
+pulumi.runtime.registerResourceModule("equinix-metal", "index/connection", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/device", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/deviceNetworkType", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/ipAttachment", _module)
@@ -112,6 +125,7 @@ pulumi.runtime.registerResourceModule("equinix-metal", "index/projectSshKey", _m
 pulumi.runtime.registerResourceModule("equinix-metal", "index/reservedIpBlock", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/spotMarketRequest", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/sshKey", _module)
+pulumi.runtime.registerResourceModule("equinix-metal", "index/virtualCircuit", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/vlan", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/volume", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/volumeAttachment", _module)

@@ -30,6 +30,14 @@ import * as utilities from "./utilities";
  *     },
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing spot market request ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/spotMarketRequest:SpotMarketRequest metal_spot_market_request {existing_spot_market_request_id}
+ * ```
  */
 export class SpotMarketRequest extends pulumi.CustomResource {
     /**
@@ -72,7 +80,22 @@ export class SpotMarketRequest extends pulumi.CustomResource {
      */
     public readonly facilities!: pulumi.Output<string[]>;
     /**
-     * Device parameters. See device resource for details
+     * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
+     * * `billingCycle`
+     * * `plan`
+     * * `operatingSystem`
+     * * `hostname`
+     * * `termintationTime`
+     * * `alwaysPxe`
+     * * `description`
+     * * `features`
+     * * `locked`
+     * * `projectSshKeys`
+     * * `userSshKeys`
+     * * `userdata`
+     * * `customdata`
+     * * `ipxeScriptUrl`
+     * * `tags`
      */
     public readonly instanceParameters!: pulumi.Output<outputs.SpotMarketRequestInstanceParameters>;
     /**
@@ -80,7 +103,7 @@ export class SpotMarketRequest extends pulumi.CustomResource {
      */
     public readonly maxBidPrice!: pulumi.Output<number>;
     /**
-     * Metro where devices should be created.
+     * Metro where devices should be created
      */
     public readonly metro!: pulumi.Output<string | undefined>;
     /**
@@ -163,7 +186,22 @@ export interface SpotMarketRequestState {
      */
     readonly facilities?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Device parameters. See device resource for details
+     * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
+     * * `billingCycle`
+     * * `plan`
+     * * `operatingSystem`
+     * * `hostname`
+     * * `termintationTime`
+     * * `alwaysPxe`
+     * * `description`
+     * * `features`
+     * * `locked`
+     * * `projectSshKeys`
+     * * `userSshKeys`
+     * * `userdata`
+     * * `customdata`
+     * * `ipxeScriptUrl`
+     * * `tags`
      */
     readonly instanceParameters?: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
     /**
@@ -171,7 +209,7 @@ export interface SpotMarketRequestState {
      */
     readonly maxBidPrice?: pulumi.Input<number>;
     /**
-     * Metro where devices should be created.
+     * Metro where devices should be created
      */
     readonly metro?: pulumi.Input<string>;
     /**
@@ -201,7 +239,22 @@ export interface SpotMarketRequestArgs {
      */
     readonly facilities?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Device parameters. See device resource for details
+     * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
+     * * `billingCycle`
+     * * `plan`
+     * * `operatingSystem`
+     * * `hostname`
+     * * `termintationTime`
+     * * `alwaysPxe`
+     * * `description`
+     * * `features`
+     * * `locked`
+     * * `projectSshKeys`
+     * * `userSshKeys`
+     * * `userdata`
+     * * `customdata`
+     * * `ipxeScriptUrl`
+     * * `tags`
      */
     readonly instanceParameters: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
     /**
@@ -209,7 +262,7 @@ export interface SpotMarketRequestArgs {
      */
     readonly maxBidPrice: pulumi.Input<number>;
     /**
-     * Metro where devices should be created.
+     * Metro where devices should be created
      */
     readonly metro?: pulumi.Input<string>;
     /**

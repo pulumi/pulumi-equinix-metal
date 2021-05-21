@@ -112,6 +112,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing IP reservation ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/reservedIpBlock:ReservedIpBlock")]
     public partial class ReservedIpBlock : Pulumi.CustomResource

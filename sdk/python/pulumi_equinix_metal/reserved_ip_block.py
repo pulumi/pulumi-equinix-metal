@@ -460,6 +460,14 @@ class ReservedIpBlock(pulumi.CustomResource):
             ])
         ```
 
+        ## Import
+
+        This resource can be imported using an existing IP reservation ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Arbitrary description
@@ -544,6 +552,14 @@ class ReservedIpBlock(pulumi.CustomResource):
                     type="private_ipv4",
                 ),
             ])
+        ```
+
+        ## Import
+
+        This resource can be imported using an existing IP reservation ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
         ```
 
         :param str resource_name: The name of the resource.

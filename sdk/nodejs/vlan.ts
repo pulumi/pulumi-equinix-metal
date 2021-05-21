@@ -33,6 +33,14 @@ import * as utilities from "./utilities";
  *     vxlan: 1040,
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing VLAN ID (UUID)
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/vlan:Vlan metal_vlan {existing_vlan_id}
+ * ```
  */
 export class Vlan extends pulumi.CustomResource {
     /**

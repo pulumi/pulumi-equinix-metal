@@ -27,11 +27,26 @@ class SpotMarketRequestArgs:
         The set of arguments for constructing a SpotMarketRequest resource.
         :param pulumi.Input[int] devices_max: Maximum number devices to be created
         :param pulumi.Input[int] devices_min: Miniumum number devices to be created
-        :param pulumi.Input['SpotMarketRequestInstanceParametersArgs'] instance_parameters: Device parameters. See device resource for details
+        :param pulumi.Input['SpotMarketRequestInstanceParametersArgs'] instance_parameters: Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+               * `billing_cycle`
+               * `plan`
+               * `operating_system`
+               * `hostname`
+               * `termintation_time`
+               * `always_pxe`
+               * `description`
+               * `features`
+               * `locked`
+               * `project_ssh_keys`
+               * `user_ssh_keys`
+               * `userdata`
+               * `customdata`
+               * `ipxe_script_url`
+               * `tags`
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
-        :param pulumi.Input[str] metro: Metro where devices should be created.
+        :param pulumi.Input[str] metro: Metro where devices should be created
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
         pulumi.set(__self__, "devices_max", devices_max)
@@ -74,7 +89,22 @@ class SpotMarketRequestArgs:
     @pulumi.getter(name="instanceParameters")
     def instance_parameters(self) -> pulumi.Input['SpotMarketRequestInstanceParametersArgs']:
         """
-        Device parameters. See device resource for details
+        Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+        * `billing_cycle`
+        * `plan`
+        * `operating_system`
+        * `hostname`
+        * `termintation_time`
+        * `always_pxe`
+        * `description`
+        * `features`
+        * `locked`
+        * `project_ssh_keys`
+        * `user_ssh_keys`
+        * `userdata`
+        * `customdata`
+        * `ipxe_script_url`
+        * `tags`
         """
         return pulumi.get(self, "instance_parameters")
 
@@ -122,7 +152,7 @@ class SpotMarketRequestArgs:
     @pulumi.getter
     def metro(self) -> Optional[pulumi.Input[str]]:
         """
-        Metro where devices should be created.
+        Metro where devices should be created
         """
         return pulumi.get(self, "metro")
 
@@ -159,9 +189,24 @@ class _SpotMarketRequestState:
         :param pulumi.Input[int] devices_max: Maximum number devices to be created
         :param pulumi.Input[int] devices_min: Miniumum number devices to be created
         :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
-        :param pulumi.Input['SpotMarketRequestInstanceParametersArgs'] instance_parameters: Device parameters. See device resource for details
+        :param pulumi.Input['SpotMarketRequestInstanceParametersArgs'] instance_parameters: Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+               * `billing_cycle`
+               * `plan`
+               * `operating_system`
+               * `hostname`
+               * `termintation_time`
+               * `always_pxe`
+               * `description`
+               * `features`
+               * `locked`
+               * `project_ssh_keys`
+               * `user_ssh_keys`
+               * `userdata`
+               * `customdata`
+               * `ipxe_script_url`
+               * `tags`
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
-        :param pulumi.Input[str] metro: Metro where devices should be created.
+        :param pulumi.Input[str] metro: Metro where devices should be created
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
@@ -222,7 +267,22 @@ class _SpotMarketRequestState:
     @pulumi.getter(name="instanceParameters")
     def instance_parameters(self) -> Optional[pulumi.Input['SpotMarketRequestInstanceParametersArgs']]:
         """
-        Device parameters. See device resource for details
+        Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+        * `billing_cycle`
+        * `plan`
+        * `operating_system`
+        * `hostname`
+        * `termintation_time`
+        * `always_pxe`
+        * `description`
+        * `features`
+        * `locked`
+        * `project_ssh_keys`
+        * `user_ssh_keys`
+        * `userdata`
+        * `customdata`
+        * `ipxe_script_url`
+        * `tags`
         """
         return pulumi.get(self, "instance_parameters")
 
@@ -246,7 +306,7 @@ class _SpotMarketRequestState:
     @pulumi.getter
     def metro(self) -> Optional[pulumi.Input[str]]:
         """
-        Metro where devices should be created.
+        Metro where devices should be created
         """
         return pulumi.get(self, "metro")
 
@@ -318,14 +378,37 @@ class SpotMarketRequest(pulumi.CustomResource):
             ))
         ```
 
+        ## Import
+
+        This resource can be imported using an existing spot market request ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/spotMarketRequest:SpotMarketRequest metal_spot_market_request {existing_spot_market_request_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] devices_max: Maximum number devices to be created
         :param pulumi.Input[int] devices_min: Miniumum number devices to be created
         :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
-        :param pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']] instance_parameters: Device parameters. See device resource for details
+        :param pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']] instance_parameters: Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+               * `billing_cycle`
+               * `plan`
+               * `operating_system`
+               * `hostname`
+               * `termintation_time`
+               * `always_pxe`
+               * `description`
+               * `features`
+               * `locked`
+               * `project_ssh_keys`
+               * `user_ssh_keys`
+               * `userdata`
+               * `customdata`
+               * `ipxe_script_url`
+               * `tags`
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
-        :param pulumi.Input[str] metro: Metro where devices should be created.
+        :param pulumi.Input[str] metro: Metro where devices should be created
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
@@ -358,6 +441,14 @@ class SpotMarketRequest(pulumi.CustomResource):
                 operating_system="ubuntu_20_04",
                 plan="c3.small.x86",
             ))
+        ```
+
+        ## Import
+
+        This resource can be imported using an existing spot market request ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/spotMarketRequest:SpotMarketRequest metal_spot_market_request {existing_spot_market_request_id}
         ```
 
         :param str resource_name: The name of the resource.
@@ -441,9 +532,24 @@ class SpotMarketRequest(pulumi.CustomResource):
         :param pulumi.Input[int] devices_max: Maximum number devices to be created
         :param pulumi.Input[int] devices_min: Miniumum number devices to be created
         :param pulumi.Input[Sequence[pulumi.Input[str]]] facilities: Facility IDs where devices should be created
-        :param pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']] instance_parameters: Device parameters. See device resource for details
+        :param pulumi.Input[pulumi.InputType['SpotMarketRequestInstanceParametersArgs']] instance_parameters: Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+               * `billing_cycle`
+               * `plan`
+               * `operating_system`
+               * `hostname`
+               * `termintation_time`
+               * `always_pxe`
+               * `description`
+               * `features`
+               * `locked`
+               * `project_ssh_keys`
+               * `user_ssh_keys`
+               * `userdata`
+               * `customdata`
+               * `ipxe_script_url`
+               * `tags`
         :param pulumi.Input[float] max_bid_price: Maximum price user is willing to pay per hour per device
-        :param pulumi.Input[str] metro: Metro where devices should be created.
+        :param pulumi.Input[str] metro: Metro where devices should be created
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[bool] wait_for_devices: On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
         """
@@ -489,7 +595,22 @@ class SpotMarketRequest(pulumi.CustomResource):
     @pulumi.getter(name="instanceParameters")
     def instance_parameters(self) -> pulumi.Output['outputs.SpotMarketRequestInstanceParameters']:
         """
-        Device parameters. See device resource for details
+        Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+        * `billing_cycle`
+        * `plan`
+        * `operating_system`
+        * `hostname`
+        * `termintation_time`
+        * `always_pxe`
+        * `description`
+        * `features`
+        * `locked`
+        * `project_ssh_keys`
+        * `user_ssh_keys`
+        * `userdata`
+        * `customdata`
+        * `ipxe_script_url`
+        * `tags`
         """
         return pulumi.get(self, "instance_parameters")
 
@@ -505,7 +626,7 @@ class SpotMarketRequest(pulumi.CustomResource):
     @pulumi.getter
     def metro(self) -> pulumi.Output[Optional[str]]:
         """
-        Metro where devices should be created.
+        Metro where devices should be created
         """
         return pulumi.get(self, "metro")
 

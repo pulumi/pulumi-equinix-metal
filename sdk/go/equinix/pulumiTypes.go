@@ -10,10 +10,149 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+type ConnectionPort struct {
+	Id         *string `pulumi:"id"`
+	LinkStatus *string `pulumi:"linkStatus"`
+	// Name of the connection resource
+	Name *string `pulumi:"name"`
+	Role *string `pulumi:"role"`
+	// Port speed in bits per second
+	Speed *int `pulumi:"speed"`
+	// Status of the connection resource
+	Status            *string       `pulumi:"status"`
+	VirtualCircuitIds []interface{} `pulumi:"virtualCircuitIds"`
+}
+
+// ConnectionPortInput is an input type that accepts ConnectionPortArgs and ConnectionPortOutput values.
+// You can construct a concrete instance of `ConnectionPortInput` via:
+//
+//          ConnectionPortArgs{...}
+type ConnectionPortInput interface {
+	pulumi.Input
+
+	ToConnectionPortOutput() ConnectionPortOutput
+	ToConnectionPortOutputWithContext(context.Context) ConnectionPortOutput
+}
+
+type ConnectionPortArgs struct {
+	Id         pulumi.StringPtrInput `pulumi:"id"`
+	LinkStatus pulumi.StringPtrInput `pulumi:"linkStatus"`
+	// Name of the connection resource
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	Role pulumi.StringPtrInput `pulumi:"role"`
+	// Port speed in bits per second
+	Speed pulumi.IntPtrInput `pulumi:"speed"`
+	// Status of the connection resource
+	Status            pulumi.StringPtrInput `pulumi:"status"`
+	VirtualCircuitIds pulumi.ArrayInput     `pulumi:"virtualCircuitIds"`
+}
+
+func (ConnectionPortArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConnectionPort)(nil)).Elem()
+}
+
+func (i ConnectionPortArgs) ToConnectionPortOutput() ConnectionPortOutput {
+	return i.ToConnectionPortOutputWithContext(context.Background())
+}
+
+func (i ConnectionPortArgs) ToConnectionPortOutputWithContext(ctx context.Context) ConnectionPortOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConnectionPortOutput)
+}
+
+// ConnectionPortArrayInput is an input type that accepts ConnectionPortArray and ConnectionPortArrayOutput values.
+// You can construct a concrete instance of `ConnectionPortArrayInput` via:
+//
+//          ConnectionPortArray{ ConnectionPortArgs{...} }
+type ConnectionPortArrayInput interface {
+	pulumi.Input
+
+	ToConnectionPortArrayOutput() ConnectionPortArrayOutput
+	ToConnectionPortArrayOutputWithContext(context.Context) ConnectionPortArrayOutput
+}
+
+type ConnectionPortArray []ConnectionPortInput
+
+func (ConnectionPortArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ConnectionPort)(nil)).Elem()
+}
+
+func (i ConnectionPortArray) ToConnectionPortArrayOutput() ConnectionPortArrayOutput {
+	return i.ToConnectionPortArrayOutputWithContext(context.Background())
+}
+
+func (i ConnectionPortArray) ToConnectionPortArrayOutputWithContext(ctx context.Context) ConnectionPortArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConnectionPortArrayOutput)
+}
+
+type ConnectionPortOutput struct{ *pulumi.OutputState }
+
+func (ConnectionPortOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConnectionPort)(nil)).Elem()
+}
+
+func (o ConnectionPortOutput) ToConnectionPortOutput() ConnectionPortOutput {
+	return o
+}
+
+func (o ConnectionPortOutput) ToConnectionPortOutputWithContext(ctx context.Context) ConnectionPortOutput {
+	return o
+}
+
+func (o ConnectionPortOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+func (o ConnectionPortOutput) LinkStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.LinkStatus }).(pulumi.StringPtrOutput)
+}
+
+// Name of the connection resource
+func (o ConnectionPortOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+func (o ConnectionPortOutput) Role() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Role }).(pulumi.StringPtrOutput)
+}
+
+// Port speed in bits per second
+func (o ConnectionPortOutput) Speed() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *int { return v.Speed }).(pulumi.IntPtrOutput)
+}
+
+// Status of the connection resource
+func (o ConnectionPortOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+func (o ConnectionPortOutput) VirtualCircuitIds() pulumi.ArrayOutput {
+	return o.ApplyT(func(v ConnectionPort) []interface{} { return v.VirtualCircuitIds }).(pulumi.ArrayOutput)
+}
+
+type ConnectionPortArrayOutput struct{ *pulumi.OutputState }
+
+func (ConnectionPortArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ConnectionPort)(nil)).Elem()
+}
+
+func (o ConnectionPortArrayOutput) ToConnectionPortArrayOutput() ConnectionPortArrayOutput {
+	return o
+}
+
+func (o ConnectionPortArrayOutput) ToConnectionPortArrayOutputWithContext(ctx context.Context) ConnectionPortArrayOutput {
+	return o
+}
+
+func (o ConnectionPortArrayOutput) Index(i pulumi.IntInput) ConnectionPortOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ConnectionPort {
+		return vs[0].([]ConnectionPort)[vs[1].(int)]
+	}).(ConnectionPortOutput)
+}
+
 type DeviceIpAddress struct {
 	// CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
 	Cidr *int `pulumi:"cidr"`
-	// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+	// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
 	ReservationIds []string `pulumi:"reservationIds"`
 	// One of [`privateIpv4`, `publicIpv4`, `publicIpv6`]
 	Type string `pulumi:"type"`
@@ -33,7 +172,7 @@ type DeviceIpAddressInput interface {
 type DeviceIpAddressArgs struct {
 	// CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
 	Cidr pulumi.IntPtrInput `pulumi:"cidr"`
-	// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+	// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
 	ReservationIds pulumi.StringArrayInput `pulumi:"reservationIds"`
 	// One of [`privateIpv4`, `publicIpv4`, `publicIpv6`]
 	Type pulumi.StringInput `pulumi:"type"`
@@ -95,7 +234,7 @@ func (o DeviceIpAddressOutput) Cidr() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceIpAddress) *int { return v.Cidr }).(pulumi.IntPtrOutput)
 }
 
-// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
 func (o DeviceIpAddressOutput) ReservationIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceIpAddress) []string { return v.ReservationIds }).(pulumi.StringArrayOutput)
 }
@@ -605,14 +744,15 @@ func (o ProjectBgpConfigPtrOutput) Status() pulumi.StringPtrOutput {
 }
 
 type SpotMarketRequestInstanceParameters struct {
-	AlwaysPxe        *bool    `pulumi:"alwaysPxe"`
-	BillingCycle     string   `pulumi:"billingCycle"`
-	Customdata       *string  `pulumi:"customdata"`
-	Description      *string  `pulumi:"description"`
-	Features         []string `pulumi:"features"`
-	Hostname         string   `pulumi:"hostname"`
-	IpxeScriptUrl    *string  `pulumi:"ipxeScriptUrl"`
-	Locked           *string  `pulumi:"locked"`
+	AlwaysPxe     *bool    `pulumi:"alwaysPxe"`
+	BillingCycle  string   `pulumi:"billingCycle"`
+	Customdata    *string  `pulumi:"customdata"`
+	Description   *string  `pulumi:"description"`
+	Features      []string `pulumi:"features"`
+	Hostname      string   `pulumi:"hostname"`
+	IpxeScriptUrl *string  `pulumi:"ipxeScriptUrl"`
+	// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+	Locked           *bool    `pulumi:"locked"`
 	OperatingSystem  string   `pulumi:"operatingSystem"`
 	Plan             string   `pulumi:"plan"`
 	ProjectSshKeys   []string `pulumi:"projectSshKeys"`
@@ -634,14 +774,15 @@ type SpotMarketRequestInstanceParametersInput interface {
 }
 
 type SpotMarketRequestInstanceParametersArgs struct {
-	AlwaysPxe        pulumi.BoolPtrInput     `pulumi:"alwaysPxe"`
-	BillingCycle     pulumi.StringInput      `pulumi:"billingCycle"`
-	Customdata       pulumi.StringPtrInput   `pulumi:"customdata"`
-	Description      pulumi.StringPtrInput   `pulumi:"description"`
-	Features         pulumi.StringArrayInput `pulumi:"features"`
-	Hostname         pulumi.StringInput      `pulumi:"hostname"`
-	IpxeScriptUrl    pulumi.StringPtrInput   `pulumi:"ipxeScriptUrl"`
-	Locked           pulumi.StringPtrInput   `pulumi:"locked"`
+	AlwaysPxe     pulumi.BoolPtrInput     `pulumi:"alwaysPxe"`
+	BillingCycle  pulumi.StringInput      `pulumi:"billingCycle"`
+	Customdata    pulumi.StringPtrInput   `pulumi:"customdata"`
+	Description   pulumi.StringPtrInput   `pulumi:"description"`
+	Features      pulumi.StringArrayInput `pulumi:"features"`
+	Hostname      pulumi.StringInput      `pulumi:"hostname"`
+	IpxeScriptUrl pulumi.StringPtrInput   `pulumi:"ipxeScriptUrl"`
+	// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+	Locked           pulumi.BoolPtrInput     `pulumi:"locked"`
 	OperatingSystem  pulumi.StringInput      `pulumi:"operatingSystem"`
 	Plan             pulumi.StringInput      `pulumi:"plan"`
 	ProjectSshKeys   pulumi.StringArrayInput `pulumi:"projectSshKeys"`
@@ -755,8 +896,9 @@ func (o SpotMarketRequestInstanceParametersOutput) IpxeScriptUrl() pulumi.String
 	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *string { return v.IpxeScriptUrl }).(pulumi.StringPtrOutput)
 }
 
-func (o SpotMarketRequestInstanceParametersOutput) Locked() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *string { return v.Locked }).(pulumi.StringPtrOutput)
+// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+func (o SpotMarketRequestInstanceParametersOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
 func (o SpotMarketRequestInstanceParametersOutput) OperatingSystem() pulumi.StringOutput {
@@ -868,13 +1010,14 @@ func (o SpotMarketRequestInstanceParametersPtrOutput) IpxeScriptUrl() pulumi.Str
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o SpotMarketRequestInstanceParametersPtrOutput) Locked() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SpotMarketRequestInstanceParameters) *string {
+// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+func (o SpotMarketRequestInstanceParametersPtrOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SpotMarketRequestInstanceParameters) *bool {
 		if v == nil {
 			return nil
 		}
 		return v.Locked
-	}).(pulumi.StringPtrOutput)
+	}).(pulumi.BoolPtrOutput)
 }
 
 func (o SpotMarketRequestInstanceParametersPtrOutput) OperatingSystem() pulumi.StringPtrOutput {
@@ -1135,6 +1278,8 @@ func (o VolumeSnapshotPolicyArrayOutput) Index(i pulumi.IntInput) VolumeSnapshot
 }
 
 type GetConnectionPort struct {
+	// Port UUID
+	Id string `pulumi:"id"`
 	// Port link status
 	LinkStatus string `pulumi:"linkStatus"`
 	// Port name
@@ -1161,6 +1306,8 @@ type GetConnectionPortInput interface {
 }
 
 type GetConnectionPortArgs struct {
+	// Port UUID
+	Id pulumi.StringInput `pulumi:"id"`
 	// Port link status
 	LinkStatus pulumi.StringInput `pulumi:"linkStatus"`
 	// Port name
@@ -1224,6 +1371,11 @@ func (o GetConnectionPortOutput) ToGetConnectionPortOutput() GetConnectionPortOu
 
 func (o GetConnectionPortOutput) ToGetConnectionPortOutputWithContext(ctx context.Context) GetConnectionPortOutput {
 	return o
+}
+
+// Port UUID
+func (o GetConnectionPortOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetConnectionPort) string { return v.Id }).(pulumi.StringOutput)
 }
 
 // Port link status
@@ -2125,6 +2277,8 @@ func (o GetVolumeSnapshotPolicyArrayOutput) Index(i pulumi.IntInput) GetVolumeSn
 }
 
 func init() {
+	pulumi.RegisterOutputType(ConnectionPortOutput{})
+	pulumi.RegisterOutputType(ConnectionPortArrayOutput{})
 	pulumi.RegisterOutputType(DeviceIpAddressOutput{})
 	pulumi.RegisterOutputType(DeviceIpAddressArrayOutput{})
 	pulumi.RegisterOutputType(DeviceNetworkOutput{})

@@ -80,6 +80,14 @@ import * as utilities from "./utilities";
  *     ],
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing IP reservation ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+ * ```
  */
 export class ReservedIpBlock extends pulumi.CustomResource {
     /**

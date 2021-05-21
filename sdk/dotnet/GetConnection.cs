@@ -73,6 +73,10 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public readonly string Id;
         /// <summary>
+        /// Slug of a metro to which the connection belongs
+        /// </summary>
+        public readonly string Metro;
+        /// <summary>
         /// Port name
         /// </summary>
         public readonly string Name;
@@ -115,6 +119,8 @@ namespace Pulumi.EquinixMetal
 
             string id,
 
+            string metro,
+
             string name,
 
             string organizationId,
@@ -135,6 +141,7 @@ namespace Pulumi.EquinixMetal
             Description = description;
             Facility = facility;
             Id = id;
+            Metro = metro;
             Name = name;
             OrganizationId = organizationId;
             Ports = ports;

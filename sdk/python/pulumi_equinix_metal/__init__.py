@@ -5,22 +5,27 @@
 # Export this package's modules as members:
 from ._enums import *
 from .bgp_session import *
+from .connection import *
 from .device import *
 from .device_network_type import *
 from .get_connection import *
 from .get_device import *
 from .get_device_bgp_neighbors import *
 from .get_facility import *
+from .get_hardware_reservation import *
 from .get_ip_block_ranges import *
 from .get_metro import *
 from .get_operating_system import *
 from .get_organization import *
+from .get_port import *
 from .get_precreated_ip_block import *
 from .get_project import *
 from .get_project_ssh_key import *
+from .get_reserved_ip_block import *
 from .get_spot_market_price import *
 from .get_spot_market_request import *
 from .get_virtual_circuit import *
+from .get_vlan import *
 from .get_volume import *
 from .ip_attachment import *
 from .organization import *
@@ -31,6 +36,7 @@ from .provider import *
 from .reserved_ip_block import *
 from .spot_market_request import *
 from .ssh_key import *
+from .virtual_circuit import *
 from .vlan import *
 from .volume import *
 from .volume_attachment import *
@@ -56,6 +62,8 @@ def _register_module():
         def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
             if typ == "equinix-metal:index/bgpSession:BgpSession":
                 return BgpSession(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "equinix-metal:index/connection:Connection":
+                return Connection(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/device:Device":
                 return Device(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/deviceNetworkType:DeviceNetworkType":
@@ -76,6 +84,8 @@ def _register_module():
                 return SpotMarketRequest(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/sshKey:SshKey":
                 return SshKey(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "equinix-metal:index/virtualCircuit:VirtualCircuit":
+                return VirtualCircuit(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/vlan:Vlan":
                 return Vlan(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/volume:Volume":
@@ -88,6 +98,7 @@ def _register_module():
 
     _module_instance = Module()
     pulumi.runtime.register_resource_module("equinix-metal", "index/bgpSession", _module_instance)
+    pulumi.runtime.register_resource_module("equinix-metal", "index/connection", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/device", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/deviceNetworkType", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/ipAttachment", _module_instance)
@@ -98,6 +109,7 @@ def _register_module():
     pulumi.runtime.register_resource_module("equinix-metal", "index/reservedIpBlock", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/spotMarketRequest", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/sshKey", _module_instance)
+    pulumi.runtime.register_resource_module("equinix-metal", "index/virtualCircuit", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/vlan", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/volume", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/volumeAttachment", _module_instance)

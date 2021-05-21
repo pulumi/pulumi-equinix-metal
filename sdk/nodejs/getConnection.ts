@@ -60,6 +60,10 @@ export interface GetConnectionResult {
      */
     readonly id: string;
     /**
+     * Slug of a metro to which the connection belongs
+     */
+    readonly metro: string;
+    /**
      * Port name
      */
     readonly name: string;

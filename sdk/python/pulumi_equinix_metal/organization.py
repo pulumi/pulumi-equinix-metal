@@ -234,6 +234,14 @@ class Organization(pulumi.CustomResource):
         tf_organization1 = equinix_metal.Organization("tfOrganization1", description="quux")
         ```
 
+        ## Import
+
+        This resource can be imported using an existing organization ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/organization:Organization metal_organization {existing_organization_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Description string
@@ -259,6 +267,14 @@ class Organization(pulumi.CustomResource):
 
         # Create a new Project
         tf_organization1 = equinix_metal.Organization("tfOrganization1", description="quux")
+        ```
+
+        ## Import
+
+        This resource can be imported using an existing organization ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/organization:Organization metal_organization {existing_organization_id}
         ```
 
         :param str resource_name: The name of the resource.

@@ -31,6 +31,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing organization ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/organization:Organization metal_organization {existing_organization_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/organization:Organization")]
     public partial class Organization : Pulumi.CustomResource

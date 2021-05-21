@@ -4,13 +4,32 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "../types";
 
+export interface ConnectionPort {
+    id?: pulumi.Input<string>;
+    linkStatus?: pulumi.Input<string>;
+    /**
+     * Name of the connection resource
+     */
+    name?: pulumi.Input<string>;
+    role?: pulumi.Input<string>;
+    /**
+     * Port speed in bits per second
+     */
+    speed?: pulumi.Input<number>;
+    /**
+     * Status of the connection resource
+     */
+    status?: pulumi.Input<string>;
+    virtualCircuitIds?: pulumi.Input<any[]>;
+}
+
 export interface DeviceIpAddress {
     /**
      * CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
      */
     cidr?: pulumi.Input<number>;
     /**
-     * String of UUID of IP block reservations from which the public IPv4 address should be taken.
+     * List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
      */
     reservationIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -98,7 +117,10 @@ export interface SpotMarketRequestInstanceParameters {
     features?: pulumi.Input<pulumi.Input<string>[]>;
     hostname: pulumi.Input<string>;
     ipxeScriptUrl?: pulumi.Input<string>;
-    locked?: pulumi.Input<string>;
+    /**
+     * Blocks deletion of the SpotMarketRequest device until the lock is disabled
+     */
+    locked?: pulumi.Input<boolean>;
     operatingSystem: pulumi.Input<string>;
     plan: pulumi.Input<string>;
     projectSshKeys?: pulumi.Input<pulumi.Input<string>[]>;

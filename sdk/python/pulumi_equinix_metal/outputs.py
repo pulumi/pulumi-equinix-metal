@@ -11,6 +11,7 @@ from . import outputs
 from ._enums import *
 
 __all__ = [
+    'ConnectionPort',
     'DeviceIpAddress',
     'DeviceNetwork',
     'DevicePort',
@@ -27,6 +28,100 @@ __all__ = [
     'GetProjectBgpConfigResult',
     'GetVolumeSnapshotPolicyResult',
 ]
+
+@pulumi.output_type
+class ConnectionPort(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "linkStatus":
+            suggest = "link_status"
+        elif key == "virtualCircuitIds":
+            suggest = "virtual_circuit_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConnectionPort. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConnectionPort.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConnectionPort.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 id: Optional[str] = None,
+                 link_status: Optional[str] = None,
+                 name: Optional[str] = None,
+                 role: Optional[str] = None,
+                 speed: Optional[int] = None,
+                 status: Optional[str] = None,
+                 virtual_circuit_ids: Optional[Sequence[Any]] = None):
+        """
+        :param str name: Name of the connection resource
+        :param int speed: Port speed in bits per second
+        :param str status: Status of the connection resource
+        """
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if link_status is not None:
+            pulumi.set(__self__, "link_status", link_status)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if role is not None:
+            pulumi.set(__self__, "role", role)
+        if speed is not None:
+            pulumi.set(__self__, "speed", speed)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if virtual_circuit_ids is not None:
+            pulumi.set(__self__, "virtual_circuit_ids", virtual_circuit_ids)
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[str]:
+        return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter(name="linkStatus")
+    def link_status(self) -> Optional[str]:
+        return pulumi.get(self, "link_status")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the connection resource
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def role(self) -> Optional[str]:
+        return pulumi.get(self, "role")
+
+    @property
+    @pulumi.getter
+    def speed(self) -> Optional[int]:
+        """
+        Port speed in bits per second
+        """
+        return pulumi.get(self, "speed")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the connection resource
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="virtualCircuitIds")
+    def virtual_circuit_ids(self) -> Optional[Sequence[Any]]:
+        return pulumi.get(self, "virtual_circuit_ids")
+
 
 @pulumi.output_type
 class DeviceIpAddress(dict):
@@ -54,7 +149,7 @@ class DeviceIpAddress(dict):
         """
         :param str type: One of [`private_ipv4`, `public_ipv4`, `public_ipv6`]
         :param int cidr: CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
-        :param Sequence[str] reservation_ids: String of UUID of IP block reservations from which the public IPv4 address should be taken.
+        :param Sequence[str] reservation_ids: List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
         """
         pulumi.set(__self__, "type", type)
         if cidr is not None:
@@ -82,7 +177,7 @@ class DeviceIpAddress(dict):
     @pulumi.getter(name="reservationIds")
     def reservation_ids(self) -> Optional[Sequence[str]]:
         """
-        String of UUID of IP block reservations from which the public IPv4 address should be taken.
+        List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
         """
         return pulumi.get(self, "reservation_ids")
 
@@ -350,12 +445,15 @@ class SpotMarketRequestInstanceParameters(dict):
                  description: Optional[str] = None,
                  features: Optional[Sequence[str]] = None,
                  ipxe_script_url: Optional[str] = None,
-                 locked: Optional[str] = None,
+                 locked: Optional[bool] = None,
                  project_ssh_keys: Optional[Sequence[str]] = None,
                  tags: Optional[Sequence[str]] = None,
                  termintation_time: Optional[str] = None,
                  user_ssh_keys: Optional[Sequence[str]] = None,
                  userdata: Optional[str] = None):
+        """
+        :param bool locked: Blocks deletion of the SpotMarketRequest device until the lock is disabled
+        """
         pulumi.set(__self__, "billing_cycle", billing_cycle)
         pulumi.set(__self__, "hostname", hostname)
         pulumi.set(__self__, "operating_system", operating_system)
@@ -430,7 +528,10 @@ class SpotMarketRequestInstanceParameters(dict):
 
     @property
     @pulumi.getter
-    def locked(self) -> Optional[str]:
+    def locked(self) -> Optional[bool]:
+        """
+        Blocks deletion of the SpotMarketRequest device until the lock is disabled
+        """
         return pulumi.get(self, "locked")
 
     @property
@@ -513,6 +614,7 @@ class VolumeSnapshotPolicy(dict):
 @pulumi.output_type
 class GetConnectionPortResult(dict):
     def __init__(__self__, *,
+                 id: str,
                  link_status: str,
                  name: str,
                  role: str,
@@ -520,6 +622,7 @@ class GetConnectionPortResult(dict):
                  status: str,
                  virtual_circuit_ids: Sequence[Any]):
         """
+        :param str id: Port UUID
         :param str link_status: Port link status
         :param str name: Port name
         :param str role: Port role - primary or secondary
@@ -527,12 +630,21 @@ class GetConnectionPortResult(dict):
         :param str status: Port status
         :param Sequence[Any] virtual_circuit_ids: List of IDs of virtual cicruits attached to this port
         """
+        pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "link_status", link_status)
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "role", role)
         pulumi.set(__self__, "speed", speed)
         pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "virtual_circuit_ids", virtual_circuit_ids)
+
+    @property
+    @pulumi.getter
+    def id(self) -> str:
+        """
+        Port UUID
+        """
+        return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="linkStatus")

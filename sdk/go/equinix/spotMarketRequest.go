@@ -48,6 +48,14 @@ import (
 // 	})
 // }
 // ```
+//
+// ## Import
+//
+// This resource can be imported using an existing spot market request ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/spotMarketRequest:SpotMarketRequest metal_spot_market_request {existing_spot_market_request_id}
+// ```
 type SpotMarketRequest struct {
 	pulumi.CustomResourceState
 
@@ -57,11 +65,26 @@ type SpotMarketRequest struct {
 	DevicesMin pulumi.IntOutput `pulumi:"devicesMin"`
 	// Facility IDs where devices should be created
 	Facilities pulumi.StringArrayOutput `pulumi:"facilities"`
-	// Device parameters. See device resource for details
+	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+	// * `billingCycle`
+	// * `plan`
+	// * `operatingSystem`
+	// * `hostname`
+	// * `termintationTime`
+	// * `alwaysPxe`
+	// * `description`
+	// * `features`
+	// * `locked`
+	// * `projectSshKeys`
+	// * `userSshKeys`
+	// * `userdata`
+	// * `customdata`
+	// * `ipxeScriptUrl`
+	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParametersOutput `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64Output `pulumi:"maxBidPrice"`
-	// Metro where devices should be created.
+	// Metro where devices should be created
 	Metro pulumi.StringPtrOutput `pulumi:"metro"`
 	// Project ID
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
@@ -119,11 +142,26 @@ type spotMarketRequestState struct {
 	DevicesMin *int `pulumi:"devicesMin"`
 	// Facility IDs where devices should be created
 	Facilities []string `pulumi:"facilities"`
-	// Device parameters. See device resource for details
+	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+	// * `billingCycle`
+	// * `plan`
+	// * `operatingSystem`
+	// * `hostname`
+	// * `termintationTime`
+	// * `alwaysPxe`
+	// * `description`
+	// * `features`
+	// * `locked`
+	// * `projectSshKeys`
+	// * `userSshKeys`
+	// * `userdata`
+	// * `customdata`
+	// * `ipxeScriptUrl`
+	// * `tags`
 	InstanceParameters *SpotMarketRequestInstanceParameters `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice *float64 `pulumi:"maxBidPrice"`
-	// Metro where devices should be created.
+	// Metro where devices should be created
 	Metro *string `pulumi:"metro"`
 	// Project ID
 	ProjectId *string `pulumi:"projectId"`
@@ -138,11 +176,26 @@ type SpotMarketRequestState struct {
 	DevicesMin pulumi.IntPtrInput
 	// Facility IDs where devices should be created
 	Facilities pulumi.StringArrayInput
-	// Device parameters. See device resource for details
+	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+	// * `billingCycle`
+	// * `plan`
+	// * `operatingSystem`
+	// * `hostname`
+	// * `termintationTime`
+	// * `alwaysPxe`
+	// * `description`
+	// * `features`
+	// * `locked`
+	// * `projectSshKeys`
+	// * `userSshKeys`
+	// * `userdata`
+	// * `customdata`
+	// * `ipxeScriptUrl`
+	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParametersPtrInput
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64PtrInput
-	// Metro where devices should be created.
+	// Metro where devices should be created
 	Metro pulumi.StringPtrInput
 	// Project ID
 	ProjectId pulumi.StringPtrInput
@@ -161,11 +214,26 @@ type spotMarketRequestArgs struct {
 	DevicesMin int `pulumi:"devicesMin"`
 	// Facility IDs where devices should be created
 	Facilities []string `pulumi:"facilities"`
-	// Device parameters. See device resource for details
+	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+	// * `billingCycle`
+	// * `plan`
+	// * `operatingSystem`
+	// * `hostname`
+	// * `termintationTime`
+	// * `alwaysPxe`
+	// * `description`
+	// * `features`
+	// * `locked`
+	// * `projectSshKeys`
+	// * `userSshKeys`
+	// * `userdata`
+	// * `customdata`
+	// * `ipxeScriptUrl`
+	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParameters `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice float64 `pulumi:"maxBidPrice"`
-	// Metro where devices should be created.
+	// Metro where devices should be created
 	Metro *string `pulumi:"metro"`
 	// Project ID
 	ProjectId string `pulumi:"projectId"`
@@ -181,11 +249,26 @@ type SpotMarketRequestArgs struct {
 	DevicesMin pulumi.IntInput
 	// Facility IDs where devices should be created
 	Facilities pulumi.StringArrayInput
-	// Device parameters. See device resource for details
+	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+	// * `billingCycle`
+	// * `plan`
+	// * `operatingSystem`
+	// * `hostname`
+	// * `termintationTime`
+	// * `alwaysPxe`
+	// * `description`
+	// * `features`
+	// * `locked`
+	// * `projectSshKeys`
+	// * `userSshKeys`
+	// * `userdata`
+	// * `customdata`
+	// * `ipxeScriptUrl`
+	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParametersInput
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64Input
-	// Metro where devices should be created.
+	// Metro where devices should be created
 	Metro pulumi.StringPtrInput
 	// Project ID
 	ProjectId pulumi.StringInput

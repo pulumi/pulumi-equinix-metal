@@ -117,6 +117,14 @@ import (
 // 	})
 // }
 // ```
+//
+// ## Import
+//
+// This resource can be imported using an existing IP reservation ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+// ```
 type ReservedIpBlock struct {
 	pulumi.CustomResourceState
 

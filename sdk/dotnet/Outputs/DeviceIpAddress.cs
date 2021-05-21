@@ -18,7 +18,7 @@ namespace Pulumi.EquinixMetal.Outputs
         /// </summary>
         public readonly int? Cidr;
         /// <summary>
-        /// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+        /// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
         /// </summary>
         public readonly ImmutableArray<string> ReservationIds;
         /// <summary>

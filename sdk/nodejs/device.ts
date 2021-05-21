@@ -140,6 +140,14 @@ import * as utilities from "./utilities";
  * `,
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing device ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+ * ```
  */
 export class Device extends pulumi.CustomResource {
     /**
@@ -212,8 +220,6 @@ export class Device extends pulumi.CustomResource {
     public readonly description!: pulumi.Output<string | undefined>;
     /**
      * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-     *
-     * @deprecated Use metro attribute instead
      */
     public readonly facilities!: pulumi.Output<string[] | undefined>;
     /**
@@ -462,8 +468,6 @@ export interface DeviceState {
     readonly description?: pulumi.Input<string>;
     /**
      * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-     *
-     * @deprecated Use metro attribute instead
      */
     readonly facilities?: pulumi.Input<pulumi.Input<string | enums.Facility>[]>;
     /**
@@ -585,8 +589,6 @@ export interface DeviceArgs {
     readonly description?: pulumi.Input<string>;
     /**
      * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-     *
-     * @deprecated Use metro attribute instead
      */
     readonly facilities?: pulumi.Input<pulumi.Input<string | enums.Facility>[]>;
     /**

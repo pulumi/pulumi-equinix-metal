@@ -73,9 +73,6 @@ class DeviceArgs:
         if description is not None:
             pulumi.set(__self__, "description", description)
         if facilities is not None:
-            warnings.warn("""Use metro attribute instead""", DeprecationWarning)
-            pulumi.log.warn("""facilities is deprecated: Use metro attribute instead""")
-        if facilities is not None:
             pulumi.set(__self__, "facilities", facilities)
         if force_detach_volumes is not None:
             pulumi.set(__self__, "force_detach_volumes", force_detach_volumes)
@@ -429,9 +426,6 @@ class _DeviceState:
             pulumi.set(__self__, "deployed_hardware_reservation_id", deployed_hardware_reservation_id)
         if description is not None:
             pulumi.set(__self__, "description", description)
-        if facilities is not None:
-            warnings.warn("""Use metro attribute instead""", DeprecationWarning)
-            pulumi.log.warn("""facilities is deprecated: Use metro attribute instead""")
         if facilities is not None:
             pulumi.set(__self__, "facilities", facilities)
         if force_detach_volumes is not None:
@@ -1040,6 +1034,14 @@ class Device(pulumi.CustomResource):
         \"\"\")
         ```
 
+        ## Import
+
+        This resource can be imported using an existing device ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will
@@ -1204,6 +1206,14 @@ class Device(pulumi.CustomResource):
         \"\"\")
         ```
 
+        ## Import
+
+        This resource can be imported using an existing device ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param DeviceArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1256,9 +1266,6 @@ class Device(pulumi.CustomResource):
             __props__.__dict__["billing_cycle"] = billing_cycle
             __props__.__dict__["custom_data"] = custom_data
             __props__.__dict__["description"] = description
-            if facilities is not None and not opts.urn:
-                warnings.warn("""Use metro attribute instead""", DeprecationWarning)
-                pulumi.log.warn("""facilities is deprecated: Use metro attribute instead""")
             __props__.__dict__["facilities"] = facilities
             __props__.__dict__["force_detach_volumes"] = force_detach_volumes
             __props__.__dict__["hardware_reservation_id"] = hardware_reservation_id
