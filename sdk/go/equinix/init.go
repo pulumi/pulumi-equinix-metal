@@ -22,10 +22,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "equinix-metal:index/bgpSession:BgpSession":
 		r = &BgpSession{}
+	case "equinix-metal:index/connection:Connection":
+		r = &Connection{}
 	case "equinix-metal:index/device:Device":
 		r = &Device{}
 	case "equinix-metal:index/deviceNetworkType:DeviceNetworkType":
 		r = &DeviceNetworkType{}
+	case "equinix-metal:index/gateway:Gateway":
+		r = &Gateway{}
 	case "equinix-metal:index/ipAttachment:IpAttachment":
 		r = &IpAttachment{}
 	case "equinix-metal:index/organization:Organization":
@@ -34,6 +38,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PortVlanAttachment{}
 	case "equinix-metal:index/project:Project":
 		r = &Project{}
+	case "equinix-metal:index/projectApiKey:ProjectApiKey":
+		r = &ProjectApiKey{}
 	case "equinix-metal:index/projectSshKey:ProjectSshKey":
 		r = &ProjectSshKey{}
 	case "equinix-metal:index/reservedIpBlock:ReservedIpBlock":
@@ -42,6 +48,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SpotMarketRequest{}
 	case "equinix-metal:index/sshKey:SshKey":
 		r = &SshKey{}
+	case "equinix-metal:index/userApiKey:UserApiKey":
+		r = &UserApiKey{}
+	case "equinix-metal:index/virtualCircuit:VirtualCircuit":
+		r = &VirtualCircuit{}
 	case "equinix-metal:index/vlan:Vlan":
 		r = &Vlan{}
 	case "equinix-metal:index/volume:Volume":
@@ -86,12 +96,22 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"equinix-metal",
+		"index/connection",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"equinix-metal",
 		"index/device",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"equinix-metal",
 		"index/deviceNetworkType",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"equinix-metal",
+		"index/gateway",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -116,6 +136,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"equinix-metal",
+		"index/projectApiKey",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"equinix-metal",
 		"index/projectSshKey",
 		&module{version},
 	)
@@ -132,6 +157,16 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"equinix-metal",
 		"index/sshKey",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"equinix-metal",
+		"index/userApiKey",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"equinix-metal",
+		"index/virtualCircuit",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

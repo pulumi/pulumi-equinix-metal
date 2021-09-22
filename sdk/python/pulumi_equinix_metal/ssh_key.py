@@ -190,6 +190,14 @@ class SshKey(pulumi.CustomResource):
             opts=pulumi.ResourceOptions(depends_on=["metal_ssh_key.key1"]))
         ```
 
+        ## Import
+
+        This resource can be imported using an existing SSH Key ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/sshKey:SshKey metal_ssh_key {existing_sshkey_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] name: The name of the SSH key for identification
@@ -225,6 +233,14 @@ class SshKey(pulumi.CustomResource):
             billing_cycle="hourly",
             project_id=local["project_id"],
             opts=pulumi.ResourceOptions(depends_on=["metal_ssh_key.key1"]))
+        ```
+
+        ## Import
+
+        This resource can be imported using an existing SSH Key ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/sshKey:SshKey metal_ssh_key {existing_sshkey_id}
         ```
 
         :param str resource_name: The name of the resource.

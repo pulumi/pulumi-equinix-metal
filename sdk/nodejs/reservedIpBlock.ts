@@ -80,6 +80,14 @@ import * as utilities from "./utilities";
  *     ],
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing IP reservation ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+ * ```
  */
 export class ReservedIpBlock extends pulumi.CustomResource {
     /**
@@ -162,6 +170,10 @@ export class ReservedIpBlock extends pulumi.CustomResource {
      */
     public readonly quantity!: pulumi.Output<number>;
     /**
+     * String list of tags
+     */
+    public readonly tags!: pulumi.Output<string[] | undefined>;
+    /**
      * Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
      */
     public readonly type!: pulumi.Output<string | undefined>;
@@ -195,6 +207,7 @@ export class ReservedIpBlock extends pulumi.CustomResource {
             inputs["projectId"] = state ? state.projectId : undefined;
             inputs["public"] = state ? state.public : undefined;
             inputs["quantity"] = state ? state.quantity : undefined;
+            inputs["tags"] = state ? state.tags : undefined;
             inputs["type"] = state ? state.type : undefined;
         } else {
             const args = argsOrState as ReservedIpBlockArgs | undefined;
@@ -209,6 +222,7 @@ export class ReservedIpBlock extends pulumi.CustomResource {
             inputs["metro"] = args ? args.metro : undefined;
             inputs["projectId"] = args ? args.projectId : undefined;
             inputs["quantity"] = args ? args.quantity : undefined;
+            inputs["tags"] = args ? args.tags : undefined;
             inputs["type"] = args ? args.type : undefined;
             inputs["address"] = undefined /*out*/;
             inputs["addressFamily"] = undefined /*out*/;
@@ -286,6 +300,10 @@ export interface ReservedIpBlockState {
      */
     readonly quantity?: pulumi.Input<number>;
     /**
+     * String list of tags
+     */
+    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
      * Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
      */
     readonly type?: pulumi.Input<string | enums.IpBlockType>;
@@ -315,6 +333,10 @@ export interface ReservedIpBlockArgs {
      * The number of allocated /32 addresses, a power of 2
      */
     readonly quantity: pulumi.Input<number>;
+    /**
+     * String list of tags
+     */
+    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
      */

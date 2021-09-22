@@ -46,6 +46,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing spot market request ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/spotMarketRequest:SpotMarketRequest metal_spot_market_request {existing_spot_market_request_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/spotMarketRequest:SpotMarketRequest")]
     public partial class SpotMarketRequest : Pulumi.CustomResource
@@ -69,7 +77,22 @@ namespace Pulumi.EquinixMetal
         public Output<ImmutableArray<string>> Facilities { get; private set; } = null!;
 
         /// <summary>
-        /// Device parameters. See device resource for details
+        /// Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
+        /// * `billing_cycle`
+        /// * `plan`
+        /// * `operating_system`
+        /// * `hostname`
+        /// * `termintation_time`
+        /// * `always_pxe`
+        /// * `description`
+        /// * `features`
+        /// * `locked`
+        /// * `project_ssh_keys`
+        /// * `user_ssh_keys`
+        /// * `userdata`
+        /// * `customdata`
+        /// * `ipxe_script_url`
+        /// * `tags`
         /// </summary>
         [Output("instanceParameters")]
         public Output<Outputs.SpotMarketRequestInstanceParameters> InstanceParameters { get; private set; } = null!;
@@ -81,7 +104,7 @@ namespace Pulumi.EquinixMetal
         public Output<double> MaxBidPrice { get; private set; } = null!;
 
         /// <summary>
-        /// Metro where devices should be created.
+        /// Metro where devices should be created
         /// </summary>
         [Output("metro")]
         public Output<string?> Metro { get; private set; } = null!;
@@ -169,7 +192,22 @@ namespace Pulumi.EquinixMetal
         }
 
         /// <summary>
-        /// Device parameters. See device resource for details
+        /// Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
+        /// * `billing_cycle`
+        /// * `plan`
+        /// * `operating_system`
+        /// * `hostname`
+        /// * `termintation_time`
+        /// * `always_pxe`
+        /// * `description`
+        /// * `features`
+        /// * `locked`
+        /// * `project_ssh_keys`
+        /// * `user_ssh_keys`
+        /// * `userdata`
+        /// * `customdata`
+        /// * `ipxe_script_url`
+        /// * `tags`
         /// </summary>
         [Input("instanceParameters", required: true)]
         public Input<Inputs.SpotMarketRequestInstanceParametersArgs> InstanceParameters { get; set; } = null!;
@@ -181,7 +219,7 @@ namespace Pulumi.EquinixMetal
         public Input<double> MaxBidPrice { get; set; } = null!;
 
         /// <summary>
-        /// Metro where devices should be created.
+        /// Metro where devices should be created
         /// </summary>
         [Input("metro")]
         public Input<string>? Metro { get; set; }
@@ -230,7 +268,22 @@ namespace Pulumi.EquinixMetal
         }
 
         /// <summary>
-        /// Device parameters. See device resource for details
+        /// Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
+        /// * `billing_cycle`
+        /// * `plan`
+        /// * `operating_system`
+        /// * `hostname`
+        /// * `termintation_time`
+        /// * `always_pxe`
+        /// * `description`
+        /// * `features`
+        /// * `locked`
+        /// * `project_ssh_keys`
+        /// * `user_ssh_keys`
+        /// * `userdata`
+        /// * `customdata`
+        /// * `ipxe_script_url`
+        /// * `tags`
         /// </summary>
         [Input("instanceParameters")]
         public Input<Inputs.SpotMarketRequestInstanceParametersGetArgs>? InstanceParameters { get; set; }
@@ -242,7 +295,7 @@ namespace Pulumi.EquinixMetal
         public Input<double>? MaxBidPrice { get; set; }
 
         /// <summary>
-        /// Metro where devices should be created.
+        /// Metro where devices should be created
         /// </summary>
         [Input("metro")]
         public Input<string>? Metro { get; set; }

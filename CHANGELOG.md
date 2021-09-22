@@ -2,7 +2,9 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Upgrade to v3.1.0 of the Equinix Metal Terraform Provider.
+  **Please Note:** the following breaking change: 
+  * `equinix-metal.getProject` now has no `bgpConfig` output
 
 ---
 

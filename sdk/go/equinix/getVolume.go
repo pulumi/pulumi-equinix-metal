@@ -7,34 +7,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Provides an Equinix Metal Block Storage Volume datasource to allow you to read existing volumes.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		opt0 := "terraform-volume-1"
-// 		opt1 := local.Project_id
-// 		volume1, err := equinix - metal.LookupVolume(ctx, &equinix-metal.LookupVolumeArgs{
-// 			Name:      &opt0,
-// 			ProjectId: &opt1,
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("volumeSize", volume1.Size)
-// 		return nil
-// 	})
-// }
-// ```
+// Datasource `Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
 func LookupVolume(ctx *pulumi.Context, args *LookupVolumeArgs, opts ...pulumi.InvokeOption) (*LookupVolumeResult, error) {
 	var rv LookupVolumeResult
 	err := ctx.Invoke("equinix-metal:index/getVolume:getVolume", args, &rv, opts...)
@@ -46,39 +19,27 @@ func LookupVolume(ctx *pulumi.Context, args *LookupVolumeArgs, opts ...pulumi.In
 
 // A collection of arguments for invoking getVolume.
 type LookupVolumeArgs struct {
-	// Name of volume for lookup
-	Name *string `pulumi:"name"`
-	// The ID the parent Equinix Metal project (for lookup by name)
+	Name      *string `pulumi:"name"`
 	ProjectId *string `pulumi:"projectId"`
-	// ID of volume for lookup
-	VolumeId *string `pulumi:"volumeId"`
+	VolumeId  *string `pulumi:"volumeId"`
 }
 
 // A collection of values returned by getVolume.
 type LookupVolumeResult struct {
-	// The billing cycle, defaults to hourly
-	BillingCycle string `pulumi:"billingCycle"`
-	Created      string `pulumi:"created"`
-	Description  string `pulumi:"description"`
-	// UUIDs of devices to which this volume is attached
-	DeviceIds []string `pulumi:"deviceIds"`
-	// The facility slug the volume resides in
-	Facility string `pulumi:"facility"`
+	BillingCycle string   `pulumi:"billingCycle"`
+	Created      string   `pulumi:"created"`
+	Description  string   `pulumi:"description"`
+	DeviceIds    []string `pulumi:"deviceIds"`
+	Facility     string   `pulumi:"facility"`
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// Whether the volume is locked or not
-	Locked bool `pulumi:"locked"`
-	// The name of the volume
-	Name string `pulumi:"name"`
-	// Performance plan the volume is on
-	Plan string `pulumi:"plan"`
-	// The project id the volume is in
-	ProjectId string `pulumi:"projectId"`
-	// The size in GB of the volume
+	Id               string                    `pulumi:"id"`
+	Locked           bool                      `pulumi:"locked"`
+	Name             string                    `pulumi:"name"`
+	Plan             string                    `pulumi:"plan"`
+	ProjectId        string                    `pulumi:"projectId"`
 	Size             int                       `pulumi:"size"`
 	SnapshotPolicies []GetVolumeSnapshotPolicy `pulumi:"snapshotPolicies"`
-	// The state of the volume
-	State    string `pulumi:"state"`
-	Updated  string `pulumi:"updated"`
-	VolumeId string `pulumi:"volumeId"`
+	State            string                    `pulumi:"state"`
+	Updated          string                    `pulumi:"updated"`
+	VolumeId         string                    `pulumi:"volumeId"`
 }

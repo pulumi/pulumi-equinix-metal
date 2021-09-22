@@ -9,6 +9,15 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal
 {
+    /// <summary>
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing project ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/project:Project metal_project {existing_project_id}
+    /// ```
+    /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/project:Project")]
     public partial class Project : Pulumi.CustomResource
     {

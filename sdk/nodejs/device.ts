@@ -140,6 +140,14 @@ import * as utilities from "./utilities";
  * `,
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing device ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+ * ```
  */
 export class Device extends pulumi.CustomResource {
     /**
@@ -212,14 +220,16 @@ export class Device extends pulumi.CustomResource {
     public readonly description!: pulumi.Output<string | undefined>;
     /**
      * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-     *
-     * @deprecated Use metro attribute instead
      */
     public readonly facilities!: pulumi.Output<string[] | undefined>;
     /**
      * Delete device even if it has volumes attached. Only applies for destroy action.
      */
     public readonly forceDetachVolumes!: pulumi.Output<boolean | undefined>;
+    /**
+     * The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+     * next available reservation automatically
+     */
     public readonly hardwareReservationId!: pulumi.Output<string | undefined>;
     /**
      * The device name
@@ -245,6 +255,9 @@ export class Device extends pulumi.CustomResource {
      */
     public readonly metro!: pulumi.Output<string | undefined>;
     /**
+     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
+     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     *
      * @deprecated You should handle Network Type with the new metal_device_network_type resource.
      */
     public /*out*/ readonly networkType!: pulumi.Output<string>;
@@ -277,6 +290,10 @@ export class Device extends pulumi.CustomResource {
      * Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the equinix-metal.ProjectSshKey resource.
      */
     public readonly projectSshKeyIds!: pulumi.Output<string[] | undefined>;
+    /**
+     * Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+     */
+    public readonly reinstall!: pulumi.Output<outputs.DeviceReinstall | undefined>;
     /**
      * Root password to the server (disabled after 24 hours)
      */
@@ -349,6 +366,7 @@ export class Device extends pulumi.CustomResource {
             inputs["ports"] = state ? state.ports : undefined;
             inputs["projectId"] = state ? state.projectId : undefined;
             inputs["projectSshKeyIds"] = state ? state.projectSshKeyIds : undefined;
+            inputs["reinstall"] = state ? state.reinstall : undefined;
             inputs["rootPassword"] = state ? state.rootPassword : undefined;
             inputs["sshKeyIds"] = state ? state.sshKeyIds : undefined;
             inputs["state"] = state ? state.state : undefined;
@@ -389,6 +407,7 @@ export class Device extends pulumi.CustomResource {
             inputs["plan"] = args ? args.plan : undefined;
             inputs["projectId"] = args ? args.projectId : undefined;
             inputs["projectSshKeyIds"] = args ? args.projectSshKeyIds : undefined;
+            inputs["reinstall"] = args ? args.reinstall : undefined;
             inputs["storage"] = args ? args.storage : undefined;
             inputs["tags"] = args ? args.tags : undefined;
             inputs["userData"] = args ? args.userData : undefined;
@@ -462,14 +481,16 @@ export interface DeviceState {
     readonly description?: pulumi.Input<string>;
     /**
      * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-     *
-     * @deprecated Use metro attribute instead
      */
     readonly facilities?: pulumi.Input<pulumi.Input<string | enums.Facility>[]>;
     /**
      * Delete device even if it has volumes attached. Only applies for destroy action.
      */
     readonly forceDetachVolumes?: pulumi.Input<boolean>;
+    /**
+     * The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+     * next available reservation automatically
+     */
     readonly hardwareReservationId?: pulumi.Input<string>;
     /**
      * The device name
@@ -495,6 +516,9 @@ export interface DeviceState {
      */
     readonly metro?: pulumi.Input<string>;
     /**
+     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
+     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     *
      * @deprecated You should handle Network Type with the new metal_device_network_type resource.
      */
     readonly networkType?: pulumi.Input<string | enums.NetworkType>;
@@ -527,6 +551,10 @@ export interface DeviceState {
      * Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the equinix-metal.ProjectSshKey resource.
      */
     readonly projectSshKeyIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+     */
+    readonly reinstall?: pulumi.Input<inputs.DeviceReinstall>;
     /**
      * Root password to the server (disabled after 24 hours)
      */
@@ -585,14 +613,16 @@ export interface DeviceArgs {
     readonly description?: pulumi.Input<string>;
     /**
      * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-     *
-     * @deprecated Use metro attribute instead
      */
     readonly facilities?: pulumi.Input<pulumi.Input<string | enums.Facility>[]>;
     /**
      * Delete device even if it has volumes attached. Only applies for destroy action.
      */
     readonly forceDetachVolumes?: pulumi.Input<boolean>;
+    /**
+     * The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+     * next available reservation automatically
+     */
     readonly hardwareReservationId?: pulumi.Input<string>;
     /**
      * The device name
@@ -629,6 +659,10 @@ export interface DeviceArgs {
      * Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the equinix-metal.ProjectSshKey resource.
      */
     readonly projectSshKeyIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+     */
+    readonly reinstall?: pulumi.Input<inputs.DeviceReinstall>;
     /**
      * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
      * * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).

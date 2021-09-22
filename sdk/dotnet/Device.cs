@@ -186,6 +186,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing device ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/device:Device")]
     public partial class Device : Pulumi.CustomResource
@@ -263,6 +271,10 @@ namespace Pulumi.EquinixMetal
         [Output("forceDetachVolumes")]
         public Output<bool?> ForceDetachVolumes { get; private set; } = null!;
 
+        /// <summary>
+        /// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+        /// next available reservation automatically
+        /// </summary>
         [Output("hardwareReservationId")]
         public Output<string?> HardwareReservationId { get; private set; } = null!;
 
@@ -299,6 +311,10 @@ namespace Pulumi.EquinixMetal
         [Output("metro")]
         public Output<string?> Metro { get; private set; } = null!;
 
+        /// <summary>
+        /// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
+        /// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+        /// </summary>
         [Output("networkType")]
         public Output<string> NetworkType { get; private set; } = null!;
 
@@ -342,6 +358,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Output("projectSshKeyIds")]
         public Output<ImmutableArray<string>> ProjectSshKeyIds { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+        /// </summary>
+        [Output("reinstall")]
+        public Output<Outputs.DeviceReinstall?> Reinstall { get; private set; } = null!;
 
         /// <summary>
         /// Root password to the server (disabled after 24 hours)
@@ -469,7 +491,6 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         /// </summary>
-        [Obsolete(@"Use metro attribute instead")]
         public InputList<Union<string, Pulumi.EquinixMetal.Facility>> Facilities
         {
             get => _facilities ?? (_facilities = new InputList<Union<string, Pulumi.EquinixMetal.Facility>>());
@@ -482,6 +503,10 @@ namespace Pulumi.EquinixMetal
         [Input("forceDetachVolumes")]
         public Input<bool>? ForceDetachVolumes { get; set; }
 
+        /// <summary>
+        /// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+        /// next available reservation automatically
+        /// </summary>
         [Input("hardwareReservationId")]
         public Input<string>? HardwareReservationId { get; set; }
 
@@ -547,6 +572,12 @@ namespace Pulumi.EquinixMetal
             get => _projectSshKeyIds ?? (_projectSshKeyIds = new InputList<string>());
             set => _projectSshKeyIds = value;
         }
+
+        /// <summary>
+        /// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+        /// </summary>
+        [Input("reinstall")]
+        public Input<Inputs.DeviceReinstallArgs>? Reinstall { get; set; }
 
         /// <summary>
         /// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
@@ -653,7 +684,6 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         /// </summary>
-        [Obsolete(@"Use metro attribute instead")]
         public InputList<Union<string, Pulumi.EquinixMetal.Facility>> Facilities
         {
             get => _facilities ?? (_facilities = new InputList<Union<string, Pulumi.EquinixMetal.Facility>>());
@@ -666,6 +696,10 @@ namespace Pulumi.EquinixMetal
         [Input("forceDetachVolumes")]
         public Input<bool>? ForceDetachVolumes { get; set; }
 
+        /// <summary>
+        /// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+        /// next available reservation automatically
+        /// </summary>
         [Input("hardwareReservationId")]
         public Input<string>? HardwareReservationId { get; set; }
 
@@ -708,6 +742,10 @@ namespace Pulumi.EquinixMetal
         [Input("metro")]
         public Input<string>? Metro { get; set; }
 
+        /// <summary>
+        /// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
+        /// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+        /// </summary>
         [Input("networkType")]
         public InputUnion<string, Pulumi.EquinixMetal.NetworkType>? NetworkType { get; set; }
 
@@ -769,6 +807,12 @@ namespace Pulumi.EquinixMetal
             get => _projectSshKeyIds ?? (_projectSshKeyIds = new InputList<string>());
             set => _projectSshKeyIds = value;
         }
+
+        /// <summary>
+        /// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+        /// </summary>
+        [Input("reinstall")]
+        public Input<Inputs.DeviceReinstallGetArgs>? Reinstall { get; set; }
 
         /// <summary>
         /// Root password to the server (disabled after 24 hours)

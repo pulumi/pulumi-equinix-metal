@@ -4,13 +4,32 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "../types";
 
+export interface ConnectionPort {
+    id?: pulumi.Input<string>;
+    linkStatus?: pulumi.Input<string>;
+    /**
+     * Name of the connection resource
+     */
+    name?: pulumi.Input<string>;
+    role?: pulumi.Input<string>;
+    /**
+     * Port speed in bits per second
+     */
+    speed?: pulumi.Input<number>;
+    /**
+     * Status of the connection resource
+     */
+    status?: pulumi.Input<string>;
+    virtualCircuitIds?: pulumi.Input<any[]>;
+}
+
 export interface DeviceIpAddress {
     /**
      * CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
      */
     cidr?: pulumi.Input<number>;
     /**
-     * String of UUID of IP block reservations from which the public IPv4 address should be taken.
+     * List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
      */
     reservationIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -46,7 +65,6 @@ export interface DeviceNetwork {
 export interface DevicePort {
     /**
      * Whether this port is part of a bond in bonded network setup
-     * * `projectId`- The ID of the project the device belongs to
      */
     bonded?: pulumi.Input<boolean>;
     /**
@@ -65,6 +83,22 @@ export interface DevicePort {
      * One of [`privateIpv4`, `publicIpv4`, `publicIpv6`]
      */
     type?: pulumi.Input<string>;
+}
+
+export interface DeviceReinstall {
+    /**
+     * Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+     * *
+     */
+    deprovisionFast?: pulumi.Input<boolean>;
+    /**
+     * Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+     */
+    preserveData?: pulumi.Input<boolean>;
 }
 
 export interface ProjectBgpConfig {
@@ -98,7 +132,10 @@ export interface SpotMarketRequestInstanceParameters {
     features?: pulumi.Input<pulumi.Input<string>[]>;
     hostname: pulumi.Input<string>;
     ipxeScriptUrl?: pulumi.Input<string>;
-    locked?: pulumi.Input<string>;
+    /**
+     * Blocks deletion of the SpotMarketRequest device until the lock is disabled
+     */
+    locked?: pulumi.Input<boolean>;
     operatingSystem: pulumi.Input<string>;
     plan: pulumi.Input<string>;
     projectSshKeys?: pulumi.Input<pulumi.Input<string>[]>;

@@ -4,13 +4,32 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "../types";
 
+export interface ConnectionPort {
+    id: string;
+    linkStatus: string;
+    /**
+     * Name of the connection resource
+     */
+    name: string;
+    role: string;
+    /**
+     * Port speed in bits per second
+     */
+    speed: number;
+    /**
+     * Status of the connection resource
+     */
+    status: string;
+    virtualCircuitIds: any[];
+}
+
 export interface DeviceIpAddress {
     /**
      * CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
      */
     cidr?: number;
     /**
-     * String of UUID of IP block reservations from which the public IPv4 address should be taken.
+     * List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
      */
     reservationIds?: string[];
     /**
@@ -46,7 +65,6 @@ export interface DeviceNetwork {
 export interface DevicePort {
     /**
      * Whether this port is part of a bond in bonded network setup
-     * * `projectId`- The ID of the project the device belongs to
      */
     bonded: boolean;
     /**
@@ -67,7 +85,27 @@ export interface DevicePort {
     type: string;
 }
 
+export interface DeviceReinstall {
+    /**
+     * Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+     * *
+     */
+    deprovisionFast?: boolean;
+    /**
+     * Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+     */
+    enabled?: boolean;
+    /**
+     * Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+     */
+    preserveData?: boolean;
+}
+
 export interface GetConnectionPort {
+    /**
+     * Port UUID
+     */
+    id: string;
     /**
      * Port link status
      */
@@ -264,7 +302,10 @@ export interface SpotMarketRequestInstanceParameters {
     features?: string[];
     hostname: string;
     ipxeScriptUrl?: string;
-    locked?: string;
+    /**
+     * Blocks deletion of the SpotMarketRequest device until the lock is disabled
+     */
+    locked?: boolean;
     operatingSystem: string;
     plan: string;
     projectSshKeys?: string[];

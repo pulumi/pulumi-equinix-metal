@@ -11,35 +11,23 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Resource `Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
 type Volume struct {
 	pulumi.CustomResourceState
 
-	// A list of attachments, each with it's own `href` attribute
-	Attachments VolumeAttachmentTypeArrayOutput `pulumi:"attachments"`
-	// The billing cycle, defaults to "hourly"
-	BillingCycle pulumi.StringOutput `pulumi:"billingCycle"`
-	// The timestamp for when the volume was created
-	Created pulumi.StringOutput `pulumi:"created"`
-	// Optional description for the volume
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// The facility to create the volume in
-	Facility pulumi.StringOutput `pulumi:"facility"`
-	// Lock or unlock the volume
-	Locked pulumi.BoolPtrOutput `pulumi:"locked"`
-	// The name of the volume
-	Name pulumi.StringOutput `pulumi:"name"`
-	// The service plan slug of the volume
-	Plan pulumi.StringOutput `pulumi:"plan"`
-	// The metal project ID to deploy the volume in
-	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// The size in GB to make the volume
-	Size pulumi.IntOutput `pulumi:"size"`
-	// Optional list of snapshot policies
+	Attachments      VolumeAttachmentTypeArrayOutput `pulumi:"attachments"`
+	BillingCycle     pulumi.StringOutput             `pulumi:"billingCycle"`
+	Created          pulumi.StringOutput             `pulumi:"created"`
+	Description      pulumi.StringPtrOutput          `pulumi:"description"`
+	Facility         pulumi.StringOutput             `pulumi:"facility"`
+	Locked           pulumi.BoolPtrOutput            `pulumi:"locked"`
+	Name             pulumi.StringOutput             `pulumi:"name"`
+	Plan             pulumi.StringOutput             `pulumi:"plan"`
+	ProjectId        pulumi.StringOutput             `pulumi:"projectId"`
+	Size             pulumi.IntOutput                `pulumi:"size"`
 	SnapshotPolicies VolumeSnapshotPolicyArrayOutput `pulumi:"snapshotPolicies"`
-	// The state of the volume
-	State pulumi.StringOutput `pulumi:"state"`
-	// The timestamp for the last time the volume was updated
-	Updated pulumi.StringOutput `pulumi:"updated"`
+	State            pulumi.StringOutput             `pulumi:"state"`
+	Updated          pulumi.StringOutput             `pulumi:"updated"`
 }
 
 // NewVolume registers a new resource with the given unique name, arguments, and options.
@@ -83,61 +71,35 @@ func GetVolume(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Volume resources.
 type volumeState struct {
-	// A list of attachments, each with it's own `href` attribute
-	Attachments []VolumeAttachmentType `pulumi:"attachments"`
-	// The billing cycle, defaults to "hourly"
-	BillingCycle *string `pulumi:"billingCycle"`
-	// The timestamp for when the volume was created
-	Created *string `pulumi:"created"`
-	// Optional description for the volume
-	Description *string `pulumi:"description"`
-	// The facility to create the volume in
-	Facility *string `pulumi:"facility"`
-	// Lock or unlock the volume
-	Locked *bool `pulumi:"locked"`
-	// The name of the volume
-	Name *string `pulumi:"name"`
-	// The service plan slug of the volume
-	Plan *string `pulumi:"plan"`
-	// The metal project ID to deploy the volume in
-	ProjectId *string `pulumi:"projectId"`
-	// The size in GB to make the volume
-	Size *int `pulumi:"size"`
-	// Optional list of snapshot policies
+	Attachments      []VolumeAttachmentType `pulumi:"attachments"`
+	BillingCycle     *string                `pulumi:"billingCycle"`
+	Created          *string                `pulumi:"created"`
+	Description      *string                `pulumi:"description"`
+	Facility         *string                `pulumi:"facility"`
+	Locked           *bool                  `pulumi:"locked"`
+	Name             *string                `pulumi:"name"`
+	Plan             *string                `pulumi:"plan"`
+	ProjectId        *string                `pulumi:"projectId"`
+	Size             *int                   `pulumi:"size"`
 	SnapshotPolicies []VolumeSnapshotPolicy `pulumi:"snapshotPolicies"`
-	// The state of the volume
-	State *string `pulumi:"state"`
-	// The timestamp for the last time the volume was updated
-	Updated *string `pulumi:"updated"`
+	State            *string                `pulumi:"state"`
+	Updated          *string                `pulumi:"updated"`
 }
 
 type VolumeState struct {
-	// A list of attachments, each with it's own `href` attribute
-	Attachments VolumeAttachmentTypeArrayInput
-	// The billing cycle, defaults to "hourly"
-	BillingCycle pulumi.StringPtrInput
-	// The timestamp for when the volume was created
-	Created pulumi.StringPtrInput
-	// Optional description for the volume
-	Description pulumi.StringPtrInput
-	// The facility to create the volume in
-	Facility pulumi.StringPtrInput
-	// Lock or unlock the volume
-	Locked pulumi.BoolPtrInput
-	// The name of the volume
-	Name pulumi.StringPtrInput
-	// The service plan slug of the volume
-	Plan pulumi.StringPtrInput
-	// The metal project ID to deploy the volume in
-	ProjectId pulumi.StringPtrInput
-	// The size in GB to make the volume
-	Size pulumi.IntPtrInput
-	// Optional list of snapshot policies
+	Attachments      VolumeAttachmentTypeArrayInput
+	BillingCycle     pulumi.StringPtrInput
+	Created          pulumi.StringPtrInput
+	Description      pulumi.StringPtrInput
+	Facility         pulumi.StringPtrInput
+	Locked           pulumi.BoolPtrInput
+	Name             pulumi.StringPtrInput
+	Plan             pulumi.StringPtrInput
+	ProjectId        pulumi.StringPtrInput
+	Size             pulumi.IntPtrInput
 	SnapshotPolicies VolumeSnapshotPolicyArrayInput
-	// The state of the volume
-	State pulumi.StringPtrInput
-	// The timestamp for the last time the volume was updated
-	Updated pulumi.StringPtrInput
+	State            pulumi.StringPtrInput
+	Updated          pulumi.StringPtrInput
 }
 
 func (VolumeState) ElementType() reflect.Type {
@@ -145,41 +107,25 @@ func (VolumeState) ElementType() reflect.Type {
 }
 
 type volumeArgs struct {
-	// The billing cycle, defaults to "hourly"
-	BillingCycle *string `pulumi:"billingCycle"`
-	// Optional description for the volume
-	Description *string `pulumi:"description"`
-	// The facility to create the volume in
-	Facility string `pulumi:"facility"`
-	// Lock or unlock the volume
-	Locked *bool `pulumi:"locked"`
-	// The service plan slug of the volume
-	Plan string `pulumi:"plan"`
-	// The metal project ID to deploy the volume in
-	ProjectId string `pulumi:"projectId"`
-	// The size in GB to make the volume
-	Size int `pulumi:"size"`
-	// Optional list of snapshot policies
+	BillingCycle     *string                `pulumi:"billingCycle"`
+	Description      *string                `pulumi:"description"`
+	Facility         string                 `pulumi:"facility"`
+	Locked           *bool                  `pulumi:"locked"`
+	Plan             string                 `pulumi:"plan"`
+	ProjectId        string                 `pulumi:"projectId"`
+	Size             int                    `pulumi:"size"`
 	SnapshotPolicies []VolumeSnapshotPolicy `pulumi:"snapshotPolicies"`
 }
 
 // The set of arguments for constructing a Volume resource.
 type VolumeArgs struct {
-	// The billing cycle, defaults to "hourly"
-	BillingCycle pulumi.StringPtrInput
-	// Optional description for the volume
-	Description pulumi.StringPtrInput
-	// The facility to create the volume in
-	Facility pulumi.StringInput
-	// Lock or unlock the volume
-	Locked pulumi.BoolPtrInput
-	// The service plan slug of the volume
-	Plan pulumi.StringInput
-	// The metal project ID to deploy the volume in
-	ProjectId pulumi.StringInput
-	// The size in GB to make the volume
-	Size pulumi.IntInput
-	// Optional list of snapshot policies
+	BillingCycle     pulumi.StringPtrInput
+	Description      pulumi.StringPtrInput
+	Facility         pulumi.StringInput
+	Locked           pulumi.BoolPtrInput
+	Plan             pulumi.StringInput
+	ProjectId        pulumi.StringInput
+	Size             pulumi.IntInput
 	SnapshotPolicies VolumeSnapshotPolicyArrayInput
 }
 

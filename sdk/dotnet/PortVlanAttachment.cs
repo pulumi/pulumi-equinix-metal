@@ -154,6 +154,9 @@ namespace Pulumi.EquinixMetal
         [Output("native")]
         public Output<bool?> Native { get; private set; } = null!;
 
+        /// <summary>
+        /// UUID of device port
+        /// </summary>
         [Output("portId")]
         public Output<string> PortId { get; private set; } = null!;
 
@@ -163,6 +166,9 @@ namespace Pulumi.EquinixMetal
         [Output("portName")]
         public Output<string> PortName { get; private set; } = null!;
 
+        /// <summary>
+        /// UUID of VLAN API resource
+        /// </summary>
         [Output("vlanId")]
         public Output<string> VlanId { get; private set; } = null!;
 
@@ -273,6 +279,9 @@ namespace Pulumi.EquinixMetal
         [Input("native")]
         public Input<bool>? Native { get; set; }
 
+        /// <summary>
+        /// UUID of device port
+        /// </summary>
         [Input("portId")]
         public Input<string>? PortId { get; set; }
 
@@ -282,6 +291,9 @@ namespace Pulumi.EquinixMetal
         [Input("portName")]
         public Input<string>? PortName { get; set; }
 
+        /// <summary>
+        /// UUID of VLAN API resource
+        /// </summary>
         [Input("vlanId")]
         public Input<string>? VlanId { get; set; }
 

@@ -29,7 +29,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -81,7 +81,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -160,10 +160,12 @@ type PortVlanAttachment struct {
 	ForceBond pulumi.BoolPtrOutput `pulumi:"forceBond"`
 	// Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `dependsOn` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
 	Native pulumi.BoolPtrOutput `pulumi:"native"`
-	PortId pulumi.StringOutput  `pulumi:"portId"`
+	// UUID of device port
+	PortId pulumi.StringOutput `pulumi:"portId"`
 	// Name of network port to be assigned to the VLAN
 	PortName pulumi.StringOutput `pulumi:"portName"`
-	VlanId   pulumi.StringOutput `pulumi:"vlanId"`
+	// UUID of VLAN API resource
+	VlanId pulumi.StringOutput `pulumi:"vlanId"`
 	// VXLAN Network Identifier, integer
 	VlanVnid pulumi.IntOutput `pulumi:"vlanVnid"`
 }
@@ -211,11 +213,13 @@ type portVlanAttachmentState struct {
 	// Add port back to the bond when this resource is removed. Default is false.
 	ForceBond *bool `pulumi:"forceBond"`
 	// Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `dependsOn` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
-	Native *bool   `pulumi:"native"`
+	Native *bool `pulumi:"native"`
+	// UUID of device port
 	PortId *string `pulumi:"portId"`
 	// Name of network port to be assigned to the VLAN
 	PortName *string `pulumi:"portName"`
-	VlanId   *string `pulumi:"vlanId"`
+	// UUID of VLAN API resource
+	VlanId *string `pulumi:"vlanId"`
 	// VXLAN Network Identifier, integer
 	VlanVnid *int `pulumi:"vlanVnid"`
 }
@@ -227,10 +231,12 @@ type PortVlanAttachmentState struct {
 	ForceBond pulumi.BoolPtrInput
 	// Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `dependsOn` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
 	Native pulumi.BoolPtrInput
+	// UUID of device port
 	PortId pulumi.StringPtrInput
 	// Name of network port to be assigned to the VLAN
 	PortName pulumi.StringPtrInput
-	VlanId   pulumi.StringPtrInput
+	// UUID of VLAN API resource
+	VlanId pulumi.StringPtrInput
 	// VXLAN Network Identifier, integer
 	VlanVnid pulumi.IntPtrInput
 }

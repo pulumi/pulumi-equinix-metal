@@ -10,6 +10,13 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## Import
+//
+// This resource can be imported using an existing project ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/project:Project metal_project {existing_project_id}
+// ```
 type Project struct {
 	pulumi.CustomResourceState
 

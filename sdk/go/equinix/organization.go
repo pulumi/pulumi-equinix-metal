@@ -18,7 +18,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -33,6 +33,14 @@ import (
 // 		return nil
 // 	})
 // }
+// ```
+//
+// ## Import
+//
+// This resource can be imported using an existing organization ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/organization:Organization metal_organization {existing_organization_id}
 // ```
 type Organization struct {
 	pulumi.CustomResourceState

@@ -25,7 +25,8 @@ type BgpSession struct {
 	DefaultRoute pulumi.BoolPtrOutput `pulumi:"defaultRoute"`
 	// ID of device
 	DeviceId pulumi.StringOutput `pulumi:"deviceId"`
-	Status   pulumi.StringOutput `pulumi:"status"`
+	// Status of the session - up or down
+	Status pulumi.StringOutput `pulumi:"status"`
 }
 
 // NewBgpSession registers a new resource with the given unique name, arguments, and options.
@@ -69,7 +70,8 @@ type bgpSessionState struct {
 	DefaultRoute *bool `pulumi:"defaultRoute"`
 	// ID of device
 	DeviceId *string `pulumi:"deviceId"`
-	Status   *string `pulumi:"status"`
+	// Status of the session - up or down
+	Status *string `pulumi:"status"`
 }
 
 type BgpSessionState struct {
@@ -79,7 +81,8 @@ type BgpSessionState struct {
 	DefaultRoute pulumi.BoolPtrInput
 	// ID of device
 	DeviceId pulumi.StringPtrInput
-	Status   pulumi.StringPtrInput
+	// Status of the session - up or down
+	Status pulumi.StringPtrInput
 }
 
 func (BgpSessionState) ElementType() reflect.Type {

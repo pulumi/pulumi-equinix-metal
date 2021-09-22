@@ -86,9 +86,11 @@ def get_spot_market_price(facility: Optional[str] = None,
                           plan: Optional[str] = None,
                           opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSpotMarketPriceResult:
     """
-    Use this data source to get Equinix Metal Spot Market Price.
+    Use this data source to get Equinix Metal Spot Market Price for a plan.
 
     ## Example Usage
+
+    Lookup by facility:
 
     ```python
     import pulumi
@@ -98,8 +100,19 @@ def get_spot_market_price(facility: Optional[str] = None,
         plan="c3.small.x86")
     ```
 
+    Lookup by metro:
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    example = equinix_metal.get_spot_market_price(metro="sv",
+        plan="c3.small.x86")
+    ```
+
 
     :param str facility: Name of the facility.
+    :param str metro: Name of the metro.
     :param str plan: Name of the plan.
     """
     __args__ = dict()

@@ -26,14 +26,6 @@ class VolumeArgs:
                  snapshot_policies: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]] = None):
         """
         The set of arguments for constructing a Volume resource.
-        :param pulumi.Input[Union[str, 'Facility']] facility: The facility to create the volume in
-        :param pulumi.Input[str] plan: The service plan slug of the volume
-        :param pulumi.Input[str] project_id: The metal project ID to deploy the volume in
-        :param pulumi.Input[int] size: The size in GB to make the volume
-        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: The billing cycle, defaults to "hourly"
-        :param pulumi.Input[str] description: Optional description for the volume
-        :param pulumi.Input[bool] locked: Lock or unlock the volume
-        :param pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]] snapshot_policies: Optional list of snapshot policies
         """
         pulumi.set(__self__, "facility", facility)
         pulumi.set(__self__, "plan", plan)
@@ -51,9 +43,6 @@ class VolumeArgs:
     @property
     @pulumi.getter
     def facility(self) -> pulumi.Input[Union[str, 'Facility']]:
-        """
-        The facility to create the volume in
-        """
         return pulumi.get(self, "facility")
 
     @facility.setter
@@ -63,9 +52,6 @@ class VolumeArgs:
     @property
     @pulumi.getter
     def plan(self) -> pulumi.Input[str]:
-        """
-        The service plan slug of the volume
-        """
         return pulumi.get(self, "plan")
 
     @plan.setter
@@ -75,9 +61,6 @@ class VolumeArgs:
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> pulumi.Input[str]:
-        """
-        The metal project ID to deploy the volume in
-        """
         return pulumi.get(self, "project_id")
 
     @project_id.setter
@@ -87,9 +70,6 @@ class VolumeArgs:
     @property
     @pulumi.getter
     def size(self) -> pulumi.Input[int]:
-        """
-        The size in GB to make the volume
-        """
         return pulumi.get(self, "size")
 
     @size.setter
@@ -99,9 +79,6 @@ class VolumeArgs:
     @property
     @pulumi.getter(name="billingCycle")
     def billing_cycle(self) -> Optional[pulumi.Input[Union[str, 'BillingCycle']]]:
-        """
-        The billing cycle, defaults to "hourly"
-        """
         return pulumi.get(self, "billing_cycle")
 
     @billing_cycle.setter
@@ -111,9 +88,6 @@ class VolumeArgs:
     @property
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
-        """
-        Optional description for the volume
-        """
         return pulumi.get(self, "description")
 
     @description.setter
@@ -123,9 +97,6 @@ class VolumeArgs:
     @property
     @pulumi.getter
     def locked(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Lock or unlock the volume
-        """
         return pulumi.get(self, "locked")
 
     @locked.setter
@@ -135,9 +106,6 @@ class VolumeArgs:
     @property
     @pulumi.getter(name="snapshotPolicies")
     def snapshot_policies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]]:
-        """
-        Optional list of snapshot policies
-        """
         return pulumi.get(self, "snapshot_policies")
 
     @snapshot_policies.setter
@@ -163,19 +131,6 @@ class _VolumeState:
                  updated: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Volume resources.
-        :param pulumi.Input[Sequence[pulumi.Input['VolumeAttachmentArgs']]] attachments: A list of attachments, each with it's own `href` attribute
-        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: The billing cycle, defaults to "hourly"
-        :param pulumi.Input[str] created: The timestamp for when the volume was created
-        :param pulumi.Input[str] description: Optional description for the volume
-        :param pulumi.Input[Union[str, 'Facility']] facility: The facility to create the volume in
-        :param pulumi.Input[bool] locked: Lock or unlock the volume
-        :param pulumi.Input[str] name: The name of the volume
-        :param pulumi.Input[str] plan: The service plan slug of the volume
-        :param pulumi.Input[str] project_id: The metal project ID to deploy the volume in
-        :param pulumi.Input[int] size: The size in GB to make the volume
-        :param pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]] snapshot_policies: Optional list of snapshot policies
-        :param pulumi.Input[str] state: The state of the volume
-        :param pulumi.Input[str] updated: The timestamp for the last time the volume was updated
         """
         if attachments is not None:
             pulumi.set(__self__, "attachments", attachments)
@@ -207,9 +162,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def attachments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VolumeAttachmentArgs']]]]:
-        """
-        A list of attachments, each with it's own `href` attribute
-        """
         return pulumi.get(self, "attachments")
 
     @attachments.setter
@@ -219,9 +171,6 @@ class _VolumeState:
     @property
     @pulumi.getter(name="billingCycle")
     def billing_cycle(self) -> Optional[pulumi.Input[Union[str, 'BillingCycle']]]:
-        """
-        The billing cycle, defaults to "hourly"
-        """
         return pulumi.get(self, "billing_cycle")
 
     @billing_cycle.setter
@@ -231,9 +180,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def created(self) -> Optional[pulumi.Input[str]]:
-        """
-        The timestamp for when the volume was created
-        """
         return pulumi.get(self, "created")
 
     @created.setter
@@ -243,9 +189,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
-        """
-        Optional description for the volume
-        """
         return pulumi.get(self, "description")
 
     @description.setter
@@ -255,9 +198,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def facility(self) -> Optional[pulumi.Input[Union[str, 'Facility']]]:
-        """
-        The facility to create the volume in
-        """
         return pulumi.get(self, "facility")
 
     @facility.setter
@@ -267,9 +207,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def locked(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Lock or unlock the volume
-        """
         return pulumi.get(self, "locked")
 
     @locked.setter
@@ -279,9 +216,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        The name of the volume
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -291,9 +225,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def plan(self) -> Optional[pulumi.Input[str]]:
-        """
-        The service plan slug of the volume
-        """
         return pulumi.get(self, "plan")
 
     @plan.setter
@@ -303,9 +234,6 @@ class _VolumeState:
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The metal project ID to deploy the volume in
-        """
         return pulumi.get(self, "project_id")
 
     @project_id.setter
@@ -315,9 +243,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def size(self) -> Optional[pulumi.Input[int]]:
-        """
-        The size in GB to make the volume
-        """
         return pulumi.get(self, "size")
 
     @size.setter
@@ -327,9 +252,6 @@ class _VolumeState:
     @property
     @pulumi.getter(name="snapshotPolicies")
     def snapshot_policies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]]:
-        """
-        Optional list of snapshot policies
-        """
         return pulumi.get(self, "snapshot_policies")
 
     @snapshot_policies.setter
@@ -339,9 +261,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def state(self) -> Optional[pulumi.Input[str]]:
-        """
-        The state of the volume
-        """
         return pulumi.get(self, "state")
 
     @state.setter
@@ -351,9 +270,6 @@ class _VolumeState:
     @property
     @pulumi.getter
     def updated(self) -> Optional[pulumi.Input[str]]:
-        """
-        The timestamp for the last time the volume was updated
-        """
         return pulumi.get(self, "updated")
 
     @updated.setter
@@ -376,17 +292,10 @@ class Volume(pulumi.CustomResource):
                  snapshot_policies: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VolumeSnapshotPolicyArgs']]]]] = None,
                  __props__=None):
         """
-        Create a Volume resource with the given unique name, props, and options.
+        Resource `Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: The billing cycle, defaults to "hourly"
-        :param pulumi.Input[str] description: Optional description for the volume
-        :param pulumi.Input[Union[str, 'Facility']] facility: The facility to create the volume in
-        :param pulumi.Input[bool] locked: Lock or unlock the volume
-        :param pulumi.Input[str] plan: The service plan slug of the volume
-        :param pulumi.Input[str] project_id: The metal project ID to deploy the volume in
-        :param pulumi.Input[int] size: The size in GB to make the volume
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VolumeSnapshotPolicyArgs']]]] snapshot_policies: Optional list of snapshot policies
         """
         ...
     @overload
@@ -395,7 +304,8 @@ class Volume(pulumi.CustomResource):
                  args: VolumeArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Volume resource with the given unique name, props, and options.
+        Resource `Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+
         :param str resource_name: The name of the resource.
         :param VolumeArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -482,19 +392,6 @@ class Volume(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VolumeAttachmentArgs']]]] attachments: A list of attachments, each with it's own `href` attribute
-        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: The billing cycle, defaults to "hourly"
-        :param pulumi.Input[str] created: The timestamp for when the volume was created
-        :param pulumi.Input[str] description: Optional description for the volume
-        :param pulumi.Input[Union[str, 'Facility']] facility: The facility to create the volume in
-        :param pulumi.Input[bool] locked: Lock or unlock the volume
-        :param pulumi.Input[str] name: The name of the volume
-        :param pulumi.Input[str] plan: The service plan slug of the volume
-        :param pulumi.Input[str] project_id: The metal project ID to deploy the volume in
-        :param pulumi.Input[int] size: The size in GB to make the volume
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VolumeSnapshotPolicyArgs']]]] snapshot_policies: Optional list of snapshot policies
-        :param pulumi.Input[str] state: The state of the volume
-        :param pulumi.Input[str] updated: The timestamp for the last time the volume was updated
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -518,104 +415,65 @@ class Volume(pulumi.CustomResource):
     @property
     @pulumi.getter
     def attachments(self) -> pulumi.Output[Sequence['outputs.VolumeAttachment']]:
-        """
-        A list of attachments, each with it's own `href` attribute
-        """
         return pulumi.get(self, "attachments")
 
     @property
     @pulumi.getter(name="billingCycle")
     def billing_cycle(self) -> pulumi.Output[str]:
-        """
-        The billing cycle, defaults to "hourly"
-        """
         return pulumi.get(self, "billing_cycle")
 
     @property
     @pulumi.getter
     def created(self) -> pulumi.Output[str]:
-        """
-        The timestamp for when the volume was created
-        """
         return pulumi.get(self, "created")
 
     @property
     @pulumi.getter
     def description(self) -> pulumi.Output[Optional[str]]:
-        """
-        Optional description for the volume
-        """
         return pulumi.get(self, "description")
 
     @property
     @pulumi.getter
     def facility(self) -> pulumi.Output[str]:
-        """
-        The facility to create the volume in
-        """
         return pulumi.get(self, "facility")
 
     @property
     @pulumi.getter
     def locked(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Lock or unlock the volume
-        """
         return pulumi.get(self, "locked")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        The name of the volume
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def plan(self) -> pulumi.Output[str]:
-        """
-        The service plan slug of the volume
-        """
         return pulumi.get(self, "plan")
 
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> pulumi.Output[str]:
-        """
-        The metal project ID to deploy the volume in
-        """
         return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter
     def size(self) -> pulumi.Output[int]:
-        """
-        The size in GB to make the volume
-        """
         return pulumi.get(self, "size")
 
     @property
     @pulumi.getter(name="snapshotPolicies")
     def snapshot_policies(self) -> pulumi.Output[Optional[Sequence['outputs.VolumeSnapshotPolicy']]]:
-        """
-        Optional list of snapshot policies
-        """
         return pulumi.get(self, "snapshot_policies")
 
     @property
     @pulumi.getter
     def state(self) -> pulumi.Output[str]:
-        """
-        The state of the volume
-        """
         return pulumi.get(self, "state")
 
     @property
     @pulumi.getter
     def updated(self) -> pulumi.Output[str]:
-        """
-        The timestamp for the last time the volume was updated
-        """
         return pulumi.get(self, "updated")
 

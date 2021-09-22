@@ -50,6 +50,10 @@ export interface GetVirtualCircuitArgs {
  */
 export interface GetVirtualCircuitResult {
     /**
+     * Description for the Virtual Circuit resource
+     */
+    readonly description: string;
+    /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
@@ -68,6 +72,10 @@ export interface GetVirtualCircuitResult {
      * Status of the virtal circuit
      */
     readonly status: string;
+    /**
+     * Tags for the Virtual Circuit resource
+     */
+    readonly tags: string[];
     readonly virtualCircuitId: string;
     readonly vnid: number;
 }

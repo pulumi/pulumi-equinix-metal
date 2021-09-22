@@ -112,6 +112,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing IP reservation ID
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/reservedIpBlock:ReservedIpBlock")]
     public partial class ReservedIpBlock : Pulumi.CustomResource
@@ -201,6 +209,12 @@ namespace Pulumi.EquinixMetal
         public Output<int> Quantity { get; private set; } = null!;
 
         /// <summary>
+        /// String list of tags
+        /// </summary>
+        [Output("tags")]
+        public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
+
+        /// <summary>
         /// Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         /// </summary>
         [Output("type")]
@@ -281,6 +295,18 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Input("quantity", required: true)]
         public Input<int> Quantity { get; set; } = null!;
+
+        [Input("tags")]
+        private InputList<string>? _tags;
+
+        /// <summary>
+        /// String list of tags
+        /// </summary>
+        public InputList<string> Tags
+        {
+            get => _tags ?? (_tags = new InputList<string>());
+            set => _tags = value;
+        }
 
         /// <summary>
         /// Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
@@ -378,6 +404,18 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Input("quantity")]
         public Input<int>? Quantity { get; set; }
+
+        [Input("tags")]
+        private InputList<string>? _tags;
+
+        /// <summary>
+        /// String list of tags
+        /// </summary>
+        public InputList<string> Tags
+        {
+            get => _tags ?? (_tags = new InputList<string>());
+            set => _tags = value;
+        }
 
         /// <summary>
         /// Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility

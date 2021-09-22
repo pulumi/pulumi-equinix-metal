@@ -60,6 +60,14 @@ export interface GetConnectionResult {
      */
     readonly id: string;
     /**
+     * Slug of a metro to which the connection belongs
+     */
+    readonly metro: string;
+    /**
+     * Mode for connections in IBX facilities with the dedicated type - standard or tunnel
+     */
+    readonly mode: string;
+    /**
      * Port name
      */
     readonly name: string;
@@ -72,6 +80,10 @@ export interface GetConnectionResult {
      */
     readonly ports: outputs.GetConnectionPort[];
     /**
+     * ID of project to which the connection belongs
+     */
+    readonly projectId: string;
+    /**
      * Connection redundancy, reduntant or primary
      */
     readonly redundancy: string;
@@ -83,6 +95,10 @@ export interface GetConnectionResult {
      * Port status
      */
     readonly status: string;
+    /**
+     * String list of tags
+     */
+    readonly tags: string[];
     /**
      * Fabric Token for the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
      */

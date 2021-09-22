@@ -5,6 +5,9 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * Resource `equinix-metal.Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+ */
 export class Volume extends pulumi.CustomResource {
     /**
      * Get an existing Volume resource's state with the given name, ID, and optional extra
@@ -33,57 +36,18 @@ export class Volume extends pulumi.CustomResource {
         return obj['__pulumiType'] === Volume.__pulumiType;
     }
 
-    /**
-     * A list of attachments, each with it's own `href` attribute
-     */
     public /*out*/ readonly attachments!: pulumi.Output<outputs.VolumeAttachment[]>;
-    /**
-     * The billing cycle, defaults to "hourly"
-     */
     public readonly billingCycle!: pulumi.Output<string>;
-    /**
-     * The timestamp for when the volume was created
-     */
     public /*out*/ readonly created!: pulumi.Output<string>;
-    /**
-     * Optional description for the volume
-     */
     public readonly description!: pulumi.Output<string | undefined>;
-    /**
-     * The facility to create the volume in
-     */
     public readonly facility!: pulumi.Output<string>;
-    /**
-     * Lock or unlock the volume
-     */
     public readonly locked!: pulumi.Output<boolean | undefined>;
-    /**
-     * The name of the volume
-     */
     public /*out*/ readonly name!: pulumi.Output<string>;
-    /**
-     * The service plan slug of the volume
-     */
     public readonly plan!: pulumi.Output<string>;
-    /**
-     * The metal project ID to deploy the volume in
-     */
     public readonly projectId!: pulumi.Output<string>;
-    /**
-     * The size in GB to make the volume
-     */
     public readonly size!: pulumi.Output<number>;
-    /**
-     * Optional list of snapshot policies
-     */
     public readonly snapshotPolicies!: pulumi.Output<outputs.VolumeSnapshotPolicy[] | undefined>;
-    /**
-     * The state of the volume
-     */
     public /*out*/ readonly state!: pulumi.Output<string>;
-    /**
-     * The timestamp for the last time the volume was updated
-     */
     public /*out*/ readonly updated!: pulumi.Output<string>;
 
     /**
@@ -151,57 +115,18 @@ export class Volume extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Volume resources.
  */
 export interface VolumeState {
-    /**
-     * A list of attachments, each with it's own `href` attribute
-     */
     readonly attachments?: pulumi.Input<pulumi.Input<inputs.VolumeAttachment>[]>;
-    /**
-     * The billing cycle, defaults to "hourly"
-     */
     readonly billingCycle?: pulumi.Input<string | enums.BillingCycle>;
-    /**
-     * The timestamp for when the volume was created
-     */
     readonly created?: pulumi.Input<string>;
-    /**
-     * Optional description for the volume
-     */
     readonly description?: pulumi.Input<string>;
-    /**
-     * The facility to create the volume in
-     */
     readonly facility?: pulumi.Input<string | enums.Facility>;
-    /**
-     * Lock or unlock the volume
-     */
     readonly locked?: pulumi.Input<boolean>;
-    /**
-     * The name of the volume
-     */
     readonly name?: pulumi.Input<string>;
-    /**
-     * The service plan slug of the volume
-     */
     readonly plan?: pulumi.Input<string>;
-    /**
-     * The metal project ID to deploy the volume in
-     */
     readonly projectId?: pulumi.Input<string>;
-    /**
-     * The size in GB to make the volume
-     */
     readonly size?: pulumi.Input<number>;
-    /**
-     * Optional list of snapshot policies
-     */
     readonly snapshotPolicies?: pulumi.Input<pulumi.Input<inputs.VolumeSnapshotPolicy>[]>;
-    /**
-     * The state of the volume
-     */
     readonly state?: pulumi.Input<string>;
-    /**
-     * The timestamp for the last time the volume was updated
-     */
     readonly updated?: pulumi.Input<string>;
 }
 
@@ -209,36 +134,12 @@ export interface VolumeState {
  * The set of arguments for constructing a Volume resource.
  */
 export interface VolumeArgs {
-    /**
-     * The billing cycle, defaults to "hourly"
-     */
     readonly billingCycle?: pulumi.Input<string | enums.BillingCycle>;
-    /**
-     * Optional description for the volume
-     */
     readonly description?: pulumi.Input<string>;
-    /**
-     * The facility to create the volume in
-     */
     readonly facility: pulumi.Input<string | enums.Facility>;
-    /**
-     * Lock or unlock the volume
-     */
     readonly locked?: pulumi.Input<boolean>;
-    /**
-     * The service plan slug of the volume
-     */
     readonly plan: pulumi.Input<string>;
-    /**
-     * The metal project ID to deploy the volume in
-     */
     readonly projectId: pulumi.Input<string>;
-    /**
-     * The size in GB to make the volume
-     */
     readonly size: pulumi.Input<number>;
-    /**
-     * Optional list of snapshot policies
-     */
     readonly snapshotPolicies?: pulumi.Input<pulumi.Input<inputs.VolumeSnapshotPolicy>[]>;
 }

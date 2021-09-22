@@ -26,7 +26,23 @@ type LookupSpotMarketRequestArgs struct {
 type LookupSpotMarketRequestResult struct {
 	// List of IDs of devices spawned by the referenced Spot Market Request
 	DeviceIds []string `pulumi:"deviceIds"`
+	// Maximum number devices to be created
+	DevicesMax int `pulumi:"devicesMax"`
+	// Miniumum number devices to be created
+	DevicesMin int `pulumi:"devicesMin"`
+	// Date and time When the spot market request will be ended.
+	EndAt string `pulumi:"endAt"`
+	// Facility IDs where devices should be created
+	Facilities []string `pulumi:"facilities"`
 	// The provider-assigned unique ID for this managed resource.
-	Id        string `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// Maximum price user is willing to pay per hour per device
+	MaxBidPrice float64 `pulumi:"maxBidPrice"`
+	// Metro where devices should be created.
+	Metro string `pulumi:"metro"`
+	// The device plan slug.
+	Plan string `pulumi:"plan"`
+	// Project ID
+	ProjectId string `pulumi:"projectId"`
 	RequestId string `pulumi:"requestId"`
 }

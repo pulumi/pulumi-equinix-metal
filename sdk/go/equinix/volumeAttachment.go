@@ -11,12 +11,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Resource `VolumeAttachment` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
 type VolumeAttachment struct {
 	pulumi.CustomResourceState
 
-	// The ID of the device to which the volume should be attached
 	DeviceId pulumi.StringOutput `pulumi:"deviceId"`
-	// The ID of the volume to attach
 	VolumeId pulumi.StringOutput `pulumi:"volumeId"`
 }
 
@@ -55,16 +54,12 @@ func GetVolumeAttachment(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering VolumeAttachment resources.
 type volumeAttachmentState struct {
-	// The ID of the device to which the volume should be attached
 	DeviceId *string `pulumi:"deviceId"`
-	// The ID of the volume to attach
 	VolumeId *string `pulumi:"volumeId"`
 }
 
 type VolumeAttachmentState struct {
-	// The ID of the device to which the volume should be attached
 	DeviceId pulumi.StringPtrInput
-	// The ID of the volume to attach
 	VolumeId pulumi.StringPtrInput
 }
 
@@ -73,17 +68,13 @@ func (VolumeAttachmentState) ElementType() reflect.Type {
 }
 
 type volumeAttachmentArgs struct {
-	// The ID of the device to which the volume should be attached
 	DeviceId string `pulumi:"deviceId"`
-	// The ID of the volume to attach
 	VolumeId string `pulumi:"volumeId"`
 }
 
 // The set of arguments for constructing a VolumeAttachment resource.
 type VolumeAttachmentArgs struct {
-	// The ID of the device to which the volume should be attached
 	DeviceId pulumi.StringInput
-	// The ID of the volume to attach
 	VolumeId pulumi.StringInput
 }
 

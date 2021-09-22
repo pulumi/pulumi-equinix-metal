@@ -14,6 +14,14 @@ import (
 // Provides a resource to manage User SSH keys on your Equinix Metal user account. If you create a new device in a project, all the keys of the project's collaborators will be injected to the device.
 //
 // The link between User SSH key and device is implicit. If you want to make sure that a key will be copied to a device, you must ensure that the device resource `dependsOn` the key resource.
+//
+// ## Import
+//
+// This resource can be imported using an existing SSH Key ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/sshKey:SshKey metal_ssh_key {existing_sshkey_id}
+// ```
 type SshKey struct {
 	pulumi.CustomResourceState
 

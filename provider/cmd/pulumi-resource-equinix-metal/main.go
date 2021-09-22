@@ -19,8 +19,8 @@ package main
 import (
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 
-	equinixMetal "github.com/pulumi/pulumi-equinix-metal/provider/v2"
-	"github.com/pulumi/pulumi-equinix-metal/provider/v2/pkg/version"
+	equinixMetal "github.com/pulumi/pulumi-equinix-metal/provider/v3"
+	"github.com/pulumi/pulumi-equinix-metal/provider/v3/pkg/version"
 )
 
 func main() {

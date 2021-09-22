@@ -32,7 +32,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -74,7 +74,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -117,6 +117,14 @@ import (
 // 	})
 // }
 // ```
+//
+// ## Import
+//
+// This resource can be imported using an existing IP reservation ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+// ```
 type ReservedIpBlock struct {
 	pulumi.CustomResourceState
 
@@ -148,6 +156,8 @@ type ReservedIpBlock struct {
 	Public pulumi.BoolOutput `pulumi:"public"`
 	// The number of allocated /32 addresses, a power of 2
 	Quantity pulumi.IntOutput `pulumi:"quantity"`
+	// String list of tags
+	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
 	Type pulumi.StringPtrOutput `pulumi:"type"`
 }
@@ -215,6 +225,8 @@ type reservedIpBlockState struct {
 	Public *bool `pulumi:"public"`
 	// The number of allocated /32 addresses, a power of 2
 	Quantity *int `pulumi:"quantity"`
+	// String list of tags
+	Tags []string `pulumi:"tags"`
 	// Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
 	Type *string `pulumi:"type"`
 }
@@ -248,6 +260,8 @@ type ReservedIpBlockState struct {
 	Public pulumi.BoolPtrInput
 	// The number of allocated /32 addresses, a power of 2
 	Quantity pulumi.IntPtrInput
+	// String list of tags
+	Tags pulumi.StringArrayInput
 	// Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
 	Type pulumi.StringPtrInput
 }
@@ -267,6 +281,8 @@ type reservedIpBlockArgs struct {
 	ProjectId string `pulumi:"projectId"`
 	// The number of allocated /32 addresses, a power of 2
 	Quantity int `pulumi:"quantity"`
+	// String list of tags
+	Tags []string `pulumi:"tags"`
 	// Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
 	Type *string `pulumi:"type"`
 }
@@ -283,6 +299,8 @@ type ReservedIpBlockArgs struct {
 	ProjectId pulumi.StringInput
 	// The number of allocated /32 addresses, a power of 2
 	Quantity pulumi.IntInput
+	// String list of tags
+	Tags pulumi.StringArrayInput
 	// Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
 	Type pulumi.StringPtrInput
 }

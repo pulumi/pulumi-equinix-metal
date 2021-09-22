@@ -17,8 +17,6 @@ class VolumeAttachmentArgs:
                  volume_id: pulumi.Input[str]):
         """
         The set of arguments for constructing a VolumeAttachment resource.
-        :param pulumi.Input[str] device_id: The ID of the device to which the volume should be attached
-        :param pulumi.Input[str] volume_id: The ID of the volume to attach
         """
         pulumi.set(__self__, "device_id", device_id)
         pulumi.set(__self__, "volume_id", volume_id)
@@ -26,9 +24,6 @@ class VolumeAttachmentArgs:
     @property
     @pulumi.getter(name="deviceId")
     def device_id(self) -> pulumi.Input[str]:
-        """
-        The ID of the device to which the volume should be attached
-        """
         return pulumi.get(self, "device_id")
 
     @device_id.setter
@@ -38,9 +33,6 @@ class VolumeAttachmentArgs:
     @property
     @pulumi.getter(name="volumeId")
     def volume_id(self) -> pulumi.Input[str]:
-        """
-        The ID of the volume to attach
-        """
         return pulumi.get(self, "volume_id")
 
     @volume_id.setter
@@ -55,8 +47,6 @@ class _VolumeAttachmentState:
                  volume_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering VolumeAttachment resources.
-        :param pulumi.Input[str] device_id: The ID of the device to which the volume should be attached
-        :param pulumi.Input[str] volume_id: The ID of the volume to attach
         """
         if device_id is not None:
             pulumi.set(__self__, "device_id", device_id)
@@ -66,9 +56,6 @@ class _VolumeAttachmentState:
     @property
     @pulumi.getter(name="deviceId")
     def device_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The ID of the device to which the volume should be attached
-        """
         return pulumi.get(self, "device_id")
 
     @device_id.setter
@@ -78,9 +65,6 @@ class _VolumeAttachmentState:
     @property
     @pulumi.getter(name="volumeId")
     def volume_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The ID of the volume to attach
-        """
         return pulumi.get(self, "volume_id")
 
     @volume_id.setter
@@ -97,11 +81,10 @@ class VolumeAttachment(pulumi.CustomResource):
                  volume_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a VolumeAttachment resource with the given unique name, props, and options.
+        Resource `VolumeAttachment` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] device_id: The ID of the device to which the volume should be attached
-        :param pulumi.Input[str] volume_id: The ID of the volume to attach
         """
         ...
     @overload
@@ -110,7 +93,8 @@ class VolumeAttachment(pulumi.CustomResource):
                  args: VolumeAttachmentArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a VolumeAttachment resource with the given unique name, props, and options.
+        Resource `VolumeAttachment` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+
         :param str resource_name: The name of the resource.
         :param VolumeAttachmentArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -165,8 +149,6 @@ class VolumeAttachment(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] device_id: The ID of the device to which the volume should be attached
-        :param pulumi.Input[str] volume_id: The ID of the volume to attach
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -179,16 +161,10 @@ class VolumeAttachment(pulumi.CustomResource):
     @property
     @pulumi.getter(name="deviceId")
     def device_id(self) -> pulumi.Output[str]:
-        """
-        The ID of the device to which the volume should be attached
-        """
         return pulumi.get(self, "device_id")
 
     @property
     @pulumi.getter(name="volumeId")
     def volume_id(self) -> pulumi.Output[str]:
-        """
-        The ID of the volume to attach
-        """
         return pulumi.get(self, "volume_id")
 

@@ -31,6 +31,14 @@ import * as utilities from "./utilities";
  *     dependsOn: ["metal_ssh_key.key1"],
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing SSH Key ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/sshKey:SshKey metal_ssh_key {existing_sshkey_id}
+ * ```
  */
 export class SshKey extends pulumi.CustomResource {
     /**

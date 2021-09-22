@@ -38,21 +38,77 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public readonly ImmutableArray<string> DeviceIds;
         /// <summary>
+        /// Maximum number devices to be created
+        /// </summary>
+        public readonly int DevicesMax;
+        /// <summary>
+        /// Miniumum number devices to be created
+        /// </summary>
+        public readonly int DevicesMin;
+        /// <summary>
+        /// Date and time When the spot market request will be ended.
+        /// </summary>
+        public readonly string EndAt;
+        /// <summary>
+        /// Facility IDs where devices should be created
+        /// </summary>
+        public readonly ImmutableArray<string> Facilities;
+        /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// Maximum price user is willing to pay per hour per device
+        /// </summary>
+        public readonly double MaxBidPrice;
+        /// <summary>
+        /// Metro where devices should be created.
+        /// </summary>
+        public readonly string Metro;
+        /// <summary>
+        /// The device plan slug.
+        /// </summary>
+        public readonly string Plan;
+        /// <summary>
+        /// Project ID
+        /// </summary>
+        public readonly string ProjectId;
         public readonly string RequestId;
 
         [OutputConstructor]
         private GetSpotMarketRequestResult(
             ImmutableArray<string> deviceIds,
 
+            int devicesMax,
+
+            int devicesMin,
+
+            string endAt,
+
+            ImmutableArray<string> facilities,
+
             string id,
+
+            double maxBidPrice,
+
+            string metro,
+
+            string plan,
+
+            string projectId,
 
             string requestId)
         {
             DeviceIds = deviceIds;
+            DevicesMax = devicesMax;
+            DevicesMin = devicesMin;
+            EndAt = endAt;
+            Facilities = facilities;
             Id = id;
+            MaxBidPrice = maxBidPrice;
+            Metro = metro;
+            Plan = plan;
+            ProjectId = projectId;
             RequestId = requestId;
         }
     }

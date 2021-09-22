@@ -60,7 +60,7 @@ export interface GetProjectResult {
     /**
      * Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
      */
-    readonly bgpConfig: outputs.GetProjectBgpConfig;
+    readonly bgpConfigs: outputs.GetProjectBgpConfig[];
     /**
      * The timestamp for when the project was created
      */

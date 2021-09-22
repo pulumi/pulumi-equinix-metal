@@ -46,6 +46,14 @@ namespace Pulumi.EquinixMetal
     /// 
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported using an existing VLAN ID (UUID)
+    /// 
+    /// ```sh
+    ///  $ pulumi import equinix-metal:index/vlan:Vlan metal_vlan {existing_vlan_id}
+    /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/vlan:Vlan")]
     public partial class Vlan : Pulumi.CustomResource

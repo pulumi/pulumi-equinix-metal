@@ -21,10 +21,10 @@ import (
 	"unicode"
 
 	"github.com/equinix/terraform-provider-metal/metal"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/pulumi/pulumi-equinix-metal/provider/v2/pkg/version"
+
+	"github.com/pulumi/pulumi-equinix-metal/provider/v3/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
-	shimv1 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v1"
+	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	pulumiSchema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 )
@@ -73,7 +73,7 @@ func makeResource(mod string, res string) tokens.Type {
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := shimv1.NewProvider(metal.Provider().(*schema.Provider))
+	p := shimv2.NewProvider(metal.Provider())
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -159,6 +159,11 @@ func Provider() tfbridge.ProviderInfo {
 				},
 			},
 			"metal_volume_attachment": {Tok: makeResource(mainMod, "VolumeAttachment")},
+			"metal_connection":        {Tok: makeResource(mainMod, "Connection")},
+			"metal_gateway":           {Tok: makeResource(mainMod, "Gateway")},
+			"metal_project_api_key":   {Tok: makeResource(mainMod, "ProjectApiKey")},
+			"metal_user_api_key":      {Tok: makeResource(mainMod, "UserApiKey")},
+			"metal_virtual_circuit":   {Tok: makeResource(mainMod, "VirtualCircuit")},
 		},
 		ExtraTypes: map[string]pulumiSchema.ComplexTypeSpec{
 			"equinix-metal:index/BillingCycle:BillingCycle": {
@@ -312,10 +317,15 @@ func Provider() tfbridge.ProviderInfo {
 			"metal_metro":                {Tok: makeDataSource(mainMod, "getMetro")},
 			"metal_connection":           {Tok: makeDataSource(mainMod, "getConnection")},
 			"metal_virtual_circuit":      {Tok: makeDataSource(mainMod, "getVirtualCircuit")},
+			"metal_gateway":              {Tok: makeDataSource(mainMod, "getGateway")},
+			"metal_hardware_reservation": {Tok: makeDataSource(mainMod, "getHardwareReservation")},
+			"metal_port":                 {Tok: makeDataSource(mainMod, "getPort")},
+			"metal_reserved_ip_block":    {Tok: makeDataSource(mainMod, "getReservedIpBlock")},
+			"metal_vlan":                 {Tok: makeDataSource(mainMod, "getVlan")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{
-				"@pulumi/pulumi": "^3.0.0-alpha.0",
+				"@pulumi/pulumi": "^3.0.0",
 			},
 			DevDependencies: map[string]string{
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
@@ -333,13 +343,12 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Python: &tfbridge.PythonInfo{
 			Requires: map[string]string{
-				"pulumi": ">=3.0.0a1,<4.0.0",
+				"pulumi": ">=3.0.0,<4.0.0",
 			},
 		},
 		CSharp: &tfbridge.CSharpInfo{
 			PackageReferences: map[string]string{
-				"Pulumi":                       "3.*-*",
-				"System.Collections.Immutable": "1.6.0",
+				"Pulumi": "3.*",
 			},
 			Namespaces: namespaceMap,
 		},
