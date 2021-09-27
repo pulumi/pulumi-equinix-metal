@@ -20,7 +20,10 @@ namespace Pulumi.EquinixMetal.Outputs
         public readonly ImmutableArray<string> Features;
         public readonly string Hostname;
         public readonly string? IpxeScriptUrl;
-        public readonly string? Locked;
+        /// <summary>
+        /// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+        /// </summary>
+        public readonly bool? Locked;
         public readonly string OperatingSystem;
         public readonly string Plan;
         public readonly ImmutableArray<string> ProjectSshKeys;
@@ -45,7 +48,7 @@ namespace Pulumi.EquinixMetal.Outputs
 
             string? ipxeScriptUrl,
 
-            string? locked,
+            bool? locked,
 
             string operatingSystem,
 

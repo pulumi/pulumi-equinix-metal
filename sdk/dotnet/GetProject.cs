@@ -75,7 +75,7 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
         /// </summary>
-        public readonly Outputs.GetProjectBgpConfigResult BgpConfig;
+        public readonly ImmutableArray<Outputs.GetProjectBgpConfigResult> BgpConfigs;
         /// <summary>
         /// The timestamp for when the project was created
         /// </summary>
@@ -107,7 +107,7 @@ namespace Pulumi.EquinixMetal
         private GetProjectResult(
             bool backendTransfer,
 
-            Outputs.GetProjectBgpConfigResult bgpConfig,
+            ImmutableArray<Outputs.GetProjectBgpConfigResult> bgpConfigs,
 
             string created,
 
@@ -126,7 +126,7 @@ namespace Pulumi.EquinixMetal
             ImmutableArray<string> userIds)
         {
             BackendTransfer = backendTransfer;
-            BgpConfig = bgpConfig;
+            BgpConfigs = bgpConfigs;
             Created = created;
             Id = id;
             Name = name;

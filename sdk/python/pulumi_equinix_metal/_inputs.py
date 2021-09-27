@@ -10,14 +10,119 @@ from . import _utilities
 from ._enums import *
 
 __all__ = [
+    'ConnectionPortArgs',
     'DeviceIpAddressArgs',
     'DeviceNetworkArgs',
     'DevicePortArgs',
+    'DeviceReinstallArgs',
     'ProjectBgpConfigArgs',
     'SpotMarketRequestInstanceParametersArgs',
     'VolumeAttachmentArgs',
     'VolumeSnapshotPolicyArgs',
 ]
+
+@pulumi.input_type
+class ConnectionPortArgs:
+    def __init__(__self__, *,
+                 id: Optional[pulumi.Input[str]] = None,
+                 link_status: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 role: Optional[pulumi.Input[str]] = None,
+                 speed: Optional[pulumi.Input[int]] = None,
+                 status: Optional[pulumi.Input[str]] = None,
+                 virtual_circuit_ids: Optional[pulumi.Input[Sequence[Any]]] = None):
+        """
+        :param pulumi.Input[str] name: Name of the connection resource
+        :param pulumi.Input[int] speed: Port speed in bits per second
+        :param pulumi.Input[str] status: Status of the connection resource
+        """
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if link_status is not None:
+            pulumi.set(__self__, "link_status", link_status)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if role is not None:
+            pulumi.set(__self__, "role", role)
+        if speed is not None:
+            pulumi.set(__self__, "speed", speed)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if virtual_circuit_ids is not None:
+            pulumi.set(__self__, "virtual_circuit_ids", virtual_circuit_ids)
+
+    @property
+    @pulumi.getter
+    def id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "id", value)
+
+    @property
+    @pulumi.getter(name="linkStatus")
+    def link_status(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "link_status")
+
+    @link_status.setter
+    def link_status(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "link_status", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Name of the connection resource
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def role(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "role")
+
+    @role.setter
+    def role(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "role", value)
+
+    @property
+    @pulumi.getter
+    def speed(self) -> Optional[pulumi.Input[int]]:
+        """
+        Port speed in bits per second
+        """
+        return pulumi.get(self, "speed")
+
+    @speed.setter
+    def speed(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "speed", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input[str]]:
+        """
+        Status of the connection resource
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "status", value)
+
+    @property
+    @pulumi.getter(name="virtualCircuitIds")
+    def virtual_circuit_ids(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+        return pulumi.get(self, "virtual_circuit_ids")
+
+    @virtual_circuit_ids.setter
+    def virtual_circuit_ids(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+        pulumi.set(self, "virtual_circuit_ids", value)
+
 
 @pulumi.input_type
 class DeviceIpAddressArgs:
@@ -28,7 +133,7 @@ class DeviceIpAddressArgs:
         """
         :param pulumi.Input[str] type: One of [`private_ipv4`, `public_ipv4`, `public_ipv6`]
         :param pulumi.Input[int] cidr: CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] reservation_ids: String of UUID of IP block reservations from which the public IPv4 address should be taken.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] reservation_ids: List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
         """
         pulumi.set(__self__, "type", type)
         if cidr is not None:
@@ -64,7 +169,7 @@ class DeviceIpAddressArgs:
     @pulumi.getter(name="reservationIds")
     def reservation_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        String of UUID of IP block reservations from which the public IPv4 address should be taken.
+        List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
         """
         return pulumi.get(self, "reservation_ids")
 
@@ -172,7 +277,6 @@ class DevicePortArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[bool] bonded: Whether this port is part of a bond in bonded network setup
-               * `project_id`- The ID of the project the device belongs to
         :param pulumi.Input[str] id: ID of the port
         :param pulumi.Input[str] mac: MAC address assigned to the port
         :param pulumi.Input[str] name: Name of the port (e.g. `eth0`, or `bond0`)
@@ -194,7 +298,6 @@ class DevicePortArgs:
     def bonded(self) -> Optional[pulumi.Input[bool]]:
         """
         Whether this port is part of a bond in bonded network setup
-        * `project_id`- The ID of the project the device belongs to
         """
         return pulumi.get(self, "bonded")
 
@@ -249,6 +352,63 @@ class DevicePortArgs:
     @type.setter
     def type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class DeviceReinstallArgs:
+    def __init__(__self__, *,
+                 deprovision_fast: Optional[pulumi.Input[bool]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None,
+                 preserve_data: Optional[pulumi.Input[bool]] = None):
+        """
+        :param pulumi.Input[bool] deprovision_fast: Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+               *
+        :param pulumi.Input[bool] enabled: Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+        :param pulumi.Input[bool] preserve_data: Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+        """
+        if deprovision_fast is not None:
+            pulumi.set(__self__, "deprovision_fast", deprovision_fast)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if preserve_data is not None:
+            pulumi.set(__self__, "preserve_data", preserve_data)
+
+    @property
+    @pulumi.getter(name="deprovisionFast")
+    def deprovision_fast(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+        *
+        """
+        return pulumi.get(self, "deprovision_fast")
+
+    @deprovision_fast.setter
+    def deprovision_fast(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "deprovision_fast", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @property
+    @pulumi.getter(name="preserveData")
+    def preserve_data(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+        """
+        return pulumi.get(self, "preserve_data")
+
+    @preserve_data.setter
+    def preserve_data(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "preserve_data", value)
 
 
 @pulumi.input_type
@@ -348,12 +508,15 @@ class SpotMarketRequestInstanceParametersArgs:
                  description: Optional[pulumi.Input[str]] = None,
                  features: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  ipxe_script_url: Optional[pulumi.Input[str]] = None,
-                 locked: Optional[pulumi.Input[str]] = None,
+                 locked: Optional[pulumi.Input[bool]] = None,
                  project_ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  termintation_time: Optional[pulumi.Input[str]] = None,
                  user_ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  userdata: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[bool] locked: Blocks deletion of the SpotMarketRequest device until the lock is disabled
+        """
         pulumi.set(__self__, "billing_cycle", billing_cycle)
         pulumi.set(__self__, "hostname", hostname)
         pulumi.set(__self__, "operating_system", operating_system)
@@ -464,11 +627,14 @@ class SpotMarketRequestInstanceParametersArgs:
 
     @property
     @pulumi.getter
-    def locked(self) -> Optional[pulumi.Input[str]]:
+    def locked(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Blocks deletion of the SpotMarketRequest device until the lock is disabled
+        """
         return pulumi.get(self, "locked")
 
     @locked.setter
-    def locked(self, value: Optional[pulumi.Input[str]]):
+    def locked(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "locked", value)
 
     @property

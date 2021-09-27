@@ -19,6 +19,7 @@ class ReservedIpBlockArgs:
                  description: Optional[pulumi.Input[str]] = None,
                  facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
                  metro: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None):
         """
         The set of arguments for constructing a ReservedIpBlock resource.
@@ -27,6 +28,7 @@ class ReservedIpBlockArgs:
         :param pulumi.Input[str] description: Arbitrary description
         :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
         :param pulumi.Input[str] metro: Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: String list of tags
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
         pulumi.set(__self__, "project_id", project_id)
@@ -37,6 +39,8 @@ class ReservedIpBlockArgs:
             pulumi.set(__self__, "facility", facility)
         if metro is not None:
             pulumi.set(__self__, "metro", metro)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
@@ -102,6 +106,18 @@ class ReservedIpBlockArgs:
 
     @property
     @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        String list of tags
+        """
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "tags", value)
+
+    @property
+    @pulumi.getter
     def type(self) -> Optional[pulumi.Input[Union[str, 'IpBlockType']]]:
         """
         Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
@@ -132,6 +148,7 @@ class _ReservedIpBlockState:
                  project_id: Optional[pulumi.Input[str]] = None,
                  public: Optional[pulumi.Input[bool]] = None,
                  quantity: Optional[pulumi.Input[int]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None):
         """
         Input properties used for looking up and filtering ReservedIpBlock resources.
@@ -147,6 +164,7 @@ class _ReservedIpBlockState:
         :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
         :param pulumi.Input[bool] public: boolean flag whether addresses from a block are public
         :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: String list of tags
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
         if address is not None:
@@ -181,6 +199,8 @@ class _ReservedIpBlockState:
             pulumi.set(__self__, "public", public)
         if quantity is not None:
             pulumi.set(__self__, "quantity", quantity)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
@@ -366,6 +386,18 @@ class _ReservedIpBlockState:
 
     @property
     @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        String list of tags
+        """
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "tags", value)
+
+    @property
+    @pulumi.getter
     def type(self) -> Optional[pulumi.Input[Union[str, 'IpBlockType']]]:
         """
         Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
@@ -387,6 +419,7 @@ class ReservedIpBlock(pulumi.CustomResource):
                  metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  quantity: Optional[pulumi.Input[int]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None,
                  __props__=None):
         """
@@ -460,6 +493,14 @@ class ReservedIpBlock(pulumi.CustomResource):
             ])
         ```
 
+        ## Import
+
+        This resource can be imported using an existing IP reservation ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Arbitrary description
@@ -467,6 +508,7 @@ class ReservedIpBlock(pulumi.CustomResource):
         :param pulumi.Input[str] metro: Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
         :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
         :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: String list of tags
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
         ...
@@ -546,6 +588,14 @@ class ReservedIpBlock(pulumi.CustomResource):
             ])
         ```
 
+        ## Import
+
+        This resource can be imported using an existing IP reservation ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param ReservedIpBlockArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -566,6 +616,7 @@ class ReservedIpBlock(pulumi.CustomResource):
                  metro: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
                  quantity: Optional[pulumi.Input[int]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None,
                  __props__=None):
         if opts is None:
@@ -588,6 +639,7 @@ class ReservedIpBlock(pulumi.CustomResource):
             if quantity is None and not opts.urn:
                 raise TypeError("Missing required property 'quantity'")
             __props__.__dict__["quantity"] = quantity
+            __props__.__dict__["tags"] = tags
             __props__.__dict__["type"] = type
             __props__.__dict__["address"] = None
             __props__.__dict__["address_family"] = None
@@ -626,6 +678,7 @@ class ReservedIpBlock(pulumi.CustomResource):
             project_id: Optional[pulumi.Input[str]] = None,
             public: Optional[pulumi.Input[bool]] = None,
             quantity: Optional[pulumi.Input[int]] = None,
+            tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None) -> 'ReservedIpBlock':
         """
         Get an existing ReservedIpBlock resource's state with the given name, id, and optional extra
@@ -646,6 +699,7 @@ class ReservedIpBlock(pulumi.CustomResource):
         :param pulumi.Input[str] project_id: The metal project ID where to allocate the address block
         :param pulumi.Input[bool] public: boolean flag whether addresses from a block are public
         :param pulumi.Input[int] quantity: The number of allocated /32 addresses, a power of 2
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: String list of tags
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -668,6 +722,7 @@ class ReservedIpBlock(pulumi.CustomResource):
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["public"] = public
         __props__.__dict__["quantity"] = quantity
+        __props__.__dict__["tags"] = tags
         __props__.__dict__["type"] = type
         return ReservedIpBlock(resource_name, opts=opts, __props__=__props__)
 
@@ -786,6 +841,14 @@ class ReservedIpBlock(pulumi.CustomResource):
         The number of allocated /32 addresses, a power of 2
         """
         return pulumi.get(self, "quantity")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> pulumi.Output[Optional[Sequence[str]]]:
+        """
+        String list of tags
+        """
+        return pulumi.get(self, "tags")
 
     @property
     @pulumi.getter

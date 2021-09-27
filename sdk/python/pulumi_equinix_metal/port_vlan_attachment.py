@@ -110,7 +110,9 @@ class _PortVlanAttachmentState:
         :param pulumi.Input[str] device_id: ID of device to be assigned to the VLAN
         :param pulumi.Input[bool] force_bond: Add port back to the bond when this resource is removed. Default is false.
         :param pulumi.Input[bool] native: Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `depends_on` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
+        :param pulumi.Input[str] port_id: UUID of device port
         :param pulumi.Input[str] port_name: Name of network port to be assigned to the VLAN
+        :param pulumi.Input[str] vlan_id: UUID of VLAN API resource
         :param pulumi.Input[int] vlan_vnid: VXLAN Network Identifier, integer
         """
         if device_id is not None:
@@ -167,6 +169,9 @@ class _PortVlanAttachmentState:
     @property
     @pulumi.getter(name="portId")
     def port_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        UUID of device port
+        """
         return pulumi.get(self, "port_id")
 
     @port_id.setter
@@ -188,6 +193,9 @@ class _PortVlanAttachmentState:
     @property
     @pulumi.getter(name="vlanId")
     def vlan_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        UUID of VLAN API resource
+        """
         return pulumi.get(self, "vlan_id")
 
     @vlan_id.setter
@@ -462,7 +470,9 @@ class PortVlanAttachment(pulumi.CustomResource):
         :param pulumi.Input[str] device_id: ID of device to be assigned to the VLAN
         :param pulumi.Input[bool] force_bond: Add port back to the bond when this resource is removed. Default is false.
         :param pulumi.Input[bool] native: Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `depends_on` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
+        :param pulumi.Input[str] port_id: UUID of device port
         :param pulumi.Input[str] port_name: Name of network port to be assigned to the VLAN
+        :param pulumi.Input[str] vlan_id: UUID of VLAN API resource
         :param pulumi.Input[int] vlan_vnid: VXLAN Network Identifier, integer
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -505,6 +515,9 @@ class PortVlanAttachment(pulumi.CustomResource):
     @property
     @pulumi.getter(name="portId")
     def port_id(self) -> pulumi.Output[str]:
+        """
+        UUID of device port
+        """
         return pulumi.get(self, "port_id")
 
     @property
@@ -518,6 +531,9 @@ class PortVlanAttachment(pulumi.CustomResource):
     @property
     @pulumi.getter(name="vlanId")
     def vlan_id(self) -> pulumi.Output[str]:
+        """
+        UUID of VLAN API resource
+        """
         return pulumi.get(self, "vlan_id")
 
     @property

@@ -14,6 +14,10 @@ namespace Pulumi.EquinixMetal.Outputs
     public sealed class GetConnectionPortResult
     {
         /// <summary>
+        /// Port UUID
+        /// </summary>
+        public readonly string Id;
+        /// <summary>
         /// Port link status
         /// </summary>
         public readonly string LinkStatus;
@@ -40,6 +44,8 @@ namespace Pulumi.EquinixMetal.Outputs
 
         [OutputConstructor]
         private GetConnectionPortResult(
+            string id,
+
             string linkStatus,
 
             string name,
@@ -52,6 +58,7 @@ namespace Pulumi.EquinixMetal.Outputs
 
             ImmutableArray<object> virtualCircuitIds)
         {
+            Id = id;
             LinkStatus = linkStatus;
             Name = name;
             Role = role;

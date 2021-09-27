@@ -9,18 +9,15 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal
 {
+    /// <summary>
+    /// Resource `equinix-metal.VolumeAttachment` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+    /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/volumeAttachment:VolumeAttachment")]
     public partial class VolumeAttachment : Pulumi.CustomResource
     {
-        /// <summary>
-        /// The ID of the device to which the volume should be attached
-        /// </summary>
         [Output("deviceId")]
         public Output<string> DeviceId { get; private set; } = null!;
 
-        /// <summary>
-        /// The ID of the volume to attach
-        /// </summary>
         [Output("volumeId")]
         public Output<string> VolumeId { get; private set; } = null!;
 
@@ -70,15 +67,9 @@ namespace Pulumi.EquinixMetal
 
     public sealed class VolumeAttachmentArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// The ID of the device to which the volume should be attached
-        /// </summary>
         [Input("deviceId", required: true)]
         public Input<string> DeviceId { get; set; } = null!;
 
-        /// <summary>
-        /// The ID of the volume to attach
-        /// </summary>
         [Input("volumeId", required: true)]
         public Input<string> VolumeId { get; set; } = null!;
 
@@ -89,15 +80,9 @@ namespace Pulumi.EquinixMetal
 
     public sealed class VolumeAttachmentState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// The ID of the device to which the volume should be attached
-        /// </summary>
         [Input("deviceId")]
         public Input<string>? DeviceId { get; set; }
 
-        /// <summary>
-        /// The ID of the volume to attach
-        /// </summary>
         [Input("volumeId")]
         public Input<string>? VolumeId { get; set; }
 

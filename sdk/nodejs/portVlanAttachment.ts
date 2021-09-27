@@ -134,11 +134,17 @@ export class PortVlanAttachment extends pulumi.CustomResource {
      * Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `dependsOn` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
      */
     public readonly native!: pulumi.Output<boolean | undefined>;
+    /**
+     * UUID of device port
+     */
     public /*out*/ readonly portId!: pulumi.Output<string>;
     /**
      * Name of network port to be assigned to the VLAN
      */
     public readonly portName!: pulumi.Output<string>;
+    /**
+     * UUID of VLAN API resource
+     */
     public /*out*/ readonly vlanId!: pulumi.Output<string>;
     /**
      * VXLAN Network Identifier, integer
@@ -207,11 +213,17 @@ export interface PortVlanAttachmentState {
      * Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `dependsOn` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
      */
     readonly native?: pulumi.Input<boolean>;
+    /**
+     * UUID of device port
+     */
     readonly portId?: pulumi.Input<string>;
     /**
      * Name of network port to be assigned to the VLAN
      */
     readonly portName?: pulumi.Input<string>;
+    /**
+     * UUID of VLAN API resource
+     */
     readonly vlanId?: pulumi.Input<string>;
     /**
      * VXLAN Network Identifier, integer

@@ -232,7 +232,14 @@ class Project(pulumi.CustomResource):
                  payment_method_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Project resource with the given unique name, props, and options.
+        ## Import
+
+        This resource can be imported using an existing project ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/project:Project metal_project {existing_project_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] backend_transfer: Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
@@ -248,7 +255,14 @@ class Project(pulumi.CustomResource):
                  args: Optional[ProjectArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Project resource with the given unique name, props, and options.
+        ## Import
+
+        This resource can be imported using an existing project ID
+
+        ```sh
+         $ pulumi import equinix-metal:index/project:Project metal_project {existing_project_id}
+        ```
+
         :param str resource_name: The name of the resource.
         :param ProjectArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

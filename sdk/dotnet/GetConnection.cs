@@ -73,6 +73,14 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public readonly string Id;
         /// <summary>
+        /// Slug of a metro to which the connection belongs
+        /// </summary>
+        public readonly string Metro;
+        /// <summary>
+        /// Mode for connections in IBX facilities with the dedicated type - standard or tunnel
+        /// </summary>
+        public readonly string Mode;
+        /// <summary>
         /// Port name
         /// </summary>
         public readonly string Name;
@@ -85,6 +93,10 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public readonly ImmutableArray<Outputs.GetConnectionPortResult> Ports;
         /// <summary>
+        /// ID of project to which the connection belongs
+        /// </summary>
+        public readonly string ProjectId;
+        /// <summary>
         /// Connection redundancy, reduntant or primary
         /// </summary>
         public readonly string Redundancy;
@@ -96,6 +108,10 @@ namespace Pulumi.EquinixMetal
         /// Port status
         /// </summary>
         public readonly string Status;
+        /// <summary>
+        /// String list of tags
+        /// </summary>
+        public readonly ImmutableArray<string> Tags;
         /// <summary>
         /// Fabric Token for the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
         /// </summary>
@@ -115,17 +131,25 @@ namespace Pulumi.EquinixMetal
 
             string id,
 
+            string metro,
+
+            string mode,
+
             string name,
 
             string organizationId,
 
             ImmutableArray<Outputs.GetConnectionPortResult> ports,
 
+            string projectId,
+
             string redundancy,
 
             int speed,
 
             string status,
+
+            ImmutableArray<string> tags,
 
             string token,
 
@@ -135,12 +159,16 @@ namespace Pulumi.EquinixMetal
             Description = description;
             Facility = facility;
             Id = id;
+            Metro = metro;
+            Mode = mode;
             Name = name;
             OrganizationId = organizationId;
             Ports = ports;
+            ProjectId = projectId;
             Redundancy = redundancy;
             Speed = speed;
             Status = status;
+            Tags = tags;
             Token = token;
             Type = type;
         }

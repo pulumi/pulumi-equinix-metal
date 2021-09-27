@@ -15,7 +15,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -55,7 +55,7 @@ type LookupProjectResult struct {
 	// Whether Backend Transfer is enabled for this project
 	BackendTransfer bool `pulumi:"backendTransfer"`
 	// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
-	BgpConfig GetProjectBgpConfig `pulumi:"bgpConfig"`
+	BgpConfigs []GetProjectBgpConfig `pulumi:"bgpConfigs"`
 	// The timestamp for when the project was created
 	Created string `pulumi:"created"`
 	// The provider-assigned unique ID for this managed resource.

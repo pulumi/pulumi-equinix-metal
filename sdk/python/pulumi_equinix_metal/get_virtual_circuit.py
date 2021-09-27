@@ -19,7 +19,10 @@ class GetVirtualCircuitResult:
     """
     A collection of values returned by getVirtualCircuit.
     """
-    def __init__(__self__, id=None, name=None, nni_vlan=None, nni_vnid=None, project_id=None, status=None, virtual_circuit_id=None, vnid=None):
+    def __init__(__self__, description=None, id=None, name=None, nni_vlan=None, nni_vnid=None, project_id=None, status=None, tags=None, virtual_circuit_id=None, vnid=None):
+        if description and not isinstance(description, str):
+            raise TypeError("Expected argument 'description' to be a str")
+        pulumi.set(__self__, "description", description)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -38,12 +41,23 @@ class GetVirtualCircuitResult:
         if status and not isinstance(status, str):
             raise TypeError("Expected argument 'status' to be a str")
         pulumi.set(__self__, "status", status)
+        if tags and not isinstance(tags, list):
+            raise TypeError("Expected argument 'tags' to be a list")
+        pulumi.set(__self__, "tags", tags)
         if virtual_circuit_id and not isinstance(virtual_circuit_id, str):
             raise TypeError("Expected argument 'virtual_circuit_id' to be a str")
         pulumi.set(__self__, "virtual_circuit_id", virtual_circuit_id)
         if vnid and not isinstance(vnid, int):
             raise TypeError("Expected argument 'vnid' to be a int")
         pulumi.set(__self__, "vnid", vnid)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        Description for the Virtual Circuit resource
+        """
+        return pulumi.get(self, "description")
 
     @property
     @pulumi.getter
@@ -89,6 +103,14 @@ class GetVirtualCircuitResult:
         return pulumi.get(self, "status")
 
     @property
+    @pulumi.getter
+    def tags(self) -> Sequence[str]:
+        """
+        Tags for the Virtual Circuit resource
+        """
+        return pulumi.get(self, "tags")
+
+    @property
     @pulumi.getter(name="virtualCircuitId")
     def virtual_circuit_id(self) -> str:
         return pulumi.get(self, "virtual_circuit_id")
@@ -105,12 +127,14 @@ class AwaitableGetVirtualCircuitResult(GetVirtualCircuitResult):
         if False:
             yield self
         return GetVirtualCircuitResult(
+            description=self.description,
             id=self.id,
             name=self.name,
             nni_vlan=self.nni_vlan,
             nni_vnid=self.nni_vnid,
             project_id=self.project_id,
             status=self.status,
+            tags=self.tags,
             virtual_circuit_id=self.virtual_circuit_id,
             vnid=self.vnid)
 
@@ -142,11 +166,13 @@ def get_virtual_circuit(virtual_circuit_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('equinix-metal:index/getVirtualCircuit:getVirtualCircuit', __args__, opts=opts, typ=GetVirtualCircuitResult).value
 
     return AwaitableGetVirtualCircuitResult(
+        description=__ret__.description,
         id=__ret__.id,
         name=__ret__.name,
         nni_vlan=__ret__.nni_vlan,
         nni_vnid=__ret__.nni_vnid,
         project_id=__ret__.project_id,
         status=__ret__.status,
+        tags=__ret__.tags,
         virtual_circuit_id=__ret__.virtual_circuit_id,
         vnid=__ret__.vnid)

@@ -15,7 +15,6 @@ namespace Pulumi.EquinixMetal.Outputs
     {
         /// <summary>
         /// Whether this port is part of a bond in bonded network setup
-        /// * `project_id`- The ID of the project the device belongs to
         /// </summary>
         public readonly bool? Bonded;
         /// <summary>

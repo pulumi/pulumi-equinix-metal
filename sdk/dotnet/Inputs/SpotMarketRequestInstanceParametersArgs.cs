@@ -38,8 +38,11 @@ namespace Pulumi.EquinixMetal.Inputs
         [Input("ipxeScriptUrl")]
         public Input<string>? IpxeScriptUrl { get; set; }
 
+        /// <summary>
+        /// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+        /// </summary>
         [Input("locked")]
-        public Input<string>? Locked { get; set; }
+        public Input<bool>? Locked { get; set; }
 
         [Input("operatingSystem", required: true)]
         public Input<string> OperatingSystem { get; set; } = null!;

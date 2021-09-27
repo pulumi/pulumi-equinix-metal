@@ -12,34 +12,7 @@ namespace Pulumi.EquinixMetal
     public static class GetVolume
     {
         /// <summary>
-        /// Provides an Equinix Metal Block Storage Volume datasource to allow you to read existing volumes.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using EquinixMetal = Pulumi.EquinixMetal;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var volume1 = Output.Create(EquinixMetal.GetVolume.InvokeAsync(new EquinixMetal.GetVolumeArgs
-        ///         {
-        ///             Name = "terraform-volume-1",
-        ///             ProjectId = local.Project_id,
-        ///         }));
-        ///         this.VolumeSize = volume1.Apply(volume1 =&gt; volume1.Size);
-        ///     }
-        /// 
-        ///     [Output("volumeSize")]
-        ///     public Output&lt;string&gt; VolumeSize { get; set; }
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// Datasource `equinix-metal.Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
         /// </summary>
         public static Task<GetVolumeResult> InvokeAsync(GetVolumeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetVolumeResult>("equinix-metal:index/getVolume:getVolume", args ?? new GetVolumeArgs(), options.WithVersion());
@@ -48,21 +21,12 @@ namespace Pulumi.EquinixMetal
 
     public sealed class GetVolumeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Name of volume for lookup
-        /// </summary>
         [Input("name")]
         public string? Name { get; set; }
 
-        /// <summary>
-        /// The ID the parent Equinix Metal project (for lookup by name)
-        /// </summary>
         [Input("projectId")]
         public string? ProjectId { get; set; }
 
-        /// <summary>
-        /// ID of volume for lookup
-        /// </summary>
         [Input("volumeId")]
         public string? VolumeId { get; set; }
 
@@ -75,48 +39,21 @@ namespace Pulumi.EquinixMetal
     [OutputType]
     public sealed class GetVolumeResult
     {
-        /// <summary>
-        /// The billing cycle, defaults to hourly
-        /// </summary>
         public readonly string BillingCycle;
         public readonly string Created;
         public readonly string Description;
-        /// <summary>
-        /// UUIDs of devices to which this volume is attached
-        /// </summary>
         public readonly ImmutableArray<string> DeviceIds;
-        /// <summary>
-        /// The facility slug the volume resides in
-        /// </summary>
         public readonly string Facility;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// Whether the volume is locked or not
-        /// </summary>
         public readonly bool Locked;
-        /// <summary>
-        /// The name of the volume
-        /// </summary>
         public readonly string Name;
-        /// <summary>
-        /// Performance plan the volume is on
-        /// </summary>
         public readonly string Plan;
-        /// <summary>
-        /// The project id the volume is in
-        /// </summary>
         public readonly string ProjectId;
-        /// <summary>
-        /// The size in GB of the volume
-        /// </summary>
         public readonly int Size;
         public readonly ImmutableArray<Outputs.GetVolumeSnapshotPolicyResult> SnapshotPolicies;
-        /// <summary>
-        /// The state of the volume
-        /// </summary>
         public readonly string State;
         public readonly string Updated;
         public readonly string VolumeId;

@@ -70,9 +70,6 @@ class GetVolumeResult:
     @property
     @pulumi.getter(name="billingCycle")
     def billing_cycle(self) -> str:
-        """
-        The billing cycle, defaults to hourly
-        """
         return pulumi.get(self, "billing_cycle")
 
     @property
@@ -88,17 +85,11 @@ class GetVolumeResult:
     @property
     @pulumi.getter(name="deviceIds")
     def device_ids(self) -> Sequence[str]:
-        """
-        UUIDs of devices to which this volume is attached
-        """
         return pulumi.get(self, "device_ids")
 
     @property
     @pulumi.getter
     def facility(self) -> str:
-        """
-        The facility slug the volume resides in
-        """
         return pulumi.get(self, "facility")
 
     @property
@@ -112,41 +103,26 @@ class GetVolumeResult:
     @property
     @pulumi.getter
     def locked(self) -> bool:
-        """
-        Whether the volume is locked or not
-        """
         return pulumi.get(self, "locked")
 
     @property
     @pulumi.getter
     def name(self) -> str:
-        """
-        The name of the volume
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def plan(self) -> str:
-        """
-        Performance plan the volume is on
-        """
         return pulumi.get(self, "plan")
 
     @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> str:
-        """
-        The project id the volume is in
-        """
         return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter
     def size(self) -> int:
-        """
-        The size in GB of the volume
-        """
         return pulumi.get(self, "size")
 
     @property
@@ -157,9 +133,6 @@ class GetVolumeResult:
     @property
     @pulumi.getter
     def state(self) -> str:
-        """
-        The state of the volume
-        """
         return pulumi.get(self, "state")
 
     @property
@@ -201,23 +174,7 @@ def get_volume(name: Optional[str] = None,
                volume_id: Optional[str] = None,
                opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetVolumeResult:
     """
-    Provides an Equinix Metal Block Storage Volume datasource to allow you to read existing volumes.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_equinix_metal as equinix_metal
-
-    volume1 = equinix_metal.get_volume(name="terraform-volume-1",
-        project_id=local["project_id"])
-    pulumi.export("volumeSize", volume1.size)
-    ```
-
-
-    :param str name: Name of volume for lookup
-    :param str project_id: The ID the parent Equinix Metal project (for lookup by name)
-    :param str volume_id: ID of volume for lookup
+    Datasource `Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
     """
     __args__ = dict()
     __args__['name'] = name

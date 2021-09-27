@@ -9,84 +9,48 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal
 {
+    /// <summary>
+    /// Resource `equinix-metal.Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+    /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/volume:Volume")]
     public partial class Volume : Pulumi.CustomResource
     {
-        /// <summary>
-        /// A list of attachments, each with it's own `href` attribute
-        /// </summary>
         [Output("attachments")]
         public Output<ImmutableArray<Outputs.VolumeAttachment>> Attachments { get; private set; } = null!;
 
-        /// <summary>
-        /// The billing cycle, defaults to "hourly"
-        /// </summary>
         [Output("billingCycle")]
         public Output<string> BillingCycle { get; private set; } = null!;
 
-        /// <summary>
-        /// The timestamp for when the volume was created
-        /// </summary>
         [Output("created")]
         public Output<string> Created { get; private set; } = null!;
 
-        /// <summary>
-        /// Optional description for the volume
-        /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
 
-        /// <summary>
-        /// The facility to create the volume in
-        /// </summary>
         [Output("facility")]
         public Output<string> Facility { get; private set; } = null!;
 
-        /// <summary>
-        /// Lock or unlock the volume
-        /// </summary>
         [Output("locked")]
         public Output<bool?> Locked { get; private set; } = null!;
 
-        /// <summary>
-        /// The name of the volume
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        /// <summary>
-        /// The service plan slug of the volume
-        /// </summary>
         [Output("plan")]
         public Output<string> Plan { get; private set; } = null!;
 
-        /// <summary>
-        /// The metal project ID to deploy the volume in
-        /// </summary>
         [Output("projectId")]
         public Output<string> ProjectId { get; private set; } = null!;
 
-        /// <summary>
-        /// The size in GB to make the volume
-        /// </summary>
         [Output("size")]
         public Output<int> Size { get; private set; } = null!;
 
-        /// <summary>
-        /// Optional list of snapshot policies
-        /// </summary>
         [Output("snapshotPolicies")]
         public Output<ImmutableArray<Outputs.VolumeSnapshotPolicy>> SnapshotPolicies { get; private set; } = null!;
 
-        /// <summary>
-        /// The state of the volume
-        /// </summary>
         [Output("state")]
         public Output<string> State { get; private set; } = null!;
 
-        /// <summary>
-        /// The timestamp for the last time the volume was updated
-        /// </summary>
         [Output("updated")]
         public Output<string> Updated { get; private set; } = null!;
 
@@ -136,54 +100,29 @@ namespace Pulumi.EquinixMetal
 
     public sealed class VolumeArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// The billing cycle, defaults to "hourly"
-        /// </summary>
         [Input("billingCycle")]
         public InputUnion<string, Pulumi.EquinixMetal.BillingCycle>? BillingCycle { get; set; }
 
-        /// <summary>
-        /// Optional description for the volume
-        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
-        /// <summary>
-        /// The facility to create the volume in
-        /// </summary>
         [Input("facility", required: true)]
         public InputUnion<string, Pulumi.EquinixMetal.Facility> Facility { get; set; } = null!;
 
-        /// <summary>
-        /// Lock or unlock the volume
-        /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
-        /// <summary>
-        /// The service plan slug of the volume
-        /// </summary>
         [Input("plan", required: true)]
         public Input<string> Plan { get; set; } = null!;
 
-        /// <summary>
-        /// The metal project ID to deploy the volume in
-        /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
 
-        /// <summary>
-        /// The size in GB to make the volume
-        /// </summary>
         [Input("size", required: true)]
         public Input<int> Size { get; set; } = null!;
 
         [Input("snapshotPolicies")]
         private InputList<Inputs.VolumeSnapshotPolicyArgs>? _snapshotPolicies;
-
-        /// <summary>
-        /// Optional list of snapshot policies
-        /// </summary>
         public InputList<Inputs.VolumeSnapshotPolicyArgs> SnapshotPolicies
         {
             get => _snapshotPolicies ?? (_snapshotPolicies = new InputList<Inputs.VolumeSnapshotPolicyArgs>());
@@ -199,91 +138,50 @@ namespace Pulumi.EquinixMetal
     {
         [Input("attachments")]
         private InputList<Inputs.VolumeAttachmentGetArgs>? _attachments;
-
-        /// <summary>
-        /// A list of attachments, each with it's own `href` attribute
-        /// </summary>
         public InputList<Inputs.VolumeAttachmentGetArgs> Attachments
         {
             get => _attachments ?? (_attachments = new InputList<Inputs.VolumeAttachmentGetArgs>());
             set => _attachments = value;
         }
 
-        /// <summary>
-        /// The billing cycle, defaults to "hourly"
-        /// </summary>
         [Input("billingCycle")]
         public InputUnion<string, Pulumi.EquinixMetal.BillingCycle>? BillingCycle { get; set; }
 
-        /// <summary>
-        /// The timestamp for when the volume was created
-        /// </summary>
         [Input("created")]
         public Input<string>? Created { get; set; }
 
-        /// <summary>
-        /// Optional description for the volume
-        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
-        /// <summary>
-        /// The facility to create the volume in
-        /// </summary>
         [Input("facility")]
         public InputUnion<string, Pulumi.EquinixMetal.Facility>? Facility { get; set; }
 
-        /// <summary>
-        /// Lock or unlock the volume
-        /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
-        /// <summary>
-        /// The name of the volume
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// The service plan slug of the volume
-        /// </summary>
         [Input("plan")]
         public Input<string>? Plan { get; set; }
 
-        /// <summary>
-        /// The metal project ID to deploy the volume in
-        /// </summary>
         [Input("projectId")]
         public Input<string>? ProjectId { get; set; }
 
-        /// <summary>
-        /// The size in GB to make the volume
-        /// </summary>
         [Input("size")]
         public Input<int>? Size { get; set; }
 
         [Input("snapshotPolicies")]
         private InputList<Inputs.VolumeSnapshotPolicyGetArgs>? _snapshotPolicies;
-
-        /// <summary>
-        /// Optional list of snapshot policies
-        /// </summary>
         public InputList<Inputs.VolumeSnapshotPolicyGetArgs> SnapshotPolicies
         {
             get => _snapshotPolicies ?? (_snapshotPolicies = new InputList<Inputs.VolumeSnapshotPolicyGetArgs>());
             set => _snapshotPolicies = value;
         }
 
-        /// <summary>
-        /// The state of the volume
-        /// </summary>
         [Input("state")]
         public Input<string>? State { get; set; }
 
-        /// <summary>
-        /// The timestamp for the last time the volume was updated
-        /// </summary>
         [Input("updated")]
         public Input<string>? Updated { get; set; }
 

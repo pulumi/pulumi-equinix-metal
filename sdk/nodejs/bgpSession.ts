@@ -51,6 +51,9 @@ export class BgpSession extends pulumi.CustomResource {
      * ID of device
      */
     public readonly deviceId!: pulumi.Output<string>;
+    /**
+     * Status of the session - up or down
+     */
     public /*out*/ readonly status!: pulumi.Output<string>;
 
     /**
@@ -106,6 +109,9 @@ export interface BgpSessionState {
      * ID of device
      */
     readonly deviceId?: pulumi.Input<string>;
+    /**
+     * Status of the session - up or down
+     */
     readonly status?: pulumi.Input<string>;
 }
 

@@ -22,7 +22,7 @@ namespace Pulumi.EquinixMetal.Inputs
         private InputList<string>? _reservationIds;
 
         /// <summary>
-        /// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+        /// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
         /// </summary>
         public InputList<string> ReservationIds
         {

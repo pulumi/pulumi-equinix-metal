@@ -6,20 +6,7 @@ import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
- * Provides an Equinix Metal Block Storage Volume datasource to allow you to read existing volumes.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as equinix_metal from "@pulumi/equinix-metal";
- *
- * const volume1 = equinix_metal.getVolume({
- *     name: "terraform-volume-1",
- *     projectId: local.project_id,
- * });
- * export const volumeSize = volume1.then(volume1 => volume1.size);
- * ```
+ * Datasource `equinix-metal.Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
  */
 export function getVolume(args?: GetVolumeArgs, opts?: pulumi.InvokeOptions): Promise<GetVolumeResult> {
     args = args || {};
@@ -41,17 +28,8 @@ export function getVolume(args?: GetVolumeArgs, opts?: pulumi.InvokeOptions): Pr
  * A collection of arguments for invoking getVolume.
  */
 export interface GetVolumeArgs {
-    /**
-     * Name of volume for lookup
-     */
     readonly name?: string;
-    /**
-     * The ID the parent Equinix Metal project (for lookup by name)
-     */
     readonly projectId?: string;
-    /**
-     * ID of volume for lookup
-     */
     readonly volumeId?: string;
 }
 
@@ -59,48 +37,21 @@ export interface GetVolumeArgs {
  * A collection of values returned by getVolume.
  */
 export interface GetVolumeResult {
-    /**
-     * The billing cycle, defaults to hourly
-     */
     readonly billingCycle: string;
     readonly created: string;
     readonly description: string;
-    /**
-     * UUIDs of devices to which this volume is attached
-     */
     readonly deviceIds: string[];
-    /**
-     * The facility slug the volume resides in
-     */
     readonly facility: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * Whether the volume is locked or not
-     */
     readonly locked: boolean;
-    /**
-     * The name of the volume
-     */
     readonly name: string;
-    /**
-     * Performance plan the volume is on
-     */
     readonly plan: string;
-    /**
-     * The project id the volume is in
-     */
     readonly projectId: string;
-    /**
-     * The size in GB of the volume
-     */
     readonly size: number;
     readonly snapshotPolicies: outputs.GetVolumeSnapshotPolicy[];
-    /**
-     * The state of the volume
-     */
     readonly state: string;
     readonly updated: string;
     readonly volumeId: string;

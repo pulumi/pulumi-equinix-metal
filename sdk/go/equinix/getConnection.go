@@ -15,13 +15,13 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.GetConnection(ctx, &equinix-metal.GetConnectionArgs{
+// 		_, err := equinix - metal.LookupConnection(ctx, &equinix-metal.LookupConnectionArgs{
 // 			ConnectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
 // 		}, nil)
 // 		if err != nil {
@@ -31,8 +31,8 @@ import (
 // 	})
 // }
 // ```
-func GetConnection(ctx *pulumi.Context, args *GetConnectionArgs, opts ...pulumi.InvokeOption) (*GetConnectionResult, error) {
-	var rv GetConnectionResult
+func LookupConnection(ctx *pulumi.Context, args *LookupConnectionArgs, opts ...pulumi.InvokeOption) (*LookupConnectionResult, error) {
+	var rv LookupConnectionResult
 	err := ctx.Invoke("equinix-metal:index/getConnection:getConnection", args, &rv, opts...)
 	if err != nil {
 		return nil, err
@@ -41,13 +41,13 @@ func GetConnection(ctx *pulumi.Context, args *GetConnectionArgs, opts ...pulumi.
 }
 
 // A collection of arguments for invoking getConnection.
-type GetConnectionArgs struct {
+type LookupConnectionArgs struct {
 	// ID of the connection resource
 	ConnectionId string `pulumi:"connectionId"`
 }
 
 // A collection of values returned by getConnection.
-type GetConnectionResult struct {
+type LookupConnectionResult struct {
 	ConnectionId string `pulumi:"connectionId"`
 	// Description of the connection resource
 	Description string `pulumi:"description"`
@@ -55,18 +55,26 @@ type GetConnectionResult struct {
 	Facility string `pulumi:"facility"`
 	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
+	// Slug of a metro to which the connection belongs
+	Metro string `pulumi:"metro"`
+	// Mode for connections in IBX facilities with the dedicated type - standard or tunnel
+	Mode string `pulumi:"mode"`
 	// Port name
 	Name string `pulumi:"name"`
 	// ID of organization to which the connection belongs
 	OrganizationId string `pulumi:"organizationId"`
 	// List of connection ports - primary (`ports[0]`) and secondary (`ports[1]`)
 	Ports []GetConnectionPort `pulumi:"ports"`
+	// ID of project to which the connection belongs
+	ProjectId string `pulumi:"projectId"`
 	// Connection redundancy, reduntant or primary
 	Redundancy string `pulumi:"redundancy"`
 	// Port speed in bits per second
 	Speed int `pulumi:"speed"`
 	// Port status
 	Status string `pulumi:"status"`
+	// String list of tags
+	Tags []string `pulumi:"tags"`
 	// Fabric Token for the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
 	Token string `pulumi:"token"`
 	// Connection type, dedicated or shared

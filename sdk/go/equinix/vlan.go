@@ -24,7 +24,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -50,6 +50,14 @@ import (
 // 		return nil
 // 	})
 // }
+// ```
+//
+// ## Import
+//
+// This resource can be imported using an existing VLAN ID (UUID)
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/vlan:Vlan metal_vlan {existing_vlan_id}
 // ```
 type Vlan struct {
 	pulumi.CustomResourceState

@@ -10,10 +10,149 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+type ConnectionPort struct {
+	Id         *string `pulumi:"id"`
+	LinkStatus *string `pulumi:"linkStatus"`
+	// Name of the connection resource
+	Name *string `pulumi:"name"`
+	Role *string `pulumi:"role"`
+	// Port speed in bits per second
+	Speed *int `pulumi:"speed"`
+	// Status of the connection resource
+	Status            *string       `pulumi:"status"`
+	VirtualCircuitIds []interface{} `pulumi:"virtualCircuitIds"`
+}
+
+// ConnectionPortInput is an input type that accepts ConnectionPortArgs and ConnectionPortOutput values.
+// You can construct a concrete instance of `ConnectionPortInput` via:
+//
+//          ConnectionPortArgs{...}
+type ConnectionPortInput interface {
+	pulumi.Input
+
+	ToConnectionPortOutput() ConnectionPortOutput
+	ToConnectionPortOutputWithContext(context.Context) ConnectionPortOutput
+}
+
+type ConnectionPortArgs struct {
+	Id         pulumi.StringPtrInput `pulumi:"id"`
+	LinkStatus pulumi.StringPtrInput `pulumi:"linkStatus"`
+	// Name of the connection resource
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	Role pulumi.StringPtrInput `pulumi:"role"`
+	// Port speed in bits per second
+	Speed pulumi.IntPtrInput `pulumi:"speed"`
+	// Status of the connection resource
+	Status            pulumi.StringPtrInput `pulumi:"status"`
+	VirtualCircuitIds pulumi.ArrayInput     `pulumi:"virtualCircuitIds"`
+}
+
+func (ConnectionPortArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConnectionPort)(nil)).Elem()
+}
+
+func (i ConnectionPortArgs) ToConnectionPortOutput() ConnectionPortOutput {
+	return i.ToConnectionPortOutputWithContext(context.Background())
+}
+
+func (i ConnectionPortArgs) ToConnectionPortOutputWithContext(ctx context.Context) ConnectionPortOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConnectionPortOutput)
+}
+
+// ConnectionPortArrayInput is an input type that accepts ConnectionPortArray and ConnectionPortArrayOutput values.
+// You can construct a concrete instance of `ConnectionPortArrayInput` via:
+//
+//          ConnectionPortArray{ ConnectionPortArgs{...} }
+type ConnectionPortArrayInput interface {
+	pulumi.Input
+
+	ToConnectionPortArrayOutput() ConnectionPortArrayOutput
+	ToConnectionPortArrayOutputWithContext(context.Context) ConnectionPortArrayOutput
+}
+
+type ConnectionPortArray []ConnectionPortInput
+
+func (ConnectionPortArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ConnectionPort)(nil)).Elem()
+}
+
+func (i ConnectionPortArray) ToConnectionPortArrayOutput() ConnectionPortArrayOutput {
+	return i.ToConnectionPortArrayOutputWithContext(context.Background())
+}
+
+func (i ConnectionPortArray) ToConnectionPortArrayOutputWithContext(ctx context.Context) ConnectionPortArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConnectionPortArrayOutput)
+}
+
+type ConnectionPortOutput struct{ *pulumi.OutputState }
+
+func (ConnectionPortOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConnectionPort)(nil)).Elem()
+}
+
+func (o ConnectionPortOutput) ToConnectionPortOutput() ConnectionPortOutput {
+	return o
+}
+
+func (o ConnectionPortOutput) ToConnectionPortOutputWithContext(ctx context.Context) ConnectionPortOutput {
+	return o
+}
+
+func (o ConnectionPortOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+func (o ConnectionPortOutput) LinkStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.LinkStatus }).(pulumi.StringPtrOutput)
+}
+
+// Name of the connection resource
+func (o ConnectionPortOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+func (o ConnectionPortOutput) Role() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Role }).(pulumi.StringPtrOutput)
+}
+
+// Port speed in bits per second
+func (o ConnectionPortOutput) Speed() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *int { return v.Speed }).(pulumi.IntPtrOutput)
+}
+
+// Status of the connection resource
+func (o ConnectionPortOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ConnectionPort) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+func (o ConnectionPortOutput) VirtualCircuitIds() pulumi.ArrayOutput {
+	return o.ApplyT(func(v ConnectionPort) []interface{} { return v.VirtualCircuitIds }).(pulumi.ArrayOutput)
+}
+
+type ConnectionPortArrayOutput struct{ *pulumi.OutputState }
+
+func (ConnectionPortArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ConnectionPort)(nil)).Elem()
+}
+
+func (o ConnectionPortArrayOutput) ToConnectionPortArrayOutput() ConnectionPortArrayOutput {
+	return o
+}
+
+func (o ConnectionPortArrayOutput) ToConnectionPortArrayOutputWithContext(ctx context.Context) ConnectionPortArrayOutput {
+	return o
+}
+
+func (o ConnectionPortArrayOutput) Index(i pulumi.IntInput) ConnectionPortOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ConnectionPort {
+		return vs[0].([]ConnectionPort)[vs[1].(int)]
+	}).(ConnectionPortOutput)
+}
+
 type DeviceIpAddress struct {
 	// CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
 	Cidr *int `pulumi:"cidr"`
-	// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+	// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
 	ReservationIds []string `pulumi:"reservationIds"`
 	// One of [`privateIpv4`, `publicIpv4`, `publicIpv6`]
 	Type string `pulumi:"type"`
@@ -33,7 +172,7 @@ type DeviceIpAddressInput interface {
 type DeviceIpAddressArgs struct {
 	// CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
 	Cidr pulumi.IntPtrInput `pulumi:"cidr"`
-	// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+	// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
 	ReservationIds pulumi.StringArrayInput `pulumi:"reservationIds"`
 	// One of [`privateIpv4`, `publicIpv4`, `publicIpv6`]
 	Type pulumi.StringInput `pulumi:"type"`
@@ -95,7 +234,7 @@ func (o DeviceIpAddressOutput) Cidr() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceIpAddress) *int { return v.Cidr }).(pulumi.IntPtrOutput)
 }
 
-// String of UUID of IP block reservations from which the public IPv4 address should be taken.
+// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
 func (o DeviceIpAddressOutput) ReservationIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceIpAddress) []string { return v.ReservationIds }).(pulumi.StringArrayOutput)
 }
@@ -263,7 +402,6 @@ func (o DeviceNetworkArrayOutput) Index(i pulumi.IntInput) DeviceNetworkOutput {
 
 type DevicePort struct {
 	// Whether this port is part of a bond in bonded network setup
-	// * `projectId`- The ID of the project the device belongs to
 	Bonded *bool `pulumi:"bonded"`
 	// ID of the port
 	Id *string `pulumi:"id"`
@@ -288,7 +426,6 @@ type DevicePortInput interface {
 
 type DevicePortArgs struct {
 	// Whether this port is part of a bond in bonded network setup
-	// * `projectId`- The ID of the project the device belongs to
 	Bonded pulumi.BoolPtrInput `pulumi:"bonded"`
 	// ID of the port
 	Id pulumi.StringPtrInput `pulumi:"id"`
@@ -352,7 +489,6 @@ func (o DevicePortOutput) ToDevicePortOutputWithContext(ctx context.Context) Dev
 }
 
 // Whether this port is part of a bond in bonded network setup
-// * `projectId`- The ID of the project the device belongs to
 func (o DevicePortOutput) Bonded() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DevicePort) *bool { return v.Bonded }).(pulumi.BoolPtrOutput)
 }
@@ -395,6 +531,179 @@ func (o DevicePortArrayOutput) Index(i pulumi.IntInput) DevicePortOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DevicePort {
 		return vs[0].([]DevicePort)[vs[1].(int)]
 	}).(DevicePortOutput)
+}
+
+type DeviceReinstall struct {
+	// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+	// *
+	DeprovisionFast *bool `pulumi:"deprovisionFast"`
+	// Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+	Enabled *bool `pulumi:"enabled"`
+	// Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+	PreserveData *bool `pulumi:"preserveData"`
+}
+
+// DeviceReinstallInput is an input type that accepts DeviceReinstallArgs and DeviceReinstallOutput values.
+// You can construct a concrete instance of `DeviceReinstallInput` via:
+//
+//          DeviceReinstallArgs{...}
+type DeviceReinstallInput interface {
+	pulumi.Input
+
+	ToDeviceReinstallOutput() DeviceReinstallOutput
+	ToDeviceReinstallOutputWithContext(context.Context) DeviceReinstallOutput
+}
+
+type DeviceReinstallArgs struct {
+	// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+	// *
+	DeprovisionFast pulumi.BoolPtrInput `pulumi:"deprovisionFast"`
+	// Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+	PreserveData pulumi.BoolPtrInput `pulumi:"preserveData"`
+}
+
+func (DeviceReinstallArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceReinstall)(nil)).Elem()
+}
+
+func (i DeviceReinstallArgs) ToDeviceReinstallOutput() DeviceReinstallOutput {
+	return i.ToDeviceReinstallOutputWithContext(context.Background())
+}
+
+func (i DeviceReinstallArgs) ToDeviceReinstallOutputWithContext(ctx context.Context) DeviceReinstallOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceReinstallOutput)
+}
+
+func (i DeviceReinstallArgs) ToDeviceReinstallPtrOutput() DeviceReinstallPtrOutput {
+	return i.ToDeviceReinstallPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceReinstallArgs) ToDeviceReinstallPtrOutputWithContext(ctx context.Context) DeviceReinstallPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceReinstallOutput).ToDeviceReinstallPtrOutputWithContext(ctx)
+}
+
+// DeviceReinstallPtrInput is an input type that accepts DeviceReinstallArgs, DeviceReinstallPtr and DeviceReinstallPtrOutput values.
+// You can construct a concrete instance of `DeviceReinstallPtrInput` via:
+//
+//          DeviceReinstallArgs{...}
+//
+//  or:
+//
+//          nil
+type DeviceReinstallPtrInput interface {
+	pulumi.Input
+
+	ToDeviceReinstallPtrOutput() DeviceReinstallPtrOutput
+	ToDeviceReinstallPtrOutputWithContext(context.Context) DeviceReinstallPtrOutput
+}
+
+type deviceReinstallPtrType DeviceReinstallArgs
+
+func DeviceReinstallPtr(v *DeviceReinstallArgs) DeviceReinstallPtrInput {
+	return (*deviceReinstallPtrType)(v)
+}
+
+func (*deviceReinstallPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceReinstall)(nil)).Elem()
+}
+
+func (i *deviceReinstallPtrType) ToDeviceReinstallPtrOutput() DeviceReinstallPtrOutput {
+	return i.ToDeviceReinstallPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceReinstallPtrType) ToDeviceReinstallPtrOutputWithContext(ctx context.Context) DeviceReinstallPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceReinstallPtrOutput)
+}
+
+type DeviceReinstallOutput struct{ *pulumi.OutputState }
+
+func (DeviceReinstallOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceReinstall)(nil)).Elem()
+}
+
+func (o DeviceReinstallOutput) ToDeviceReinstallOutput() DeviceReinstallOutput {
+	return o
+}
+
+func (o DeviceReinstallOutput) ToDeviceReinstallOutputWithContext(ctx context.Context) DeviceReinstallOutput {
+	return o
+}
+
+func (o DeviceReinstallOutput) ToDeviceReinstallPtrOutput() DeviceReinstallPtrOutput {
+	return o.ToDeviceReinstallPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceReinstallOutput) ToDeviceReinstallPtrOutputWithContext(ctx context.Context) DeviceReinstallPtrOutput {
+	return o.ApplyT(func(v DeviceReinstall) *DeviceReinstall {
+		return &v
+	}).(DeviceReinstallPtrOutput)
+}
+
+// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+// *
+func (o DeviceReinstallOutput) DeprovisionFast() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeviceReinstall) *bool { return v.DeprovisionFast }).(pulumi.BoolPtrOutput)
+}
+
+// Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+func (o DeviceReinstallOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeviceReinstall) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+func (o DeviceReinstallOutput) PreserveData() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeviceReinstall) *bool { return v.PreserveData }).(pulumi.BoolPtrOutput)
+}
+
+type DeviceReinstallPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceReinstallPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceReinstall)(nil)).Elem()
+}
+
+func (o DeviceReinstallPtrOutput) ToDeviceReinstallPtrOutput() DeviceReinstallPtrOutput {
+	return o
+}
+
+func (o DeviceReinstallPtrOutput) ToDeviceReinstallPtrOutputWithContext(ctx context.Context) DeviceReinstallPtrOutput {
+	return o
+}
+
+func (o DeviceReinstallPtrOutput) Elem() DeviceReinstallOutput {
+	return o.ApplyT(func(v *DeviceReinstall) DeviceReinstall { return *v }).(DeviceReinstallOutput)
+}
+
+// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
+// *
+func (o DeviceReinstallPtrOutput) DeprovisionFast() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *DeviceReinstall) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.DeprovisionFast
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
+func (o DeviceReinstallPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *DeviceReinstall) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
+func (o DeviceReinstallPtrOutput) PreserveData() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *DeviceReinstall) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.PreserveData
+	}).(pulumi.BoolPtrOutput)
 }
 
 type ProjectBgpConfig struct {
@@ -605,14 +914,15 @@ func (o ProjectBgpConfigPtrOutput) Status() pulumi.StringPtrOutput {
 }
 
 type SpotMarketRequestInstanceParameters struct {
-	AlwaysPxe        *bool    `pulumi:"alwaysPxe"`
-	BillingCycle     string   `pulumi:"billingCycle"`
-	Customdata       *string  `pulumi:"customdata"`
-	Description      *string  `pulumi:"description"`
-	Features         []string `pulumi:"features"`
-	Hostname         string   `pulumi:"hostname"`
-	IpxeScriptUrl    *string  `pulumi:"ipxeScriptUrl"`
-	Locked           *string  `pulumi:"locked"`
+	AlwaysPxe     *bool    `pulumi:"alwaysPxe"`
+	BillingCycle  string   `pulumi:"billingCycle"`
+	Customdata    *string  `pulumi:"customdata"`
+	Description   *string  `pulumi:"description"`
+	Features      []string `pulumi:"features"`
+	Hostname      string   `pulumi:"hostname"`
+	IpxeScriptUrl *string  `pulumi:"ipxeScriptUrl"`
+	// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+	Locked           *bool    `pulumi:"locked"`
 	OperatingSystem  string   `pulumi:"operatingSystem"`
 	Plan             string   `pulumi:"plan"`
 	ProjectSshKeys   []string `pulumi:"projectSshKeys"`
@@ -634,14 +944,15 @@ type SpotMarketRequestInstanceParametersInput interface {
 }
 
 type SpotMarketRequestInstanceParametersArgs struct {
-	AlwaysPxe        pulumi.BoolPtrInput     `pulumi:"alwaysPxe"`
-	BillingCycle     pulumi.StringInput      `pulumi:"billingCycle"`
-	Customdata       pulumi.StringPtrInput   `pulumi:"customdata"`
-	Description      pulumi.StringPtrInput   `pulumi:"description"`
-	Features         pulumi.StringArrayInput `pulumi:"features"`
-	Hostname         pulumi.StringInput      `pulumi:"hostname"`
-	IpxeScriptUrl    pulumi.StringPtrInput   `pulumi:"ipxeScriptUrl"`
-	Locked           pulumi.StringPtrInput   `pulumi:"locked"`
+	AlwaysPxe     pulumi.BoolPtrInput     `pulumi:"alwaysPxe"`
+	BillingCycle  pulumi.StringInput      `pulumi:"billingCycle"`
+	Customdata    pulumi.StringPtrInput   `pulumi:"customdata"`
+	Description   pulumi.StringPtrInput   `pulumi:"description"`
+	Features      pulumi.StringArrayInput `pulumi:"features"`
+	Hostname      pulumi.StringInput      `pulumi:"hostname"`
+	IpxeScriptUrl pulumi.StringPtrInput   `pulumi:"ipxeScriptUrl"`
+	// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+	Locked           pulumi.BoolPtrInput     `pulumi:"locked"`
 	OperatingSystem  pulumi.StringInput      `pulumi:"operatingSystem"`
 	Plan             pulumi.StringInput      `pulumi:"plan"`
 	ProjectSshKeys   pulumi.StringArrayInput `pulumi:"projectSshKeys"`
@@ -755,8 +1066,9 @@ func (o SpotMarketRequestInstanceParametersOutput) IpxeScriptUrl() pulumi.String
 	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *string { return v.IpxeScriptUrl }).(pulumi.StringPtrOutput)
 }
 
-func (o SpotMarketRequestInstanceParametersOutput) Locked() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *string { return v.Locked }).(pulumi.StringPtrOutput)
+// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+func (o SpotMarketRequestInstanceParametersOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
 func (o SpotMarketRequestInstanceParametersOutput) OperatingSystem() pulumi.StringOutput {
@@ -868,13 +1180,14 @@ func (o SpotMarketRequestInstanceParametersPtrOutput) IpxeScriptUrl() pulumi.Str
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o SpotMarketRequestInstanceParametersPtrOutput) Locked() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SpotMarketRequestInstanceParameters) *string {
+// Blocks deletion of the SpotMarketRequest device until the lock is disabled
+func (o SpotMarketRequestInstanceParametersPtrOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SpotMarketRequestInstanceParameters) *bool {
 		if v == nil {
 			return nil
 		}
 		return v.Locked
-	}).(pulumi.StringPtrOutput)
+	}).(pulumi.BoolPtrOutput)
 }
 
 func (o SpotMarketRequestInstanceParametersPtrOutput) OperatingSystem() pulumi.StringPtrOutput {
@@ -1135,6 +1448,8 @@ func (o VolumeSnapshotPolicyArrayOutput) Index(i pulumi.IntInput) VolumeSnapshot
 }
 
 type GetConnectionPort struct {
+	// Port UUID
+	Id string `pulumi:"id"`
 	// Port link status
 	LinkStatus string `pulumi:"linkStatus"`
 	// Port name
@@ -1161,6 +1476,8 @@ type GetConnectionPortInput interface {
 }
 
 type GetConnectionPortArgs struct {
+	// Port UUID
+	Id pulumi.StringInput `pulumi:"id"`
 	// Port link status
 	LinkStatus pulumi.StringInput `pulumi:"linkStatus"`
 	// Port name
@@ -1224,6 +1541,11 @@ func (o GetConnectionPortOutput) ToGetConnectionPortOutput() GetConnectionPortOu
 
 func (o GetConnectionPortOutput) ToGetConnectionPortOutputWithContext(ctx context.Context) GetConnectionPortOutput {
 	return o
+}
+
+// Port UUID
+func (o GetConnectionPortOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetConnectionPort) string { return v.Id }).(pulumi.StringOutput)
 }
 
 // Port link status
@@ -1985,6 +2307,31 @@ func (i GetProjectBgpConfigArgs) ToGetProjectBgpConfigOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(GetProjectBgpConfigOutput)
 }
 
+// GetProjectBgpConfigArrayInput is an input type that accepts GetProjectBgpConfigArray and GetProjectBgpConfigArrayOutput values.
+// You can construct a concrete instance of `GetProjectBgpConfigArrayInput` via:
+//
+//          GetProjectBgpConfigArray{ GetProjectBgpConfigArgs{...} }
+type GetProjectBgpConfigArrayInput interface {
+	pulumi.Input
+
+	ToGetProjectBgpConfigArrayOutput() GetProjectBgpConfigArrayOutput
+	ToGetProjectBgpConfigArrayOutputWithContext(context.Context) GetProjectBgpConfigArrayOutput
+}
+
+type GetProjectBgpConfigArray []GetProjectBgpConfigInput
+
+func (GetProjectBgpConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectBgpConfig)(nil)).Elem()
+}
+
+func (i GetProjectBgpConfigArray) ToGetProjectBgpConfigArrayOutput() GetProjectBgpConfigArrayOutput {
+	return i.ToGetProjectBgpConfigArrayOutputWithContext(context.Background())
+}
+
+func (i GetProjectBgpConfigArray) ToGetProjectBgpConfigArrayOutputWithContext(ctx context.Context) GetProjectBgpConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProjectBgpConfigArrayOutput)
+}
+
 type GetProjectBgpConfigOutput struct{ *pulumi.OutputState }
 
 func (GetProjectBgpConfigOutput) ElementType() reflect.Type {
@@ -2022,6 +2369,26 @@ func (o GetProjectBgpConfigOutput) Md5() pulumi.StringPtrOutput {
 // status of BGP configuration in the project
 func (o GetProjectBgpConfigOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProjectBgpConfig) string { return v.Status }).(pulumi.StringOutput)
+}
+
+type GetProjectBgpConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProjectBgpConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProjectBgpConfig)(nil)).Elem()
+}
+
+func (o GetProjectBgpConfigArrayOutput) ToGetProjectBgpConfigArrayOutput() GetProjectBgpConfigArrayOutput {
+	return o
+}
+
+func (o GetProjectBgpConfigArrayOutput) ToGetProjectBgpConfigArrayOutputWithContext(ctx context.Context) GetProjectBgpConfigArrayOutput {
+	return o
+}
+
+func (o GetProjectBgpConfigArrayOutput) Index(i pulumi.IntInput) GetProjectBgpConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProjectBgpConfig {
+		return vs[0].([]GetProjectBgpConfig)[vs[1].(int)]
+	}).(GetProjectBgpConfigOutput)
 }
 
 type GetVolumeSnapshotPolicy struct {
@@ -2125,12 +2492,16 @@ func (o GetVolumeSnapshotPolicyArrayOutput) Index(i pulumi.IntInput) GetVolumeSn
 }
 
 func init() {
+	pulumi.RegisterOutputType(ConnectionPortOutput{})
+	pulumi.RegisterOutputType(ConnectionPortArrayOutput{})
 	pulumi.RegisterOutputType(DeviceIpAddressOutput{})
 	pulumi.RegisterOutputType(DeviceIpAddressArrayOutput{})
 	pulumi.RegisterOutputType(DeviceNetworkOutput{})
 	pulumi.RegisterOutputType(DeviceNetworkArrayOutput{})
 	pulumi.RegisterOutputType(DevicePortOutput{})
 	pulumi.RegisterOutputType(DevicePortArrayOutput{})
+	pulumi.RegisterOutputType(DeviceReinstallOutput{})
+	pulumi.RegisterOutputType(DeviceReinstallPtrOutput{})
 	pulumi.RegisterOutputType(ProjectBgpConfigOutput{})
 	pulumi.RegisterOutputType(ProjectBgpConfigPtrOutput{})
 	pulumi.RegisterOutputType(SpotMarketRequestInstanceParametersOutput{})
@@ -2152,6 +2523,7 @@ func init() {
 	pulumi.RegisterOutputType(GetDevicePortOutput{})
 	pulumi.RegisterOutputType(GetDevicePortArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectBgpConfigOutput{})
+	pulumi.RegisterOutputType(GetProjectBgpConfigArrayOutput{})
 	pulumi.RegisterOutputType(GetVolumeSnapshotPolicyOutput{})
 	pulumi.RegisterOutputType(GetVolumeSnapshotPolicyArrayOutput{})
 }

@@ -18,6 +18,14 @@ import * as utilities from "./utilities";
  *     description: "quux",
  * });
  * ```
+ *
+ * ## Import
+ *
+ * This resource can be imported using an existing organization ID
+ *
+ * ```sh
+ *  $ pulumi import equinix-metal:index/organization:Organization metal_organization {existing_organization_id}
+ * ```
  */
 export class Organization extends pulumi.CustomResource {
     /**

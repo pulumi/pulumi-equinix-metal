@@ -20,7 +20,7 @@ class GetConnectionResult:
     """
     A collection of values returned by getConnection.
     """
-    def __init__(__self__, connection_id=None, description=None, facility=None, id=None, name=None, organization_id=None, ports=None, redundancy=None, speed=None, status=None, token=None, type=None):
+    def __init__(__self__, connection_id=None, description=None, facility=None, id=None, metro=None, mode=None, name=None, organization_id=None, ports=None, project_id=None, redundancy=None, speed=None, status=None, tags=None, token=None, type=None):
         if connection_id and not isinstance(connection_id, str):
             raise TypeError("Expected argument 'connection_id' to be a str")
         pulumi.set(__self__, "connection_id", connection_id)
@@ -33,6 +33,12 @@ class GetConnectionResult:
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if metro and not isinstance(metro, str):
+            raise TypeError("Expected argument 'metro' to be a str")
+        pulumi.set(__self__, "metro", metro)
+        if mode and not isinstance(mode, str):
+            raise TypeError("Expected argument 'mode' to be a str")
+        pulumi.set(__self__, "mode", mode)
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
@@ -42,6 +48,9 @@ class GetConnectionResult:
         if ports and not isinstance(ports, list):
             raise TypeError("Expected argument 'ports' to be a list")
         pulumi.set(__self__, "ports", ports)
+        if project_id and not isinstance(project_id, str):
+            raise TypeError("Expected argument 'project_id' to be a str")
+        pulumi.set(__self__, "project_id", project_id)
         if redundancy and not isinstance(redundancy, str):
             raise TypeError("Expected argument 'redundancy' to be a str")
         pulumi.set(__self__, "redundancy", redundancy)
@@ -51,6 +60,9 @@ class GetConnectionResult:
         if status and not isinstance(status, str):
             raise TypeError("Expected argument 'status' to be a str")
         pulumi.set(__self__, "status", status)
+        if tags and not isinstance(tags, list):
+            raise TypeError("Expected argument 'tags' to be a list")
+        pulumi.set(__self__, "tags", tags)
         if token and not isinstance(token, str):
             raise TypeError("Expected argument 'token' to be a str")
         pulumi.set(__self__, "token", token)
@@ -89,6 +101,22 @@ class GetConnectionResult:
 
     @property
     @pulumi.getter
+    def metro(self) -> str:
+        """
+        Slug of a metro to which the connection belongs
+        """
+        return pulumi.get(self, "metro")
+
+    @property
+    @pulumi.getter
+    def mode(self) -> str:
+        """
+        Mode for connections in IBX facilities with the dedicated type - standard or tunnel
+        """
+        return pulumi.get(self, "mode")
+
+    @property
+    @pulumi.getter
     def name(self) -> str:
         """
         Port name
@@ -110,6 +138,14 @@ class GetConnectionResult:
         List of connection ports - primary (`ports[0]`) and secondary (`ports[1]`)
         """
         return pulumi.get(self, "ports")
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> str:
+        """
+        ID of project to which the connection belongs
+        """
+        return pulumi.get(self, "project_id")
 
     @property
     @pulumi.getter
@@ -134,6 +170,14 @@ class GetConnectionResult:
         Port status
         """
         return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Sequence[str]:
+        """
+        String list of tags
+        """
+        return pulumi.get(self, "tags")
 
     @property
     @pulumi.getter
@@ -162,12 +206,16 @@ class AwaitableGetConnectionResult(GetConnectionResult):
             description=self.description,
             facility=self.facility,
             id=self.id,
+            metro=self.metro,
+            mode=self.mode,
             name=self.name,
             organization_id=self.organization_id,
             ports=self.ports,
+            project_id=self.project_id,
             redundancy=self.redundancy,
             speed=self.speed,
             status=self.status,
+            tags=self.tags,
             token=self.token,
             type=self.type)
 
@@ -202,11 +250,15 @@ def get_connection(connection_id: Optional[str] = None,
         description=__ret__.description,
         facility=__ret__.facility,
         id=__ret__.id,
+        metro=__ret__.metro,
+        mode=__ret__.mode,
         name=__ret__.name,
         organization_id=__ret__.organization_id,
         ports=__ret__.ports,
+        project_id=__ret__.project_id,
         redundancy=__ret__.redundancy,
         speed=__ret__.speed,
         status=__ret__.status,
+        tags=__ret__.tags,
         token=__ret__.token,
         type=__ret__.type)

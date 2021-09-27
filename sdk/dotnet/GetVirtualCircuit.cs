@@ -64,6 +64,10 @@ namespace Pulumi.EquinixMetal
     public sealed class GetVirtualCircuitResult
     {
         /// <summary>
+        /// Description for the Virtual Circuit resource
+        /// </summary>
+        public readonly string Description;
+        /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
@@ -82,11 +86,17 @@ namespace Pulumi.EquinixMetal
         /// Status of the virtal circuit
         /// </summary>
         public readonly string Status;
+        /// <summary>
+        /// Tags for the Virtual Circuit resource
+        /// </summary>
+        public readonly ImmutableArray<string> Tags;
         public readonly string VirtualCircuitId;
         public readonly int Vnid;
 
         [OutputConstructor]
         private GetVirtualCircuitResult(
+            string description,
+
             string id,
 
             string name,
@@ -99,16 +109,20 @@ namespace Pulumi.EquinixMetal
 
             string status,
 
+            ImmutableArray<string> tags,
+
             string virtualCircuitId,
 
             int vnid)
         {
+            Description = description;
             Id = id;
             Name = name;
             NniVlan = nniVlan;
             NniVnid = nniVnid;
             ProjectId = projectId;
             Status = status;
+            Tags = tags;
             VirtualCircuitId = virtualCircuitId;
             Vnid = vnid;
         }

@@ -4,6 +4,9 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Resource `equinix-metal.VolumeAttachment` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+ */
 export class VolumeAttachment extends pulumi.CustomResource {
     /**
      * Get an existing VolumeAttachment resource's state with the given name, ID, and optional extra
@@ -32,13 +35,7 @@ export class VolumeAttachment extends pulumi.CustomResource {
         return obj['__pulumiType'] === VolumeAttachment.__pulumiType;
     }
 
-    /**
-     * The ID of the device to which the volume should be attached
-     */
     public readonly deviceId!: pulumi.Output<string>;
-    /**
-     * The ID of the volume to attach
-     */
     public readonly volumeId!: pulumi.Output<string>;
 
     /**
@@ -78,13 +75,7 @@ export class VolumeAttachment extends pulumi.CustomResource {
  * Input properties used for looking up and filtering VolumeAttachment resources.
  */
 export interface VolumeAttachmentState {
-    /**
-     * The ID of the device to which the volume should be attached
-     */
     readonly deviceId?: pulumi.Input<string>;
-    /**
-     * The ID of the volume to attach
-     */
     readonly volumeId?: pulumi.Input<string>;
 }
 
@@ -92,12 +83,6 @@ export interface VolumeAttachmentState {
  * The set of arguments for constructing a VolumeAttachment resource.
  */
 export interface VolumeAttachmentArgs {
-    /**
-     * The ID of the device to which the volume should be attached
-     */
     readonly deviceId: pulumi.Input<string>;
-    /**
-     * The ID of the volume to attach
-     */
     readonly volumeId: pulumi.Input<string>;
 }

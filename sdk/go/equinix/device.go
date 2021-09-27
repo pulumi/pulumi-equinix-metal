@@ -26,7 +26,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -54,7 +54,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -85,7 +85,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -123,7 +123,7 @@ import (
 // import (
 // 	"fmt"
 //
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v2/go/equinix-metal"
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -147,6 +147,14 @@ import (
 // 		return nil
 // 	})
 // }
+// ```
+//
+// ## Import
+//
+// This resource can be imported using an existing device ID
+//
+// ```sh
+//  $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
 // ```
 type Device struct {
 	pulumi.CustomResourceState
@@ -173,11 +181,11 @@ type Device struct {
 	// Description string for the device
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayOutput `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
-	ForceDetachVolumes    pulumi.BoolPtrOutput   `pulumi:"forceDetachVolumes"`
+	ForceDetachVolumes pulumi.BoolPtrOutput `pulumi:"forceDetachVolumes"`
+	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+	// next available reservation automatically
 	HardwareReservationId pulumi.StringPtrOutput `pulumi:"hardwareReservationId"`
 	// The device name
 	Hostname pulumi.StringOutput `pulumi:"hostname"`
@@ -192,6 +200,9 @@ type Device struct {
 	Locked pulumi.BoolOutput `pulumi:"locked"`
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro pulumi.StringPtrOutput `pulumi:"metro"`
+	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
+	// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+	//
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType pulumi.StringOutput `pulumi:"networkType"`
 	// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
@@ -211,6 +222,8 @@ type Device struct {
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 	// Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
 	ProjectSshKeyIds pulumi.StringArrayOutput `pulumi:"projectSshKeyIds"`
+	// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+	Reinstall DeviceReinstallPtrOutput `pulumi:"reinstall"`
 	// Root password to the server (disabled after 24 hours)
 	RootPassword pulumi.StringOutput `pulumi:"rootPassword"`
 	// List of IDs of SSH keys deployed in the device, can be both user and project SSH keys
@@ -296,11 +309,11 @@ type deviceState struct {
 	// Description string for the device
 	Description *string `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities []string `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
-	ForceDetachVolumes    *bool   `pulumi:"forceDetachVolumes"`
+	ForceDetachVolumes *bool `pulumi:"forceDetachVolumes"`
+	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+	// next available reservation automatically
 	HardwareReservationId *string `pulumi:"hardwareReservationId"`
 	// The device name
 	Hostname *string `pulumi:"hostname"`
@@ -315,6 +328,9 @@ type deviceState struct {
 	Locked *bool `pulumi:"locked"`
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro *string `pulumi:"metro"`
+	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
+	// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+	//
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType *string `pulumi:"networkType"`
 	// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
@@ -334,6 +350,8 @@ type deviceState struct {
 	ProjectId *string `pulumi:"projectId"`
 	// Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
 	ProjectSshKeyIds []string `pulumi:"projectSshKeyIds"`
+	// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+	Reinstall *DeviceReinstall `pulumi:"reinstall"`
 	// Root password to the server (disabled after 24 hours)
 	RootPassword *string `pulumi:"rootPassword"`
 	// List of IDs of SSH keys deployed in the device, can be both user and project SSH keys
@@ -376,11 +394,11 @@ type DeviceState struct {
 	// Description string for the device
 	Description pulumi.StringPtrInput
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayInput
 	// Delete device even if it has volumes attached. Only applies for destroy action.
-	ForceDetachVolumes    pulumi.BoolPtrInput
+	ForceDetachVolumes pulumi.BoolPtrInput
+	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+	// next available reservation automatically
 	HardwareReservationId pulumi.StringPtrInput
 	// The device name
 	Hostname pulumi.StringPtrInput
@@ -395,6 +413,9 @@ type DeviceState struct {
 	Locked pulumi.BoolPtrInput
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro pulumi.StringPtrInput
+	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
+	// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+	//
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType pulumi.StringPtrInput
 	// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
@@ -414,6 +435,8 @@ type DeviceState struct {
 	ProjectId pulumi.StringPtrInput
 	// Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
 	ProjectSshKeyIds pulumi.StringArrayInput
+	// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+	Reinstall DeviceReinstallPtrInput
 	// Root password to the server (disabled after 24 hours)
 	RootPassword pulumi.StringPtrInput
 	// List of IDs of SSH keys deployed in the device, can be both user and project SSH keys
@@ -448,11 +471,11 @@ type deviceArgs struct {
 	// Description string for the device
 	Description *string `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities []string `pulumi:"facilities"`
 	// Delete device even if it has volumes attached. Only applies for destroy action.
-	ForceDetachVolumes    *bool   `pulumi:"forceDetachVolumes"`
+	ForceDetachVolumes *bool `pulumi:"forceDetachVolumes"`
+	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+	// next available reservation automatically
 	HardwareReservationId *string `pulumi:"hardwareReservationId"`
 	// The device name
 	Hostname string `pulumi:"hostname"`
@@ -473,6 +496,8 @@ type deviceArgs struct {
 	ProjectId string `pulumi:"projectId"`
 	// Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
 	ProjectSshKeyIds []string `pulumi:"projectSshKeyIds"`
+	// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+	Reinstall *DeviceReinstall `pulumi:"reinstall"`
 	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
 	// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
 	Storage *string `pulumi:"storage"`
@@ -496,11 +521,11 @@ type DeviceArgs struct {
 	// Description string for the device
 	Description pulumi.StringPtrInput
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
-	//
-	// Deprecated: Use metro attribute instead
 	Facilities pulumi.StringArrayInput
 	// Delete device even if it has volumes attached. Only applies for destroy action.
-	ForceDetachVolumes    pulumi.BoolPtrInput
+	ForceDetachVolumes pulumi.BoolPtrInput
+	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+	// next available reservation automatically
 	HardwareReservationId pulumi.StringPtrInput
 	// The device name
 	Hostname pulumi.StringInput
@@ -521,6 +546,8 @@ type DeviceArgs struct {
 	ProjectId pulumi.StringInput
 	// Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
 	ProjectSshKeyIds pulumi.StringArrayInput
+	// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+	Reinstall DeviceReinstallPtrInput
 	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
 	// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
 	Storage pulumi.StringPtrInput
