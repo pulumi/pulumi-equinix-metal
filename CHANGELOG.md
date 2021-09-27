@@ -2,11 +2,14 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
+_(none)_
+
+---
+
+## 3.0.0 (2021-09-27)
 * Upgrade to v3.1.0 of the Equinix Metal Terraform Provider.
   **Please Note:** the following breaking change: 
   * `equinix-metal.getProject` now has no `bgpConfig` output
-
----
 
 ## 2.0.0 (2021-04-19)
 * Depend on Pulumi 3.0, which includes improvements to Python resource arguments and key translation, Go SDK performance,
