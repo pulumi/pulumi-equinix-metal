@@ -14,7 +14,6 @@ namespace Pulumi.EquinixMetal.Inputs
     {
         /// <summary>
         /// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-        /// *
         /// </summary>
         [Input("deprovisionFast")]
         public Input<bool>? DeprovisionFast { get; set; }

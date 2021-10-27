@@ -7,6 +7,8 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = [
     'GetMetroResult',
@@ -19,7 +21,10 @@ class GetMetroResult:
     """
     A collection of values returned by getMetro.
     """
-    def __init__(__self__, code=None, country=None, id=None, name=None):
+    def __init__(__self__, capacities=None, code=None, country=None, id=None, name=None):
+        if capacities and not isinstance(capacities, list):
+            raise TypeError("Expected argument 'capacities' to be a list")
+        pulumi.set(__self__, "capacities", capacities)
         if code and not isinstance(code, str):
             raise TypeError("Expected argument 'code' to be a str")
         pulumi.set(__self__, "code", code)
@@ -32,6 +37,14 @@ class GetMetroResult:
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def capacities(self) -> Optional[Sequence['outputs.GetMetroCapacityResult']]:
+        """
+        (Optional) Ensure that queried metro has capacity for specified number of given plans
+        """
+        return pulumi.get(self, "capacities")
 
     @property
     @pulumi.getter
@@ -72,31 +85,25 @@ class AwaitableGetMetroResult(GetMetroResult):
         if False:
             yield self
         return GetMetroResult(
+            capacities=self.capacities,
             code=self.code,
             country=self.country,
             id=self.id,
             name=self.name)
 
 
-def get_metro(code: Optional[str] = None,
+def get_metro(capacities: Optional[Sequence[pulumi.InputType['GetMetroCapacityArgs']]] = None,
+              code: Optional[str] = None,
               opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMetroResult:
     """
     Provides an Equinix Metal metro datasource.
 
-    ## Example Usage
 
-    ```python
-    import pulumi
-    import pulumi_equinix_metal as equinix_metal
-
-    sv = equinix_metal.get_metro(code="sv")
-    pulumi.export("id", sv.id)
-    ```
-
-
+    :param Sequence[pulumi.InputType['GetMetroCapacityArgs']] capacities: (Optional) Ensure that queried metro has capacity for specified number of given plans
     :param str code: The metro code
     """
     __args__ = dict()
+    __args__['capacities'] = capacities
     __args__['code'] = code
     if opts is None:
         opts = pulumi.InvokeOptions()
@@ -105,6 +112,7 @@ def get_metro(code: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('equinix-metal:index/getMetro:getMetro', __args__, opts=opts, typ=GetMetroResult).value
 
     return AwaitableGetMetroResult(
+        capacities=__ret__.capacities,
         code=__ret__.code,
         country=__ret__.country,
         id=__ret__.id,

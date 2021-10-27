@@ -190,8 +190,7 @@ export class Device extends pulumi.CustomResource {
      */
     public /*out*/ readonly accessPublicIpv6!: pulumi.Output<string>;
     /**
-     * If true, a device with OS `customIpxe` will
-     * continue to boot via iPXE on reboots.
+     * If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
      */
     public readonly alwaysPxe!: pulumi.Output<boolean | undefined>;
     /**
@@ -215,7 +214,7 @@ export class Device extends pulumi.CustomResource {
      */
     public /*out*/ readonly deployedHardwareReservationId!: pulumi.Output<string>;
     /**
-     * Description string for the device
+     * The device description.
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
@@ -232,7 +231,7 @@ export class Device extends pulumi.CustomResource {
      */
     public readonly hardwareReservationId!: pulumi.Output<string | undefined>;
     /**
-     * The device name
+     * The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
      */
     public readonly hostname!: pulumi.Output<string>;
     /**
@@ -240,10 +239,7 @@ export class Device extends pulumi.CustomResource {
      */
     public readonly ipAddresses!: pulumi.Output<outputs.DeviceIpAddress[] | undefined>;
     /**
-     * URL pointing to a hosted iPXE script. More
-     * information is in the
-     * [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-     * doc.
+     * URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
      */
     public readonly ipxeScriptUrl!: pulumi.Output<string | undefined>;
     /**
@@ -307,14 +303,17 @@ export class Device extends pulumi.CustomResource {
      */
     public /*out*/ readonly state!: pulumi.Output<string>;
     /**
-     * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-     * * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+     * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
      */
     public readonly storage!: pulumi.Output<string | undefined>;
     /**
      * Tags attached to the device
      */
     public readonly tags!: pulumi.Output<string[] | undefined>;
+    /**
+     * Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+     */
+    public readonly terminationTime!: pulumi.Output<string | undefined>;
     /**
      * The timestamp for the last time the device was updated
      */
@@ -372,17 +371,12 @@ export class Device extends pulumi.CustomResource {
             inputs["state"] = state ? state.state : undefined;
             inputs["storage"] = state ? state.storage : undefined;
             inputs["tags"] = state ? state.tags : undefined;
+            inputs["terminationTime"] = state ? state.terminationTime : undefined;
             inputs["updated"] = state ? state.updated : undefined;
             inputs["userData"] = state ? state.userData : undefined;
             inputs["waitForReservationDeprovision"] = state ? state.waitForReservationDeprovision : undefined;
         } else {
             const args = argsOrState as DeviceArgs | undefined;
-            if ((!args || args.billingCycle === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'billingCycle'");
-            }
-            if ((!args || args.hostname === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'hostname'");
-            }
             if ((!args || args.operatingSystem === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'operatingSystem'");
             }
@@ -410,6 +404,7 @@ export class Device extends pulumi.CustomResource {
             inputs["reinstall"] = args ? args.reinstall : undefined;
             inputs["storage"] = args ? args.storage : undefined;
             inputs["tags"] = args ? args.tags : undefined;
+            inputs["terminationTime"] = args ? args.terminationTime : undefined;
             inputs["userData"] = args ? args.userData : undefined;
             inputs["waitForReservationDeprovision"] = args ? args.waitForReservationDeprovision : undefined;
             inputs["accessPrivateIpv4"] = undefined /*out*/;
@@ -451,8 +446,7 @@ export interface DeviceState {
      */
     readonly accessPublicIpv6?: pulumi.Input<string>;
     /**
-     * If true, a device with OS `customIpxe` will
-     * continue to boot via iPXE on reboots.
+     * If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
      */
     readonly alwaysPxe?: pulumi.Input<boolean>;
     /**
@@ -476,7 +470,7 @@ export interface DeviceState {
      */
     readonly deployedHardwareReservationId?: pulumi.Input<string>;
     /**
-     * Description string for the device
+     * The device description.
      */
     readonly description?: pulumi.Input<string>;
     /**
@@ -493,7 +487,7 @@ export interface DeviceState {
      */
     readonly hardwareReservationId?: pulumi.Input<string>;
     /**
-     * The device name
+     * The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
      */
     readonly hostname?: pulumi.Input<string>;
     /**
@@ -501,10 +495,7 @@ export interface DeviceState {
      */
     readonly ipAddresses?: pulumi.Input<pulumi.Input<inputs.DeviceIpAddress>[]>;
     /**
-     * URL pointing to a hosted iPXE script. More
-     * information is in the
-     * [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-     * doc.
+     * URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
      */
     readonly ipxeScriptUrl?: pulumi.Input<string>;
     /**
@@ -568,14 +559,17 @@ export interface DeviceState {
      */
     readonly state?: pulumi.Input<string>;
     /**
-     * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-     * * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+     * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
      */
     readonly storage?: pulumi.Input<string>;
     /**
      * Tags attached to the device
      */
     readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+     */
+    readonly terminationTime?: pulumi.Input<string>;
     /**
      * The timestamp for the last time the device was updated
      */
@@ -595,20 +589,19 @@ export interface DeviceState {
  */
 export interface DeviceArgs {
     /**
-     * If true, a device with OS `customIpxe` will
-     * continue to boot via iPXE on reboots.
+     * If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
      */
     readonly alwaysPxe?: pulumi.Input<boolean>;
     /**
      * monthly or hourly
      */
-    readonly billingCycle: pulumi.Input<string | enums.BillingCycle>;
+    readonly billingCycle?: pulumi.Input<string | enums.BillingCycle>;
     /**
      * A string of the desired Custom Data for the device.
      */
     readonly customData?: pulumi.Input<string>;
     /**
-     * Description string for the device
+     * The device description.
      */
     readonly description?: pulumi.Input<string>;
     /**
@@ -625,18 +618,15 @@ export interface DeviceArgs {
      */
     readonly hardwareReservationId?: pulumi.Input<string>;
     /**
-     * The device name
+     * The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
      */
-    readonly hostname: pulumi.Input<string>;
+    readonly hostname?: pulumi.Input<string>;
     /**
      * A list of IP address types for the device (structure is documented below).
      */
     readonly ipAddresses?: pulumi.Input<pulumi.Input<inputs.DeviceIpAddress>[]>;
     /**
-     * URL pointing to a hosted iPXE script. More
-     * information is in the
-     * [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-     * doc.
+     * URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
      */
     readonly ipxeScriptUrl?: pulumi.Input<string>;
     /**
@@ -664,14 +654,17 @@ export interface DeviceArgs {
      */
     readonly reinstall?: pulumi.Input<inputs.DeviceReinstall>;
     /**
-     * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-     * * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+     * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
      */
     readonly storage?: pulumi.Input<string>;
     /**
      * Tags attached to the device
      */
     readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+     */
+    readonly terminationTime?: pulumi.Input<string>;
     /**
      * A string of the desired User Data for the device.
      */

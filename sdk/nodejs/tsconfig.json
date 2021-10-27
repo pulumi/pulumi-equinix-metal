@@ -43,6 +43,7 @@
         "index.ts",
         "ipAttachment.ts",
         "organization.ts",
+        "port.ts",
         "portVlanAttachment.ts",
         "project.ts",
         "projectApiKey.ts",

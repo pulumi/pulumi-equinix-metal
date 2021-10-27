@@ -26,6 +26,8 @@ __all__ = [
     'GetDeviceBgpNeighborsBgpNeighborRoutesOutResult',
     'GetDeviceNetworkResult',
     'GetDevicePortResult',
+    'GetFacilityCapacityResult',
+    'GetMetroCapacityResult',
     'GetProjectBgpConfigResult',
     'GetVolumeSnapshotPolicyResult',
 ]
@@ -346,7 +348,6 @@ class DeviceReinstall(dict):
                  preserve_data: Optional[bool] = None):
         """
         :param bool deprovision_fast: Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-               *
         :param bool enabled: Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
         :param bool preserve_data: Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
         """
@@ -362,7 +363,6 @@ class DeviceReinstall(dict):
     def deprovision_fast(self) -> Optional[bool]:
         """
         Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-        *
         """
         return pulumi.get(self, "deprovision_fast")
 
@@ -1056,6 +1056,66 @@ class GetDevicePortResult(dict):
         Type of the port (e.g. `NetworkPort` or `NetworkBondPort`)
         """
         return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GetFacilityCapacityResult(dict):
+    def __init__(__self__, *,
+                 plan: str,
+                 quantity: Optional[int] = None):
+        """
+        :param str plan: device plan to check
+        :param int quantity: number of device to check
+        """
+        pulumi.set(__self__, "plan", plan)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+
+    @property
+    @pulumi.getter
+    def plan(self) -> str:
+        """
+        device plan to check
+        """
+        return pulumi.get(self, "plan")
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> Optional[int]:
+        """
+        number of device to check
+        """
+        return pulumi.get(self, "quantity")
+
+
+@pulumi.output_type
+class GetMetroCapacityResult(dict):
+    def __init__(__self__, *,
+                 plan: str,
+                 quantity: Optional[int] = None):
+        """
+        :param str plan: device plan to check
+        :param int quantity: number of device to check
+        """
+        pulumi.set(__self__, "plan", plan)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+
+    @property
+    @pulumi.getter
+    def plan(self) -> str:
+        """
+        device plan to check
+        """
+        return pulumi.get(self, "plan")
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> Optional[int]:
+        """
+        number of device to check
+        """
+        return pulumi.get(self, "quantity")
 
 
 @pulumi.output_type

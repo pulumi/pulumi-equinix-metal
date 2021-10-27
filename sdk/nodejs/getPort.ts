@@ -42,8 +42,8 @@ export function getPort(args?: GetPortArgs, opts?: pulumi.InvokeOptions): Promis
     }
     return pulumi.runtime.invoke("equinix-metal:index/getPort:getPort", {
         "deviceId": args.deviceId,
-        "id": args.id,
         "name": args.name,
+        "portId": args.portId,
     }, opts);
 }
 
@@ -53,13 +53,10 @@ export function getPort(args?: GetPortArgs, opts?: pulumi.InvokeOptions): Promis
 export interface GetPortArgs {
     readonly deviceId?: string;
     /**
-     * ID of the port to read, conflicts with device_id.
-     */
-    readonly id?: string;
-    /**
      * Whether to look for public or private block.
      */
     readonly name?: string;
+    readonly portId?: string;
 }
 
 /**
@@ -83,7 +80,11 @@ export interface GetPortResult {
      * Flag indicating whether the port can be removed from a bond
      */
     readonly disbondSupported: boolean;
-    readonly id?: string;
+    /**
+     * The provider-assigned unique ID for this managed resource.
+     */
+    readonly id: string;
+    readonly layer2: boolean;
     /**
      * MAC address of the port
      */
@@ -97,6 +98,7 @@ export interface GetPortResult {
      * One of layer2-bonded, layer2-individual, layer3, hybrid, hybrid-bonded
      */
     readonly networkType: string;
+    readonly portId?: string;
     /**
      * Type is either "NetworkBondPort" for bond ports or "NetworkPort" for bondable ethernet ports
      */
@@ -105,4 +107,8 @@ export interface GetPortResult {
      * UUIDs of attached VLANs
      */
     readonly vlanIds: string[];
+    /**
+     * VXLAN ids of attached VLANs
+     */
+    readonly vxlanIds: number[];
 }

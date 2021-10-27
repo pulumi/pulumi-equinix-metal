@@ -88,7 +88,6 @@ export interface DevicePort {
 export interface DeviceReinstall {
     /**
      * Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-     * *
      */
     deprovisionFast?: boolean;
     /**
@@ -241,6 +240,28 @@ export interface GetDevicePort {
      * Type of the port (e.g. `NetworkPort` or `NetworkBondPort`)
      */
     type: string;
+}
+
+export interface GetFacilityCapacity {
+    /**
+     * device plan to check
+     */
+    plan: string;
+    /**
+     * number of device to check
+     */
+    quantity?: number;
+}
+
+export interface GetMetroCapacity {
+    /**
+     * device plan to check
+     */
+    plan: string;
+    /**
+     * number of device to check
+     */
+    quantity?: number;
 }
 
 export interface GetProjectBgpConfig {

@@ -19,7 +19,7 @@ class GetPortResult:
     """
     A collection of values returned by getPort.
     """
-    def __init__(__self__, bond_id=None, bond_name=None, bonded=None, device_id=None, disbond_supported=None, id=None, mac=None, name=None, native_vlan_id=None, network_type=None, type=None, vlan_ids=None):
+    def __init__(__self__, bond_id=None, bond_name=None, bonded=None, device_id=None, disbond_supported=None, id=None, layer2=None, mac=None, name=None, native_vlan_id=None, network_type=None, port_id=None, type=None, vlan_ids=None, vxlan_ids=None):
         if bond_id and not isinstance(bond_id, str):
             raise TypeError("Expected argument 'bond_id' to be a str")
         pulumi.set(__self__, "bond_id", bond_id)
@@ -38,6 +38,9 @@ class GetPortResult:
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if layer2 and not isinstance(layer2, bool):
+            raise TypeError("Expected argument 'layer2' to be a bool")
+        pulumi.set(__self__, "layer2", layer2)
         if mac and not isinstance(mac, str):
             raise TypeError("Expected argument 'mac' to be a str")
         pulumi.set(__self__, "mac", mac)
@@ -50,12 +53,18 @@ class GetPortResult:
         if network_type and not isinstance(network_type, str):
             raise TypeError("Expected argument 'network_type' to be a str")
         pulumi.set(__self__, "network_type", network_type)
+        if port_id and not isinstance(port_id, str):
+            raise TypeError("Expected argument 'port_id' to be a str")
+        pulumi.set(__self__, "port_id", port_id)
         if type and not isinstance(type, str):
             raise TypeError("Expected argument 'type' to be a str")
         pulumi.set(__self__, "type", type)
         if vlan_ids and not isinstance(vlan_ids, list):
             raise TypeError("Expected argument 'vlan_ids' to be a list")
         pulumi.set(__self__, "vlan_ids", vlan_ids)
+        if vxlan_ids and not isinstance(vxlan_ids, list):
+            raise TypeError("Expected argument 'vxlan_ids' to be a list")
+        pulumi.set(__self__, "vxlan_ids", vxlan_ids)
 
     @property
     @pulumi.getter(name="bondId")
@@ -96,8 +105,16 @@ class GetPortResult:
 
     @property
     @pulumi.getter
-    def id(self) -> Optional[str]:
+    def id(self) -> str:
+        """
+        The provider-assigned unique ID for this managed resource.
+        """
         return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def layer2(self) -> bool:
+        return pulumi.get(self, "layer2")
 
     @property
     @pulumi.getter
@@ -129,6 +146,11 @@ class GetPortResult:
         return pulumi.get(self, "network_type")
 
     @property
+    @pulumi.getter(name="portId")
+    def port_id(self) -> Optional[str]:
+        return pulumi.get(self, "port_id")
+
+    @property
     @pulumi.getter
     def type(self) -> str:
         """
@@ -144,6 +166,14 @@ class GetPortResult:
         """
         return pulumi.get(self, "vlan_ids")
 
+    @property
+    @pulumi.getter(name="vxlanIds")
+    def vxlan_ids(self) -> Sequence[int]:
+        """
+        VXLAN ids of attached VLANs
+        """
+        return pulumi.get(self, "vxlan_ids")
+
 
 class AwaitableGetPortResult(GetPortResult):
     # pylint: disable=using-constant-test
@@ -157,17 +187,20 @@ class AwaitableGetPortResult(GetPortResult):
             device_id=self.device_id,
             disbond_supported=self.disbond_supported,
             id=self.id,
+            layer2=self.layer2,
             mac=self.mac,
             name=self.name,
             native_vlan_id=self.native_vlan_id,
             network_type=self.network_type,
+            port_id=self.port_id,
             type=self.type,
-            vlan_ids=self.vlan_ids)
+            vlan_ids=self.vlan_ids,
+            vxlan_ids=self.vxlan_ids)
 
 
 def get_port(device_id: Optional[str] = None,
-             id: Optional[str] = None,
              name: Optional[str] = None,
+             port_id: Optional[str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPortResult:
     """
     Use this data source to read ports of existing devices. You can read port by either its UUID, or by a device UUID and port name.
@@ -193,13 +226,12 @@ def get_port(device_id: Optional[str] = None,
     ```
 
 
-    :param str id: ID of the port to read, conflicts with device_id.
     :param str name: Whether to look for public or private block.
     """
     __args__ = dict()
     __args__['deviceId'] = device_id
-    __args__['id'] = id
     __args__['name'] = name
+    __args__['portId'] = port_id
     if opts is None:
         opts = pulumi.InvokeOptions()
     if opts.version is None:
@@ -213,9 +245,12 @@ def get_port(device_id: Optional[str] = None,
         device_id=__ret__.device_id,
         disbond_supported=__ret__.disbond_supported,
         id=__ret__.id,
+        layer2=__ret__.layer2,
         mac=__ret__.mac,
         name=__ret__.name,
         native_vlan_id=__ret__.native_vlan_id,
         network_type=__ret__.network_type,
+        port_id=__ret__.port_id,
         type=__ret__.type,
-        vlan_ids=__ret__.vlan_ids)
+        vlan_ids=__ret__.vlan_ids,
+        vxlan_ids=__ret__.vxlan_ids)

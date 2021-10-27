@@ -64,16 +64,13 @@ namespace Pulumi.EquinixMetal
         public string? DeviceId { get; set; }
 
         /// <summary>
-        /// ID of the port to read, conflicts with device_id.
-        /// </summary>
-        [Input("id")]
-        public string? Id { get; set; }
-
-        /// <summary>
         /// Whether to look for public or private block.
         /// </summary>
         [Input("name")]
         public string? Name { get; set; }
+
+        [Input("portId")]
+        public string? PortId { get; set; }
 
         public GetPortArgs()
         {
@@ -101,7 +98,11 @@ namespace Pulumi.EquinixMetal
         /// Flag indicating whether the port can be removed from a bond
         /// </summary>
         public readonly bool DisbondSupported;
-        public readonly string? Id;
+        /// <summary>
+        /// The provider-assigned unique ID for this managed resource.
+        /// </summary>
+        public readonly string Id;
+        public readonly bool Layer2;
         /// <summary>
         /// MAC address of the port
         /// </summary>
@@ -115,6 +116,7 @@ namespace Pulumi.EquinixMetal
         /// One of layer2-bonded, layer2-individual, layer3, hybrid, hybrid-bonded
         /// </summary>
         public readonly string NetworkType;
+        public readonly string? PortId;
         /// <summary>
         /// Type is either "NetworkBondPort" for bond ports or "NetworkPort" for bondable ethernet ports
         /// </summary>
@@ -123,6 +125,10 @@ namespace Pulumi.EquinixMetal
         /// UUIDs of attached VLANs
         /// </summary>
         public readonly ImmutableArray<string> VlanIds;
+        /// <summary>
+        /// VXLAN ids of attached VLANs
+        /// </summary>
+        public readonly ImmutableArray<int> VxlanIds;
 
         [OutputConstructor]
         private GetPortResult(
@@ -136,7 +142,9 @@ namespace Pulumi.EquinixMetal
 
             bool disbondSupported,
 
-            string? id,
+            string id,
+
+            bool layer2,
 
             string mac,
 
@@ -146,9 +154,13 @@ namespace Pulumi.EquinixMetal
 
             string networkType,
 
+            string? portId,
+
             string type,
 
-            ImmutableArray<string> vlanIds)
+            ImmutableArray<string> vlanIds,
+
+            ImmutableArray<int> vxlanIds)
         {
             BondId = bondId;
             BondName = bondName;
@@ -156,12 +168,15 @@ namespace Pulumi.EquinixMetal
             DeviceId = deviceId;
             DisbondSupported = disbondSupported;
             Id = id;
+            Layer2 = layer2;
             Mac = mac;
             Name = name;
             NativeVlanId = nativeVlanId;
             NetworkType = networkType;
+            PortId = portId;
             Type = type;
             VlanIds = vlanIds;
+            VxlanIds = vxlanIds;
         }
     }
 }

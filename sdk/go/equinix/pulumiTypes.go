@@ -535,7 +535,6 @@ func (o DevicePortArrayOutput) Index(i pulumi.IntInput) DevicePortOutput {
 
 type DeviceReinstall struct {
 	// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-	// *
 	DeprovisionFast *bool `pulumi:"deprovisionFast"`
 	// Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
 	Enabled *bool `pulumi:"enabled"`
@@ -556,7 +555,6 @@ type DeviceReinstallInput interface {
 
 type DeviceReinstallArgs struct {
 	// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-	// *
 	DeprovisionFast pulumi.BoolPtrInput `pulumi:"deprovisionFast"`
 	// Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
 	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
@@ -642,7 +640,6 @@ func (o DeviceReinstallOutput) ToDeviceReinstallPtrOutputWithContext(ctx context
 }
 
 // Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-// *
 func (o DeviceReinstallOutput) DeprovisionFast() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DeviceReinstall) *bool { return v.DeprovisionFast }).(pulumi.BoolPtrOutput)
 }
@@ -676,7 +673,6 @@ func (o DeviceReinstallPtrOutput) Elem() DeviceReinstallOutput {
 }
 
 // Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-// *
 func (o DeviceReinstallPtrOutput) DeprovisionFast() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *DeviceReinstall) *bool {
 		if v == nil {
@@ -2258,6 +2254,218 @@ func (o GetDevicePortArrayOutput) Index(i pulumi.IntInput) GetDevicePortOutput {
 	}).(GetDevicePortOutput)
 }
 
+type GetFacilityCapacity struct {
+	// device plan to check
+	Plan string `pulumi:"plan"`
+	// number of device to check
+	Quantity *int `pulumi:"quantity"`
+}
+
+// GetFacilityCapacityInput is an input type that accepts GetFacilityCapacityArgs and GetFacilityCapacityOutput values.
+// You can construct a concrete instance of `GetFacilityCapacityInput` via:
+//
+//          GetFacilityCapacityArgs{...}
+type GetFacilityCapacityInput interface {
+	pulumi.Input
+
+	ToGetFacilityCapacityOutput() GetFacilityCapacityOutput
+	ToGetFacilityCapacityOutputWithContext(context.Context) GetFacilityCapacityOutput
+}
+
+type GetFacilityCapacityArgs struct {
+	// device plan to check
+	Plan pulumi.StringInput `pulumi:"plan"`
+	// number of device to check
+	Quantity pulumi.IntPtrInput `pulumi:"quantity"`
+}
+
+func (GetFacilityCapacityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFacilityCapacity)(nil)).Elem()
+}
+
+func (i GetFacilityCapacityArgs) ToGetFacilityCapacityOutput() GetFacilityCapacityOutput {
+	return i.ToGetFacilityCapacityOutputWithContext(context.Background())
+}
+
+func (i GetFacilityCapacityArgs) ToGetFacilityCapacityOutputWithContext(ctx context.Context) GetFacilityCapacityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFacilityCapacityOutput)
+}
+
+// GetFacilityCapacityArrayInput is an input type that accepts GetFacilityCapacityArray and GetFacilityCapacityArrayOutput values.
+// You can construct a concrete instance of `GetFacilityCapacityArrayInput` via:
+//
+//          GetFacilityCapacityArray{ GetFacilityCapacityArgs{...} }
+type GetFacilityCapacityArrayInput interface {
+	pulumi.Input
+
+	ToGetFacilityCapacityArrayOutput() GetFacilityCapacityArrayOutput
+	ToGetFacilityCapacityArrayOutputWithContext(context.Context) GetFacilityCapacityArrayOutput
+}
+
+type GetFacilityCapacityArray []GetFacilityCapacityInput
+
+func (GetFacilityCapacityArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFacilityCapacity)(nil)).Elem()
+}
+
+func (i GetFacilityCapacityArray) ToGetFacilityCapacityArrayOutput() GetFacilityCapacityArrayOutput {
+	return i.ToGetFacilityCapacityArrayOutputWithContext(context.Background())
+}
+
+func (i GetFacilityCapacityArray) ToGetFacilityCapacityArrayOutputWithContext(ctx context.Context) GetFacilityCapacityArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetFacilityCapacityArrayOutput)
+}
+
+type GetFacilityCapacityOutput struct{ *pulumi.OutputState }
+
+func (GetFacilityCapacityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFacilityCapacity)(nil)).Elem()
+}
+
+func (o GetFacilityCapacityOutput) ToGetFacilityCapacityOutput() GetFacilityCapacityOutput {
+	return o
+}
+
+func (o GetFacilityCapacityOutput) ToGetFacilityCapacityOutputWithContext(ctx context.Context) GetFacilityCapacityOutput {
+	return o
+}
+
+// device plan to check
+func (o GetFacilityCapacityOutput) Plan() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFacilityCapacity) string { return v.Plan }).(pulumi.StringOutput)
+}
+
+// number of device to check
+func (o GetFacilityCapacityOutput) Quantity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetFacilityCapacity) *int { return v.Quantity }).(pulumi.IntPtrOutput)
+}
+
+type GetFacilityCapacityArrayOutput struct{ *pulumi.OutputState }
+
+func (GetFacilityCapacityArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetFacilityCapacity)(nil)).Elem()
+}
+
+func (o GetFacilityCapacityArrayOutput) ToGetFacilityCapacityArrayOutput() GetFacilityCapacityArrayOutput {
+	return o
+}
+
+func (o GetFacilityCapacityArrayOutput) ToGetFacilityCapacityArrayOutputWithContext(ctx context.Context) GetFacilityCapacityArrayOutput {
+	return o
+}
+
+func (o GetFacilityCapacityArrayOutput) Index(i pulumi.IntInput) GetFacilityCapacityOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetFacilityCapacity {
+		return vs[0].([]GetFacilityCapacity)[vs[1].(int)]
+	}).(GetFacilityCapacityOutput)
+}
+
+type GetMetroCapacity struct {
+	// device plan to check
+	Plan string `pulumi:"plan"`
+	// number of device to check
+	Quantity *int `pulumi:"quantity"`
+}
+
+// GetMetroCapacityInput is an input type that accepts GetMetroCapacityArgs and GetMetroCapacityOutput values.
+// You can construct a concrete instance of `GetMetroCapacityInput` via:
+//
+//          GetMetroCapacityArgs{...}
+type GetMetroCapacityInput interface {
+	pulumi.Input
+
+	ToGetMetroCapacityOutput() GetMetroCapacityOutput
+	ToGetMetroCapacityOutputWithContext(context.Context) GetMetroCapacityOutput
+}
+
+type GetMetroCapacityArgs struct {
+	// device plan to check
+	Plan pulumi.StringInput `pulumi:"plan"`
+	// number of device to check
+	Quantity pulumi.IntPtrInput `pulumi:"quantity"`
+}
+
+func (GetMetroCapacityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMetroCapacity)(nil)).Elem()
+}
+
+func (i GetMetroCapacityArgs) ToGetMetroCapacityOutput() GetMetroCapacityOutput {
+	return i.ToGetMetroCapacityOutputWithContext(context.Background())
+}
+
+func (i GetMetroCapacityArgs) ToGetMetroCapacityOutputWithContext(ctx context.Context) GetMetroCapacityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetMetroCapacityOutput)
+}
+
+// GetMetroCapacityArrayInput is an input type that accepts GetMetroCapacityArray and GetMetroCapacityArrayOutput values.
+// You can construct a concrete instance of `GetMetroCapacityArrayInput` via:
+//
+//          GetMetroCapacityArray{ GetMetroCapacityArgs{...} }
+type GetMetroCapacityArrayInput interface {
+	pulumi.Input
+
+	ToGetMetroCapacityArrayOutput() GetMetroCapacityArrayOutput
+	ToGetMetroCapacityArrayOutputWithContext(context.Context) GetMetroCapacityArrayOutput
+}
+
+type GetMetroCapacityArray []GetMetroCapacityInput
+
+func (GetMetroCapacityArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetMetroCapacity)(nil)).Elem()
+}
+
+func (i GetMetroCapacityArray) ToGetMetroCapacityArrayOutput() GetMetroCapacityArrayOutput {
+	return i.ToGetMetroCapacityArrayOutputWithContext(context.Background())
+}
+
+func (i GetMetroCapacityArray) ToGetMetroCapacityArrayOutputWithContext(ctx context.Context) GetMetroCapacityArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetMetroCapacityArrayOutput)
+}
+
+type GetMetroCapacityOutput struct{ *pulumi.OutputState }
+
+func (GetMetroCapacityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMetroCapacity)(nil)).Elem()
+}
+
+func (o GetMetroCapacityOutput) ToGetMetroCapacityOutput() GetMetroCapacityOutput {
+	return o
+}
+
+func (o GetMetroCapacityOutput) ToGetMetroCapacityOutputWithContext(ctx context.Context) GetMetroCapacityOutput {
+	return o
+}
+
+// device plan to check
+func (o GetMetroCapacityOutput) Plan() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMetroCapacity) string { return v.Plan }).(pulumi.StringOutput)
+}
+
+// number of device to check
+func (o GetMetroCapacityOutput) Quantity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetMetroCapacity) *int { return v.Quantity }).(pulumi.IntPtrOutput)
+}
+
+type GetMetroCapacityArrayOutput struct{ *pulumi.OutputState }
+
+func (GetMetroCapacityArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetMetroCapacity)(nil)).Elem()
+}
+
+func (o GetMetroCapacityArrayOutput) ToGetMetroCapacityArrayOutput() GetMetroCapacityArrayOutput {
+	return o
+}
+
+func (o GetMetroCapacityArrayOutput) ToGetMetroCapacityArrayOutputWithContext(ctx context.Context) GetMetroCapacityArrayOutput {
+	return o
+}
+
+func (o GetMetroCapacityArrayOutput) Index(i pulumi.IntInput) GetMetroCapacityOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetMetroCapacity {
+		return vs[0].([]GetMetroCapacity)[vs[1].(int)]
+	}).(GetMetroCapacityOutput)
+}
+
 type GetProjectBgpConfig struct {
 	// Autonomous System Number for local BGP deployment
 	Asn int `pulumi:"asn"`
@@ -2522,6 +2730,10 @@ func init() {
 	pulumi.RegisterOutputType(GetDeviceNetworkArrayOutput{})
 	pulumi.RegisterOutputType(GetDevicePortOutput{})
 	pulumi.RegisterOutputType(GetDevicePortArrayOutput{})
+	pulumi.RegisterOutputType(GetFacilityCapacityOutput{})
+	pulumi.RegisterOutputType(GetFacilityCapacityArrayOutput{})
+	pulumi.RegisterOutputType(GetMetroCapacityOutput{})
+	pulumi.RegisterOutputType(GetMetroCapacityArrayOutput{})
 	pulumi.RegisterOutputType(GetProjectBgpConfigOutput{})
 	pulumi.RegisterOutputType(GetProjectBgpConfigArrayOutput{})
 	pulumi.RegisterOutputType(GetVolumeSnapshotPolicyOutput{})
