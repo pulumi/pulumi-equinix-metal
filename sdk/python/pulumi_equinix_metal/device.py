@@ -16,17 +16,17 @@ __all__ = ['DeviceArgs', 'Device']
 @pulumi.input_type
 class DeviceArgs:
     def __init__(__self__, *,
-                 billing_cycle: pulumi.Input[Union[str, 'BillingCycle']],
-                 hostname: pulumi.Input[str],
                  operating_system: pulumi.Input[Union[str, 'OperatingSystem']],
                  plan: pulumi.Input[Union[str, 'Plan']],
                  project_id: pulumi.Input[str],
                  always_pxe: Optional[pulumi.Input[bool]] = None,
+                 billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
                  custom_data: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  facilities: Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]] = None,
                  force_detach_volumes: Optional[pulumi.Input[bool]] = None,
                  hardware_reservation_id: Optional[pulumi.Input[str]] = None,
+                 hostname: Optional[pulumi.Input[str]] = None,
                  ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]] = None,
                  ipxe_script_url: Optional[pulumi.Input[str]] = None,
                  metro: Optional[pulumi.Input[str]] = None,
@@ -34,44 +34,41 @@ class DeviceArgs:
                  reinstall: Optional[pulumi.Input['DeviceReinstallArgs']] = None,
                  storage: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 termination_time: Optional[pulumi.Input[str]] = None,
                  user_data: Optional[pulumi.Input[str]] = None,
                  wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a Device resource.
-        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
-        :param pulumi.Input[str] hostname: The device name
         :param pulumi.Input[Union[str, 'OperatingSystem']] operating_system: The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[Union[str, 'Plan']] plan: The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[str] project_id: The ID of the project in which to create the device
-        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will
-               continue to boot via iPXE on reboots.
+        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
+        :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
         :param pulumi.Input[str] custom_data: A string of the desired Custom Data for the device.
-        :param pulumi.Input[str] description: Description string for the device
+        :param pulumi.Input[str] description: The device description.
         :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[str] hardware_reservation_id: The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
                next available reservation automatically
+        :param pulumi.Input[str] hostname: The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]] ip_addresses: A list of IP address types for the device (structure is documented below).
-        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More
-               information is in the
-               [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-               doc.
+        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ssh_key_ids: Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
         :param pulumi.Input['DeviceReinstallArgs'] reinstall: Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
-        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-               * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags attached to the device
+        :param pulumi.Input[str] termination_time: Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
         :param pulumi.Input[str] user_data: A string of the desired User Data for the device.
         :param pulumi.Input[bool] wait_for_reservation_deprovision: Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
         """
-        pulumi.set(__self__, "billing_cycle", billing_cycle)
-        pulumi.set(__self__, "hostname", hostname)
         pulumi.set(__self__, "operating_system", operating_system)
         pulumi.set(__self__, "plan", plan)
         pulumi.set(__self__, "project_id", project_id)
         if always_pxe is not None:
             pulumi.set(__self__, "always_pxe", always_pxe)
+        if billing_cycle is not None:
+            pulumi.set(__self__, "billing_cycle", billing_cycle)
         if custom_data is not None:
             pulumi.set(__self__, "custom_data", custom_data)
         if description is not None:
@@ -82,6 +79,8 @@ class DeviceArgs:
             pulumi.set(__self__, "force_detach_volumes", force_detach_volumes)
         if hardware_reservation_id is not None:
             pulumi.set(__self__, "hardware_reservation_id", hardware_reservation_id)
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
         if ip_addresses is not None:
             pulumi.set(__self__, "ip_addresses", ip_addresses)
         if ipxe_script_url is not None:
@@ -96,34 +95,12 @@ class DeviceArgs:
             pulumi.set(__self__, "storage", storage)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if termination_time is not None:
+            pulumi.set(__self__, "termination_time", termination_time)
         if user_data is not None:
             pulumi.set(__self__, "user_data", user_data)
         if wait_for_reservation_deprovision is not None:
             pulumi.set(__self__, "wait_for_reservation_deprovision", wait_for_reservation_deprovision)
-
-    @property
-    @pulumi.getter(name="billingCycle")
-    def billing_cycle(self) -> pulumi.Input[Union[str, 'BillingCycle']]:
-        """
-        monthly or hourly
-        """
-        return pulumi.get(self, "billing_cycle")
-
-    @billing_cycle.setter
-    def billing_cycle(self, value: pulumi.Input[Union[str, 'BillingCycle']]):
-        pulumi.set(self, "billing_cycle", value)
-
-    @property
-    @pulumi.getter
-    def hostname(self) -> pulumi.Input[str]:
-        """
-        The device name
-        """
-        return pulumi.get(self, "hostname")
-
-    @hostname.setter
-    def hostname(self, value: pulumi.Input[str]):
-        pulumi.set(self, "hostname", value)
 
     @property
     @pulumi.getter(name="operatingSystem")
@@ -165,14 +142,25 @@ class DeviceArgs:
     @pulumi.getter(name="alwaysPxe")
     def always_pxe(self) -> Optional[pulumi.Input[bool]]:
         """
-        If true, a device with OS `custom_ipxe` will
-        continue to boot via iPXE on reboots.
+        If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         """
         return pulumi.get(self, "always_pxe")
 
     @always_pxe.setter
     def always_pxe(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "always_pxe", value)
+
+    @property
+    @pulumi.getter(name="billingCycle")
+    def billing_cycle(self) -> Optional[pulumi.Input[Union[str, 'BillingCycle']]]:
+        """
+        monthly or hourly
+        """
+        return pulumi.get(self, "billing_cycle")
+
+    @billing_cycle.setter
+    def billing_cycle(self, value: Optional[pulumi.Input[Union[str, 'BillingCycle']]]):
+        pulumi.set(self, "billing_cycle", value)
 
     @property
     @pulumi.getter(name="customData")
@@ -190,7 +178,7 @@ class DeviceArgs:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        Description string for the device
+        The device description.
         """
         return pulumi.get(self, "description")
 
@@ -236,6 +224,18 @@ class DeviceArgs:
         pulumi.set(self, "hardware_reservation_id", value)
 
     @property
+    @pulumi.getter
+    def hostname(self) -> Optional[pulumi.Input[str]]:
+        """
+        The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "hostname", value)
+
+    @property
     @pulumi.getter(name="ipAddresses")
     def ip_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]]:
         """
@@ -251,10 +251,7 @@ class DeviceArgs:
     @pulumi.getter(name="ipxeScriptUrl")
     def ipxe_script_url(self) -> Optional[pulumi.Input[str]]:
         """
-        URL pointing to a hosted iPXE script. More
-        information is in the
-        [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-        doc.
+        URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         """
         return pulumi.get(self, "ipxe_script_url")
 
@@ -302,8 +299,7 @@ class DeviceArgs:
     @pulumi.getter
     def storage(self) -> Optional[pulumi.Input[str]]:
         """
-        JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-        * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         """
         return pulumi.get(self, "storage")
 
@@ -322,6 +318,18 @@ class DeviceArgs:
     @tags.setter
     def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "tags", value)
+
+    @property
+    @pulumi.getter(name="terminationTime")
+    def termination_time(self) -> Optional[pulumi.Input[str]]:
+        """
+        Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+        """
+        return pulumi.get(self, "termination_time")
+
+    @termination_time.setter
+    def termination_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "termination_time", value)
 
     @property
     @pulumi.getter(name="userData")
@@ -382,6 +390,7 @@ class _DeviceState:
                  state: Optional[pulumi.Input[str]] = None,
                  storage: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 termination_time: Optional[pulumi.Input[str]] = None,
                  updated: Optional[pulumi.Input[str]] = None,
                  user_data: Optional[pulumi.Input[str]] = None,
                  wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None):
@@ -390,24 +399,20 @@ class _DeviceState:
         :param pulumi.Input[str] access_private_ipv4: The ipv4 private IP assigned to the device
         :param pulumi.Input[str] access_public_ipv4: The ipv4 maintenance IP assigned to the device
         :param pulumi.Input[str] access_public_ipv6: The ipv6 maintenance IP assigned to the device
-        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will
-               continue to boot via iPXE on reboots.
+        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
         :param pulumi.Input[str] created: The timestamp for when the device was created
         :param pulumi.Input[str] custom_data: A string of the desired Custom Data for the device.
         :param pulumi.Input[str] deployed_facility: The facility where the device is deployed.
         :param pulumi.Input[str] deployed_hardware_reservation_id: ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
-        :param pulumi.Input[str] description: Description string for the device
+        :param pulumi.Input[str] description: The device description.
         :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[str] hardware_reservation_id: The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
                next available reservation automatically
-        :param pulumi.Input[str] hostname: The device name
+        :param pulumi.Input[str] hostname: The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]] ip_addresses: A list of IP address types for the device (structure is documented below).
-        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More
-               information is in the
-               [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-               doc.
+        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         :param pulumi.Input[bool] locked: Whether the device is locked
         :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Union[str, 'NetworkType']] network_type: Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
@@ -427,9 +432,9 @@ class _DeviceState:
         :param pulumi.Input[str] root_password: Root password to the server (disabled after 24 hours)
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ssh_key_ids: List of IDs of SSH keys deployed in the device, can be both user and project SSH keys
         :param pulumi.Input[str] state: The status of the device
-        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-               * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags attached to the device
+        :param pulumi.Input[str] termination_time: Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
         :param pulumi.Input[str] updated: The timestamp for the last time the device was updated
         :param pulumi.Input[str] user_data: A string of the desired User Data for the device.
         :param pulumi.Input[bool] wait_for_reservation_deprovision: Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
@@ -499,6 +504,8 @@ class _DeviceState:
             pulumi.set(__self__, "storage", storage)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if termination_time is not None:
+            pulumi.set(__self__, "termination_time", termination_time)
         if updated is not None:
             pulumi.set(__self__, "updated", updated)
         if user_data is not None:
@@ -546,8 +553,7 @@ class _DeviceState:
     @pulumi.getter(name="alwaysPxe")
     def always_pxe(self) -> Optional[pulumi.Input[bool]]:
         """
-        If true, a device with OS `custom_ipxe` will
-        continue to boot via iPXE on reboots.
+        If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         """
         return pulumi.get(self, "always_pxe")
 
@@ -619,7 +625,7 @@ class _DeviceState:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        Description string for the device
+        The device description.
         """
         return pulumi.get(self, "description")
 
@@ -668,7 +674,7 @@ class _DeviceState:
     @pulumi.getter
     def hostname(self) -> Optional[pulumi.Input[str]]:
         """
-        The device name
+        The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         """
         return pulumi.get(self, "hostname")
 
@@ -692,10 +698,7 @@ class _DeviceState:
     @pulumi.getter(name="ipxeScriptUrl")
     def ipxe_script_url(self) -> Optional[pulumi.Input[str]]:
         """
-        URL pointing to a hosted iPXE script. More
-        information is in the
-        [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-        doc.
+        URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         """
         return pulumi.get(self, "ipxe_script_url")
 
@@ -869,8 +872,7 @@ class _DeviceState:
     @pulumi.getter
     def storage(self) -> Optional[pulumi.Input[str]]:
         """
-        JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-        * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         """
         return pulumi.get(self, "storage")
 
@@ -889,6 +891,18 @@ class _DeviceState:
     @tags.setter
     def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "tags", value)
+
+    @property
+    @pulumi.getter(name="terminationTime")
+    def termination_time(self) -> Optional[pulumi.Input[str]]:
+        """
+        Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+        """
+        return pulumi.get(self, "termination_time")
+
+    @termination_time.setter
+    def termination_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "termination_time", value)
 
     @property
     @pulumi.getter
@@ -950,6 +964,7 @@ class Device(pulumi.CustomResource):
                  reinstall: Optional[pulumi.Input[pulumi.InputType['DeviceReinstallArgs']]] = None,
                  storage: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 termination_time: Optional[pulumi.Input[str]] = None,
                  user_data: Optional[pulumi.Input[str]] = None,
                  wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
@@ -1095,30 +1110,26 @@ class Device(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will
-               continue to boot via iPXE on reboots.
+        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
         :param pulumi.Input[str] custom_data: A string of the desired Custom Data for the device.
-        :param pulumi.Input[str] description: Description string for the device
+        :param pulumi.Input[str] description: The device description.
         :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[str] hardware_reservation_id: The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
                next available reservation automatically
-        :param pulumi.Input[str] hostname: The device name
+        :param pulumi.Input[str] hostname: The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]] ip_addresses: A list of IP address types for the device (structure is documented below).
-        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More
-               information is in the
-               [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-               doc.
+        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Union[str, 'OperatingSystem']] operating_system: The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[Union[str, 'Plan']] plan: The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
         :param pulumi.Input[str] project_id: The ID of the project in which to create the device
         :param pulumi.Input[Sequence[pulumi.Input[str]]] project_ssh_key_ids: Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
         :param pulumi.Input[pulumi.InputType['DeviceReinstallArgs']] reinstall: Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
-        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-               * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags attached to the device
+        :param pulumi.Input[str] termination_time: Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
         :param pulumi.Input[str] user_data: A string of the desired User Data for the device.
         :param pulumi.Input[bool] wait_for_reservation_deprovision: Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
         """
@@ -1301,6 +1312,7 @@ class Device(pulumi.CustomResource):
                  reinstall: Optional[pulumi.Input[pulumi.InputType['DeviceReinstallArgs']]] = None,
                  storage: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 termination_time: Optional[pulumi.Input[str]] = None,
                  user_data: Optional[pulumi.Input[str]] = None,
                  wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
@@ -1316,16 +1328,12 @@ class Device(pulumi.CustomResource):
             __props__ = DeviceArgs.__new__(DeviceArgs)
 
             __props__.__dict__["always_pxe"] = always_pxe
-            if billing_cycle is None and not opts.urn:
-                raise TypeError("Missing required property 'billing_cycle'")
             __props__.__dict__["billing_cycle"] = billing_cycle
             __props__.__dict__["custom_data"] = custom_data
             __props__.__dict__["description"] = description
             __props__.__dict__["facilities"] = facilities
             __props__.__dict__["force_detach_volumes"] = force_detach_volumes
             __props__.__dict__["hardware_reservation_id"] = hardware_reservation_id
-            if hostname is None and not opts.urn:
-                raise TypeError("Missing required property 'hostname'")
             __props__.__dict__["hostname"] = hostname
             __props__.__dict__["ip_addresses"] = ip_addresses
             __props__.__dict__["ipxe_script_url"] = ipxe_script_url
@@ -1343,6 +1351,7 @@ class Device(pulumi.CustomResource):
             __props__.__dict__["reinstall"] = reinstall
             __props__.__dict__["storage"] = storage
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["termination_time"] = termination_time
             __props__.__dict__["user_data"] = user_data
             __props__.__dict__["wait_for_reservation_deprovision"] = wait_for_reservation_deprovision
             __props__.__dict__["access_private_ipv4"] = None
@@ -1400,6 +1409,7 @@ class Device(pulumi.CustomResource):
             state: Optional[pulumi.Input[str]] = None,
             storage: Optional[pulumi.Input[str]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            termination_time: Optional[pulumi.Input[str]] = None,
             updated: Optional[pulumi.Input[str]] = None,
             user_data: Optional[pulumi.Input[str]] = None,
             wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None) -> 'Device':
@@ -1413,24 +1423,20 @@ class Device(pulumi.CustomResource):
         :param pulumi.Input[str] access_private_ipv4: The ipv4 private IP assigned to the device
         :param pulumi.Input[str] access_public_ipv4: The ipv4 maintenance IP assigned to the device
         :param pulumi.Input[str] access_public_ipv6: The ipv6 maintenance IP assigned to the device
-        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will
-               continue to boot via iPXE on reboots.
+        :param pulumi.Input[bool] always_pxe: If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         :param pulumi.Input[Union[str, 'BillingCycle']] billing_cycle: monthly or hourly
         :param pulumi.Input[str] created: The timestamp for when the device was created
         :param pulumi.Input[str] custom_data: A string of the desired Custom Data for the device.
         :param pulumi.Input[str] deployed_facility: The facility where the device is deployed.
         :param pulumi.Input[str] deployed_hardware_reservation_id: ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
-        :param pulumi.Input[str] description: Description string for the device
+        :param pulumi.Input[str] description: The device description.
         :param pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]] facilities: List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
         :param pulumi.Input[bool] force_detach_volumes: Delete device even if it has volumes attached. Only applies for destroy action.
         :param pulumi.Input[str] hardware_reservation_id: The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
                next available reservation automatically
-        :param pulumi.Input[str] hostname: The device name
+        :param pulumi.Input[str] hostname: The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DeviceIpAddressArgs']]]] ip_addresses: A list of IP address types for the device (structure is documented below).
-        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More
-               information is in the
-               [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-               doc.
+        :param pulumi.Input[str] ipxe_script_url: URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         :param pulumi.Input[bool] locked: Whether the device is locked
         :param pulumi.Input[str] metro: Metro area for the new device. Conflicts with `facilities`.
         :param pulumi.Input[Union[str, 'NetworkType']] network_type: Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
@@ -1450,9 +1456,9 @@ class Device(pulumi.CustomResource):
         :param pulumi.Input[str] root_password: Root password to the server (disabled after 24 hours)
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ssh_key_ids: List of IDs of SSH keys deployed in the device, can be both user and project SSH keys
         :param pulumi.Input[str] state: The status of the device
-        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-               * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        :param pulumi.Input[str] storage: JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags attached to the device
+        :param pulumi.Input[str] termination_time: Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
         :param pulumi.Input[str] updated: The timestamp for the last time the device was updated
         :param pulumi.Input[str] user_data: A string of the desired User Data for the device.
         :param pulumi.Input[bool] wait_for_reservation_deprovision: Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
@@ -1492,6 +1498,7 @@ class Device(pulumi.CustomResource):
         __props__.__dict__["state"] = state
         __props__.__dict__["storage"] = storage
         __props__.__dict__["tags"] = tags
+        __props__.__dict__["termination_time"] = termination_time
         __props__.__dict__["updated"] = updated
         __props__.__dict__["user_data"] = user_data
         __props__.__dict__["wait_for_reservation_deprovision"] = wait_for_reservation_deprovision
@@ -1525,8 +1532,7 @@ class Device(pulumi.CustomResource):
     @pulumi.getter(name="alwaysPxe")
     def always_pxe(self) -> pulumi.Output[Optional[bool]]:
         """
-        If true, a device with OS `custom_ipxe` will
-        continue to boot via iPXE on reboots.
+        If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         """
         return pulumi.get(self, "always_pxe")
 
@@ -1574,7 +1580,7 @@ class Device(pulumi.CustomResource):
     @pulumi.getter
     def description(self) -> pulumi.Output[Optional[str]]:
         """
-        Description string for the device
+        The device description.
         """
         return pulumi.get(self, "description")
 
@@ -1607,7 +1613,7 @@ class Device(pulumi.CustomResource):
     @pulumi.getter
     def hostname(self) -> pulumi.Output[str]:
         """
-        The device name
+        The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         """
         return pulumi.get(self, "hostname")
 
@@ -1623,10 +1629,7 @@ class Device(pulumi.CustomResource):
     @pulumi.getter(name="ipxeScriptUrl")
     def ipxe_script_url(self) -> pulumi.Output[Optional[str]]:
         """
-        URL pointing to a hosted iPXE script. More
-        information is in the
-        [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-        doc.
+        URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         """
         return pulumi.get(self, "ipxe_script_url")
 
@@ -1744,8 +1747,7 @@ class Device(pulumi.CustomResource):
     @pulumi.getter
     def storage(self) -> pulumi.Output[Optional[str]]:
         """
-        JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-        * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         """
         return pulumi.get(self, "storage")
 
@@ -1756,6 +1758,14 @@ class Device(pulumi.CustomResource):
         Tags attached to the device
         """
         return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="terminationTime")
+    def termination_time(self) -> pulumi.Output[Optional[str]]:
+        """
+        Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+        """
+        return pulumi.get(self, "termination_time")
 
     @property
     @pulumi.getter

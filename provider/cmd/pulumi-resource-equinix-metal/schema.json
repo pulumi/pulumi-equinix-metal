@@ -287,7 +287,7 @@
             "properties": {
                 "deprovisionFast": {
                     "type": "boolean",
-                    "description": "Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.\n*\n",
+                    "description": "Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.\n",
                     "language": {
                         "python": {
                             "mapCase": false
@@ -1357,6 +1357,58 @@
                 }
             }
         },
+        "equinix-metal:index/getFacilityCapacity:getFacilityCapacity": {
+            "properties": {
+                "plan": {
+                    "type": "string",
+                    "description": "device plan to check\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "quantity": {
+                    "type": "integer",
+                    "description": "number of device to check\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "plan"
+            ]
+        },
+        "equinix-metal:index/getMetroCapacity:getMetroCapacity": {
+            "properties": {
+                "plan": {
+                    "type": "string",
+                    "description": "device plan to check\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "quantity": {
+                    "type": "integer",
+                    "description": "number of device to check\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "plan"
+            ]
+        },
         "equinix-metal:index/getProjectBgpConfig:getProjectBgpConfig": {
             "properties": {
                 "asn": {
@@ -1748,7 +1800,7 @@
                 },
                 "alwaysPxe": {
                     "type": "boolean",
-                    "description": "If true, a device with OS `custom_ipxe` will\ncontinue to boot via iPXE on reboots.\n"
+                    "description": "If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.\n"
                 },
                 "billingCycle": {
                     "type": "string",
@@ -1772,7 +1824,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "Description string for the device\n"
+                    "description": "The device description.\n"
                 },
                 "facilities": {
                     "type": "array",
@@ -1791,7 +1843,7 @@
                 },
                 "hostname": {
                     "type": "string",
-                    "description": "The device name\n"
+                    "description": "The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.\n"
                 },
                 "ipAddresses": {
                     "type": "array",
@@ -1802,7 +1854,7 @@
                 },
                 "ipxeScriptUrl": {
                     "type": "string",
-                    "description": "URL pointing to a hosted iPXE script. More\ninformation is in the\n[Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)\ndoc.\n"
+                    "description": "URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.\n"
                 },
                 "locked": {
                     "type": "boolean",
@@ -1871,7 +1923,7 @@
                 },
                 "storage": {
                     "type": "string",
-                    "description": "JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.\n* Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. \"4G\" or \"8M\" (for gigabytes and megabytes).\n"
+                    "description": "JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. \"4G\" or \"8M\" (for gigabytes and megabytes).\n"
                 },
                 "tags": {
                     "type": "array",
@@ -1879,6 +1931,10 @@
                         "type": "string"
                     },
                     "description": "Tags attached to the device\n"
+                },
+                "terminationTime": {
+                    "type": "string",
+                    "description": "Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.\n"
                 },
                 "updated": {
                     "type": "string",
@@ -1917,7 +1973,7 @@
             "inputProperties": {
                 "alwaysPxe": {
                     "type": "boolean",
-                    "description": "If true, a device with OS `custom_ipxe` will\ncontinue to boot via iPXE on reboots.\n"
+                    "description": "If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.\n"
                 },
                 "billingCycle": {
                     "type": "string",
@@ -1938,7 +1994,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "Description string for the device\n"
+                    "description": "The device description.\n"
                 },
                 "facilities": {
                     "type": "array",
@@ -1966,7 +2022,7 @@
                 },
                 "hostname": {
                     "type": "string",
-                    "description": "The device name\n"
+                    "description": "The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.\n"
                 },
                 "ipAddresses": {
                     "type": "array",
@@ -1977,7 +2033,7 @@
                 },
                 "ipxeScriptUrl": {
                     "type": "string",
-                    "description": "URL pointing to a hosted iPXE script. More\ninformation is in the\n[Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)\ndoc.\n"
+                    "description": "URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.\n"
                 },
                 "metro": {
                     "type": "string",
@@ -2026,7 +2082,7 @@
                 },
                 "storage": {
                     "type": "string",
-                    "description": "JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.\n* Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. \"4G\" or \"8M\" (for gigabytes and megabytes).\n"
+                    "description": "JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. \"4G\" or \"8M\" (for gigabytes and megabytes).\n"
                 },
                 "tags": {
                     "type": "array",
@@ -2034,6 +2090,10 @@
                         "type": "string"
                     },
                     "description": "Tags attached to the device\n"
+                },
+                "terminationTime": {
+                    "type": "string",
+                    "description": "Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.\n"
                 },
                 "userData": {
                     "type": "string",
@@ -2045,8 +2105,6 @@
                 }
             },
             "requiredInputs": [
-                "billingCycle",
-                "hostname",
                 "operatingSystem",
                 "plan",
                 "projectId"
@@ -2068,7 +2126,7 @@
                     },
                     "alwaysPxe": {
                         "type": "boolean",
-                        "description": "If true, a device with OS `custom_ipxe` will\ncontinue to boot via iPXE on reboots.\n"
+                        "description": "If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.\n"
                     },
                     "billingCycle": {
                         "type": "string",
@@ -2101,7 +2159,7 @@
                     },
                     "description": {
                         "type": "string",
-                        "description": "Description string for the device\n"
+                        "description": "The device description.\n"
                     },
                     "facilities": {
                         "type": "array",
@@ -2129,7 +2187,7 @@
                     },
                     "hostname": {
                         "type": "string",
-                        "description": "The device name\n"
+                        "description": "The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.\n"
                     },
                     "ipAddresses": {
                         "type": "array",
@@ -2140,7 +2198,7 @@
                     },
                     "ipxeScriptUrl": {
                         "type": "string",
-                        "description": "URL pointing to a hosted iPXE script. More\ninformation is in the\n[Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)\ndoc.\n"
+                        "description": "URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.\n"
                     },
                     "locked": {
                         "type": "boolean",
@@ -2236,7 +2294,7 @@
                     },
                     "storage": {
                         "type": "string",
-                        "description": "JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.\n* Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. \"4G\" or \"8M\" (for gigabytes and megabytes).\n"
+                        "description": "JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. \"4G\" or \"8M\" (for gigabytes and megabytes).\n"
                     },
                     "tags": {
                         "type": "array",
@@ -2244,6 +2302,10 @@
                             "type": "string"
                         },
                         "description": "Tags attached to the device\n"
+                    },
+                    "terminationTime": {
+                        "type": "string",
+                        "description": "Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.\n"
                     },
                     "updated": {
                         "type": "string",
@@ -2598,6 +2660,193 @@
                     "website": {
                         "type": "string",
                         "description": "Website link\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "equinix-metal:index/port:Port": {
+            "properties": {
+                "bondId": {
+                    "type": "string",
+                    "description": "UUID of the bond port\n"
+                },
+                "bondName": {
+                    "type": "string",
+                    "description": "Name of the bond port\n"
+                },
+                "bonded": {
+                    "type": "boolean",
+                    "description": "Whether the port should be bonded\n"
+                },
+                "disbondSupported": {
+                    "type": "boolean",
+                    "description": "Flag indicating whether the port can be removed from a bond\n"
+                },
+                "layer2": {
+                    "type": "boolean",
+                    "description": "Whether to put the port to Layer 2 mode, valid only for bond ports\n"
+                },
+                "mac": {
+                    "type": "string",
+                    "description": "MAC address of the port\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the port, e.g. `bond0` or `eth0`\n"
+                },
+                "nativeVlanId": {
+                    "type": "string",
+                    "description": "UUID of a VLAN to assign as a native VLAN. It must be one of attached VLANs (from `vlan_ids` parameter), valid only for physical (non-bond) ports\n"
+                },
+                "networkType": {
+                    "type": "string",
+                    "description": "One of layer2-bonded, layer2-individual, layer3, hybrid and hybrid-bonded. This attribute is only set on bond ports.\n"
+                },
+                "portId": {
+                    "type": "string",
+                    "description": "ID of the port to read\n"
+                },
+                "resetOnDelete": {
+                    "type": "boolean",
+                    "description": "Behavioral setting to reset the port to default settings. For a bond port it means layer3 without vlans attached, eth ports will be bonded without native vlan and vlans attached\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type is either \"NetworkBondPort\" for bond ports or \"NetworkPort\" for bondable ethernet ports\n"
+                },
+                "vlanIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of VLAN UUIDs to attach to the port, valid only for L2 and Hybrid ports\n"
+                },
+                "vxlanIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of VXLAN IDs to attach to the port, valid only for L2 and Hybrid ports\n"
+                }
+            },
+            "required": [
+                "bondId",
+                "bondName",
+                "bonded",
+                "disbondSupported",
+                "mac",
+                "name",
+                "networkType",
+                "portId",
+                "type",
+                "vlanIds",
+                "vxlanIds"
+            ],
+            "inputProperties": {
+                "bonded": {
+                    "type": "boolean",
+                    "description": "Whether the port should be bonded\n"
+                },
+                "layer2": {
+                    "type": "boolean",
+                    "description": "Whether to put the port to Layer 2 mode, valid only for bond ports\n"
+                },
+                "nativeVlanId": {
+                    "type": "string",
+                    "description": "UUID of a VLAN to assign as a native VLAN. It must be one of attached VLANs (from `vlan_ids` parameter), valid only for physical (non-bond) ports\n"
+                },
+                "portId": {
+                    "type": "string",
+                    "description": "ID of the port to read\n"
+                },
+                "resetOnDelete": {
+                    "type": "boolean",
+                    "description": "Behavioral setting to reset the port to default settings. For a bond port it means layer3 without vlans attached, eth ports will be bonded without native vlan and vlans attached\n"
+                },
+                "vlanIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of VLAN UUIDs to attach to the port, valid only for L2 and Hybrid ports\n"
+                },
+                "vxlanIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of VXLAN IDs to attach to the port, valid only for L2 and Hybrid ports\n"
+                }
+            },
+            "requiredInputs": [
+                "bonded",
+                "portId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Port resources.\n",
+                "properties": {
+                    "bondId": {
+                        "type": "string",
+                        "description": "UUID of the bond port\n"
+                    },
+                    "bondName": {
+                        "type": "string",
+                        "description": "Name of the bond port\n"
+                    },
+                    "bonded": {
+                        "type": "boolean",
+                        "description": "Whether the port should be bonded\n"
+                    },
+                    "disbondSupported": {
+                        "type": "boolean",
+                        "description": "Flag indicating whether the port can be removed from a bond\n"
+                    },
+                    "layer2": {
+                        "type": "boolean",
+                        "description": "Whether to put the port to Layer 2 mode, valid only for bond ports\n"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "description": "MAC address of the port\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the port, e.g. `bond0` or `eth0`\n"
+                    },
+                    "nativeVlanId": {
+                        "type": "string",
+                        "description": "UUID of a VLAN to assign as a native VLAN. It must be one of attached VLANs (from `vlan_ids` parameter), valid only for physical (non-bond) ports\n"
+                    },
+                    "networkType": {
+                        "type": "string",
+                        "description": "One of layer2-bonded, layer2-individual, layer3, hybrid and hybrid-bonded. This attribute is only set on bond ports.\n"
+                    },
+                    "portId": {
+                        "type": "string",
+                        "description": "ID of the port to read\n"
+                    },
+                    "resetOnDelete": {
+                        "type": "boolean",
+                        "description": "Behavioral setting to reset the port to default settings. For a bond port it means layer3 without vlans attached, eth ports will be bonded without native vlan and vlans attached\n"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type is either \"NetworkBondPort\" for bond ports or \"NetworkPort\" for bondable ethernet ports\n"
+                    },
+                    "vlanIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of VLAN UUIDs to attach to the port, valid only for L2 and Hybrid ports\n"
+                    },
+                    "vxlanIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "List of VXLAN IDs to attach to the port, valid only for L2 and Hybrid ports\n"
                     }
                 },
                 "type": "object"
@@ -4276,13 +4525,27 @@
             }
         },
         "equinix-metal:index/getFacility:getFacility": {
-            "description": "Provides an Equinix Metal facility datasource.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as equinix_metal from \"@pulumi/equinix-metal\";\n\nconst ny5 = equinix_metal.getFacility({\n    code: \"ny5\",\n});\nexport const id = ny5.then(ny5 =\u003e ny5.id);\n```\n```python\nimport pulumi\nimport pulumi_equinix_metal as equinix_metal\n\nny5 = equinix_metal.get_facility(code=\"ny5\")\npulumi.export(\"id\", ny5.id)\n```\n```csharp\nusing Pulumi;\nusing EquinixMetal = Pulumi.EquinixMetal;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var ny5 = Output.Create(EquinixMetal.GetFacility.InvokeAsync(new EquinixMetal.GetFacilityArgs\n        {\n            Code = \"ny5\",\n        }));\n        this.Id = ny5.Apply(ny5 =\u003e ny5.Id);\n    }\n\n    [Output(\"id\")]\n    public Output\u003cstring\u003e Id { get; set; }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tny5, err := equinix - metal.GetFacility(ctx, \u0026equinix-metal.GetFacilityArgs{\n\t\t\tCode: \"ny5\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"id\", ny5.Id)\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Provides an Equinix Metal facility datasource.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getFacility.\n",
                 "properties": {
+                    "capacities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/equinix-metal:index/getFacilityCapacity:getFacilityCapacity"
+                        },
+                        "description": "(Optional) Ensure that queried facility has capacity for specified number of given plans\n"
+                    },
                     "code": {
                         "type": "string",
                         "description": "The facility code\n"
+                    },
+                    "featuresRequireds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Set of feature strings that the facility must have\n"
                     }
                 },
                 "type": "object",
@@ -4293,6 +4556,13 @@
             "outputs": {
                 "description": "A collection of values returned by getFacility.\n",
                 "properties": {
+                    "capacities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/equinix-metal:index/getFacilityCapacity:getFacilityCapacity"
+                        },
+                        "description": "(Optional) Ensure that queried facility has capacity for specified number of given plans\n"
+                    },
                     "code": {
                         "type": "string"
                     },
@@ -4302,6 +4572,12 @@
                             "type": "string"
                         },
                         "description": "The features of the facility\n"
+                    },
+                    "featuresRequireds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "id": {
                         "type": "string",
@@ -4534,10 +4810,17 @@
             }
         },
         "equinix-metal:index/getMetro:getMetro": {
-            "description": "Provides an Equinix Metal metro datasource.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as equinix_metal from \"@pulumi/equinix-metal\";\n\nconst sv = equinix_metal.getMetro({\n    code: \"sv\",\n});\nexport const id = sv.then(sv =\u003e sv.id);\n```\n```python\nimport pulumi\nimport pulumi_equinix_metal as equinix_metal\n\nsv = equinix_metal.get_metro(code=\"sv\")\npulumi.export(\"id\", sv.id)\n```\n```csharp\nusing Pulumi;\nusing EquinixMetal = Pulumi.EquinixMetal;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var sv = Output.Create(EquinixMetal.GetMetro.InvokeAsync(new EquinixMetal.GetMetroArgs\n        {\n            Code = \"sv\",\n        }));\n        this.Id = sv.Apply(sv =\u003e sv.Id);\n    }\n\n    [Output(\"id\")]\n    public Output\u003cstring\u003e Id { get; set; }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tsv, err := equinix - metal.GetMetro(ctx, \u0026equinix-metal.GetMetroArgs{\n\t\t\tCode: \"sv\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"id\", sv.Id)\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Provides an Equinix Metal metro datasource.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getMetro.\n",
                 "properties": {
+                    "capacities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/equinix-metal:index/getMetroCapacity:getMetroCapacity"
+                        },
+                        "description": "(Optional) Ensure that queried metro has capacity for specified number of given plans\n"
+                    },
                     "code": {
                         "type": "string",
                         "description": "The metro code\n"
@@ -4551,6 +4834,13 @@
             "outputs": {
                 "description": "A collection of values returned by getMetro.\n",
                 "properties": {
+                    "capacities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/equinix-metal:index/getMetroCapacity:getMetroCapacity"
+                        },
+                        "description": "(Optional) Ensure that queried metro has capacity for specified number of given plans\n"
+                    },
                     "code": {
                         "type": "string",
                         "description": "The code of the metro\n"
@@ -4706,13 +4996,12 @@
                     "deviceId": {
                         "type": "string"
                     },
-                    "id": {
-                        "type": "string",
-                        "description": "ID of the port to read, conflicts with device_id.\n"
-                    },
                     "name": {
                         "type": "string",
                         "description": "Whether to look for public or private block.\n"
+                    },
+                    "portId": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -4740,7 +5029,11 @@
                         "description": "Flag indicating whether the port can be removed from a bond\n"
                     },
                     "id": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "layer2": {
+                        "type": "boolean"
                     },
                     "mac": {
                         "type": "string",
@@ -4757,6 +5050,9 @@
                         "type": "string",
                         "description": "One of layer2-bonded, layer2-individual, layer3, hybrid, hybrid-bonded\n"
                     },
+                    "portId": {
+                        "type": "string"
+                    },
                     "type": {
                         "type": "string",
                         "description": "Type is either \"NetworkBondPort\" for bond ports or \"NetworkPort\" for bondable ethernet ports\n"
@@ -4767,6 +5063,13 @@
                             "type": "string"
                         },
                         "description": "UUIDs of attached VLANs\n"
+                    },
+                    "vxlanIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "VXLAN ids of attached VLANs\n"
                     }
                 },
                 "type": "object",
@@ -4775,12 +5078,15 @@
                     "bondName",
                     "bonded",
                     "disbondSupported",
+                    "layer2",
                     "mac",
                     "name",
                     "nativeVlanId",
                     "networkType",
                     "type",
-                    "vlanIds"
+                    "vlanIds",
+                    "vxlanIds",
+                    "id"
                 ]
             }
         },

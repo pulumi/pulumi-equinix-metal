@@ -165,8 +165,7 @@ type Device struct {
 	AccessPublicIpv4 pulumi.StringOutput `pulumi:"accessPublicIpv4"`
 	// The ipv6 maintenance IP assigned to the device
 	AccessPublicIpv6 pulumi.StringOutput `pulumi:"accessPublicIpv6"`
-	// If true, a device with OS `customIpxe` will
-	// continue to boot via iPXE on reboots.
+	// If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
 	AlwaysPxe pulumi.BoolPtrOutput `pulumi:"alwaysPxe"`
 	// monthly or hourly
 	BillingCycle pulumi.StringOutput `pulumi:"billingCycle"`
@@ -178,7 +177,7 @@ type Device struct {
 	DeployedFacility pulumi.StringOutput `pulumi:"deployedFacility"`
 	// ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
 	DeployedHardwareReservationId pulumi.StringOutput `pulumi:"deployedHardwareReservationId"`
-	// Description string for the device
+	// The device description.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
 	Facilities pulumi.StringArrayOutput `pulumi:"facilities"`
@@ -187,14 +186,11 @@ type Device struct {
 	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
 	// next available reservation automatically
 	HardwareReservationId pulumi.StringPtrOutput `pulumi:"hardwareReservationId"`
-	// The device name
+	// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
 	Hostname pulumi.StringOutput `pulumi:"hostname"`
 	// A list of IP address types for the device (structure is documented below).
 	IpAddresses DeviceIpAddressArrayOutput `pulumi:"ipAddresses"`
-	// URL pointing to a hosted iPXE script. More
-	// information is in the
-	// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-	// doc.
+	// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
 	IpxeScriptUrl pulumi.StringPtrOutput `pulumi:"ipxeScriptUrl"`
 	// Whether the device is locked
 	Locked pulumi.BoolOutput `pulumi:"locked"`
@@ -230,11 +226,12 @@ type Device struct {
 	SshKeyIds pulumi.StringArrayOutput `pulumi:"sshKeyIds"`
 	// The status of the device
 	State pulumi.StringOutput `pulumi:"state"`
-	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-	// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
 	Storage pulumi.StringPtrOutput `pulumi:"storage"`
 	// Tags attached to the device
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
+	// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+	TerminationTime pulumi.StringPtrOutput `pulumi:"terminationTime"`
 	// The timestamp for the last time the device was updated
 	Updated pulumi.StringOutput `pulumi:"updated"`
 	// A string of the desired User Data for the device.
@@ -250,12 +247,6 @@ func NewDevice(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.BillingCycle == nil {
-		return nil, errors.New("invalid value for required argument 'BillingCycle'")
-	}
-	if args.Hostname == nil {
-		return nil, errors.New("invalid value for required argument 'Hostname'")
-	}
 	if args.OperatingSystem == nil {
 		return nil, errors.New("invalid value for required argument 'OperatingSystem'")
 	}
@@ -293,8 +284,7 @@ type deviceState struct {
 	AccessPublicIpv4 *string `pulumi:"accessPublicIpv4"`
 	// The ipv6 maintenance IP assigned to the device
 	AccessPublicIpv6 *string `pulumi:"accessPublicIpv6"`
-	// If true, a device with OS `customIpxe` will
-	// continue to boot via iPXE on reboots.
+	// If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
 	AlwaysPxe *bool `pulumi:"alwaysPxe"`
 	// monthly or hourly
 	BillingCycle *string `pulumi:"billingCycle"`
@@ -306,7 +296,7 @@ type deviceState struct {
 	DeployedFacility *string `pulumi:"deployedFacility"`
 	// ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
 	DeployedHardwareReservationId *string `pulumi:"deployedHardwareReservationId"`
-	// Description string for the device
+	// The device description.
 	Description *string `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
 	Facilities []string `pulumi:"facilities"`
@@ -315,14 +305,11 @@ type deviceState struct {
 	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
 	// next available reservation automatically
 	HardwareReservationId *string `pulumi:"hardwareReservationId"`
-	// The device name
+	// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
 	Hostname *string `pulumi:"hostname"`
 	// A list of IP address types for the device (structure is documented below).
 	IpAddresses []DeviceIpAddress `pulumi:"ipAddresses"`
-	// URL pointing to a hosted iPXE script. More
-	// information is in the
-	// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-	// doc.
+	// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
 	IpxeScriptUrl *string `pulumi:"ipxeScriptUrl"`
 	// Whether the device is locked
 	Locked *bool `pulumi:"locked"`
@@ -358,11 +345,12 @@ type deviceState struct {
 	SshKeyIds []string `pulumi:"sshKeyIds"`
 	// The status of the device
 	State *string `pulumi:"state"`
-	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-	// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
 	Storage *string `pulumi:"storage"`
 	// Tags attached to the device
 	Tags []string `pulumi:"tags"`
+	// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+	TerminationTime *string `pulumi:"terminationTime"`
 	// The timestamp for the last time the device was updated
 	Updated *string `pulumi:"updated"`
 	// A string of the desired User Data for the device.
@@ -378,8 +366,7 @@ type DeviceState struct {
 	AccessPublicIpv4 pulumi.StringPtrInput
 	// The ipv6 maintenance IP assigned to the device
 	AccessPublicIpv6 pulumi.StringPtrInput
-	// If true, a device with OS `customIpxe` will
-	// continue to boot via iPXE on reboots.
+	// If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
 	AlwaysPxe pulumi.BoolPtrInput
 	// monthly or hourly
 	BillingCycle pulumi.StringPtrInput
@@ -391,7 +378,7 @@ type DeviceState struct {
 	DeployedFacility pulumi.StringPtrInput
 	// ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
 	DeployedHardwareReservationId pulumi.StringPtrInput
-	// Description string for the device
+	// The device description.
 	Description pulumi.StringPtrInput
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
 	Facilities pulumi.StringArrayInput
@@ -400,14 +387,11 @@ type DeviceState struct {
 	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
 	// next available reservation automatically
 	HardwareReservationId pulumi.StringPtrInput
-	// The device name
+	// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
 	Hostname pulumi.StringPtrInput
 	// A list of IP address types for the device (structure is documented below).
 	IpAddresses DeviceIpAddressArrayInput
-	// URL pointing to a hosted iPXE script. More
-	// information is in the
-	// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-	// doc.
+	// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
 	IpxeScriptUrl pulumi.StringPtrInput
 	// Whether the device is locked
 	Locked pulumi.BoolPtrInput
@@ -443,11 +427,12 @@ type DeviceState struct {
 	SshKeyIds pulumi.StringArrayInput
 	// The status of the device
 	State pulumi.StringPtrInput
-	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-	// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
 	Storage pulumi.StringPtrInput
 	// Tags attached to the device
 	Tags pulumi.StringArrayInput
+	// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+	TerminationTime pulumi.StringPtrInput
 	// The timestamp for the last time the device was updated
 	Updated pulumi.StringPtrInput
 	// A string of the desired User Data for the device.
@@ -461,14 +446,13 @@ func (DeviceState) ElementType() reflect.Type {
 }
 
 type deviceArgs struct {
-	// If true, a device with OS `customIpxe` will
-	// continue to boot via iPXE on reboots.
+	// If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
 	AlwaysPxe *bool `pulumi:"alwaysPxe"`
 	// monthly or hourly
-	BillingCycle string `pulumi:"billingCycle"`
+	BillingCycle *string `pulumi:"billingCycle"`
 	// A string of the desired Custom Data for the device.
 	CustomData *string `pulumi:"customData"`
-	// Description string for the device
+	// The device description.
 	Description *string `pulumi:"description"`
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
 	Facilities []string `pulumi:"facilities"`
@@ -477,14 +461,11 @@ type deviceArgs struct {
 	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
 	// next available reservation automatically
 	HardwareReservationId *string `pulumi:"hardwareReservationId"`
-	// The device name
-	Hostname string `pulumi:"hostname"`
+	// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
+	Hostname *string `pulumi:"hostname"`
 	// A list of IP address types for the device (structure is documented below).
 	IpAddresses []DeviceIpAddress `pulumi:"ipAddresses"`
-	// URL pointing to a hosted iPXE script. More
-	// information is in the
-	// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-	// doc.
+	// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
 	IpxeScriptUrl *string `pulumi:"ipxeScriptUrl"`
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro *string `pulumi:"metro"`
@@ -498,11 +479,12 @@ type deviceArgs struct {
 	ProjectSshKeyIds []string `pulumi:"projectSshKeyIds"`
 	// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
 	Reinstall *DeviceReinstall `pulumi:"reinstall"`
-	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-	// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
 	Storage *string `pulumi:"storage"`
 	// Tags attached to the device
 	Tags []string `pulumi:"tags"`
+	// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+	TerminationTime *string `pulumi:"terminationTime"`
 	// A string of the desired User Data for the device.
 	UserData *string `pulumi:"userData"`
 	// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
@@ -511,14 +493,13 @@ type deviceArgs struct {
 
 // The set of arguments for constructing a Device resource.
 type DeviceArgs struct {
-	// If true, a device with OS `customIpxe` will
-	// continue to boot via iPXE on reboots.
+	// If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
 	AlwaysPxe pulumi.BoolPtrInput
 	// monthly or hourly
-	BillingCycle pulumi.StringInput
+	BillingCycle pulumi.StringPtrInput
 	// A string of the desired Custom Data for the device.
 	CustomData pulumi.StringPtrInput
-	// Description string for the device
+	// The device description.
 	Description pulumi.StringPtrInput
 	// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
 	Facilities pulumi.StringArrayInput
@@ -527,14 +508,11 @@ type DeviceArgs struct {
 	// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
 	// next available reservation automatically
 	HardwareReservationId pulumi.StringPtrInput
-	// The device name
-	Hostname pulumi.StringInput
+	// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
+	Hostname pulumi.StringPtrInput
 	// A list of IP address types for the device (structure is documented below).
 	IpAddresses DeviceIpAddressArrayInput
-	// URL pointing to a hosted iPXE script. More
-	// information is in the
-	// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-	// doc.
+	// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
 	IpxeScriptUrl pulumi.StringPtrInput
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro pulumi.StringPtrInput
@@ -548,11 +526,12 @@ type DeviceArgs struct {
 	ProjectSshKeyIds pulumi.StringArrayInput
 	// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
 	Reinstall DeviceReinstallPtrInput
-	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-	// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+	// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
 	Storage pulumi.StringPtrInput
 	// Tags attached to the device
 	Tags pulumi.StringArrayInput
+	// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+	TerminationTime pulumi.StringPtrInput
 	// A string of the desired User Data for the device.
 	UserData pulumi.StringPtrInput
 	// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).

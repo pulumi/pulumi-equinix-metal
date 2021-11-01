@@ -19,6 +19,8 @@ __all__ = [
     'SpotMarketRequestInstanceParametersArgs',
     'VolumeAttachmentArgs',
     'VolumeSnapshotPolicyArgs',
+    'GetFacilityCapacityArgs',
+    'GetMetroCapacityArgs',
 ]
 
 @pulumi.input_type
@@ -362,7 +364,6 @@ class DeviceReinstallArgs:
                  preserve_data: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[bool] deprovision_fast: Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-               *
         :param pulumi.Input[bool] enabled: Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
         :param pulumi.Input[bool] preserve_data: Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
         """
@@ -378,7 +379,6 @@ class DeviceReinstallArgs:
     def deprovision_fast(self) -> Optional[pulumi.Input[bool]]:
         """
         Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-        *
         """
         return pulumi.get(self, "deprovision_fast")
 
@@ -725,5 +725,81 @@ class VolumeSnapshotPolicyArgs:
     @snapshot_frequency.setter
     def snapshot_frequency(self, value: pulumi.Input[str]):
         pulumi.set(self, "snapshot_frequency", value)
+
+
+@pulumi.input_type
+class GetFacilityCapacityArgs:
+    def __init__(__self__, *,
+                 plan: str,
+                 quantity: Optional[int] = None):
+        """
+        :param str plan: device plan to check
+        :param int quantity: number of device to check
+        """
+        pulumi.set(__self__, "plan", plan)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+
+    @property
+    @pulumi.getter
+    def plan(self) -> str:
+        """
+        device plan to check
+        """
+        return pulumi.get(self, "plan")
+
+    @plan.setter
+    def plan(self, value: str):
+        pulumi.set(self, "plan", value)
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> Optional[int]:
+        """
+        number of device to check
+        """
+        return pulumi.get(self, "quantity")
+
+    @quantity.setter
+    def quantity(self, value: Optional[int]):
+        pulumi.set(self, "quantity", value)
+
+
+@pulumi.input_type
+class GetMetroCapacityArgs:
+    def __init__(__self__, *,
+                 plan: str,
+                 quantity: Optional[int] = None):
+        """
+        :param str plan: device plan to check
+        :param int quantity: number of device to check
+        """
+        pulumi.set(__self__, "plan", plan)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+
+    @property
+    @pulumi.getter
+    def plan(self) -> str:
+        """
+        device plan to check
+        """
+        return pulumi.get(self, "plan")
+
+    @plan.setter
+    def plan(self, value: str):
+        pulumi.set(self, "plan", value)
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> Optional[int]:
+        """
+        number of device to check
+        """
+        return pulumi.get(self, "quantity")
+
+    @quantity.setter
+    def quantity(self, value: Optional[int]):
+        pulumi.set(self, "quantity", value)
 
 

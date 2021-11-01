@@ -217,8 +217,7 @@ namespace Pulumi.EquinixMetal
         public Output<string> AccessPublicIpv6 { get; private set; } = null!;
 
         /// <summary>
-        /// If true, a device with OS `custom_ipxe` will
-        /// continue to boot via iPXE on reboots.
+        /// If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         /// </summary>
         [Output("alwaysPxe")]
         public Output<bool?> AlwaysPxe { get; private set; } = null!;
@@ -254,7 +253,7 @@ namespace Pulumi.EquinixMetal
         public Output<string> DeployedHardwareReservationId { get; private set; } = null!;
 
         /// <summary>
-        /// Description string for the device
+        /// The device description.
         /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
@@ -279,7 +278,7 @@ namespace Pulumi.EquinixMetal
         public Output<string?> HardwareReservationId { get; private set; } = null!;
 
         /// <summary>
-        /// The device name
+        /// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         /// </summary>
         [Output("hostname")]
         public Output<string> Hostname { get; private set; } = null!;
@@ -291,10 +290,7 @@ namespace Pulumi.EquinixMetal
         public Output<ImmutableArray<Outputs.DeviceIpAddress>> IpAddresses { get; private set; } = null!;
 
         /// <summary>
-        /// URL pointing to a hosted iPXE script. More
-        /// information is in the
-        /// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-        /// doc.
+        /// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         /// </summary>
         [Output("ipxeScriptUrl")]
         public Output<string?> IpxeScriptUrl { get; private set; } = null!;
@@ -384,8 +380,7 @@ namespace Pulumi.EquinixMetal
         public Output<string> State { get; private set; } = null!;
 
         /// <summary>
-        /// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-        /// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        /// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         /// </summary>
         [Output("storage")]
         public Output<string?> Storage { get; private set; } = null!;
@@ -395,6 +390,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
+
+        /// <summary>
+        /// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+        /// </summary>
+        [Output("terminationTime")]
+        public Output<string?> TerminationTime { get; private set; } = null!;
 
         /// <summary>
         /// The timestamp for the last time the device was updated
@@ -461,8 +462,7 @@ namespace Pulumi.EquinixMetal
     public sealed class DeviceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// If true, a device with OS `custom_ipxe` will
-        /// continue to boot via iPXE on reboots.
+        /// If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         /// </summary>
         [Input("alwaysPxe")]
         public Input<bool>? AlwaysPxe { get; set; }
@@ -470,8 +470,8 @@ namespace Pulumi.EquinixMetal
         /// <summary>
         /// monthly or hourly
         /// </summary>
-        [Input("billingCycle", required: true)]
-        public InputUnion<string, Pulumi.EquinixMetal.BillingCycle> BillingCycle { get; set; } = null!;
+        [Input("billingCycle")]
+        public InputUnion<string, Pulumi.EquinixMetal.BillingCycle>? BillingCycle { get; set; }
 
         /// <summary>
         /// A string of the desired Custom Data for the device.
@@ -480,7 +480,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? CustomData { get; set; }
 
         /// <summary>
-        /// Description string for the device
+        /// The device description.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -511,10 +511,10 @@ namespace Pulumi.EquinixMetal
         public Input<string>? HardwareReservationId { get; set; }
 
         /// <summary>
-        /// The device name
+        /// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         /// </summary>
-        [Input("hostname", required: true)]
-        public Input<string> Hostname { get; set; } = null!;
+        [Input("hostname")]
+        public Input<string>? Hostname { get; set; }
 
         [Input("ipAddresses")]
         private InputList<Inputs.DeviceIpAddressArgs>? _ipAddresses;
@@ -529,10 +529,7 @@ namespace Pulumi.EquinixMetal
         }
 
         /// <summary>
-        /// URL pointing to a hosted iPXE script. More
-        /// information is in the
-        /// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-        /// doc.
+        /// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         /// </summary>
         [Input("ipxeScriptUrl")]
         public Input<string>? IpxeScriptUrl { get; set; }
@@ -580,8 +577,7 @@ namespace Pulumi.EquinixMetal
         public Input<Inputs.DeviceReinstallArgs>? Reinstall { get; set; }
 
         /// <summary>
-        /// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-        /// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        /// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         /// </summary>
         [Input("storage")]
         public Input<string>? Storage { get; set; }
@@ -597,6 +593,12 @@ namespace Pulumi.EquinixMetal
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
+
+        /// <summary>
+        /// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+        /// </summary>
+        [Input("terminationTime")]
+        public Input<string>? TerminationTime { get; set; }
 
         /// <summary>
         /// A string of the desired User Data for the device.
@@ -636,8 +638,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? AccessPublicIpv6 { get; set; }
 
         /// <summary>
-        /// If true, a device with OS `custom_ipxe` will
-        /// continue to boot via iPXE on reboots.
+        /// If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
         /// </summary>
         [Input("alwaysPxe")]
         public Input<bool>? AlwaysPxe { get; set; }
@@ -673,7 +674,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? DeployedHardwareReservationId { get; set; }
 
         /// <summary>
-        /// Description string for the device
+        /// The device description.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -704,7 +705,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? HardwareReservationId { get; set; }
 
         /// <summary>
-        /// The device name
+        /// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
         /// </summary>
         [Input("hostname")]
         public Input<string>? Hostname { get; set; }
@@ -722,10 +723,7 @@ namespace Pulumi.EquinixMetal
         }
 
         /// <summary>
-        /// URL pointing to a hosted iPXE script. More
-        /// information is in the
-        /// [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/)
-        /// doc.
+        /// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
         /// </summary>
         [Input("ipxeScriptUrl")]
         public Input<string>? IpxeScriptUrl { get; set; }
@@ -839,8 +837,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? State { get; set; }
 
         /// <summary>
-        /// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc.
-        /// * Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+        /// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
         /// </summary>
         [Input("storage")]
         public Input<string>? Storage { get; set; }
@@ -856,6 +853,12 @@ namespace Pulumi.EquinixMetal
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
+
+        /// <summary>
+        /// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+        /// </summary>
+        [Input("terminationTime")]
+        public Input<string>? TerminationTime { get; set; }
 
         /// <summary>
         /// The timestamp for the last time the device was updated

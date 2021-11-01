@@ -7,18 +7,6 @@ import * as utilities from "./utilities";
 
 /**
  * Provides an Equinix Metal metro datasource.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as equinix_metal from "@pulumi/equinix-metal";
- *
- * const sv = equinix_metal.getMetro({
- *     code: "sv",
- * });
- * export const id = sv.then(sv => sv.id);
- * ```
  */
 export function getMetro(args: GetMetroArgs, opts?: pulumi.InvokeOptions): Promise<GetMetroResult> {
     if (!opts) {
@@ -29,6 +17,7 @@ export function getMetro(args: GetMetroArgs, opts?: pulumi.InvokeOptions): Promi
         opts.version = utilities.getVersion();
     }
     return pulumi.runtime.invoke("equinix-metal:index/getMetro:getMetro", {
+        "capacities": args.capacities,
         "code": args.code,
     }, opts);
 }
@@ -37,6 +26,10 @@ export function getMetro(args: GetMetroArgs, opts?: pulumi.InvokeOptions): Promi
  * A collection of arguments for invoking getMetro.
  */
 export interface GetMetroArgs {
+    /**
+     * (Optional) Ensure that queried metro has capacity for specified number of given plans
+     */
+    readonly capacities?: inputs.GetMetroCapacity[];
     /**
      * The metro code
      */
@@ -47,6 +40,10 @@ export interface GetMetroArgs {
  * A collection of values returned by getMetro.
  */
 export interface GetMetroResult {
+    /**
+     * (Optional) Ensure that queried metro has capacity for specified number of given plans
+     */
+    readonly capacities?: outputs.GetMetroCapacity[];
     /**
      * The code of the metro
      */

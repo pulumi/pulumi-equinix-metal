@@ -13,32 +13,6 @@ namespace Pulumi.EquinixMetal
     {
         /// <summary>
         /// Provides an Equinix Metal facility datasource.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using EquinixMetal = Pulumi.EquinixMetal;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var ny5 = Output.Create(EquinixMetal.GetFacility.InvokeAsync(new EquinixMetal.GetFacilityArgs
-        ///         {
-        ///             Code = "ny5",
-        ///         }));
-        ///         this.Id = ny5.Apply(ny5 =&gt; ny5.Id);
-        ///     }
-        /// 
-        ///     [Output("id")]
-        ///     public Output&lt;string&gt; Id { get; set; }
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetFacilityResult> InvokeAsync(GetFacilityArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityArgs(), options.WithVersion());
@@ -47,11 +21,35 @@ namespace Pulumi.EquinixMetal
 
     public sealed class GetFacilityArgs : Pulumi.InvokeArgs
     {
+        [Input("capacities")]
+        private List<Inputs.GetFacilityCapacityArgs>? _capacities;
+
+        /// <summary>
+        /// (Optional) Ensure that queried facility has capacity for specified number of given plans
+        /// </summary>
+        public List<Inputs.GetFacilityCapacityArgs> Capacities
+        {
+            get => _capacities ?? (_capacities = new List<Inputs.GetFacilityCapacityArgs>());
+            set => _capacities = value;
+        }
+
         /// <summary>
         /// The facility code
         /// </summary>
         [Input("code", required: true)]
         public string Code { get; set; } = null!;
+
+        [Input("featuresRequireds")]
+        private List<string>? _featuresRequireds;
+
+        /// <summary>
+        /// Set of feature strings that the facility must have
+        /// </summary>
+        public List<string> FeaturesRequireds
+        {
+            get => _featuresRequireds ?? (_featuresRequireds = new List<string>());
+            set => _featuresRequireds = value;
+        }
 
         public GetFacilityArgs()
         {
@@ -62,11 +60,16 @@ namespace Pulumi.EquinixMetal
     [OutputType]
     public sealed class GetFacilityResult
     {
+        /// <summary>
+        /// (Optional) Ensure that queried facility has capacity for specified number of given plans
+        /// </summary>
+        public readonly ImmutableArray<Outputs.GetFacilityCapacityResult> Capacities;
         public readonly string Code;
         /// <summary>
         /// The features of the facility
         /// </summary>
         public readonly ImmutableArray<string> Features;
+        public readonly ImmutableArray<string> FeaturesRequireds;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
@@ -82,9 +85,13 @@ namespace Pulumi.EquinixMetal
 
         [OutputConstructor]
         private GetFacilityResult(
+            ImmutableArray<Outputs.GetFacilityCapacityResult> capacities,
+
             string code,
 
             ImmutableArray<string> features,
+
+            ImmutableArray<string> featuresRequireds,
 
             string id,
 
@@ -92,8 +99,10 @@ namespace Pulumi.EquinixMetal
 
             string name)
         {
+            Capacities = capacities;
             Code = code;
             Features = features;
+            FeaturesRequireds = featuresRequireds;
             Id = id;
             Metro = metro;
             Name = name;

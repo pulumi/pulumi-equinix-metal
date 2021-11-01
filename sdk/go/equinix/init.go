@@ -34,6 +34,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &IpAttachment{}
 	case "equinix-metal:index/organization:Organization":
 		r = &Organization{}
+	case "equinix-metal:index/port:Port":
+		r = &Port{}
 	case "equinix-metal:index/portVlanAttachment:PortVlanAttachment":
 		r = &PortVlanAttachment{}
 	case "equinix-metal:index/project:Project":
@@ -122,6 +124,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"equinix-metal",
 		"index/organization",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"equinix-metal",
+		"index/port",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

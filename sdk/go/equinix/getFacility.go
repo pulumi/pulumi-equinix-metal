@@ -8,30 +8,6 @@ import (
 )
 
 // Provides an Equinix Metal facility datasource.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		ny5, err := equinix - metal.GetFacility(ctx, &equinix-metal.GetFacilityArgs{
-// 			Code: "ny5",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("id", ny5.Id)
-// 		return nil
-// 	})
-// }
-// ```
 func GetFacility(ctx *pulumi.Context, args *GetFacilityArgs, opts ...pulumi.InvokeOption) (*GetFacilityResult, error) {
 	var rv GetFacilityResult
 	err := ctx.Invoke("equinix-metal:index/getFacility:getFacility", args, &rv, opts...)
@@ -43,15 +19,22 @@ func GetFacility(ctx *pulumi.Context, args *GetFacilityArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getFacility.
 type GetFacilityArgs struct {
+	// (Optional) Ensure that queried facility has capacity for specified number of given plans
+	Capacities []GetFacilityCapacity `pulumi:"capacities"`
 	// The facility code
 	Code string `pulumi:"code"`
+	// Set of feature strings that the facility must have
+	FeaturesRequireds []string `pulumi:"featuresRequireds"`
 }
 
 // A collection of values returned by getFacility.
 type GetFacilityResult struct {
-	Code string `pulumi:"code"`
+	// (Optional) Ensure that queried facility has capacity for specified number of given plans
+	Capacities []GetFacilityCapacity `pulumi:"capacities"`
+	Code       string                `pulumi:"code"`
 	// The features of the facility
-	Features []string `pulumi:"features"`
+	Features          []string `pulumi:"features"`
+	FeaturesRequireds []string `pulumi:"featuresRequireds"`
 	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
 	// The metro code the facility is part of

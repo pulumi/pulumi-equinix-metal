@@ -164,6 +164,7 @@ func Provider() tfbridge.ProviderInfo {
 			"metal_project_api_key":   {Tok: makeResource(mainMod, "ProjectApiKey")},
 			"metal_user_api_key":      {Tok: makeResource(mainMod, "UserApiKey")},
 			"metal_virtual_circuit":   {Tok: makeResource(mainMod, "VirtualCircuit")},
+			"metal_port":              {Tok: makeResource(mainMod, "Port")},
 		},
 		ExtraTypes: map[string]pulumiSchema.ComplexTypeSpec{
 			"equinix-metal:index/BillingCycle:BillingCycle": {

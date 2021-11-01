@@ -13,32 +13,6 @@ namespace Pulumi.EquinixMetal
     {
         /// <summary>
         /// Provides an Equinix Metal metro datasource.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using EquinixMetal = Pulumi.EquinixMetal;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var sv = Output.Create(EquinixMetal.GetMetro.InvokeAsync(new EquinixMetal.GetMetroArgs
-        ///         {
-        ///             Code = "sv",
-        ///         }));
-        ///         this.Id = sv.Apply(sv =&gt; sv.Id);
-        ///     }
-        /// 
-        ///     [Output("id")]
-        ///     public Output&lt;string&gt; Id { get; set; }
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetMetroResult> InvokeAsync(GetMetroArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroArgs(), options.WithVersion());
@@ -47,6 +21,18 @@ namespace Pulumi.EquinixMetal
 
     public sealed class GetMetroArgs : Pulumi.InvokeArgs
     {
+        [Input("capacities")]
+        private List<Inputs.GetMetroCapacityArgs>? _capacities;
+
+        /// <summary>
+        /// (Optional) Ensure that queried metro has capacity for specified number of given plans
+        /// </summary>
+        public List<Inputs.GetMetroCapacityArgs> Capacities
+        {
+            get => _capacities ?? (_capacities = new List<Inputs.GetMetroCapacityArgs>());
+            set => _capacities = value;
+        }
+
         /// <summary>
         /// The metro code
         /// </summary>
@@ -62,6 +48,10 @@ namespace Pulumi.EquinixMetal
     [OutputType]
     public sealed class GetMetroResult
     {
+        /// <summary>
+        /// (Optional) Ensure that queried metro has capacity for specified number of given plans
+        /// </summary>
+        public readonly ImmutableArray<Outputs.GetMetroCapacityResult> Capacities;
         /// <summary>
         /// The code of the metro
         /// </summary>
@@ -81,6 +71,8 @@ namespace Pulumi.EquinixMetal
 
         [OutputConstructor]
         private GetMetroResult(
+            ImmutableArray<Outputs.GetMetroCapacityResult> capacities,
+
             string code,
 
             string country,
@@ -89,6 +81,7 @@ namespace Pulumi.EquinixMetal
 
             string name)
         {
+            Capacities = capacities;
             Code = code;
             Country = country;
             Id = id;

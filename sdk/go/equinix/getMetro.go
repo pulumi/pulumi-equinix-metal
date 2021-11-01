@@ -8,30 +8,6 @@ import (
 )
 
 // Provides an Equinix Metal metro datasource.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		sv, err := equinix - metal.GetMetro(ctx, &equinix-metal.GetMetroArgs{
-// 			Code: "sv",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("id", sv.Id)
-// 		return nil
-// 	})
-// }
-// ```
 func GetMetro(ctx *pulumi.Context, args *GetMetroArgs, opts ...pulumi.InvokeOption) (*GetMetroResult, error) {
 	var rv GetMetroResult
 	err := ctx.Invoke("equinix-metal:index/getMetro:getMetro", args, &rv, opts...)
@@ -43,12 +19,16 @@ func GetMetro(ctx *pulumi.Context, args *GetMetroArgs, opts ...pulumi.InvokeOpti
 
 // A collection of arguments for invoking getMetro.
 type GetMetroArgs struct {
+	// (Optional) Ensure that queried metro has capacity for specified number of given plans
+	Capacities []GetMetroCapacity `pulumi:"capacities"`
 	// The metro code
 	Code string `pulumi:"code"`
 }
 
 // A collection of values returned by getMetro.
 type GetMetroResult struct {
+	// (Optional) Ensure that queried metro has capacity for specified number of given plans
+	Capacities []GetMetroCapacity `pulumi:"capacities"`
 	// The code of the metro
 	Code string `pulumi:"code"`
 	// The country of the metro

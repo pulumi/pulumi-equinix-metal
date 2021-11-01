@@ -7,18 +7,6 @@ import * as utilities from "./utilities";
 
 /**
  * Provides an Equinix Metal facility datasource.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as equinix_metal from "@pulumi/equinix-metal";
- *
- * const ny5 = equinix_metal.getFacility({
- *     code: "ny5",
- * });
- * export const id = ny5.then(ny5 => ny5.id);
- * ```
  */
 export function getFacility(args: GetFacilityArgs, opts?: pulumi.InvokeOptions): Promise<GetFacilityResult> {
     if (!opts) {
@@ -29,7 +17,9 @@ export function getFacility(args: GetFacilityArgs, opts?: pulumi.InvokeOptions):
         opts.version = utilities.getVersion();
     }
     return pulumi.runtime.invoke("equinix-metal:index/getFacility:getFacility", {
+        "capacities": args.capacities,
         "code": args.code,
+        "featuresRequireds": args.featuresRequireds,
     }, opts);
 }
 
@@ -38,20 +28,33 @@ export function getFacility(args: GetFacilityArgs, opts?: pulumi.InvokeOptions):
  */
 export interface GetFacilityArgs {
     /**
+     * (Optional) Ensure that queried facility has capacity for specified number of given plans
+     */
+    readonly capacities?: inputs.GetFacilityCapacity[];
+    /**
      * The facility code
      */
     readonly code: string;
+    /**
+     * Set of feature strings that the facility must have
+     */
+    readonly featuresRequireds?: string[];
 }
 
 /**
  * A collection of values returned by getFacility.
  */
 export interface GetFacilityResult {
+    /**
+     * (Optional) Ensure that queried facility has capacity for specified number of given plans
+     */
+    readonly capacities?: outputs.GetFacilityCapacity[];
     readonly code: string;
     /**
      * The features of the facility
      */
     readonly features: string[];
+    readonly featuresRequireds?: string[];
     /**
      * The provider-assigned unique ID for this managed resource.
      */

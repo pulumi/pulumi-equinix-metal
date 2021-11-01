@@ -88,7 +88,6 @@ export interface DevicePort {
 export interface DeviceReinstall {
     /**
      * Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-     * *
      */
     deprovisionFast?: pulumi.Input<boolean>;
     /**
@@ -99,6 +98,28 @@ export interface DeviceReinstall {
      * Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
      */
     preserveData?: pulumi.Input<boolean>;
+}
+
+export interface GetFacilityCapacity {
+    /**
+     * device plan to check
+     */
+    plan: string;
+    /**
+     * number of device to check
+     */
+    quantity?: number;
+}
+
+export interface GetMetroCapacity {
+    /**
+     * device plan to check
+     */
+    plan: string;
+    /**
+     * number of device to check
+     */
+    quantity?: number;
 }
 
 export interface ProjectBgpConfig {

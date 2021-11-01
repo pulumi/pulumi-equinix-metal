@@ -32,6 +32,7 @@ export * from "./getVlan";
 export * from "./getVolume";
 export * from "./ipAttachment";
 export * from "./organization";
+export * from "./port";
 export * from "./portVlanAttachment";
 export * from "./project";
 export * from "./projectApiKey";
@@ -66,6 +67,7 @@ import { DeviceNetworkType } from "./deviceNetworkType";
 import { Gateway } from "./gateway";
 import { IpAttachment } from "./ipAttachment";
 import { Organization } from "./organization";
+import { Port } from "./port";
 import { PortVlanAttachment } from "./portVlanAttachment";
 import { Project } from "./project";
 import { ProjectApiKey } from "./projectApiKey";
@@ -97,6 +99,8 @@ const _module = {
                 return new IpAttachment(name, <any>undefined, { urn })
             case "equinix-metal:index/organization:Organization":
                 return new Organization(name, <any>undefined, { urn })
+            case "equinix-metal:index/port:Port":
+                return new Port(name, <any>undefined, { urn })
             case "equinix-metal:index/portVlanAttachment:PortVlanAttachment":
                 return new PortVlanAttachment(name, <any>undefined, { urn })
             case "equinix-metal:index/project:Project":
@@ -133,6 +137,7 @@ pulumi.runtime.registerResourceModule("equinix-metal", "index/deviceNetworkType"
 pulumi.runtime.registerResourceModule("equinix-metal", "index/gateway", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/ipAttachment", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/organization", _module)
+pulumi.runtime.registerResourceModule("equinix-metal", "index/port", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/portVlanAttachment", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/project", _module)
 pulumi.runtime.registerResourceModule("equinix-metal", "index/projectApiKey", _module)

@@ -15,7 +15,6 @@ namespace Pulumi.EquinixMetal.Outputs
     {
         /// <summary>
         /// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
-        /// *
         /// </summary>
         public readonly bool? DeprovisionFast;
         /// <summary>

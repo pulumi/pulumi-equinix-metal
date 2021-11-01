@@ -31,6 +31,7 @@ from .get_vlan import *
 from .get_volume import *
 from .ip_attachment import *
 from .organization import *
+from .port import *
 from .port_vlan_attachment import *
 from .project import *
 from .project_api_key import *
@@ -78,6 +79,8 @@ def _register_module():
                 return IpAttachment(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/organization:Organization":
                 return Organization(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "equinix-metal:index/port:Port":
+                return Port(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/portVlanAttachment:PortVlanAttachment":
                 return PortVlanAttachment(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "equinix-metal:index/project:Project":
@@ -114,6 +117,7 @@ def _register_module():
     pulumi.runtime.register_resource_module("equinix-metal", "index/gateway", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/ipAttachment", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/organization", _module_instance)
+    pulumi.runtime.register_resource_module("equinix-metal", "index/port", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/portVlanAttachment", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/project", _module_instance)
     pulumi.runtime.register_resource_module("equinix-metal", "index/projectApiKey", _module_instance)

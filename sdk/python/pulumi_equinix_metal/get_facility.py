@@ -7,6 +7,8 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = [
     'GetFacilityResult',
@@ -19,13 +21,19 @@ class GetFacilityResult:
     """
     A collection of values returned by getFacility.
     """
-    def __init__(__self__, code=None, features=None, id=None, metro=None, name=None):
+    def __init__(__self__, capacities=None, code=None, features=None, features_requireds=None, id=None, metro=None, name=None):
+        if capacities and not isinstance(capacities, list):
+            raise TypeError("Expected argument 'capacities' to be a list")
+        pulumi.set(__self__, "capacities", capacities)
         if code and not isinstance(code, str):
             raise TypeError("Expected argument 'code' to be a str")
         pulumi.set(__self__, "code", code)
         if features and not isinstance(features, list):
             raise TypeError("Expected argument 'features' to be a list")
         pulumi.set(__self__, "features", features)
+        if features_requireds and not isinstance(features_requireds, list):
+            raise TypeError("Expected argument 'features_requireds' to be a list")
+        pulumi.set(__self__, "features_requireds", features_requireds)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -35,6 +43,14 @@ class GetFacilityResult:
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def capacities(self) -> Optional[Sequence['outputs.GetFacilityCapacityResult']]:
+        """
+        (Optional) Ensure that queried facility has capacity for specified number of given plans
+        """
+        return pulumi.get(self, "capacities")
 
     @property
     @pulumi.getter
@@ -48,6 +64,11 @@ class GetFacilityResult:
         The features of the facility
         """
         return pulumi.get(self, "features")
+
+    @property
+    @pulumi.getter(name="featuresRequireds")
+    def features_requireds(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "features_requireds")
 
     @property
     @pulumi.getter
@@ -80,33 +101,31 @@ class AwaitableGetFacilityResult(GetFacilityResult):
         if False:
             yield self
         return GetFacilityResult(
+            capacities=self.capacities,
             code=self.code,
             features=self.features,
+            features_requireds=self.features_requireds,
             id=self.id,
             metro=self.metro,
             name=self.name)
 
 
-def get_facility(code: Optional[str] = None,
+def get_facility(capacities: Optional[Sequence[pulumi.InputType['GetFacilityCapacityArgs']]] = None,
+                 code: Optional[str] = None,
+                 features_requireds: Optional[Sequence[str]] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetFacilityResult:
     """
     Provides an Equinix Metal facility datasource.
 
-    ## Example Usage
 
-    ```python
-    import pulumi
-    import pulumi_equinix_metal as equinix_metal
-
-    ny5 = equinix_metal.get_facility(code="ny5")
-    pulumi.export("id", ny5.id)
-    ```
-
-
+    :param Sequence[pulumi.InputType['GetFacilityCapacityArgs']] capacities: (Optional) Ensure that queried facility has capacity for specified number of given plans
     :param str code: The facility code
+    :param Sequence[str] features_requireds: Set of feature strings that the facility must have
     """
     __args__ = dict()
+    __args__['capacities'] = capacities
     __args__['code'] = code
+    __args__['featuresRequireds'] = features_requireds
     if opts is None:
         opts = pulumi.InvokeOptions()
     if opts.version is None:
@@ -114,8 +133,10 @@ def get_facility(code: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('equinix-metal:index/getFacility:getFacility', __args__, opts=opts, typ=GetFacilityResult).value
 
     return AwaitableGetFacilityResult(
+        capacities=__ret__.capacities,
         code=__ret__.code,
         features=__ret__.features,
+        features_requireds=__ret__.features_requireds,
         id=__ret__.id,
         metro=__ret__.metro,
         name=__ret__.name)

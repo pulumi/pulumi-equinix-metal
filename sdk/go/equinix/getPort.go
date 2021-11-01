@@ -41,8 +41,8 @@ import (
 // 	})
 // }
 // ```
-func GetPort(ctx *pulumi.Context, args *GetPortArgs, opts ...pulumi.InvokeOption) (*GetPortResult, error) {
-	var rv GetPortResult
+func LookupPort(ctx *pulumi.Context, args *LookupPortArgs, opts ...pulumi.InvokeOption) (*LookupPortResult, error) {
+	var rv LookupPortResult
 	err := ctx.Invoke("equinix-metal:index/getPort:getPort", args, &rv, opts...)
 	if err != nil {
 		return nil, err
@@ -51,16 +51,15 @@ func GetPort(ctx *pulumi.Context, args *GetPortArgs, opts ...pulumi.InvokeOption
 }
 
 // A collection of arguments for invoking getPort.
-type GetPortArgs struct {
+type LookupPortArgs struct {
 	DeviceId *string `pulumi:"deviceId"`
-	// ID of the port to read, conflicts with device_id.
-	Id *string `pulumi:"id"`
 	// Whether to look for public or private block.
-	Name *string `pulumi:"name"`
+	Name   *string `pulumi:"name"`
+	PortId *string `pulumi:"portId"`
 }
 
 // A collection of values returned by getPort.
-type GetPortResult struct {
+type LookupPortResult struct {
 	// UUID of the bond port"
 	BondId string `pulumi:"bondId"`
 	// Name of the bond port
@@ -69,17 +68,22 @@ type GetPortResult struct {
 	Bonded   bool    `pulumi:"bonded"`
 	DeviceId *string `pulumi:"deviceId"`
 	// Flag indicating whether the port can be removed from a bond
-	DisbondSupported bool    `pulumi:"disbondSupported"`
-	Id               *string `pulumi:"id"`
+	DisbondSupported bool `pulumi:"disbondSupported"`
+	// The provider-assigned unique ID for this managed resource.
+	Id     string `pulumi:"id"`
+	Layer2 bool   `pulumi:"layer2"`
 	// MAC address of the port
 	Mac  string `pulumi:"mac"`
 	Name string `pulumi:"name"`
 	// UUID of native VLAN of the port
 	NativeVlanId string `pulumi:"nativeVlanId"`
 	// One of layer2-bonded, layer2-individual, layer3, hybrid, hybrid-bonded
-	NetworkType string `pulumi:"networkType"`
+	NetworkType string  `pulumi:"networkType"`
+	PortId      *string `pulumi:"portId"`
 	// Type is either "NetworkBondPort" for bond ports or "NetworkPort" for bondable ethernet ports
 	Type string `pulumi:"type"`
 	// UUIDs of attached VLANs
 	VlanIds []string `pulumi:"vlanIds"`
+	// VXLAN ids of attached VLANs
+	VxlanIds []int `pulumi:"vxlanIds"`
 }
