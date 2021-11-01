@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Upgrade to v3.2.0 of the Equinix Metal Terraform Provider.
+_(none)_
 
 ---
+
+## 3.1.0 (2021-11-01)
+* Upgrade to v3.2.0 of the Equinix Metal Terraform Provider.
 
 ## 3.0.0 (2021-09-27)
 * Upgrade to v3.1.0 of the Equinix Metal Terraform Provider.
