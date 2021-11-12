@@ -29,11 +29,11 @@ export interface GetMetroArgs {
     /**
      * (Optional) Ensure that queried metro has capacity for specified number of given plans
      */
-    readonly capacities?: inputs.GetMetroCapacity[];
+    capacities?: inputs.GetMetroCapacity[];
     /**
      * The metro code
      */
-    readonly code: string;
+    code: string;
 }
 
 /**
@@ -60,4 +60,22 @@ export interface GetMetroResult {
      * The name of the metro
      */
     readonly name: string;
+}
+
+export function getMetroOutput(args: GetMetroOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetMetroResult> {
+    return pulumi.output(args).apply(a => getMetro(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getMetro.
+ */
+export interface GetMetroOutputArgs {
+    /**
+     * (Optional) Ensure that queried metro has capacity for specified number of given plans
+     */
+    capacities?: pulumi.Input<pulumi.Input<inputs.GetMetroCapacityArgs>[]>;
+    /**
+     * The metro code
+     */
+    code: pulumi.Input<string>;
 }

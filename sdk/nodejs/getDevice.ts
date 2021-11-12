@@ -56,15 +56,15 @@ export interface GetDeviceArgs {
     /**
      * Device ID
      */
-    readonly deviceId?: string;
+    deviceId?: string;
     /**
      * The device name
      */
-    readonly hostname?: string;
+    hostname?: string;
     /**
      * The id of the project in which the devices exists
      */
-    readonly projectId?: string;
+    projectId?: string;
 }
 
 /**
@@ -154,4 +154,26 @@ export interface GetDeviceResult {
      * Tags attached to the device
      */
     readonly tags: string[];
+}
+
+export function getDeviceOutput(args?: GetDeviceOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetDeviceResult> {
+    return pulumi.output(args).apply(a => getDevice(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getDevice.
+ */
+export interface GetDeviceOutputArgs {
+    /**
+     * Device ID
+     */
+    deviceId?: pulumi.Input<string>;
+    /**
+     * The device name
+     */
+    hostname?: pulumi.Input<string>;
+    /**
+     * The id of the project in which the devices exists
+     */
+    projectId?: pulumi.Input<string>;
 }

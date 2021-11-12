@@ -13,6 +13,7 @@ __all__ = [
     'GetProjectResult',
     'AwaitableGetProjectResult',
     'get_project',
+    'get_project_output',
 ]
 
 @pulumi.output_type
@@ -185,3 +186,27 @@ def get_project(name: Optional[str] = None,
         project_id=__ret__.project_id,
         updated=__ret__.updated,
         user_ids=__ret__.user_ids)
+
+
+@_utilities.lift_output_func(get_project)
+def get_project_output(name: Optional[pulumi.Input[Optional[str]]] = None,
+                       project_id: Optional[pulumi.Input[Optional[str]]] = None,
+                       opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectResult]:
+    """
+    Use this datasource to retrieve attributes of the Project API resource.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    tf_project1 = equinix_metal.get_project(name="Terraform Fun")
+    pulumi.export("usersOfTerraformFun", tf_project1.user_ids)
+    ```
+
+
+    :param str name: The name which is used to look up the project
+    :param str project_id: The UUID by which to look up the project
+    """
+    ...

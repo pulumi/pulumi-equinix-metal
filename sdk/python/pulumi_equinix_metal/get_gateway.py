@@ -12,6 +12,7 @@ __all__ = [
     'GetGatewayResult',
     'AwaitableGetGatewayResult',
     'get_gateway',
+    'get_gateway_output',
 ]
 
 @pulumi.output_type
@@ -149,3 +150,29 @@ def get_gateway(gateway_id: Optional[str] = None,
         project_id=__ret__.project_id,
         state=__ret__.state,
         vlan_id=__ret__.vlan_id)
+
+
+@_utilities.lift_output_func(get_gateway)
+def get_gateway_output(gateway_id: Optional[pulumi.Input[str]] = None,
+                       opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetGatewayResult]:
+    """
+    Use this datasource to retrieve Metal Gateway resources in Equinix Metal.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    # Create Metal Gateway for a VLAN with a private IPv4 block with 8 IP addresses
+    test_vlan = equinix_metal.Vlan("testVlan",
+        description="test VLAN in SV",
+        metro="sv",
+        project_id=local["project_id"])
+    test_gateway = equinix_metal.get_gateway(gateway_id=local["gateway_id"])
+    ```
+
+
+    :param str gateway_id: UUID of the metal gateway resource to retrieve
+    """
+    ...

@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 export function getSpotMarketRequest(args: GetSpotMarketRequestArgs, opts?: pulumi.InvokeOptions): Promise<GetSpotMarketRequestResult> {
@@ -25,7 +24,7 @@ export interface GetSpotMarketRequestArgs {
     /**
      * The id of the Spot Market Request
      */
-    readonly requestId: string;
+    requestId: string;
 }
 
 /**
@@ -73,4 +72,18 @@ export interface GetSpotMarketRequestResult {
      */
     readonly projectId: string;
     readonly requestId: string;
+}
+
+export function getSpotMarketRequestOutput(args: GetSpotMarketRequestOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSpotMarketRequestResult> {
+    return pulumi.output(args).apply(a => getSpotMarketRequest(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getSpotMarketRequest.
+ */
+export interface GetSpotMarketRequestOutputArgs {
+    /**
+     * The id of the Spot Market Request
+     */
+    requestId: pulumi.Input<string>;
 }

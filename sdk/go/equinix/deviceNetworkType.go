@@ -160,7 +160,7 @@ type DeviceNetworkTypeArrayInput interface {
 type DeviceNetworkTypeArray []DeviceNetworkTypeInput
 
 func (DeviceNetworkTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*DeviceNetworkType)(nil))
+	return reflect.TypeOf((*[]*DeviceNetworkType)(nil)).Elem()
 }
 
 func (i DeviceNetworkTypeArray) ToDeviceNetworkTypeArrayOutput() DeviceNetworkTypeArrayOutput {
@@ -185,7 +185,7 @@ type DeviceNetworkTypeMapInput interface {
 type DeviceNetworkTypeMap map[string]DeviceNetworkTypeInput
 
 func (DeviceNetworkTypeMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*DeviceNetworkType)(nil))
+	return reflect.TypeOf((*map[string]*DeviceNetworkType)(nil)).Elem()
 }
 
 func (i DeviceNetworkTypeMap) ToDeviceNetworkTypeMapOutput() DeviceNetworkTypeMapOutput {
@@ -196,9 +196,7 @@ func (i DeviceNetworkTypeMap) ToDeviceNetworkTypeMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceNetworkTypeMapOutput)
 }
 
-type DeviceNetworkTypeOutput struct {
-	*pulumi.OutputState
-}
+type DeviceNetworkTypeOutput struct{ *pulumi.OutputState }
 
 func (DeviceNetworkTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeviceNetworkType)(nil))
@@ -217,14 +215,12 @@ func (o DeviceNetworkTypeOutput) ToDeviceNetworkTypePtrOutput() DeviceNetworkTyp
 }
 
 func (o DeviceNetworkTypeOutput) ToDeviceNetworkTypePtrOutputWithContext(ctx context.Context) DeviceNetworkTypePtrOutput {
-	return o.ApplyT(func(v DeviceNetworkType) *DeviceNetworkType {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceNetworkType) *DeviceNetworkType {
 		return &v
 	}).(DeviceNetworkTypePtrOutput)
 }
 
-type DeviceNetworkTypePtrOutput struct {
-	*pulumi.OutputState
-}
+type DeviceNetworkTypePtrOutput struct{ *pulumi.OutputState }
 
 func (DeviceNetworkTypePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeviceNetworkType)(nil))
@@ -236,6 +232,16 @@ func (o DeviceNetworkTypePtrOutput) ToDeviceNetworkTypePtrOutput() DeviceNetwork
 
 func (o DeviceNetworkTypePtrOutput) ToDeviceNetworkTypePtrOutputWithContext(ctx context.Context) DeviceNetworkTypePtrOutput {
 	return o
+}
+
+func (o DeviceNetworkTypePtrOutput) Elem() DeviceNetworkTypeOutput {
+	return o.ApplyT(func(v *DeviceNetworkType) DeviceNetworkType {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceNetworkType
+		return ret
+	}).(DeviceNetworkTypeOutput)
 }
 
 type DeviceNetworkTypeArrayOutput struct{ *pulumi.OutputState }
@@ -279,6 +285,10 @@ func (o DeviceNetworkTypeMapOutput) MapIndex(k pulumi.StringInput) DeviceNetwork
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceNetworkTypeInput)(nil)).Elem(), &DeviceNetworkType{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceNetworkTypePtrInput)(nil)).Elem(), &DeviceNetworkType{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceNetworkTypeArrayInput)(nil)).Elem(), DeviceNetworkTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceNetworkTypeMapInput)(nil)).Elem(), DeviceNetworkTypeMap{})
 	pulumi.RegisterOutputType(DeviceNetworkTypeOutput{})
 	pulumi.RegisterOutputType(DeviceNetworkTypePtrOutput{})
 	pulumi.RegisterOutputType(DeviceNetworkTypeArrayOutput{})

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -75,6 +76,71 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetVlanResult> InvokeAsync(GetVlanArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetVlanResult>("equinix-metal:index/getVlan:getVlan", args ?? new GetVlanArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Provides an Equinix Metal Virtual Network datasource. VLANs data sources can be
+        /// searched by VLAN UUID, or project UUID and vxlan number.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Fetch a vlan by ID:
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var foovlan = new EquinixMetal.Vlan("foovlan", new EquinixMetal.VlanArgs
+        ///         {
+        ///             ProjectId = local.Project_id,
+        ///             Metro = "sv",
+        ///             Vxlan = 5,
+        ///         });
+        ///         var dsvlan = foovlan.Id.Apply(id =&gt; EquinixMetal.GetVlan.InvokeAsync(new EquinixMetal.GetVlanArgs
+        ///         {
+        ///             VlanId = id,
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// 
+        /// Fetch a vlan by project ID, vxlan and metro
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var foovlan = new EquinixMetal.Vlan("foovlan", new EquinixMetal.VlanArgs
+        ///         {
+        ///             ProjectId = local.Project_id,
+        ///             Metro = "sv",
+        ///             Vxlan = 5,
+        ///         });
+        ///         var dsvlan = Output.Create(EquinixMetal.GetVlan.InvokeAsync(new EquinixMetal.GetVlanArgs
+        ///         {
+        ///             ProjectId = local.Project_id,
+        ///             Vxlan = 5,
+        ///             Metro = "sv",
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetVlanResult> Invoke(GetVlanInvokeArgs? args = null, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetVlanResult>("equinix-metal:index/getVlan:getVlan", args ?? new GetVlanInvokeArgs(), options.WithVersion());
     }
 
 
@@ -111,6 +177,43 @@ namespace Pulumi.EquinixMetal
         public int? Vxlan { get; set; }
 
         public GetVlanArgs()
+        {
+        }
+    }
+
+    public sealed class GetVlanInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// Facility where the VLAN is deployed
+        /// </summary>
+        [Input("facility")]
+        public Input<string>? Facility { get; set; }
+
+        /// <summary>
+        /// Metro where the VLAN is deployed
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
+
+        /// <summary>
+        /// UUID of parent project of the VLAN. Use together with the vxlan number and metro or facility
+        /// </summary>
+        [Input("projectId")]
+        public Input<string>? ProjectId { get; set; }
+
+        /// <summary>
+        /// Metal UUID of the VLAN resource to look up
+        /// </summary>
+        [Input("vlanId")]
+        public Input<string>? VlanId { get; set; }
+
+        /// <summary>
+        /// vxlan number of the VLAN to look up. Use together with the project_id and metro or facility
+        /// </summary>
+        [Input("vxlan")]
+        public Input<int>? Vxlan { get; set; }
+
+        public GetVlanInvokeArgs()
         {
         }
     }

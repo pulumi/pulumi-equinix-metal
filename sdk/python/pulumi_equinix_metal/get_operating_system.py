@@ -12,6 +12,7 @@ __all__ = [
     'GetOperatingSystemResult',
     'AwaitableGetOperatingSystemResult',
     'get_operating_system',
+    'get_operating_system_output',
 ]
 
 @pulumi.output_type
@@ -140,3 +141,39 @@ def get_operating_system(distro: Optional[str] = None,
         provisionable_on=__ret__.provisionable_on,
         slug=__ret__.slug,
         version=__ret__.version)
+
+
+@_utilities.lift_output_func(get_operating_system)
+def get_operating_system_output(distro: Optional[pulumi.Input[Optional[str]]] = None,
+                                name: Optional[pulumi.Input[Optional[str]]] = None,
+                                provisionable_on: Optional[pulumi.Input[Optional[str]]] = None,
+                                version: Optional[pulumi.Input[Optional[str]]] = None,
+                                opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetOperatingSystemResult]:
+    """
+    Use this data source to get Equinix Metal Operating System image.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    example = equinix_metal.get_operating_system(distro="ubuntu",
+        version="20.04",
+        provisionable_on="c3.medium.x86")
+    server = equinix_metal.Device("server",
+        hostname="tf.ubuntu",
+        plan="c3.medium.x86",
+        facilities=["ny5"],
+        operating_system=example.id,
+        billing_cycle="hourly",
+        project_id=local["project_id"])
+    ```
+
+
+    :param str distro: Name of the OS distribution.
+    :param str name: Name or part of the name of the distribution. Case insensitive.
+    :param str provisionable_on: Plan name.
+    :param str version: Version of the distribution
+    """
+    ...

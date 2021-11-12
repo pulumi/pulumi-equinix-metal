@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -47,6 +48,43 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetIpBlockRangesResult> InvokeAsync(GetIpBlockRangesArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
+        /// 
+        /// There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 blocks are allocated in a facility or metro, and addresses from it can only be assigned to devices in that location. Addresses from Global IPv4 block can be assigned to a device in any metro.
+        /// 
+        /// The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`&lt;network&gt;/&lt;mask&gt;`) of respective blocks from the project.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var projectId = "&lt;UUID_of_your_project&gt;";
+        ///         var test = Output.Create(EquinixMetal.GetIpBlockRanges.InvokeAsync(new EquinixMetal.GetIpBlockRangesArgs
+        ///         {
+        ///             ProjectId = projectId,
+        ///         }));
+        ///         this.Out = test;
+        ///     }
+        /// 
+        ///     [Output("out")]
+        ///     public Output&lt;string&gt; Out { get; set; }
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetIpBlockRangesResult> Invoke(GetIpBlockRangesInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesInvokeArgs(), options.WithVersion());
     }
 
 
@@ -71,6 +109,31 @@ namespace Pulumi.EquinixMetal
         public string ProjectId { get; set; } = null!;
 
         public GetIpBlockRangesArgs()
+        {
+        }
+    }
+
+    public sealed class GetIpBlockRangesInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
+        /// </summary>
+        [Input("facility")]
+        public Input<string>? Facility { get; set; }
+
+        /// <summary>
+        /// Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
+
+        /// <summary>
+        /// ID of the project from which to list the blocks.
+        /// </summary>
+        [Input("projectId", required: true)]
+        public Input<string> ProjectId { get; set; } = null!;
+
+        public GetIpBlockRangesInvokeArgs()
         {
         }
     }

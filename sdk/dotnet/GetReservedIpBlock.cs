@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -16,6 +17,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetReservedIpBlockResult> InvokeAsync(GetReservedIpBlockArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this data source to find IP address blocks in Equinix Metal. You can use IP address or a block ID for lookup.
+        /// </summary>
+        public static Output<GetReservedIpBlockResult> Invoke(GetReservedIpBlockInvokeArgs? args = null, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockInvokeArgs(), options.WithVersion());
     }
 
 
@@ -40,6 +47,31 @@ namespace Pulumi.EquinixMetal
         public string? ProjectId { get; set; }
 
         public GetReservedIpBlockArgs()
+        {
+        }
+    }
+
+    public sealed class GetReservedIpBlockInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// UUID of the IP address block to look up
+        /// </summary>
+        [Input("id")]
+        public Input<string>? Id { get; set; }
+
+        /// <summary>
+        /// Block containing this IP address will be returned
+        /// </summary>
+        [Input("ipAddress")]
+        public Input<string>? IpAddress { get; set; }
+
+        /// <summary>
+        /// UUID of the project where the searched block should be
+        /// </summary>
+        [Input("projectId")]
+        public Input<string>? ProjectId { get; set; }
+
+        public GetReservedIpBlockInvokeArgs()
         {
         }
     }

@@ -19,6 +19,13 @@ namespace Pulumi.EquinixMetal
     public partial class Provider : Pulumi.ProviderResource
     {
         /// <summary>
+        /// The API auth key for API operations.
+        /// </summary>
+        [Output("authToken")]
+        public Output<string> AuthToken { get; private set; } = null!;
+
+
+        /// <summary>
         /// Create a Provider resource with the given unique name, arguments, and options.
         /// </summary>
         ///

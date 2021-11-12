@@ -171,7 +171,7 @@ func Provider() tfbridge.ProviderInfo {
 				ObjectTypeSpec: pulumiSchema.ObjectTypeSpec{
 					Type: "string",
 				},
-				Enum: []*pulumiSchema.EnumValueSpec{
+				Enum: []pulumiSchema.EnumValueSpec{
 					{Value: "hourly", Name: "Hourly"},
 					{Value: "monthly", Name: "Monthly"},
 				},
@@ -180,7 +180,7 @@ func Provider() tfbridge.ProviderInfo {
 				ObjectTypeSpec: pulumiSchema.ObjectTypeSpec{
 					Type: "string",
 				},
-				Enum: []*pulumiSchema.EnumValueSpec{
+				Enum: []pulumiSchema.EnumValueSpec{
 					{Value: "global_ipv4", Name: "GlobalIPv4"},
 					{Value: "public_ipv4", Name: "PublicIPv4"},
 				},
@@ -189,7 +189,7 @@ func Provider() tfbridge.ProviderInfo {
 				ObjectTypeSpec: pulumiSchema.ObjectTypeSpec{
 					Type: "string",
 				},
-				Enum: []*pulumiSchema.EnumValueSpec{
+				Enum: []pulumiSchema.EnumValueSpec{
 					{Value: "layer3", Name: "Layer3"},
 					{Value: "layer2-individual", Name: "Layer2Individual"},
 					{Value: "layer2-bonded", Name: "Layer2Bonded"},
@@ -200,7 +200,7 @@ func Provider() tfbridge.ProviderInfo {
 				ObjectTypeSpec: pulumiSchema.ObjectTypeSpec{
 					Type: "string",
 				},
-				Enum: []*pulumiSchema.EnumValueSpec{
+				Enum: []pulumiSchema.EnumValueSpec{
 					{Name: "C2LargeARM", Value: "c2.large.arm"},
 					{Name: "C2MediumX86", Value: "c2.medium.x86"},
 					{Name: "C1SmallX86", Value: "baremetal_1"},
@@ -226,7 +226,7 @@ func Provider() tfbridge.ProviderInfo {
 				ObjectTypeSpec: pulumiSchema.ObjectTypeSpec{
 					Type: "string",
 				},
-				Enum: []*pulumiSchema.EnumValueSpec{
+				Enum: []pulumiSchema.EnumValueSpec{
 					{Name: "Alpine3", Value: "alpine_3"},
 					{Name: "CentOS6", Value: "centos_6"},
 					{Name: "CentOS7", Value: "centos_7"},
@@ -272,7 +272,7 @@ func Provider() tfbridge.ProviderInfo {
 				ObjectTypeSpec: pulumiSchema.ObjectTypeSpec{
 					Type: "string",
 				},
-				Enum: []*pulumiSchema.EnumValueSpec{
+				Enum: []pulumiSchema.EnumValueSpec{
 					{Value: "ewr1", Name: "EWR1"},
 					{Value: "sjc1", Name: "SJC1"},
 					{Value: "dfw1", Name: "DFW1"},

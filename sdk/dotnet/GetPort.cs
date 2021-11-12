@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -55,6 +56,51 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetPortResult> InvokeAsync(GetPortArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetPortResult>("equinix-metal:index/getPort:getPort", args ?? new GetPortArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this data source to read ports of existing devices. You can read port by either its UUID, or by a device UUID and port name.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Create a device and read it's eth0 port to the datasource.
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var projectId = "&lt;UUID_of_your_project&gt;";
+        ///         var testDevice = new EquinixMetal.Device("testDevice", new EquinixMetal.DeviceArgs
+        ///         {
+        ///             Hostname = "tfacc-test-device-port",
+        ///             Plan = "c3.medium.x86",
+        ///             Facilities = 
+        ///             {
+        ///                 "sv15",
+        ///             },
+        ///             OperatingSystem = "ubuntu_20_04",
+        ///             BillingCycle = "hourly",
+        ///             ProjectId = projectId,
+        ///         });
+        ///         var testPort = testDevice.Id.Apply(id =&gt; EquinixMetal.GetPort.InvokeAsync(new EquinixMetal.GetPortArgs
+        ///         {
+        ///             DeviceId = id,
+        ///             Name = "eth0",
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetPortResult> Invoke(GetPortInvokeArgs? args = null, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetPortResult>("equinix-metal:index/getPort:getPort", args ?? new GetPortInvokeArgs(), options.WithVersion());
     }
 
 
@@ -73,6 +119,25 @@ namespace Pulumi.EquinixMetal
         public string? PortId { get; set; }
 
         public GetPortArgs()
+        {
+        }
+    }
+
+    public sealed class GetPortInvokeArgs : Pulumi.InvokeArgs
+    {
+        [Input("deviceId")]
+        public Input<string>? DeviceId { get; set; }
+
+        /// <summary>
+        /// Whether to look for public or private block.
+        /// </summary>
+        [Input("name")]
+        public Input<string>? Name { get; set; }
+
+        [Input("portId")]
+        public Input<string>? PortId { get; set; }
+
+        public GetPortInvokeArgs()
         {
         }
     }

@@ -25,6 +25,10 @@ export class Provider extends pulumi.ProviderResource {
         return obj['__pulumiType'] === Provider.__pulumiType;
     }
 
+    /**
+     * The API auth key for API operations.
+     */
+    public readonly authToken!: pulumi.Output<string>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -58,7 +62,7 @@ export interface ProviderArgs {
     /**
      * The API auth key for API operations.
      */
-    readonly authToken: pulumi.Input<string>;
-    readonly maxRetries?: pulumi.Input<number>;
-    readonly maxRetryWaitSeconds?: pulumi.Input<number>;
+    authToken: pulumi.Input<string>;
+    maxRetries?: pulumi.Input<number>;
+    maxRetryWaitSeconds?: pulumi.Input<number>;
 }

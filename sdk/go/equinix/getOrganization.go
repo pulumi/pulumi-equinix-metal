@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -22,7 +25,7 @@ import (
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		opt0 := local.Org_id
-// 		test, err := equinix - metal.LookupOrganization(ctx, &equinix-metal.LookupOrganizationArgs{
+// 		test, err := equinix - metal.LookupOrganization(ctx, &GetOrganizationArgs{
 // 			OrganizationId: &opt0,
 // 		}, nil)
 // 		if err != nil {
@@ -66,4 +69,82 @@ type LookupOrganizationResult struct {
 	Twitter string `pulumi:"twitter"`
 	// Website link
 	Website string `pulumi:"website"`
+}
+
+func LookupOrganizationOutput(ctx *pulumi.Context, args LookupOrganizationOutputArgs, opts ...pulumi.InvokeOption) LookupOrganizationResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupOrganizationResult, error) {
+			args := v.(LookupOrganizationArgs)
+			r, err := LookupOrganization(ctx, &args, opts...)
+			return *r, err
+		}).(LookupOrganizationResultOutput)
+}
+
+// A collection of arguments for invoking getOrganization.
+type LookupOrganizationOutputArgs struct {
+	// The organization name
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// The UUID of the organization resource
+	OrganizationId pulumi.StringPtrInput `pulumi:"organizationId"`
+}
+
+func (LookupOrganizationOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupOrganizationArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getOrganization.
+type LookupOrganizationResultOutput struct{ *pulumi.OutputState }
+
+func (LookupOrganizationResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupOrganizationResult)(nil)).Elem()
+}
+
+func (o LookupOrganizationResultOutput) ToLookupOrganizationResultOutput() LookupOrganizationResultOutput {
+	return o
+}
+
+func (o LookupOrganizationResultOutput) ToLookupOrganizationResultOutputWithContext(ctx context.Context) LookupOrganizationResultOutput {
+	return o
+}
+
+// Description string
+func (o LookupOrganizationResultOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o LookupOrganizationResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Logo URL
+func (o LookupOrganizationResultOutput) Logo() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Logo }).(pulumi.StringOutput)
+}
+
+func (o LookupOrganizationResultOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o LookupOrganizationResultOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.OrganizationId }).(pulumi.StringOutput)
+}
+
+// UUIDs of project resources which belong to this organization
+func (o LookupOrganizationResultOutput) ProjectIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) []string { return v.ProjectIds }).(pulumi.StringArrayOutput)
+}
+
+// Twitter handle
+func (o LookupOrganizationResultOutput) Twitter() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Twitter }).(pulumi.StringOutput)
+}
+
+// Website link
+func (o LookupOrganizationResultOutput) Website() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Website }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupOrganizationResultOutput{})
 }

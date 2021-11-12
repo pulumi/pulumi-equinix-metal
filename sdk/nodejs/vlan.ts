@@ -131,20 +131,20 @@ export interface VlanState {
     /**
      * Description string
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Facility where to create the VLAN
      */
-    readonly facility?: pulumi.Input<string | enums.Facility>;
-    readonly metro?: pulumi.Input<string>;
+    facility?: pulumi.Input<string | enums.Facility>;
+    metro?: pulumi.Input<string>;
     /**
      * ID of parent project
      */
-    readonly projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
     /**
      * VLAN ID, must be unique in metro
      */
-    readonly vxlan?: pulumi.Input<number>;
+    vxlan?: pulumi.Input<number>;
 }
 
 /**
@@ -154,18 +154,18 @@ export interface VlanArgs {
     /**
      * Description string
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Facility where to create the VLAN
      */
-    readonly facility?: pulumi.Input<string | enums.Facility>;
-    readonly metro?: pulumi.Input<string>;
+    facility?: pulumi.Input<string | enums.Facility>;
+    metro?: pulumi.Input<string>;
     /**
      * ID of parent project
      */
-    readonly projectId: pulumi.Input<string>;
+    projectId: pulumi.Input<string>;
     /**
      * VLAN ID, must be unique in metro
      */
-    readonly vxlan?: pulumi.Input<number>;
+    vxlan?: pulumi.Input<number>;
 }

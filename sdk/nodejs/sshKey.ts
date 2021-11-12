@@ -139,28 +139,28 @@ export interface SshKeyState {
     /**
      * The timestamp for when the SSH key was created
      */
-    readonly created?: pulumi.Input<string>;
+    created?: pulumi.Input<string>;
     /**
      * The fingerprint of the SSH key
      */
-    readonly fingerprint?: pulumi.Input<string>;
+    fingerprint?: pulumi.Input<string>;
     /**
      * The name of the SSH key for identification
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * The UUID of the Equinix Metal API User who owns this key
      */
-    readonly ownerId?: pulumi.Input<string>;
+    ownerId?: pulumi.Input<string>;
     /**
      * The public key. If this is a file, it
      * can be read using the file interpolation function
      */
-    readonly publicKey?: pulumi.Input<string>;
+    publicKey?: pulumi.Input<string>;
     /**
      * The timestamp for the last time the SSH key was updated
      */
-    readonly updated?: pulumi.Input<string>;
+    updated?: pulumi.Input<string>;
 }
 
 /**
@@ -170,10 +170,10 @@ export interface SshKeyArgs {
     /**
      * The name of the SSH key for identification
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * The public key. If this is a file, it
      * can be read using the file interpolation function
      */
-    readonly publicKey: pulumi.Input<string>;
+    publicKey: pulumi.Input<string>;
 }

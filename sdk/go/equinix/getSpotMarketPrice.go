@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -24,7 +27,7 @@ import (
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		opt0 := "ny5"
-// 		_, err := equinix - metal.GetSpotMarketPrice(ctx, &equinix-metal.GetSpotMarketPriceArgs{
+// 		_, err := equinix - metal.GetSpotMarketPrice(ctx, &GetSpotMarketPriceArgs{
 // 			Facility: &opt0,
 // 			Plan:     "c3.small.x86",
 // 		}, nil)
@@ -49,7 +52,7 @@ import (
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		opt0 := "sv"
-// 		_, err := equinix - metal.GetSpotMarketPrice(ctx, &equinix-metal.GetSpotMarketPriceArgs{
+// 		_, err := equinix - metal.GetSpotMarketPrice(ctx, &GetSpotMarketPriceArgs{
 // 			Metro: &opt0,
 // 			Plan:  "c3.small.x86",
 // 		}, nil)
@@ -88,4 +91,68 @@ type GetSpotMarketPriceResult struct {
 	Plan  string  `pulumi:"plan"`
 	// Current spot market price for given plan in given facility.
 	Price float64 `pulumi:"price"`
+}
+
+func GetSpotMarketPriceOutput(ctx *pulumi.Context, args GetSpotMarketPriceOutputArgs, opts ...pulumi.InvokeOption) GetSpotMarketPriceResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (GetSpotMarketPriceResult, error) {
+			args := v.(GetSpotMarketPriceArgs)
+			r, err := GetSpotMarketPrice(ctx, &args, opts...)
+			return *r, err
+		}).(GetSpotMarketPriceResultOutput)
+}
+
+// A collection of arguments for invoking getSpotMarketPrice.
+type GetSpotMarketPriceOutputArgs struct {
+	// Name of the facility.
+	Facility pulumi.StringPtrInput `pulumi:"facility"`
+	// Name of the metro.
+	Metro pulumi.StringPtrInput `pulumi:"metro"`
+	// Name of the plan.
+	Plan pulumi.StringInput `pulumi:"plan"`
+}
+
+func (GetSpotMarketPriceOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSpotMarketPriceArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getSpotMarketPrice.
+type GetSpotMarketPriceResultOutput struct{ *pulumi.OutputState }
+
+func (GetSpotMarketPriceResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSpotMarketPriceResult)(nil)).Elem()
+}
+
+func (o GetSpotMarketPriceResultOutput) ToGetSpotMarketPriceResultOutput() GetSpotMarketPriceResultOutput {
+	return o
+}
+
+func (o GetSpotMarketPriceResultOutput) ToGetSpotMarketPriceResultOutputWithContext(ctx context.Context) GetSpotMarketPriceResultOutput {
+	return o
+}
+
+func (o GetSpotMarketPriceResultOutput) Facility() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetSpotMarketPriceResult) *string { return v.Facility }).(pulumi.StringPtrOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o GetSpotMarketPriceResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSpotMarketPriceResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func (o GetSpotMarketPriceResultOutput) Metro() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetSpotMarketPriceResult) *string { return v.Metro }).(pulumi.StringPtrOutput)
+}
+
+func (o GetSpotMarketPriceResultOutput) Plan() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSpotMarketPriceResult) string { return v.Plan }).(pulumi.StringOutput)
+}
+
+// Current spot market price for given plan in given facility.
+func (o GetSpotMarketPriceResultOutput) Price() pulumi.Float64Output {
+	return o.ApplyT(func(v GetSpotMarketPriceResult) float64 { return v.Price }).(pulumi.Float64Output)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetSpotMarketPriceResultOutput{})
 }

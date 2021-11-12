@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -70,23 +69,23 @@ export interface GetVlanArgs {
     /**
      * Facility where the VLAN is deployed
      */
-    readonly facility?: string;
+    facility?: string;
     /**
      * Metro where the VLAN is deployed
      */
-    readonly metro?: string;
+    metro?: string;
     /**
      * UUID of parent project of the VLAN. Use together with the vxlan number and metro or facility
      */
-    readonly projectId?: string;
+    projectId?: string;
     /**
      * Metal UUID of the VLAN resource to look up
      */
-    readonly vlanId?: string;
+    vlanId?: string;
     /**
      * vxlan number of the VLAN to look up. Use together with the projectId and metro or facility
      */
-    readonly vxlan?: number;
+    vxlan?: number;
 }
 
 /**
@@ -110,4 +109,34 @@ export interface GetVlanResult {
     readonly projectId: string;
     readonly vlanId: string;
     readonly vxlan: number;
+}
+
+export function getVlanOutput(args?: GetVlanOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetVlanResult> {
+    return pulumi.output(args).apply(a => getVlan(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getVlan.
+ */
+export interface GetVlanOutputArgs {
+    /**
+     * Facility where the VLAN is deployed
+     */
+    facility?: pulumi.Input<string>;
+    /**
+     * Metro where the VLAN is deployed
+     */
+    metro?: pulumi.Input<string>;
+    /**
+     * UUID of parent project of the VLAN. Use together with the vxlan number and metro or facility
+     */
+    projectId?: pulumi.Input<string>;
+    /**
+     * Metal UUID of the VLAN resource to look up
+     */
+    vlanId?: pulumi.Input<string>;
+    /**
+     * vxlan number of the VLAN to look up. Use together with the projectId and metro or facility
+     */
+    vxlan?: pulumi.Input<number>;
 }

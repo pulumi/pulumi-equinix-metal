@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -13,6 +14,9 @@ namespace Pulumi.EquinixMetal
     {
         public static Task<GetSpotMarketRequestResult> InvokeAsync(GetSpotMarketRequestArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetSpotMarketRequestResult>("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", args ?? new GetSpotMarketRequestArgs(), options.WithVersion());
+
+        public static Output<GetSpotMarketRequestResult> Invoke(GetSpotMarketRequestInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetSpotMarketRequestResult>("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", args ?? new GetSpotMarketRequestInvokeArgs(), options.WithVersion());
     }
 
 
@@ -25,6 +29,19 @@ namespace Pulumi.EquinixMetal
         public string RequestId { get; set; } = null!;
 
         public GetSpotMarketRequestArgs()
+        {
+        }
+    }
+
+    public sealed class GetSpotMarketRequestInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// The id of the Spot Market Request
+        /// </summary>
+        [Input("requestId", required: true)]
+        public Input<string> RequestId { get; set; } = null!;
+
+        public GetSpotMarketRequestInvokeArgs()
         {
         }
     }

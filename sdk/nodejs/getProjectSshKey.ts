@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -42,16 +41,16 @@ export interface GetProjectSshKeyArgs {
     /**
      * The id of the SSH Key to search for in the Equinix Metal project
      */
-    readonly id?: string;
+    id?: string;
     /**
      * The Equinix Metal project id of the Equinix Metal SSH Key
      */
-    readonly projectId: string;
+    projectId: string;
     /**
      * The name, fingerprint, or publicKey of the SSH Key to search for
      * in the Equinix Metal project
      */
-    readonly search?: string;
+    search?: string;
 }
 
 /**
@@ -91,4 +90,27 @@ export interface GetProjectSshKeyResult {
      * The timestamp for the last time the SSH key was updated
      */
     readonly updated: string;
+}
+
+export function getProjectSshKeyOutput(args: GetProjectSshKeyOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectSshKeyResult> {
+    return pulumi.output(args).apply(a => getProjectSshKey(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getProjectSshKey.
+ */
+export interface GetProjectSshKeyOutputArgs {
+    /**
+     * The id of the SSH Key to search for in the Equinix Metal project
+     */
+    id?: pulumi.Input<string>;
+    /**
+     * The Equinix Metal project id of the Equinix Metal SSH Key
+     */
+    projectId: pulumi.Input<string>;
+    /**
+     * The name, fingerprint, or publicKey of the SSH Key to search for
+     * in the Equinix Metal project
+     */
+    search?: pulumi.Input<string>;
 }

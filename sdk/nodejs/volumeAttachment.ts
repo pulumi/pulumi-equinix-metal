@@ -75,14 +75,14 @@ export class VolumeAttachment extends pulumi.CustomResource {
  * Input properties used for looking up and filtering VolumeAttachment resources.
  */
 export interface VolumeAttachmentState {
-    readonly deviceId?: pulumi.Input<string>;
-    readonly volumeId?: pulumi.Input<string>;
+    deviceId?: pulumi.Input<string>;
+    volumeId?: pulumi.Input<string>;
 }
 
 /**
  * The set of arguments for constructing a VolumeAttachment resource.
  */
 export interface VolumeAttachmentArgs {
-    readonly deviceId: pulumi.Input<string>;
-    readonly volumeId: pulumi.Input<string>;
+    deviceId: pulumi.Input<string>;
+    volumeId: pulumi.Input<string>;
 }

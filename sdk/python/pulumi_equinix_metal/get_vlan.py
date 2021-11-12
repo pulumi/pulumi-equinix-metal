@@ -12,6 +12,7 @@ __all__ = [
     'GetVlanResult',
     'AwaitableGetVlanResult',
     'get_vlan',
+    'get_vlan_output',
 ]
 
 @pulumi.output_type
@@ -179,3 +180,54 @@ def get_vlan(facility: Optional[str] = None,
         project_id=__ret__.project_id,
         vlan_id=__ret__.vlan_id,
         vxlan=__ret__.vxlan)
+
+
+@_utilities.lift_output_func(get_vlan)
+def get_vlan_output(facility: Optional[pulumi.Input[Optional[str]]] = None,
+                    metro: Optional[pulumi.Input[Optional[str]]] = None,
+                    project_id: Optional[pulumi.Input[Optional[str]]] = None,
+                    vlan_id: Optional[pulumi.Input[Optional[str]]] = None,
+                    vxlan: Optional[pulumi.Input[Optional[int]]] = None,
+                    opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetVlanResult]:
+    """
+    Provides an Equinix Metal Virtual Network datasource. VLANs data sources can be
+    searched by VLAN UUID, or project UUID and vxlan number.
+
+    ## Example Usage
+
+    Fetch a vlan by ID:
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    foovlan = equinix_metal.Vlan("foovlan",
+        project_id=local["project_id"],
+        metro="sv",
+        vxlan=5)
+    dsvlan = foovlan.id.apply(lambda id: equinix_metal.get_vlan(vlan_id=id))
+    ```
+
+    Fetch a vlan by project ID, vxlan and metro
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    foovlan = equinix_metal.Vlan("foovlan",
+        project_id=local["project_id"],
+        metro="sv",
+        vxlan=5)
+    dsvlan = equinix_metal.get_vlan(project_id=local["project_id"],
+        vxlan=5,
+        metro="sv")
+    ```
+
+
+    :param str facility: Facility where the VLAN is deployed
+    :param str metro: Metro where the VLAN is deployed
+    :param str project_id: UUID of parent project of the VLAN. Use together with the vxlan number and metro or facility
+    :param str vlan_id: Metal UUID of the VLAN resource to look up
+    :param int vxlan: vxlan number of the VLAN to look up. Use together with the project_id and metro or facility
+    """
+    ...

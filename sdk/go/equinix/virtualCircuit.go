@@ -29,7 +29,7 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		projectId := "52000fb2-ee46-4673-93a8-de2c2bdba33c"
 // 		connId := "73f12f29-3e19-43a0-8e90-ae81580db1e0"
-// 		testConnection, err := equinix - metal.LookupConnection(ctx, &equinix-metal.LookupConnectionArgs{
+// 		testConnection, err := equinix - metal.LookupConnection(ctx, &GetConnectionArgs{
 // 			ConnectionId: connId,
 // 		}, nil)
 // 		if err != nil {
@@ -295,7 +295,7 @@ type VirtualCircuitArrayInput interface {
 type VirtualCircuitArray []VirtualCircuitInput
 
 func (VirtualCircuitArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*VirtualCircuit)(nil))
+	return reflect.TypeOf((*[]*VirtualCircuit)(nil)).Elem()
 }
 
 func (i VirtualCircuitArray) ToVirtualCircuitArrayOutput() VirtualCircuitArrayOutput {
@@ -320,7 +320,7 @@ type VirtualCircuitMapInput interface {
 type VirtualCircuitMap map[string]VirtualCircuitInput
 
 func (VirtualCircuitMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*VirtualCircuit)(nil))
+	return reflect.TypeOf((*map[string]*VirtualCircuit)(nil)).Elem()
 }
 
 func (i VirtualCircuitMap) ToVirtualCircuitMapOutput() VirtualCircuitMapOutput {
@@ -331,9 +331,7 @@ func (i VirtualCircuitMap) ToVirtualCircuitMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(VirtualCircuitMapOutput)
 }
 
-type VirtualCircuitOutput struct {
-	*pulumi.OutputState
-}
+type VirtualCircuitOutput struct{ *pulumi.OutputState }
 
 func (VirtualCircuitOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*VirtualCircuit)(nil))
@@ -352,14 +350,12 @@ func (o VirtualCircuitOutput) ToVirtualCircuitPtrOutput() VirtualCircuitPtrOutpu
 }
 
 func (o VirtualCircuitOutput) ToVirtualCircuitPtrOutputWithContext(ctx context.Context) VirtualCircuitPtrOutput {
-	return o.ApplyT(func(v VirtualCircuit) *VirtualCircuit {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VirtualCircuit) *VirtualCircuit {
 		return &v
 	}).(VirtualCircuitPtrOutput)
 }
 
-type VirtualCircuitPtrOutput struct {
-	*pulumi.OutputState
-}
+type VirtualCircuitPtrOutput struct{ *pulumi.OutputState }
 
 func (VirtualCircuitPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VirtualCircuit)(nil))
@@ -371,6 +367,16 @@ func (o VirtualCircuitPtrOutput) ToVirtualCircuitPtrOutput() VirtualCircuitPtrOu
 
 func (o VirtualCircuitPtrOutput) ToVirtualCircuitPtrOutputWithContext(ctx context.Context) VirtualCircuitPtrOutput {
 	return o
+}
+
+func (o VirtualCircuitPtrOutput) Elem() VirtualCircuitOutput {
+	return o.ApplyT(func(v *VirtualCircuit) VirtualCircuit {
+		if v != nil {
+			return *v
+		}
+		var ret VirtualCircuit
+		return ret
+	}).(VirtualCircuitOutput)
 }
 
 type VirtualCircuitArrayOutput struct{ *pulumi.OutputState }
@@ -414,6 +420,10 @@ func (o VirtualCircuitMapOutput) MapIndex(k pulumi.StringInput) VirtualCircuitOu
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*VirtualCircuitInput)(nil)).Elem(), &VirtualCircuit{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VirtualCircuitPtrInput)(nil)).Elem(), &VirtualCircuit{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VirtualCircuitArrayInput)(nil)).Elem(), VirtualCircuitArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VirtualCircuitMapInput)(nil)).Elem(), VirtualCircuitMap{})
 	pulumi.RegisterOutputType(VirtualCircuitOutput{})
 	pulumi.RegisterOutputType(VirtualCircuitPtrOutput{})
 	pulumi.RegisterOutputType(VirtualCircuitArrayOutput{})

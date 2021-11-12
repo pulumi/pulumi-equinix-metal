@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -42,4 +45,104 @@ type LookupVolumeResult struct {
 	State            string                    `pulumi:"state"`
 	Updated          string                    `pulumi:"updated"`
 	VolumeId         string                    `pulumi:"volumeId"`
+}
+
+func LookupVolumeOutput(ctx *pulumi.Context, args LookupVolumeOutputArgs, opts ...pulumi.InvokeOption) LookupVolumeResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupVolumeResult, error) {
+			args := v.(LookupVolumeArgs)
+			r, err := LookupVolume(ctx, &args, opts...)
+			return *r, err
+		}).(LookupVolumeResultOutput)
+}
+
+// A collection of arguments for invoking getVolume.
+type LookupVolumeOutputArgs struct {
+	Name      pulumi.StringPtrInput `pulumi:"name"`
+	ProjectId pulumi.StringPtrInput `pulumi:"projectId"`
+	VolumeId  pulumi.StringPtrInput `pulumi:"volumeId"`
+}
+
+func (LookupVolumeOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupVolumeArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getVolume.
+type LookupVolumeResultOutput struct{ *pulumi.OutputState }
+
+func (LookupVolumeResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupVolumeResult)(nil)).Elem()
+}
+
+func (o LookupVolumeResultOutput) ToLookupVolumeResultOutput() LookupVolumeResultOutput {
+	return o
+}
+
+func (o LookupVolumeResultOutput) ToLookupVolumeResultOutputWithContext(ctx context.Context) LookupVolumeResultOutput {
+	return o
+}
+
+func (o LookupVolumeResultOutput) BillingCycle() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.BillingCycle }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) Created() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.Created }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.Description }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) DeviceIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupVolumeResult) []string { return v.DeviceIds }).(pulumi.StringArrayOutput)
+}
+
+func (o LookupVolumeResultOutput) Facility() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.Facility }).(pulumi.StringOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o LookupVolumeResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) Locked() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupVolumeResult) bool { return v.Locked }).(pulumi.BoolOutput)
+}
+
+func (o LookupVolumeResultOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) Plan() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.Plan }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) Size() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupVolumeResult) int { return v.Size }).(pulumi.IntOutput)
+}
+
+func (o LookupVolumeResultOutput) SnapshotPolicies() GetVolumeSnapshotPolicyArrayOutput {
+	return o.ApplyT(func(v LookupVolumeResult) []GetVolumeSnapshotPolicy { return v.SnapshotPolicies }).(GetVolumeSnapshotPolicyArrayOutput)
+}
+
+func (o LookupVolumeResultOutput) State() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.State }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) Updated() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.Updated }).(pulumi.StringOutput)
+}
+
+func (o LookupVolumeResultOutput) VolumeId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVolumeResult) string { return v.VolumeId }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupVolumeResultOutput{})
 }

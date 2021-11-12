@@ -115,31 +115,31 @@ export interface ProjectState {
     /**
      * Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
      */
-    readonly backendTransfer?: pulumi.Input<boolean>;
+    backendTransfer?: pulumi.Input<boolean>;
     /**
      * Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
      */
-    readonly bgpConfig?: pulumi.Input<inputs.ProjectBgpConfig>;
+    bgpConfig?: pulumi.Input<inputs.ProjectBgpConfig>;
     /**
      * The timestamp for when the project was created
      */
-    readonly created?: pulumi.Input<string>;
+    created?: pulumi.Input<string>;
     /**
      * The name of the project
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
      */
-    readonly organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string>;
     /**
      * The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organizationId`, or default).
      */
-    readonly paymentMethodId?: pulumi.Input<string>;
+    paymentMethodId?: pulumi.Input<string>;
     /**
      * The timestamp for the last time the project was updated
      */
-    readonly updated?: pulumi.Input<string>;
+    updated?: pulumi.Input<string>;
 }
 
 /**
@@ -149,21 +149,21 @@ export interface ProjectArgs {
     /**
      * Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
      */
-    readonly backendTransfer?: pulumi.Input<boolean>;
+    backendTransfer?: pulumi.Input<boolean>;
     /**
      * Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
      */
-    readonly bgpConfig?: pulumi.Input<inputs.ProjectBgpConfig>;
+    bgpConfig?: pulumi.Input<inputs.ProjectBgpConfig>;
     /**
      * The name of the project
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
      */
-    readonly organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string>;
     /**
      * The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organizationId`, or default).
      */
-    readonly paymentMethodId?: pulumi.Input<string>;
+    paymentMethodId?: pulumi.Input<string>;
 }

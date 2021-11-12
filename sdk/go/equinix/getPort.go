@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -86,4 +89,115 @@ type LookupPortResult struct {
 	VlanIds []string `pulumi:"vlanIds"`
 	// VXLAN ids of attached VLANs
 	VxlanIds []int `pulumi:"vxlanIds"`
+}
+
+func LookupPortOutput(ctx *pulumi.Context, args LookupPortOutputArgs, opts ...pulumi.InvokeOption) LookupPortResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupPortResult, error) {
+			args := v.(LookupPortArgs)
+			r, err := LookupPort(ctx, &args, opts...)
+			return *r, err
+		}).(LookupPortResultOutput)
+}
+
+// A collection of arguments for invoking getPort.
+type LookupPortOutputArgs struct {
+	DeviceId pulumi.StringPtrInput `pulumi:"deviceId"`
+	// Whether to look for public or private block.
+	Name   pulumi.StringPtrInput `pulumi:"name"`
+	PortId pulumi.StringPtrInput `pulumi:"portId"`
+}
+
+func (LookupPortOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupPortArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getPort.
+type LookupPortResultOutput struct{ *pulumi.OutputState }
+
+func (LookupPortResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupPortResult)(nil)).Elem()
+}
+
+func (o LookupPortResultOutput) ToLookupPortResultOutput() LookupPortResultOutput {
+	return o
+}
+
+func (o LookupPortResultOutput) ToLookupPortResultOutputWithContext(ctx context.Context) LookupPortResultOutput {
+	return o
+}
+
+// UUID of the bond port"
+func (o LookupPortResultOutput) BondId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.BondId }).(pulumi.StringOutput)
+}
+
+// Name of the bond port
+func (o LookupPortResultOutput) BondName() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.BondName }).(pulumi.StringOutput)
+}
+
+// Flag indicating whether the port is bonded
+func (o LookupPortResultOutput) Bonded() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupPortResult) bool { return v.Bonded }).(pulumi.BoolOutput)
+}
+
+func (o LookupPortResultOutput) DeviceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupPortResult) *string { return v.DeviceId }).(pulumi.StringPtrOutput)
+}
+
+// Flag indicating whether the port can be removed from a bond
+func (o LookupPortResultOutput) DisbondSupported() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupPortResult) bool { return v.DisbondSupported }).(pulumi.BoolOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o LookupPortResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func (o LookupPortResultOutput) Layer2() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupPortResult) bool { return v.Layer2 }).(pulumi.BoolOutput)
+}
+
+// MAC address of the port
+func (o LookupPortResultOutput) Mac() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.Mac }).(pulumi.StringOutput)
+}
+
+func (o LookupPortResultOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// UUID of native VLAN of the port
+func (o LookupPortResultOutput) NativeVlanId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.NativeVlanId }).(pulumi.StringOutput)
+}
+
+// One of layer2-bonded, layer2-individual, layer3, hybrid, hybrid-bonded
+func (o LookupPortResultOutput) NetworkType() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.NetworkType }).(pulumi.StringOutput)
+}
+
+func (o LookupPortResultOutput) PortId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupPortResult) *string { return v.PortId }).(pulumi.StringPtrOutput)
+}
+
+// Type is either "NetworkBondPort" for bond ports or "NetworkPort" for bondable ethernet ports
+func (o LookupPortResultOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPortResult) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// UUIDs of attached VLANs
+func (o LookupPortResultOutput) VlanIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupPortResult) []string { return v.VlanIds }).(pulumi.StringArrayOutput)
+}
+
+// VXLAN ids of attached VLANs
+func (o LookupPortResultOutput) VxlanIds() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v LookupPortResult) []int { return v.VxlanIds }).(pulumi.IntArrayOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupPortResultOutput{})
 }

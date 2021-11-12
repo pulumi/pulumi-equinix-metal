@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -16,6 +17,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetVolumeResult> InvokeAsync(GetVolumeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetVolumeResult>("equinix-metal:index/getVolume:getVolume", args ?? new GetVolumeArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Datasource `equinix-metal.Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+        /// </summary>
+        public static Output<GetVolumeResult> Invoke(GetVolumeInvokeArgs? args = null, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetVolumeResult>("equinix-metal:index/getVolume:getVolume", args ?? new GetVolumeInvokeArgs(), options.WithVersion());
     }
 
 
@@ -31,6 +38,22 @@ namespace Pulumi.EquinixMetal
         public string? VolumeId { get; set; }
 
         public GetVolumeArgs()
+        {
+        }
+    }
+
+    public sealed class GetVolumeInvokeArgs : Pulumi.InvokeArgs
+    {
+        [Input("name")]
+        public Input<string>? Name { get; set; }
+
+        [Input("projectId")]
+        public Input<string>? ProjectId { get; set; }
+
+        [Input("volumeId")]
+        public Input<string>? VolumeId { get; set; }
+
+        public GetVolumeInvokeArgs()
         {
         }
     }

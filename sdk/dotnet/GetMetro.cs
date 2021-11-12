@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -16,6 +17,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetMetroResult> InvokeAsync(GetMetroArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Provides an Equinix Metal metro datasource.
+        /// </summary>
+        public static Output<GetMetroResult> Invoke(GetMetroInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroInvokeArgs(), options.WithVersion());
     }
 
 
@@ -40,6 +47,31 @@ namespace Pulumi.EquinixMetal
         public string Code { get; set; } = null!;
 
         public GetMetroArgs()
+        {
+        }
+    }
+
+    public sealed class GetMetroInvokeArgs : Pulumi.InvokeArgs
+    {
+        [Input("capacities")]
+        private InputList<Inputs.GetMetroCapacityInputArgs>? _capacities;
+
+        /// <summary>
+        /// (Optional) Ensure that queried metro has capacity for specified number of given plans
+        /// </summary>
+        public InputList<Inputs.GetMetroCapacityInputArgs> Capacities
+        {
+            get => _capacities ?? (_capacities = new InputList<Inputs.GetMetroCapacityInputArgs>());
+            set => _capacities = value;
+        }
+
+        /// <summary>
+        /// The metro code
+        /// </summary>
+        [Input("code", required: true)]
+        public Input<string> Code { get; set; } = null!;
+
+        public GetMetroInvokeArgs()
         {
         }
     }

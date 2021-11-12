@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -60,7 +63,7 @@ import (
 // 		opt0 := local.Project_id
 // 		opt1 := 5
 // 		opt2 := "sv"
-// 		_, err = equinix - metal.LookupVlan(ctx, &equinix-metal.LookupVlanArgs{
+// 		_, err = equinix - metal.LookupVlan(ctx, &GetVlanArgs{
 // 			ProjectId: &opt0,
 // 			Vxlan:     &opt1,
 // 			Metro:     &opt2,
@@ -108,4 +111,85 @@ type LookupVlanResult struct {
 	ProjectId string `pulumi:"projectId"`
 	VlanId    string `pulumi:"vlanId"`
 	Vxlan     int    `pulumi:"vxlan"`
+}
+
+func LookupVlanOutput(ctx *pulumi.Context, args LookupVlanOutputArgs, opts ...pulumi.InvokeOption) LookupVlanResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupVlanResult, error) {
+			args := v.(LookupVlanArgs)
+			r, err := LookupVlan(ctx, &args, opts...)
+			return *r, err
+		}).(LookupVlanResultOutput)
+}
+
+// A collection of arguments for invoking getVlan.
+type LookupVlanOutputArgs struct {
+	// Facility where the VLAN is deployed
+	Facility pulumi.StringPtrInput `pulumi:"facility"`
+	// Metro where the VLAN is deployed
+	Metro pulumi.StringPtrInput `pulumi:"metro"`
+	// UUID of parent project of the VLAN. Use together with the vxlan number and metro or facility
+	ProjectId pulumi.StringPtrInput `pulumi:"projectId"`
+	// Metal UUID of the VLAN resource to look up
+	VlanId pulumi.StringPtrInput `pulumi:"vlanId"`
+	// vxlan number of the VLAN to look up. Use together with the projectId and metro or facility
+	Vxlan pulumi.IntPtrInput `pulumi:"vxlan"`
+}
+
+func (LookupVlanOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupVlanArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getVlan.
+type LookupVlanResultOutput struct{ *pulumi.OutputState }
+
+func (LookupVlanResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupVlanResult)(nil)).Elem()
+}
+
+func (o LookupVlanResultOutput) ToLookupVlanResultOutput() LookupVlanResultOutput {
+	return o
+}
+
+func (o LookupVlanResultOutput) ToLookupVlanResultOutputWithContext(ctx context.Context) LookupVlanResultOutput {
+	return o
+}
+
+// List of device ID to which this VLAN is assigned
+func (o LookupVlanResultOutput) AssignedDevicesIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupVlanResult) []string { return v.AssignedDevicesIds }).(pulumi.StringArrayOutput)
+}
+
+// Description text of the VLAN resource
+func (o LookupVlanResultOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVlanResult) string { return v.Description }).(pulumi.StringOutput)
+}
+
+func (o LookupVlanResultOutput) Facility() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVlanResult) string { return v.Facility }).(pulumi.StringOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o LookupVlanResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVlanResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func (o LookupVlanResultOutput) Metro() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVlanResult) string { return v.Metro }).(pulumi.StringOutput)
+}
+
+func (o LookupVlanResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVlanResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+func (o LookupVlanResultOutput) VlanId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupVlanResult) string { return v.VlanId }).(pulumi.StringOutput)
+}
+
+func (o LookupVlanResultOutput) Vxlan() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupVlanResult) int { return v.Vxlan }).(pulumi.IntOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupVlanResultOutput{})
 }

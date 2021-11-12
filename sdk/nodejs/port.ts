@@ -153,59 +153,59 @@ export interface PortState {
     /**
      * UUID of the bond port
      */
-    readonly bondId?: pulumi.Input<string>;
+    bondId?: pulumi.Input<string>;
     /**
      * Name of the bond port
      */
-    readonly bondName?: pulumi.Input<string>;
+    bondName?: pulumi.Input<string>;
     /**
      * Whether the port should be bonded
      */
-    readonly bonded?: pulumi.Input<boolean>;
+    bonded?: pulumi.Input<boolean>;
     /**
      * Flag indicating whether the port can be removed from a bond
      */
-    readonly disbondSupported?: pulumi.Input<boolean>;
+    disbondSupported?: pulumi.Input<boolean>;
     /**
      * Whether to put the port to Layer 2 mode, valid only for bond ports
      */
-    readonly layer2?: pulumi.Input<boolean>;
+    layer2?: pulumi.Input<boolean>;
     /**
      * MAC address of the port
      */
-    readonly mac?: pulumi.Input<string>;
+    mac?: pulumi.Input<string>;
     /**
      * Name of the port, e.g. `bond0` or `eth0`
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * UUID of a VLAN to assign as a native VLAN. It must be one of attached VLANs (from `vlanIds` parameter), valid only for physical (non-bond) ports
      */
-    readonly nativeVlanId?: pulumi.Input<string>;
+    nativeVlanId?: pulumi.Input<string>;
     /**
      * One of layer2-bonded, layer2-individual, layer3, hybrid and hybrid-bonded. This attribute is only set on bond ports.
      */
-    readonly networkType?: pulumi.Input<string>;
+    networkType?: pulumi.Input<string>;
     /**
      * ID of the port to read
      */
-    readonly portId?: pulumi.Input<string>;
+    portId?: pulumi.Input<string>;
     /**
      * Behavioral setting to reset the port to default settings. For a bond port it means layer3 without vlans attached, eth ports will be bonded without native vlan and vlans attached
      */
-    readonly resetOnDelete?: pulumi.Input<boolean>;
+    resetOnDelete?: pulumi.Input<boolean>;
     /**
      * Type is either "NetworkBondPort" for bond ports or "NetworkPort" for bondable ethernet ports
      */
-    readonly type?: pulumi.Input<string>;
+    type?: pulumi.Input<string>;
     /**
      * List of VLAN UUIDs to attach to the port, valid only for L2 and Hybrid ports
      */
-    readonly vlanIds?: pulumi.Input<pulumi.Input<string>[]>;
+    vlanIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * List of VXLAN IDs to attach to the port, valid only for L2 and Hybrid ports
      */
-    readonly vxlanIds?: pulumi.Input<pulumi.Input<number>[]>;
+    vxlanIds?: pulumi.Input<pulumi.Input<number>[]>;
 }
 
 /**
@@ -215,29 +215,29 @@ export interface PortArgs {
     /**
      * Whether the port should be bonded
      */
-    readonly bonded: pulumi.Input<boolean>;
+    bonded: pulumi.Input<boolean>;
     /**
      * Whether to put the port to Layer 2 mode, valid only for bond ports
      */
-    readonly layer2?: pulumi.Input<boolean>;
+    layer2?: pulumi.Input<boolean>;
     /**
      * UUID of a VLAN to assign as a native VLAN. It must be one of attached VLANs (from `vlanIds` parameter), valid only for physical (non-bond) ports
      */
-    readonly nativeVlanId?: pulumi.Input<string>;
+    nativeVlanId?: pulumi.Input<string>;
     /**
      * ID of the port to read
      */
-    readonly portId: pulumi.Input<string>;
+    portId: pulumi.Input<string>;
     /**
      * Behavioral setting to reset the port to default settings. For a bond port it means layer3 without vlans attached, eth ports will be bonded without native vlan and vlans attached
      */
-    readonly resetOnDelete?: pulumi.Input<boolean>;
+    resetOnDelete?: pulumi.Input<boolean>;
     /**
      * List of VLAN UUIDs to attach to the port, valid only for L2 and Hybrid ports
      */
-    readonly vlanIds?: pulumi.Input<pulumi.Input<string>[]>;
+    vlanIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * List of VXLAN IDs to attach to the port, valid only for L2 and Hybrid ports
      */
-    readonly vxlanIds?: pulumi.Input<pulumi.Input<number>[]>;
+    vxlanIds?: pulumi.Input<pulumi.Input<number>[]>;
 }

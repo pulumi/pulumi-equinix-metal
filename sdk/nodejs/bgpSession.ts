@@ -100,19 +100,19 @@ export interface BgpSessionState {
     /**
      * `ipv4` or `ipv6`
      */
-    readonly addressFamily?: pulumi.Input<string>;
+    addressFamily?: pulumi.Input<string>;
     /**
      * Boolean flag to set the default route policy. False by default.
      */
-    readonly defaultRoute?: pulumi.Input<boolean>;
+    defaultRoute?: pulumi.Input<boolean>;
     /**
      * ID of device
      */
-    readonly deviceId?: pulumi.Input<string>;
+    deviceId?: pulumi.Input<string>;
     /**
      * Status of the session - up or down
      */
-    readonly status?: pulumi.Input<string>;
+    status?: pulumi.Input<string>;
 }
 
 /**
@@ -122,13 +122,13 @@ export interface BgpSessionArgs {
     /**
      * `ipv4` or `ipv6`
      */
-    readonly addressFamily: pulumi.Input<string>;
+    addressFamily: pulumi.Input<string>;
     /**
      * Boolean flag to set the default route policy. False by default.
      */
-    readonly defaultRoute?: pulumi.Input<boolean>;
+    defaultRoute?: pulumi.Input<boolean>;
     /**
      * ID of device
      */
-    readonly deviceId: pulumi.Input<string>;
+    deviceId: pulumi.Input<string>;
 }

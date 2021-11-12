@@ -12,6 +12,7 @@ __all__ = [
     'GetHardwareReservationResult',
     'AwaitableGetHardwareReservationResult',
     'get_hardware_reservation',
+    'get_hardware_reservation_output',
 ]
 
 @pulumi.output_type
@@ -169,3 +170,19 @@ def get_hardware_reservation(device_id: Optional[str] = None,
         short_id=__ret__.short_id,
         spare=__ret__.spare,
         switch_uuid=__ret__.switch_uuid)
+
+
+@_utilities.lift_output_func(get_hardware_reservation)
+def get_hardware_reservation_output(device_id: Optional[pulumi.Input[Optional[str]]] = None,
+                                    id: Optional[pulumi.Input[Optional[str]]] = None,
+                                    opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetHardwareReservationResult]:
+    """
+    Use this data source to retrieve a [hardware reservation resource from Equinix Metal](https://metal.equinix.com/developers/docs/deploy/reserved/).
+
+    You can look up hardware reservation by its ID or by ID of device which occupies it.
+
+
+    :param str device_id: UUID of device occupying the reservation
+    :param str id: ID of the hardware reservation
+    """
+    ...

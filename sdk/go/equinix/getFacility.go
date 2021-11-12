@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -41,4 +44,79 @@ type GetFacilityResult struct {
 	Metro string `pulumi:"metro"`
 	// The name of the facility
 	Name string `pulumi:"name"`
+}
+
+func GetFacilityOutput(ctx *pulumi.Context, args GetFacilityOutputArgs, opts ...pulumi.InvokeOption) GetFacilityResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (GetFacilityResult, error) {
+			args := v.(GetFacilityArgs)
+			r, err := GetFacility(ctx, &args, opts...)
+			return *r, err
+		}).(GetFacilityResultOutput)
+}
+
+// A collection of arguments for invoking getFacility.
+type GetFacilityOutputArgs struct {
+	// (Optional) Ensure that queried facility has capacity for specified number of given plans
+	Capacities GetFacilityCapacityArrayInput `pulumi:"capacities"`
+	// The facility code
+	Code pulumi.StringInput `pulumi:"code"`
+	// Set of feature strings that the facility must have
+	FeaturesRequireds pulumi.StringArrayInput `pulumi:"featuresRequireds"`
+}
+
+func (GetFacilityOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFacilityArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getFacility.
+type GetFacilityResultOutput struct{ *pulumi.OutputState }
+
+func (GetFacilityResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetFacilityResult)(nil)).Elem()
+}
+
+func (o GetFacilityResultOutput) ToGetFacilityResultOutput() GetFacilityResultOutput {
+	return o
+}
+
+func (o GetFacilityResultOutput) ToGetFacilityResultOutputWithContext(ctx context.Context) GetFacilityResultOutput {
+	return o
+}
+
+// (Optional) Ensure that queried facility has capacity for specified number of given plans
+func (o GetFacilityResultOutput) Capacities() GetFacilityCapacityArrayOutput {
+	return o.ApplyT(func(v GetFacilityResult) []GetFacilityCapacity { return v.Capacities }).(GetFacilityCapacityArrayOutput)
+}
+
+func (o GetFacilityResultOutput) Code() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFacilityResult) string { return v.Code }).(pulumi.StringOutput)
+}
+
+// The features of the facility
+func (o GetFacilityResultOutput) Features() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetFacilityResult) []string { return v.Features }).(pulumi.StringArrayOutput)
+}
+
+func (o GetFacilityResultOutput) FeaturesRequireds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetFacilityResult) []string { return v.FeaturesRequireds }).(pulumi.StringArrayOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o GetFacilityResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFacilityResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The metro code the facility is part of
+func (o GetFacilityResultOutput) Metro() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFacilityResult) string { return v.Metro }).(pulumi.StringOutput)
+}
+
+// The name of the facility
+func (o GetFacilityResultOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetFacilityResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetFacilityResultOutput{})
 }

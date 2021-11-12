@@ -13,6 +13,7 @@ __all__ = [
     'GetConnectionResult',
     'AwaitableGetConnectionResult',
     'get_connection',
+    'get_connection_output',
 ]
 
 @pulumi.output_type
@@ -262,3 +263,24 @@ def get_connection(connection_id: Optional[str] = None,
         tags=__ret__.tags,
         token=__ret__.token,
         type=__ret__.type)
+
+
+@_utilities.lift_output_func(get_connection)
+def get_connection_output(connection_id: Optional[pulumi.Input[str]] = None,
+                          opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetConnectionResult]:
+    """
+    Use this data source to retrieve a connection resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    example = equinix_metal.get_connection(connection_id="4347e805-eb46-4699-9eb9-5c116e6a017d")
+    ```
+
+
+    :param str connection_id: ID of the connection resource
+    """
+    ...

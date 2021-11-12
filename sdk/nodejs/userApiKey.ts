@@ -108,19 +108,19 @@ export interface UserApiKeyState {
      * Description string for the User API Key resource
      * * `read-only` - Flag indicating whether the API key shoud be read-only
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Flag indicating whether the API key shoud be read-only
      */
-    readonly readOnly?: pulumi.Input<boolean>;
+    readOnly?: pulumi.Input<boolean>;
     /**
      * API token which can be used in Equinix Metal API clients
      */
-    readonly token?: pulumi.Input<string>;
+    token?: pulumi.Input<string>;
     /**
      * UUID of the owner of the API key
      */
-    readonly userId?: pulumi.Input<string>;
+    userId?: pulumi.Input<string>;
 }
 
 /**
@@ -131,9 +131,9 @@ export interface UserApiKeyArgs {
      * Description string for the User API Key resource
      * * `read-only` - Flag indicating whether the API key shoud be read-only
      */
-    readonly description: pulumi.Input<string>;
+    description: pulumi.Input<string>;
     /**
      * Flag indicating whether the API key shoud be read-only
      */
-    readonly readOnly: pulumi.Input<boolean>;
+    readOnly: pulumi.Input<boolean>;
 }

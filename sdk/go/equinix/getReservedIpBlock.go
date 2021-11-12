@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -47,4 +50,118 @@ type LookupReservedIpBlockResult struct {
 	Public        bool    `pulumi:"public"`
 	Quantity      int     `pulumi:"quantity"`
 	Type          string  `pulumi:"type"`
+}
+
+func LookupReservedIpBlockOutput(ctx *pulumi.Context, args LookupReservedIpBlockOutputArgs, opts ...pulumi.InvokeOption) LookupReservedIpBlockResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupReservedIpBlockResult, error) {
+			args := v.(LookupReservedIpBlockArgs)
+			r, err := LookupReservedIpBlock(ctx, &args, opts...)
+			return *r, err
+		}).(LookupReservedIpBlockResultOutput)
+}
+
+// A collection of arguments for invoking getReservedIpBlock.
+type LookupReservedIpBlockOutputArgs struct {
+	// UUID of the IP address block to look up
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Block containing this IP address will be returned
+	IpAddress pulumi.StringPtrInput `pulumi:"ipAddress"`
+	// UUID of the project where the searched block should be
+	ProjectId pulumi.StringPtrInput `pulumi:"projectId"`
+}
+
+func (LookupReservedIpBlockOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupReservedIpBlockArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getReservedIpBlock.
+type LookupReservedIpBlockResultOutput struct{ *pulumi.OutputState }
+
+func (LookupReservedIpBlockResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupReservedIpBlockResult)(nil)).Elem()
+}
+
+func (o LookupReservedIpBlockResultOutput) ToLookupReservedIpBlockResultOutput() LookupReservedIpBlockResultOutput {
+	return o
+}
+
+func (o LookupReservedIpBlockResultOutput) ToLookupReservedIpBlockResultOutputWithContext(ctx context.Context) LookupReservedIpBlockResultOutput {
+	return o
+}
+
+func (o LookupReservedIpBlockResultOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Address }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) AddressFamily() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) int { return v.AddressFamily }).(pulumi.IntOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Cidr() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) int { return v.Cidr }).(pulumi.IntOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) CidrNotation() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.CidrNotation }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Facility() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Facility }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Gateway() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Gateway }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Global() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) bool { return v.Global }).(pulumi.BoolOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) IpAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) *string { return v.IpAddress }).(pulumi.StringPtrOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Manageable() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) bool { return v.Manageable }).(pulumi.BoolOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Management() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) bool { return v.Management }).(pulumi.BoolOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Metro() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Metro }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Netmask() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Netmask }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Network() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Network }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Public() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) bool { return v.Public }).(pulumi.BoolOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Quantity() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) int { return v.Quantity }).(pulumi.IntOutput)
+}
+
+func (o LookupReservedIpBlockResultOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupReservedIpBlockResult) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupReservedIpBlockResultOutput{})
 }

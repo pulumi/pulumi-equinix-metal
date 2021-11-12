@@ -12,6 +12,7 @@ __all__ = [
     'GetOrganizationResult',
     'AwaitableGetOrganizationResult',
     'get_organization',
+    'get_organization_output',
 ]
 
 @pulumi.output_type
@@ -158,3 +159,27 @@ def get_organization(name: Optional[str] = None,
         project_ids=__ret__.project_ids,
         twitter=__ret__.twitter,
         website=__ret__.website)
+
+
+@_utilities.lift_output_func(get_organization)
+def get_organization_output(name: Optional[pulumi.Input[Optional[str]]] = None,
+                            organization_id: Optional[pulumi.Input[Optional[str]]] = None,
+                            opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetOrganizationResult]:
+    """
+    Provides an Equinix Metal organization datasource.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    test = equinix_metal.get_organization(organization_id=local["org_id"])
+    pulumi.export("projectsInTheOrg", test.project_ids)
+    ```
+
+
+    :param str name: The organization name
+    :param str organization_id: The UUID of the organization resource
+    """
+    ...

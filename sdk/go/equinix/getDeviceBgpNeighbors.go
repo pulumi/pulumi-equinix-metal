@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -25,7 +28,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		test, err := equinix - metal.GetDeviceBgpNeighbors(ctx, &equinix-metal.GetDeviceBgpNeighborsArgs{
+// 		test, err := equinix - metal.GetDeviceBgpNeighbors(ctx, &GetDeviceBgpNeighborsArgs{
 // 			DeviceId: "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
 // 		}, nil)
 // 		if err != nil {
@@ -58,4 +61,56 @@ type GetDeviceBgpNeighborsResult struct {
 	DeviceId     string                             `pulumi:"deviceId"`
 	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
+}
+
+func GetDeviceBgpNeighborsOutput(ctx *pulumi.Context, args GetDeviceBgpNeighborsOutputArgs, opts ...pulumi.InvokeOption) GetDeviceBgpNeighborsResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (GetDeviceBgpNeighborsResult, error) {
+			args := v.(GetDeviceBgpNeighborsArgs)
+			r, err := GetDeviceBgpNeighbors(ctx, &args, opts...)
+			return *r, err
+		}).(GetDeviceBgpNeighborsResultOutput)
+}
+
+// A collection of arguments for invoking getDeviceBgpNeighbors.
+type GetDeviceBgpNeighborsOutputArgs struct {
+	// UUID of BGP-enabled device whose neighbors to list
+	DeviceId pulumi.StringInput `pulumi:"deviceId"`
+}
+
+func (GetDeviceBgpNeighborsOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDeviceBgpNeighborsArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getDeviceBgpNeighbors.
+type GetDeviceBgpNeighborsResultOutput struct{ *pulumi.OutputState }
+
+func (GetDeviceBgpNeighborsResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetDeviceBgpNeighborsResult)(nil)).Elem()
+}
+
+func (o GetDeviceBgpNeighborsResultOutput) ToGetDeviceBgpNeighborsResultOutput() GetDeviceBgpNeighborsResultOutput {
+	return o
+}
+
+func (o GetDeviceBgpNeighborsResultOutput) ToGetDeviceBgpNeighborsResultOutputWithContext(ctx context.Context) GetDeviceBgpNeighborsResultOutput {
+	return o
+}
+
+// array of BGP neighbor records with attributes:
+func (o GetDeviceBgpNeighborsResultOutput) BgpNeighbors() GetDeviceBgpNeighborsBgpNeighborArrayOutput {
+	return o.ApplyT(func(v GetDeviceBgpNeighborsResult) []GetDeviceBgpNeighborsBgpNeighbor { return v.BgpNeighbors }).(GetDeviceBgpNeighborsBgpNeighborArrayOutput)
+}
+
+func (o GetDeviceBgpNeighborsResultOutput) DeviceId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDeviceBgpNeighborsResult) string { return v.DeviceId }).(pulumi.StringOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o GetDeviceBgpNeighborsResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDeviceBgpNeighborsResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetDeviceBgpNeighborsResultOutput{})
 }

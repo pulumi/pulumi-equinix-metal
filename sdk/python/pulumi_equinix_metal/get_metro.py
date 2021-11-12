@@ -14,6 +14,7 @@ __all__ = [
     'GetMetroResult',
     'AwaitableGetMetroResult',
     'get_metro',
+    'get_metro_output',
 ]
 
 @pulumi.output_type
@@ -117,3 +118,17 @@ def get_metro(capacities: Optional[Sequence[pulumi.InputType['GetMetroCapacityAr
         country=__ret__.country,
         id=__ret__.id,
         name=__ret__.name)
+
+
+@_utilities.lift_output_func(get_metro)
+def get_metro_output(capacities: Optional[pulumi.Input[Optional[Sequence[pulumi.InputType['GetMetroCapacityArgs']]]]] = None,
+                     code: Optional[pulumi.Input[str]] = None,
+                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetMetroResult]:
+    """
+    Provides an Equinix Metal metro datasource.
+
+
+    :param Sequence[pulumi.InputType['GetMetroCapacityArgs']] capacities: (Optional) Ensure that queried metro has capacity for specified number of given plans
+    :param str code: The metro code
+    """
+    ...

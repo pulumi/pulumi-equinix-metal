@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -51,12 +50,12 @@ export function getPort(args?: GetPortArgs, opts?: pulumi.InvokeOptions): Promis
  * A collection of arguments for invoking getPort.
  */
 export interface GetPortArgs {
-    readonly deviceId?: string;
+    deviceId?: string;
     /**
      * Whether to look for public or private block.
      */
-    readonly name?: string;
-    readonly portId?: string;
+    name?: string;
+    portId?: string;
 }
 
 /**
@@ -111,4 +110,20 @@ export interface GetPortResult {
      * VXLAN ids of attached VLANs
      */
     readonly vxlanIds: number[];
+}
+
+export function getPortOutput(args?: GetPortOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetPortResult> {
+    return pulumi.output(args).apply(a => getPort(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getPort.
+ */
+export interface GetPortOutputArgs {
+    deviceId?: pulumi.Input<string>;
+    /**
+     * Whether to look for public or private block.
+     */
+    name?: pulumi.Input<string>;
+    portId?: pulumi.Input<string>;
 }

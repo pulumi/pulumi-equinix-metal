@@ -143,23 +143,23 @@ export interface GatewayState {
     /**
      * UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `privateIpv4SubnetSize`
      */
-    readonly ipReservationId?: pulumi.Input<string>;
+    ipReservationId?: pulumi.Input<string>;
     /**
      * Size of the private IPv4 subnet to create for this metal gateway, must be one of (8, 16, 32, 64, 128), conflicts with `ipReservationId`
      */
-    readonly privateIpv4SubnetSize?: pulumi.Input<number>;
+    privateIpv4SubnetSize?: pulumi.Input<number>;
     /**
      * UUID of the project where the gateway is scoped to
      */
-    readonly projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
     /**
      * Status of the gateway resource
      */
-    readonly state?: pulumi.Input<string>;
+    state?: pulumi.Input<string>;
     /**
      * UUID of the VLAN where the gateway is scoped to
      */
-    readonly vlanId?: pulumi.Input<string>;
+    vlanId?: pulumi.Input<string>;
 }
 
 /**
@@ -169,17 +169,17 @@ export interface GatewayArgs {
     /**
      * UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `privateIpv4SubnetSize`
      */
-    readonly ipReservationId?: pulumi.Input<string>;
+    ipReservationId?: pulumi.Input<string>;
     /**
      * Size of the private IPv4 subnet to create for this metal gateway, must be one of (8, 16, 32, 64, 128), conflicts with `ipReservationId`
      */
-    readonly privateIpv4SubnetSize?: pulumi.Input<number>;
+    privateIpv4SubnetSize?: pulumi.Input<number>;
     /**
      * UUID of the project where the gateway is scoped to
      */
-    readonly projectId: pulumi.Input<string>;
+    projectId: pulumi.Input<string>;
     /**
      * UUID of the VLAN where the gateway is scoped to
      */
-    readonly vlanId: pulumi.Input<string>;
+    vlanId: pulumi.Input<string>;
 }

@@ -142,46 +142,46 @@ export class IpAttachment extends pulumi.CustomResource {
  * Input properties used for looking up and filtering IpAttachment resources.
  */
 export interface IpAttachmentState {
-    readonly address?: pulumi.Input<string>;
+    address?: pulumi.Input<string>;
     /**
      * Address family as integer (4 or 6)
      */
-    readonly addressFamily?: pulumi.Input<number>;
+    addressFamily?: pulumi.Input<number>;
     /**
      * length of CIDR prefix of the subnet as integer
      */
-    readonly cidr?: pulumi.Input<number>;
+    cidr?: pulumi.Input<number>;
     /**
      * CIDR notation of subnet from block reserved in the same
      * project and facility as the device
      */
-    readonly cidrNotation?: pulumi.Input<string>;
+    cidrNotation?: pulumi.Input<string>;
     /**
      * ID of device to which to assign the subnet
      */
-    readonly deviceId?: pulumi.Input<string>;
+    deviceId?: pulumi.Input<string>;
     /**
      * IP address of gateway for the subnet
      */
-    readonly gateway?: pulumi.Input<string>;
+    gateway?: pulumi.Input<string>;
     /**
      * Flag indicating whether IP block is global, i.e. assignable in any location
      */
-    readonly global?: pulumi.Input<boolean>;
-    readonly manageable?: pulumi.Input<boolean>;
-    readonly management?: pulumi.Input<boolean>;
+    global?: pulumi.Input<boolean>;
+    manageable?: pulumi.Input<boolean>;
+    management?: pulumi.Input<boolean>;
     /**
      * Subnet mask in decimal notation, e.g. "255.255.255.0"
      */
-    readonly netmask?: pulumi.Input<string>;
+    netmask?: pulumi.Input<string>;
     /**
      * Subnet network address
      */
-    readonly network?: pulumi.Input<string>;
+    network?: pulumi.Input<string>;
     /**
      * boolean flag whether subnet is reachable from the Internet
      */
-    readonly public?: pulumi.Input<boolean>;
+    public?: pulumi.Input<boolean>;
 }
 
 /**
@@ -192,9 +192,9 @@ export interface IpAttachmentArgs {
      * CIDR notation of subnet from block reserved in the same
      * project and facility as the device
      */
-    readonly cidrNotation: pulumi.Input<string>;
+    cidrNotation: pulumi.Input<string>;
     /**
      * ID of device to which to assign the subnet
      */
-    readonly deviceId: pulumi.Input<string>;
+    deviceId: pulumi.Input<string>;
 }

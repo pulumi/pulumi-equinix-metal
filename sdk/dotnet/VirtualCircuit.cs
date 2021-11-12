@@ -39,7 +39,7 @@ namespace Pulumi.EquinixMetal
     ///         {
     ///             ConnectionId = connId,
     ///             ProjectId = projectId,
-    ///             PortId = testConnection.Apply(testConnection =&gt; testConnection.Ports[0].Id),
+    ///             PortId = testConnection.Apply(testConnection =&gt; testConnection.Ports?[0]?.Id),
     ///             VlanId = testVlan.Id,
     ///             NniVlan = 1056,
     ///         });

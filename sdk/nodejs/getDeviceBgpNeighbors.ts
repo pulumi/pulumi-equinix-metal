@@ -44,7 +44,7 @@ export interface GetDeviceBgpNeighborsArgs {
     /**
      * UUID of BGP-enabled device whose neighbors to list
      */
-    readonly deviceId: string;
+    deviceId: string;
 }
 
 /**
@@ -60,4 +60,18 @@ export interface GetDeviceBgpNeighborsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+}
+
+export function getDeviceBgpNeighborsOutput(args: GetDeviceBgpNeighborsOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetDeviceBgpNeighborsResult> {
+    return pulumi.output(args).apply(a => getDeviceBgpNeighbors(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getDeviceBgpNeighbors.
+ */
+export interface GetDeviceBgpNeighborsOutputArgs {
+    /**
+     * UUID of BGP-enabled device whose neighbors to list
+     */
+    deviceId: pulumi.Input<string>;
 }

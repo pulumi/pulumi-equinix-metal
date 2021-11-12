@@ -12,6 +12,7 @@ __all__ = [
     'GetReservedIpBlockResult',
     'AwaitableGetReservedIpBlockResult',
     'get_reserved_ip_block',
+    'get_reserved_ip_block_output',
 ]
 
 @pulumi.output_type
@@ -233,3 +234,19 @@ def get_reserved_ip_block(id: Optional[str] = None,
         public=__ret__.public,
         quantity=__ret__.quantity,
         type=__ret__.type)
+
+
+@_utilities.lift_output_func(get_reserved_ip_block)
+def get_reserved_ip_block_output(id: Optional[pulumi.Input[Optional[str]]] = None,
+                                 ip_address: Optional[pulumi.Input[Optional[str]]] = None,
+                                 project_id: Optional[pulumi.Input[Optional[str]]] = None,
+                                 opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetReservedIpBlockResult]:
+    """
+    Use this data source to find IP address blocks in Equinix Metal. You can use IP address or a block ID for lookup.
+
+
+    :param str id: UUID of the IP address block to look up
+    :param str ip_address: Block containing this IP address will be returned
+    :param str project_id: UUID of the project where the searched block should be
+    """
+    ...
