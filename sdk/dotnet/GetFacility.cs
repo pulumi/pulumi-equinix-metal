@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -16,6 +17,12 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetFacilityResult> InvokeAsync(GetFacilityArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Provides an Equinix Metal facility datasource.
+        /// </summary>
+        public static Output<GetFacilityResult> Invoke(GetFacilityInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityInvokeArgs(), options.WithVersion());
     }
 
 
@@ -52,6 +59,43 @@ namespace Pulumi.EquinixMetal
         }
 
         public GetFacilityArgs()
+        {
+        }
+    }
+
+    public sealed class GetFacilityInvokeArgs : Pulumi.InvokeArgs
+    {
+        [Input("capacities")]
+        private InputList<Inputs.GetFacilityCapacityInputArgs>? _capacities;
+
+        /// <summary>
+        /// (Optional) Ensure that queried facility has capacity for specified number of given plans
+        /// </summary>
+        public InputList<Inputs.GetFacilityCapacityInputArgs> Capacities
+        {
+            get => _capacities ?? (_capacities = new InputList<Inputs.GetFacilityCapacityInputArgs>());
+            set => _capacities = value;
+        }
+
+        /// <summary>
+        /// The facility code
+        /// </summary>
+        [Input("code", required: true)]
+        public Input<string> Code { get; set; } = null!;
+
+        [Input("featuresRequireds")]
+        private InputList<string>? _featuresRequireds;
+
+        /// <summary>
+        /// Set of feature strings that the facility must have
+        /// </summary>
+        public InputList<string> FeaturesRequireds
+        {
+            get => _featuresRequireds ?? (_featuresRequireds = new InputList<string>());
+            set => _featuresRequireds = value;
+        }
+
+        public GetFacilityInvokeArgs()
         {
         }
     }

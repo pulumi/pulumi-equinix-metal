@@ -111,6 +111,17 @@ export interface GetFacilityCapacity {
     quantity?: number;
 }
 
+export interface GetFacilityCapacityArgs {
+    /**
+     * device plan to check
+     */
+    plan: pulumi.Input<string>;
+    /**
+     * number of device to check
+     */
+    quantity?: pulumi.Input<number>;
+}
+
 export interface GetMetroCapacity {
     /**
      * device plan to check
@@ -120,6 +131,17 @@ export interface GetMetroCapacity {
      * number of device to check
      */
     quantity?: number;
+}
+
+export interface GetMetroCapacityArgs {
+    /**
+     * device plan to check
+     */
+    plan: pulumi.Input<string>;
+    /**
+     * number of device to check
+     */
+    quantity?: pulumi.Input<number>;
 }
 
 export interface ProjectBgpConfig {
@@ -174,3 +196,4 @@ export interface VolumeSnapshotPolicy {
     snapshotCount: pulumi.Input<number>;
     snapshotFrequency: pulumi.Input<string>;
 }
+

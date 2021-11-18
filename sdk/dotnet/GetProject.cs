@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -42,6 +43,38 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetProjectResult> InvokeAsync(GetProjectArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("equinix-metal:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this datasource to retrieve attributes of the Project API resource.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var tfProject1 = Output.Create(EquinixMetal.GetProject.InvokeAsync(new EquinixMetal.GetProjectArgs
+        ///         {
+        ///             Name = "Terraform Fun",
+        ///         }));
+        ///         this.UsersOfTerraformFun = tfProject1.Apply(tfProject1 =&gt; tfProject1.UserIds);
+        ///     }
+        /// 
+        ///     [Output("usersOfTerraformFun")]
+        ///     public Output&lt;string&gt; UsersOfTerraformFun { get; set; }
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetProjectResult> Invoke(GetProjectInvokeArgs? args = null, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetProjectResult>("equinix-metal:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithVersion());
     }
 
 
@@ -60,6 +93,25 @@ namespace Pulumi.EquinixMetal
         public string? ProjectId { get; set; }
 
         public GetProjectArgs()
+        {
+        }
+    }
+
+    public sealed class GetProjectInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// The name which is used to look up the project
+        /// </summary>
+        [Input("name")]
+        public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// The UUID by which to look up the project
+        /// </summary>
+        [Input("projectId")]
+        public Input<string>? ProjectId { get; set; }
+
+        public GetProjectInvokeArgs()
         {
         }
     }

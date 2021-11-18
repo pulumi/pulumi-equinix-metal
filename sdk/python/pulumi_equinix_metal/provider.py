@@ -129,3 +129,11 @@ class Provider(pulumi.ProviderResource):
             __props__,
             opts)
 
+    @property
+    @pulumi.getter(name="authToken")
+    def auth_token(self) -> pulumi.Output[str]:
+        """
+        The API auth key for API operations.
+        """
+        return pulumi.get(self, "auth_token")
+

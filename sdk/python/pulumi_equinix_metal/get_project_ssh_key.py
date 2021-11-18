@@ -12,6 +12,7 @@ __all__ = [
     'GetProjectSshKeyResult',
     'AwaitableGetProjectSshKeyResult',
     'get_project_ssh_key',
+    'get_project_ssh_key_output',
 ]
 
 @pulumi.output_type
@@ -178,3 +179,30 @@ def get_project_ssh_key(id: Optional[str] = None,
         public_key=__ret__.public_key,
         search=__ret__.search,
         updated=__ret__.updated)
+
+
+@_utilities.lift_output_func(get_project_ssh_key)
+def get_project_ssh_key_output(id: Optional[pulumi.Input[Optional[str]]] = None,
+                               project_id: Optional[pulumi.Input[str]] = None,
+                               search: Optional[pulumi.Input[Optional[str]]] = None,
+                               opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProjectSshKeyResult]:
+    """
+    Use this datasource to retrieve attributes of a Project SSH Key API resource.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    my_key = equinix_metal.get_project_ssh_key(search="username@hostname",
+        project_id=local["project_id"])
+    ```
+
+
+    :param str id: The id of the SSH Key to search for in the Equinix Metal project
+    :param str project_id: The Equinix Metal project id of the Equinix Metal SSH Key
+    :param str search: The name, fingerprint, or public_key of the SSH Key to search for
+           in the Equinix Metal project
+    """
+    ...

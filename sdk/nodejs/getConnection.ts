@@ -16,7 +16,7 @@ import * as utilities from "./utilities";
  *
  * const example = pulumi.output(metal.getConnection({
  *     connectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
- * }, { async: true }));
+ * }));
  * ```
  */
 export function getConnection(args: GetConnectionArgs, opts?: pulumi.InvokeOptions): Promise<GetConnectionResult> {
@@ -39,7 +39,7 @@ export interface GetConnectionArgs {
     /**
      * ID of the connection resource
      */
-    readonly connectionId: string;
+    connectionId: string;
 }
 
 /**
@@ -107,4 +107,18 @@ export interface GetConnectionResult {
      * Connection type, dedicated or shared
      */
     readonly type: string;
+}
+
+export function getConnectionOutput(args: GetConnectionOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetConnectionResult> {
+    return pulumi.output(args).apply(a => getConnection(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getConnection.
+ */
+export interface GetConnectionOutputArgs {
+    /**
+     * ID of the connection resource
+     */
+    connectionId: pulumi.Input<string>;
 }

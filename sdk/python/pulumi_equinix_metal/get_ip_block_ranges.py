@@ -12,6 +12,7 @@ __all__ = [
     'GetIpBlockRangesResult',
     'AwaitableGetIpBlockRangesResult',
     'get_ip_block_ranges',
+    'get_ip_block_ranges_output',
 ]
 
 @pulumi.output_type
@@ -163,3 +164,34 @@ def get_ip_block_ranges(facility: Optional[str] = None,
         private_ipv4s=__ret__.private_ipv4s,
         project_id=__ret__.project_id,
         public_ipv4s=__ret__.public_ipv4s)
+
+
+@_utilities.lift_output_func(get_ip_block_ranges)
+def get_ip_block_ranges_output(facility: Optional[pulumi.Input[Optional[str]]] = None,
+                               metro: Optional[pulumi.Input[Optional[str]]] = None,
+                               project_id: Optional[pulumi.Input[str]] = None,
+                               opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetIpBlockRangesResult]:
+    """
+    Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
+
+    There are four types of IP blocks in Equinix Metal: global IPv4, public IPv4, private IPv4 and IPv6. Both global and public IPv4 are routable from the Internet. Public IPv4 blocks are allocated in a facility or metro, and addresses from it can only be assigned to devices in that location. Addresses from Global IPv4 block can be assigned to a device in any metro.
+
+    The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`<network>/<mask>`) of respective blocks from the project.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    project_id = "<UUID_of_your_project>"
+    test = equinix_metal.get_ip_block_ranges(project_id=project_id)
+    pulumi.export("out", test)
+    ```
+
+
+    :param str facility: Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
+    :param str metro: Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
+    :param str project_id: ID of the project from which to list the blocks.
+    """
+    ...

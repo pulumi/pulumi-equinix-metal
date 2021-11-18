@@ -12,6 +12,7 @@ __all__ = [
     'GetPrecreatedIpBlockResult',
     'AwaitableGetPrecreatedIpBlockResult',
     'get_precreated_ip_block',
+    'get_precreated_ip_block_output',
 ]
 
 @pulumi.output_type
@@ -239,3 +240,26 @@ def get_precreated_ip_block(address_family: Optional[int] = None,
         public=__ret__.public,
         quantity=__ret__.quantity,
         type=__ret__.type)
+
+
+@_utilities.lift_output_func(get_precreated_ip_block)
+def get_precreated_ip_block_output(address_family: Optional[pulumi.Input[int]] = None,
+                                   facility: Optional[pulumi.Input[Optional[str]]] = None,
+                                   global_: Optional[pulumi.Input[Optional[bool]]] = None,
+                                   metro: Optional[pulumi.Input[Optional[str]]] = None,
+                                   project_id: Optional[pulumi.Input[str]] = None,
+                                   public: Optional[pulumi.Input[bool]] = None,
+                                   opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetPrecreatedIpBlockResult]:
+    """
+    Use this data source to get CIDR expression for precreated IPv6 and IPv4 blocks in Equinix Metal.
+    You can then use the cidrsubnet TF builtin function to derive subnets.
+
+
+    :param int address_family: 4 or 6, depending on which block you are looking for.
+    :param str facility: Facility of the searched block. (for non-global blocks).
+    :param bool global_: Whether to look for global block. Default is false for backward compatibility.
+    :param str metro: Metro of the searched block (for non-global blocks).
+    :param str project_id: ID of the project where the searched block should be.
+    :param bool public: Whether to look for public or private block.
+    """
+    ...

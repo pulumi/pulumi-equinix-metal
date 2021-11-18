@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -26,7 +29,7 @@ import (
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		projectId := "<UUID_of_your_project>"
-// 		test, err := equinix - metal.GetIpBlockRanges(ctx, &equinix-metal.GetIpBlockRangesArgs{
+// 		test, err := equinix - metal.GetIpBlockRanges(ctx, &GetIpBlockRangesArgs{
 // 			ProjectId: projectId,
 // 		}, nil)
 // 		if err != nil {
@@ -71,4 +74,83 @@ type GetIpBlockRangesResult struct {
 	ProjectId    string   `pulumi:"projectId"`
 	// list of CIDR expressions for Public IPv4 blocks in the project
 	PublicIpv4s []string `pulumi:"publicIpv4s"`
+}
+
+func GetIpBlockRangesOutput(ctx *pulumi.Context, args GetIpBlockRangesOutputArgs, opts ...pulumi.InvokeOption) GetIpBlockRangesResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (GetIpBlockRangesResult, error) {
+			args := v.(GetIpBlockRangesArgs)
+			r, err := GetIpBlockRanges(ctx, &args, opts...)
+			return *r, err
+		}).(GetIpBlockRangesResultOutput)
+}
+
+// A collection of arguments for invoking getIpBlockRanges.
+type GetIpBlockRangesOutputArgs struct {
+	// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
+	Facility pulumi.StringPtrInput `pulumi:"facility"`
+	// Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
+	Metro pulumi.StringPtrInput `pulumi:"metro"`
+	// ID of the project from which to list the blocks.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+}
+
+func (GetIpBlockRangesOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetIpBlockRangesArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getIpBlockRanges.
+type GetIpBlockRangesResultOutput struct{ *pulumi.OutputState }
+
+func (GetIpBlockRangesResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetIpBlockRangesResult)(nil)).Elem()
+}
+
+func (o GetIpBlockRangesResultOutput) ToGetIpBlockRangesResultOutput() GetIpBlockRangesResultOutput {
+	return o
+}
+
+func (o GetIpBlockRangesResultOutput) ToGetIpBlockRangesResultOutputWithContext(ctx context.Context) GetIpBlockRangesResultOutput {
+	return o
+}
+
+func (o GetIpBlockRangesResultOutput) Facility() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) *string { return v.Facility }).(pulumi.StringPtrOutput)
+}
+
+// list of CIDR expressions for Global IPv4 blocks in the project
+func (o GetIpBlockRangesResultOutput) GlobalIpv4s() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) []string { return v.GlobalIpv4s }).(pulumi.StringArrayOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o GetIpBlockRangesResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// list of CIDR expressions for IPv6 blocks in the project
+func (o GetIpBlockRangesResultOutput) Ipv6s() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) []string { return v.Ipv6s }).(pulumi.StringArrayOutput)
+}
+
+func (o GetIpBlockRangesResultOutput) Metro() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) *string { return v.Metro }).(pulumi.StringPtrOutput)
+}
+
+// list of CIDR expressions for Private IPv4 blocks in the project
+func (o GetIpBlockRangesResultOutput) PrivateIpv4s() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) []string { return v.PrivateIpv4s }).(pulumi.StringArrayOutput)
+}
+
+func (o GetIpBlockRangesResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// list of CIDR expressions for Public IPv4 blocks in the project
+func (o GetIpBlockRangesResultOutput) PublicIpv4s() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetIpBlockRangesResult) []string { return v.PublicIpv4s }).(pulumi.StringArrayOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetIpBlockRangesResultOutput{})
 }

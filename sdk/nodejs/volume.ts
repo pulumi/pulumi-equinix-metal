@@ -115,31 +115,31 @@ export class Volume extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Volume resources.
  */
 export interface VolumeState {
-    readonly attachments?: pulumi.Input<pulumi.Input<inputs.VolumeAttachment>[]>;
-    readonly billingCycle?: pulumi.Input<string | enums.BillingCycle>;
-    readonly created?: pulumi.Input<string>;
-    readonly description?: pulumi.Input<string>;
-    readonly facility?: pulumi.Input<string | enums.Facility>;
-    readonly locked?: pulumi.Input<boolean>;
-    readonly name?: pulumi.Input<string>;
-    readonly plan?: pulumi.Input<string>;
-    readonly projectId?: pulumi.Input<string>;
-    readonly size?: pulumi.Input<number>;
-    readonly snapshotPolicies?: pulumi.Input<pulumi.Input<inputs.VolumeSnapshotPolicy>[]>;
-    readonly state?: pulumi.Input<string>;
-    readonly updated?: pulumi.Input<string>;
+    attachments?: pulumi.Input<pulumi.Input<inputs.VolumeAttachment>[]>;
+    billingCycle?: pulumi.Input<string | enums.BillingCycle>;
+    created?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
+    facility?: pulumi.Input<string | enums.Facility>;
+    locked?: pulumi.Input<boolean>;
+    name?: pulumi.Input<string>;
+    plan?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
+    size?: pulumi.Input<number>;
+    snapshotPolicies?: pulumi.Input<pulumi.Input<inputs.VolumeSnapshotPolicy>[]>;
+    state?: pulumi.Input<string>;
+    updated?: pulumi.Input<string>;
 }
 
 /**
  * The set of arguments for constructing a Volume resource.
  */
 export interface VolumeArgs {
-    readonly billingCycle?: pulumi.Input<string | enums.BillingCycle>;
-    readonly description?: pulumi.Input<string>;
-    readonly facility: pulumi.Input<string | enums.Facility>;
-    readonly locked?: pulumi.Input<boolean>;
-    readonly plan: pulumi.Input<string>;
-    readonly projectId: pulumi.Input<string>;
-    readonly size: pulumi.Input<number>;
-    readonly snapshotPolicies?: pulumi.Input<pulumi.Input<inputs.VolumeSnapshotPolicy>[]>;
+    billingCycle?: pulumi.Input<string | enums.BillingCycle>;
+    description?: pulumi.Input<string>;
+    facility: pulumi.Input<string | enums.Facility>;
+    locked?: pulumi.Input<boolean>;
+    plan: pulumi.Input<string>;
+    projectId: pulumi.Input<string>;
+    size: pulumi.Input<number>;
+    snapshotPolicies?: pulumi.Input<pulumi.Input<inputs.VolumeSnapshotPolicy>[]>;
 }

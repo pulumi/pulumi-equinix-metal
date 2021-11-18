@@ -8,10 +8,10 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
-__all__ = ['VolumeAttachmentArgs', 'VolumeAttachment']
+__all__ = ['VolumeAttachmentInitArgs', 'VolumeAttachment']
 
 @pulumi.input_type
-class VolumeAttachmentArgs:
+class VolumeAttachmentInitArgs:
     def __init__(__self__, *,
                  device_id: pulumi.Input[str],
                  volume_id: pulumi.Input[str]):
@@ -90,18 +90,18 @@ class VolumeAttachment(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: VolumeAttachmentArgs,
+                 args: VolumeAttachmentInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Resource `VolumeAttachment` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
 
         :param str resource_name: The name of the resource.
-        :param VolumeAttachmentArgs args: The arguments to use to populate this resource's properties.
+        :param VolumeAttachmentInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(VolumeAttachmentArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(VolumeAttachmentInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -122,7 +122,7 @@ class VolumeAttachment(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = VolumeAttachmentArgs.__new__(VolumeAttachmentArgs)
+            __props__ = VolumeAttachmentInitArgs.__new__(VolumeAttachmentInitArgs)
 
             if device_id is None and not opts.urn:
                 raise TypeError("Missing required property 'device_id'")

@@ -27,7 +27,7 @@ import * as utilities from "./utilities";
  * const testVirtualCircuit = new equinix_metal.VirtualCircuit("testVirtualCircuit", {
  *     connectionId: connId,
  *     projectId: projectId,
- *     portId: testConnection.then(testConnection => testConnection.ports[0].id),
+ *     portId: testConnection.then(testConnection => testConnection.ports?[0]?.id),
  *     vlanId: testVlan.id,
  *     nniVlan: 1056,
  * });
@@ -177,52 +177,52 @@ export interface VirtualCircuitState {
     /**
      * UUID of Connection where the VC is scoped to
      */
-    readonly connectionId?: pulumi.Input<string>;
+    connectionId?: pulumi.Input<string>;
     /**
      * Description for the Virtual Circuit resource
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Name of the Virtual Circuit resource
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * Equinix Metal network-to-network VLAN ID
      */
-    readonly nniVlan?: pulumi.Input<number>;
+    nniVlan?: pulumi.Input<number>;
     /**
      * Nni VLAN ID parameter, see https://metal.equinix.com/developers/docs/networking/fabric/
      */
-    readonly nniVnid?: pulumi.Input<number>;
+    nniVnid?: pulumi.Input<number>;
     /**
      * UUID of the Connection Port where the VC is scoped to
      */
-    readonly portId?: pulumi.Input<string>;
+    portId?: pulumi.Input<string>;
     /**
      * UUID of the Project where the VC is scoped to
      */
-    readonly projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
     /**
      * Speed of the Virtual Circuit resource
      */
-    readonly speed?: pulumi.Input<string>;
+    speed?: pulumi.Input<string>;
     /**
      * Status of the virtal circuit
      * * `vnid`
      */
-    readonly status?: pulumi.Input<string>;
+    status?: pulumi.Input<string>;
     /**
      * Tags for the Virtual Circuit resource
      */
-    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * UUID of the VLAN to associate
      */
-    readonly vlanId?: pulumi.Input<string>;
+    vlanId?: pulumi.Input<string>;
     /**
      * VNID VLAN parameter, see https://metal.equinix.com/developers/docs/networking/fabric/
      */
-    readonly vnid?: pulumi.Input<number>;
+    vnid?: pulumi.Input<number>;
 }
 
 /**
@@ -232,37 +232,37 @@ export interface VirtualCircuitArgs {
     /**
      * UUID of Connection where the VC is scoped to
      */
-    readonly connectionId: pulumi.Input<string>;
+    connectionId: pulumi.Input<string>;
     /**
      * Description for the Virtual Circuit resource
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Name of the Virtual Circuit resource
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * Equinix Metal network-to-network VLAN ID
      */
-    readonly nniVlan?: pulumi.Input<number>;
+    nniVlan?: pulumi.Input<number>;
     /**
      * UUID of the Connection Port where the VC is scoped to
      */
-    readonly portId: pulumi.Input<string>;
+    portId: pulumi.Input<string>;
     /**
      * UUID of the Project where the VC is scoped to
      */
-    readonly projectId: pulumi.Input<string>;
+    projectId: pulumi.Input<string>;
     /**
      * Speed of the Virtual Circuit resource
      */
-    readonly speed?: pulumi.Input<string>;
+    speed?: pulumi.Input<string>;
     /**
      * Tags for the Virtual Circuit resource
      */
-    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * UUID of the VLAN to associate
      */
-    readonly vlanId: pulumi.Input<string>;
+    vlanId: pulumi.Input<string>;
 }

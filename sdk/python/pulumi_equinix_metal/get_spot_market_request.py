@@ -12,6 +12,7 @@ __all__ = [
     'GetSpotMarketRequestResult',
     'AwaitableGetSpotMarketRequestResult',
     'get_spot_market_request',
+    'get_spot_market_request_output',
 ]
 
 @pulumi.output_type
@@ -186,3 +187,14 @@ def get_spot_market_request(request_id: Optional[str] = None,
         plan=__ret__.plan,
         project_id=__ret__.project_id,
         request_id=__ret__.request_id)
+
+
+@_utilities.lift_output_func(get_spot_market_request)
+def get_spot_market_request_output(request_id: Optional[pulumi.Input[str]] = None,
+                                   opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSpotMarketRequestResult]:
+    """
+    Use this data source to access information about an existing resource.
+
+    :param str request_id: The id of the Spot Market Request
+    """
+    ...

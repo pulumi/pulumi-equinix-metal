@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -32,7 +33,7 @@ namespace Pulumi.EquinixMetal
         ///         }));
         ///         var exampleVc = exampleConnection.Apply(exampleConnection =&gt; Output.Create(EquinixMetal.GetVirtualCircuit.InvokeAsync(new EquinixMetal.GetVirtualCircuitArgs
         ///         {
-        ///             VirtualCircuitId = exampleConnection.Ports[1].VirtualCircuitIds[0],
+        ///             VirtualCircuitId = exampleConnection.Ports?[1]?.VirtualCircuitIds?[0],
         ///         })));
         ///     }
         /// 
@@ -43,6 +44,39 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetVirtualCircuitResult> InvokeAsync(GetVirtualCircuitArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetVirtualCircuitResult>("equinix-metal:index/getVirtualCircuit:getVirtualCircuit", args ?? new GetVirtualCircuitArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var exampleConnection = Output.Create(EquinixMetal.GetConnection.InvokeAsync(new EquinixMetal.GetConnectionArgs
+        ///         {
+        ///             ConnectionId = "4347e805-eb46-4699-9eb9-5c116e6a017d",
+        ///         }));
+        ///         var exampleVc = exampleConnection.Apply(exampleConnection =&gt; Output.Create(EquinixMetal.GetVirtualCircuit.InvokeAsync(new EquinixMetal.GetVirtualCircuitArgs
+        ///         {
+        ///             VirtualCircuitId = exampleConnection.Ports?[1]?.VirtualCircuitIds?[0],
+        ///         })));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetVirtualCircuitResult> Invoke(GetVirtualCircuitInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetVirtualCircuitResult>("equinix-metal:index/getVirtualCircuit:getVirtualCircuit", args ?? new GetVirtualCircuitInvokeArgs(), options.WithVersion());
     }
 
 
@@ -55,6 +89,19 @@ namespace Pulumi.EquinixMetal
         public string VirtualCircuitId { get; set; } = null!;
 
         public GetVirtualCircuitArgs()
+        {
+        }
+    }
+
+    public sealed class GetVirtualCircuitInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// ID of the virtual circuit resource
+        /// </summary>
+        [Input("virtualCircuitId", required: true)]
+        public Input<string> VirtualCircuitId { get; set; } = null!;
+
+        public GetVirtualCircuitInvokeArgs()
         {
         }
     }

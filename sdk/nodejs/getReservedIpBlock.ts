@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -31,15 +30,15 @@ export interface GetReservedIpBlockArgs {
     /**
      * UUID of the IP address block to look up
      */
-    readonly id?: string;
+    id?: string;
     /**
      * Block containing this IP address will be returned
      */
-    readonly ipAddress?: string;
+    ipAddress?: string;
     /**
      * UUID of the project where the searched block should be
      */
-    readonly projectId?: string;
+    projectId?: string;
 }
 
 /**
@@ -64,4 +63,26 @@ export interface GetReservedIpBlockResult {
     readonly public: boolean;
     readonly quantity: number;
     readonly type: string;
+}
+
+export function getReservedIpBlockOutput(args?: GetReservedIpBlockOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetReservedIpBlockResult> {
+    return pulumi.output(args).apply(a => getReservedIpBlock(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getReservedIpBlock.
+ */
+export interface GetReservedIpBlockOutputArgs {
+    /**
+     * UUID of the IP address block to look up
+     */
+    id?: pulumi.Input<string>;
+    /**
+     * Block containing this IP address will be returned
+     */
+    ipAddress?: pulumi.Input<string>;
+    /**
+     * UUID of the project where the searched block should be
+     */
+    projectId?: pulumi.Input<string>;
 }

@@ -8,20 +8,24 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
-__all__ = [
-    'auth_token',
-    'max_retries',
-    'max_retry_wait_seconds',
-]
+import types
 
 __config__ = pulumi.Config('equinix-metal')
 
-auth_token = __config__.get('authToken')
-"""
-The API auth key for API operations.
-"""
 
-max_retries = __config__.get('maxRetries')
+class _ExportableConfig(types.ModuleType):
+    @property
+    def auth_token(self) -> Optional[str]:
+        """
+        The API auth key for API operations.
+        """
+        return __config__.get('authToken')
 
-max_retry_wait_seconds = __config__.get('maxRetryWaitSeconds')
+    @property
+    def max_retries(self) -> Optional[int]:
+        return __config__.get_int('maxRetries')
+
+    @property
+    def max_retry_wait_seconds(self) -> Optional[int]:
+        return __config__.get_int('maxRetryWaitSeconds')
 

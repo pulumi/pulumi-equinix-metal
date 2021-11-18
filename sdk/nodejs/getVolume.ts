@@ -28,9 +28,9 @@ export function getVolume(args?: GetVolumeArgs, opts?: pulumi.InvokeOptions): Pr
  * A collection of arguments for invoking getVolume.
  */
 export interface GetVolumeArgs {
-    readonly name?: string;
-    readonly projectId?: string;
-    readonly volumeId?: string;
+    name?: string;
+    projectId?: string;
+    volumeId?: string;
 }
 
 /**
@@ -55,4 +55,17 @@ export interface GetVolumeResult {
     readonly state: string;
     readonly updated: string;
     readonly volumeId: string;
+}
+
+export function getVolumeOutput(args?: GetVolumeOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetVolumeResult> {
+    return pulumi.output(args).apply(a => getVolume(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getVolume.
+ */
+export interface GetVolumeOutputArgs {
+    name?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
+    volumeId?: pulumi.Input<string>;
 }

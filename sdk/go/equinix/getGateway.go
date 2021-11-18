@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -29,7 +32,7 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = equinix - metal.LookupGateway(ctx, &equinix-metal.LookupGatewayArgs{
+// 		_, err = equinix - metal.LookupGateway(ctx, &GetGatewayArgs{
 // 			GatewayId: local.Gateway_id,
 // 		}, nil)
 // 		if err != nil {
@@ -69,4 +72,76 @@ type LookupGatewayResult struct {
 	State string `pulumi:"state"`
 	// UUID of the VLAN where the gateway is scoped to
 	VlanId string `pulumi:"vlanId"`
+}
+
+func LookupGatewayOutput(ctx *pulumi.Context, args LookupGatewayOutputArgs, opts ...pulumi.InvokeOption) LookupGatewayResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupGatewayResult, error) {
+			args := v.(LookupGatewayArgs)
+			r, err := LookupGateway(ctx, &args, opts...)
+			return *r, err
+		}).(LookupGatewayResultOutput)
+}
+
+// A collection of arguments for invoking getGateway.
+type LookupGatewayOutputArgs struct {
+	// UUID of the metal gateway resource to retrieve
+	GatewayId pulumi.StringInput `pulumi:"gatewayId"`
+}
+
+func (LookupGatewayOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupGatewayArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getGateway.
+type LookupGatewayResultOutput struct{ *pulumi.OutputState }
+
+func (LookupGatewayResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupGatewayResult)(nil)).Elem()
+}
+
+func (o LookupGatewayResultOutput) ToLookupGatewayResultOutput() LookupGatewayResultOutput {
+	return o
+}
+
+func (o LookupGatewayResultOutput) ToLookupGatewayResultOutputWithContext(ctx context.Context) LookupGatewayResultOutput {
+	return o
+}
+
+func (o LookupGatewayResultOutput) GatewayId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupGatewayResult) string { return v.GatewayId }).(pulumi.StringOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o LookupGatewayResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupGatewayResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// UUID of IP reservation block bound to the gateway
+func (o LookupGatewayResultOutput) IpReservationId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupGatewayResult) string { return v.IpReservationId }).(pulumi.StringOutput)
+}
+
+// Size of the private IPv4 subnet bound to this metal gateway, one of (8, 16, 32, 64, 128)`
+func (o LookupGatewayResultOutput) PrivateIpv4SubnetSize() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupGatewayResult) int { return v.PrivateIpv4SubnetSize }).(pulumi.IntOutput)
+}
+
+// UUID of the project where the gateway is scoped to
+func (o LookupGatewayResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupGatewayResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Status of the gateway resource
+func (o LookupGatewayResultOutput) State() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupGatewayResult) string { return v.State }).(pulumi.StringOutput)
+}
+
+// UUID of the VLAN where the gateway is scoped to
+func (o LookupGatewayResultOutput) VlanId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupGatewayResult) string { return v.VlanId }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupGatewayResultOutput{})
 }

@@ -13,6 +13,7 @@ __all__ = [
     'GetDeviceResult',
     'AwaitableGetDeviceResult',
     'get_device',
+    'get_device_output',
 ]
 
 @pulumi.output_type
@@ -376,3 +377,42 @@ def get_device(device_id: Optional[str] = None,
         state=__ret__.state,
         storage=__ret__.storage,
         tags=__ret__.tags)
+
+
+@_utilities.lift_output_func(get_device)
+def get_device_output(device_id: Optional[pulumi.Input[Optional[str]]] = None,
+                      hostname: Optional[pulumi.Input[Optional[str]]] = None,
+                      project_id: Optional[pulumi.Input[Optional[str]]] = None,
+                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetDeviceResult]:
+    """
+    Provides an Equinix Metal device datasource.
+
+    > **Note:** All arguments including the `root_password` and `user_data` will be stored in
+     the raw state as plain-text.
+    [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    test = equinix_metal.get_device(project_id=local["project_id"],
+        hostname="mydevice")
+    pulumi.export("id", test.id)
+    ```
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    test = equinix_metal.get_device()
+    pulumi.export("ipv4", test.access_public_ipv4)
+    ```
+
+
+    :param str device_id: Device ID
+    :param str hostname: The device name
+    :param str project_id: The id of the project in which the devices exists
+    """
+    ...

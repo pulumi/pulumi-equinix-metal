@@ -4,11 +4,33 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-let __config = new pulumi.Config("equinix-metal");
+declare var exports: any;
+const __config = new pulumi.Config("equinix-metal");
 
 /**
  * The API auth key for API operations.
  */
-export let authToken: string | undefined = __config.get("authToken");
-export let maxRetries: number | undefined = __config.getObject<number>("maxRetries");
-export let maxRetryWaitSeconds: number | undefined = __config.getObject<number>("maxRetryWaitSeconds");
+export declare const authToken: string | undefined;
+Object.defineProperty(exports, "authToken", {
+    get() {
+        return __config.get("authToken");
+    },
+    enumerable: true,
+});
+
+export declare const maxRetries: number | undefined;
+Object.defineProperty(exports, "maxRetries", {
+    get() {
+        return __config.getObject<number>("maxRetries");
+    },
+    enumerable: true,
+});
+
+export declare const maxRetryWaitSeconds: number | undefined;
+Object.defineProperty(exports, "maxRetryWaitSeconds", {
+    get() {
+        return __config.getObject<number>("maxRetryWaitSeconds");
+    },
+    enumerable: true,
+});
+

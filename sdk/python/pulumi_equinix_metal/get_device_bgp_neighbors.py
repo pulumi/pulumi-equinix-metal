@@ -13,6 +13,7 @@ __all__ = [
     'GetDeviceBgpNeighborsResult',
     'AwaitableGetDeviceBgpNeighborsResult',
     'get_device_bgp_neighbors',
+    'get_device_bgp_neighbors_output',
 ]
 
 @pulumi.output_type
@@ -98,3 +99,29 @@ def get_device_bgp_neighbors(device_id: Optional[str] = None,
         bgp_neighbors=__ret__.bgp_neighbors,
         device_id=__ret__.device_id,
         id=__ret__.id)
+
+
+@_utilities.lift_output_func(get_device_bgp_neighbors)
+def get_device_bgp_neighbors_output(device_id: Optional[pulumi.Input[str]] = None,
+                                    opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetDeviceBgpNeighborsResult]:
+    """
+    Use this datasource to retrieve list of BGP neighbors of a device in the Equinix Metal host.
+
+    To have any BGP neighbors listed, the device must be in BGP-enabled project and have a BGP session assigned.
+
+    To learn more about using BGP in Equinix Metal, see the BgpSession resource documentation.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    test = equinix_metal.get_device_bgp_neighbors(device_id="4c641195-25e5-4c3c-b2b7-4cd7a42c7b40")
+    pulumi.export("bgpNeighborsListing", test.bgp_neighbors)
+    ```
+
+
+    :param str device_id: UUID of BGP-enabled device whose neighbors to list
+    """
+    ...

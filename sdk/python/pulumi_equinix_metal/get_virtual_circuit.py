@@ -12,6 +12,7 @@ __all__ = [
     'GetVirtualCircuitResult',
     'AwaitableGetVirtualCircuitResult',
     'get_virtual_circuit',
+    'get_virtual_circuit_output',
 ]
 
 @pulumi.output_type
@@ -176,3 +177,25 @@ def get_virtual_circuit(virtual_circuit_id: Optional[str] = None,
         tags=__ret__.tags,
         virtual_circuit_id=__ret__.virtual_circuit_id,
         vnid=__ret__.vnid)
+
+
+@_utilities.lift_output_func(get_virtual_circuit)
+def get_virtual_circuit_output(virtual_circuit_id: Optional[pulumi.Input[str]] = None,
+                               opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetVirtualCircuitResult]:
+    """
+    Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    example_connection = equinix_metal.get_connection(connection_id="4347e805-eb46-4699-9eb9-5c116e6a017d")
+    example_vc = equinix_metal.get_virtual_circuit(virtual_circuit_id=example_connection.ports[1].virtual_circuit_ids[0])
+    ```
+
+
+    :param str virtual_circuit_id: ID of the virtual circuit resource
+    """
+    ...

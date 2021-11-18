@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -45,7 +44,7 @@ export interface GetGatewayArgs {
     /**
      * UUID of the metal gateway resource to retrieve
      */
-    readonly gatewayId: string;
+    gatewayId: string;
 }
 
 /**
@@ -77,4 +76,18 @@ export interface GetGatewayResult {
      * UUID of the VLAN where the gateway is scoped to
      */
     readonly vlanId: string;
+}
+
+export function getGatewayOutput(args: GetGatewayOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetGatewayResult> {
+    return pulumi.output(args).apply(a => getGateway(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getGateway.
+ */
+export interface GetGatewayOutputArgs {
+    /**
+     * UUID of the metal gateway resource to retrieve
+     */
+    gatewayId: pulumi.Input<string>;
 }

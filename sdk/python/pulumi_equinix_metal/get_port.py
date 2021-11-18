@@ -12,6 +12,7 @@ __all__ = [
     'GetPortResult',
     'AwaitableGetPortResult',
     'get_port',
+    'get_port_output',
 ]
 
 @pulumi.output_type
@@ -254,3 +255,37 @@ def get_port(device_id: Optional[str] = None,
         type=__ret__.type,
         vlan_ids=__ret__.vlan_ids,
         vxlan_ids=__ret__.vxlan_ids)
+
+
+@_utilities.lift_output_func(get_port)
+def get_port_output(device_id: Optional[pulumi.Input[Optional[str]]] = None,
+                    name: Optional[pulumi.Input[Optional[str]]] = None,
+                    port_id: Optional[pulumi.Input[Optional[str]]] = None,
+                    opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetPortResult]:
+    """
+    Use this data source to read ports of existing devices. You can read port by either its UUID, or by a device UUID and port name.
+
+    ## Example Usage
+
+    Create a device and read it's eth0 port to the datasource.
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    project_id = "<UUID_of_your_project>"
+    test_device = equinix_metal.Device("testDevice",
+        hostname="tfacc-test-device-port",
+        plan="c3.medium.x86",
+        facilities=["sv15"],
+        operating_system="ubuntu_20_04",
+        billing_cycle="hourly",
+        project_id=project_id)
+    test_port = test_device.id.apply(lambda id: equinix_metal.get_port(device_id=id,
+        name="eth0"))
+    ```
+
+
+    :param str name: Whether to look for public or private block.
+    """
+    ...

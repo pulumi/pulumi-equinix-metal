@@ -176,15 +176,15 @@ export interface SpotMarketRequestState {
     /**
      * Maximum number devices to be created
      */
-    readonly devicesMax?: pulumi.Input<number>;
+    devicesMax?: pulumi.Input<number>;
     /**
      * Miniumum number devices to be created
      */
-    readonly devicesMin?: pulumi.Input<number>;
+    devicesMin?: pulumi.Input<number>;
     /**
      * Facility IDs where devices should be created
      */
-    readonly facilities?: pulumi.Input<pulumi.Input<string>[]>;
+    facilities?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
      * * `billingCycle`
@@ -203,23 +203,23 @@ export interface SpotMarketRequestState {
      * * `ipxeScriptUrl`
      * * `tags`
      */
-    readonly instanceParameters?: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
+    instanceParameters?: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
     /**
      * Maximum price user is willing to pay per hour per device
      */
-    readonly maxBidPrice?: pulumi.Input<number>;
+    maxBidPrice?: pulumi.Input<number>;
     /**
      * Metro where devices should be created
      */
-    readonly metro?: pulumi.Input<string>;
+    metro?: pulumi.Input<string>;
     /**
      * Project ID
      */
-    readonly projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
     /**
      * On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
      */
-    readonly waitForDevices?: pulumi.Input<boolean>;
+    waitForDevices?: pulumi.Input<boolean>;
 }
 
 /**
@@ -229,15 +229,15 @@ export interface SpotMarketRequestArgs {
     /**
      * Maximum number devices to be created
      */
-    readonly devicesMax: pulumi.Input<number>;
+    devicesMax: pulumi.Input<number>;
     /**
      * Miniumum number devices to be created
      */
-    readonly devicesMin: pulumi.Input<number>;
+    devicesMin: pulumi.Input<number>;
     /**
      * Facility IDs where devices should be created
      */
-    readonly facilities?: pulumi.Input<pulumi.Input<string>[]>;
+    facilities?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
      * * `billingCycle`
@@ -256,21 +256,21 @@ export interface SpotMarketRequestArgs {
      * * `ipxeScriptUrl`
      * * `tags`
      */
-    readonly instanceParameters: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
+    instanceParameters: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
     /**
      * Maximum price user is willing to pay per hour per device
      */
-    readonly maxBidPrice: pulumi.Input<number>;
+    maxBidPrice: pulumi.Input<number>;
     /**
      * Metro where devices should be created
      */
-    readonly metro?: pulumi.Input<string>;
+    metro?: pulumi.Input<string>;
     /**
      * Project ID
      */
-    readonly projectId: pulumi.Input<string>;
+    projectId: pulumi.Input<string>;
     /**
      * On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
      */
-    readonly waitForDevices?: pulumi.Input<boolean>;
+    waitForDevices?: pulumi.Input<boolean>;
 }

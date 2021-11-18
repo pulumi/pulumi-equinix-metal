@@ -247,66 +247,66 @@ export class ReservedIpBlock extends pulumi.CustomResource {
  * Input properties used for looking up and filtering ReservedIpBlock resources.
  */
 export interface ReservedIpBlockState {
-    readonly address?: pulumi.Input<string>;
+    address?: pulumi.Input<string>;
     /**
      * Address family as integer (4 or 6)
      */
-    readonly addressFamily?: pulumi.Input<number>;
+    addressFamily?: pulumi.Input<number>;
     /**
      * length of CIDR prefix of the block as integer
      */
-    readonly cidr?: pulumi.Input<number>;
+    cidr?: pulumi.Input<number>;
     /**
      * Address and mask in CIDR notation, e.g. "147.229.15.30/31"
      */
-    readonly cidrNotation?: pulumi.Input<string>;
+    cidrNotation?: pulumi.Input<string>;
     /**
      * Arbitrary description
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
      */
-    readonly facility?: pulumi.Input<string | enums.Facility>;
-    readonly gateway?: pulumi.Input<string>;
+    facility?: pulumi.Input<string | enums.Facility>;
+    gateway?: pulumi.Input<string>;
     /**
      * boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
      */
-    readonly global?: pulumi.Input<boolean>;
-    readonly manageable?: pulumi.Input<boolean>;
-    readonly management?: pulumi.Input<boolean>;
+    global?: pulumi.Input<boolean>;
+    manageable?: pulumi.Input<boolean>;
+    management?: pulumi.Input<boolean>;
     /**
      * Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
      */
-    readonly metro?: pulumi.Input<string>;
+    metro?: pulumi.Input<string>;
     /**
      * Mask in decimal notation, e.g. "255.255.255.0"
      */
-    readonly netmask?: pulumi.Input<string>;
+    netmask?: pulumi.Input<string>;
     /**
      * Network IP address portion of the block specification
      */
-    readonly network?: pulumi.Input<string>;
+    network?: pulumi.Input<string>;
     /**
      * The metal project ID where to allocate the address block
      */
-    readonly projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
     /**
      * boolean flag whether addresses from a block are public
      */
-    readonly public?: pulumi.Input<boolean>;
+    public?: pulumi.Input<boolean>;
     /**
      * The number of allocated /32 addresses, a power of 2
      */
-    readonly quantity?: pulumi.Input<number>;
+    quantity?: pulumi.Input<number>;
     /**
      * String list of tags
      */
-    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
      */
-    readonly type?: pulumi.Input<string | enums.IpBlockType>;
+    type?: pulumi.Input<string | enums.IpBlockType>;
 }
 
 /**
@@ -316,29 +316,29 @@ export interface ReservedIpBlockArgs {
     /**
      * Arbitrary description
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
      */
-    readonly facility?: pulumi.Input<string | enums.Facility>;
+    facility?: pulumi.Input<string | enums.Facility>;
     /**
      * Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
      */
-    readonly metro?: pulumi.Input<string>;
+    metro?: pulumi.Input<string>;
     /**
      * The metal project ID where to allocate the address block
      */
-    readonly projectId: pulumi.Input<string>;
+    projectId: pulumi.Input<string>;
     /**
      * The number of allocated /32 addresses, a power of 2
      */
-    readonly quantity: pulumi.Input<number>;
+    quantity: pulumi.Input<number>;
     /**
      * String list of tags
      */
-    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Either "globalIpv4" or "publicIpv4", defaults to "publicIpv4" for backward compatibility
      */
-    readonly type?: pulumi.Input<string | enums.IpBlockType>;
+    type?: pulumi.Input<string | enums.IpBlockType>;
 }

@@ -90,11 +90,11 @@ export interface DeviceNetworkTypeState {
     /**
      * The ID of the device on which the network type should be set.
      */
-    readonly deviceId?: pulumi.Input<string>;
+    deviceId?: pulumi.Input<string>;
     /**
      * Network type to set. Must be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      */
-    readonly type?: pulumi.Input<string>;
+    type?: pulumi.Input<string>;
 }
 
 /**
@@ -104,9 +104,9 @@ export interface DeviceNetworkTypeArgs {
     /**
      * The ID of the device on which the network type should be set.
      */
-    readonly deviceId: pulumi.Input<string>;
+    deviceId: pulumi.Input<string>;
     /**
      * Network type to set. Must be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      */
-    readonly type: pulumi.Input<string>;
+    type: pulumi.Input<string>;
 }

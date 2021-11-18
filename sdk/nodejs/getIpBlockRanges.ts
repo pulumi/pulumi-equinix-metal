@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -47,15 +46,15 @@ export interface GetIpBlockRangesArgs {
     /**
      * Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
      */
-    readonly facility?: string;
+    facility?: string;
     /**
      * Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
      */
-    readonly metro?: string;
+    metro?: string;
     /**
      * ID of the project from which to list the blocks.
      */
-    readonly projectId: string;
+    projectId: string;
 }
 
 /**
@@ -85,4 +84,26 @@ export interface GetIpBlockRangesResult {
      * list of CIDR expressions for Public IPv4 blocks in the project
      */
     readonly publicIpv4s: string[];
+}
+
+export function getIpBlockRangesOutput(args: GetIpBlockRangesOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetIpBlockRangesResult> {
+    return pulumi.output(args).apply(a => getIpBlockRanges(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getIpBlockRanges.
+ */
+export interface GetIpBlockRangesOutputArgs {
+    /**
+     * Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
+     */
+    facility?: pulumi.Input<string>;
+    /**
+     * Metro code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and facility, all the block from the project will be listed.
+     */
+    metro?: pulumi.Input<string>;
+    /**
+     * ID of the project from which to list the blocks.
+     */
+    projectId: pulumi.Input<string>;
 }

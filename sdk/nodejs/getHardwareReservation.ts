@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -32,11 +31,11 @@ export interface GetHardwareReservationArgs {
     /**
      * UUID of device occupying the reservation
      */
-    readonly deviceId?: string;
+    deviceId?: string;
     /**
      * ID of the hardware reservation
      */
-    readonly id?: string;
+    id?: string;
 }
 
 /**
@@ -79,4 +78,22 @@ export interface GetHardwareReservationResult {
      * Switch short ID, can be used to determine if two devices are connected to the same switch
      */
     readonly switchUuid: string;
+}
+
+export function getHardwareReservationOutput(args?: GetHardwareReservationOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetHardwareReservationResult> {
+    return pulumi.output(args).apply(a => getHardwareReservation(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getHardwareReservation.
+ */
+export interface GetHardwareReservationOutputArgs {
+    /**
+     * UUID of device occupying the reservation
+     */
+    deviceId?: pulumi.Input<string>;
+    /**
+     * ID of the hardware reservation
+     */
+    id?: pulumi.Input<string>;
 }

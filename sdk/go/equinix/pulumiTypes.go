@@ -634,7 +634,7 @@ func (o DeviceReinstallOutput) ToDeviceReinstallPtrOutput() DeviceReinstallPtrOu
 }
 
 func (o DeviceReinstallOutput) ToDeviceReinstallPtrOutputWithContext(ctx context.Context) DeviceReinstallPtrOutput {
-	return o.ApplyT(func(v DeviceReinstall) *DeviceReinstall {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceReinstall) *DeviceReinstall {
 		return &v
 	}).(DeviceReinstallPtrOutput)
 }
@@ -669,7 +669,13 @@ func (o DeviceReinstallPtrOutput) ToDeviceReinstallPtrOutputWithContext(ctx cont
 }
 
 func (o DeviceReinstallPtrOutput) Elem() DeviceReinstallOutput {
-	return o.ApplyT(func(v *DeviceReinstall) DeviceReinstall { return *v }).(DeviceReinstallOutput)
+	return o.ApplyT(func(v *DeviceReinstall) DeviceReinstall {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceReinstall
+		return ret
+	}).(DeviceReinstallOutput)
 }
 
 // Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
@@ -811,7 +817,7 @@ func (o ProjectBgpConfigOutput) ToProjectBgpConfigPtrOutput() ProjectBgpConfigPt
 }
 
 func (o ProjectBgpConfigOutput) ToProjectBgpConfigPtrOutputWithContext(ctx context.Context) ProjectBgpConfigPtrOutput {
-	return o.ApplyT(func(v ProjectBgpConfig) *ProjectBgpConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectBgpConfig) *ProjectBgpConfig {
 		return &v
 	}).(ProjectBgpConfigPtrOutput)
 }
@@ -856,7 +862,13 @@ func (o ProjectBgpConfigPtrOutput) ToProjectBgpConfigPtrOutputWithContext(ctx co
 }
 
 func (o ProjectBgpConfigPtrOutput) Elem() ProjectBgpConfigOutput {
-	return o.ApplyT(func(v *ProjectBgpConfig) ProjectBgpConfig { return *v }).(ProjectBgpConfigOutput)
+	return o.ApplyT(func(v *ProjectBgpConfig) ProjectBgpConfig {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectBgpConfig
+		return ret
+	}).(ProjectBgpConfigOutput)
 }
 
 // Autonomous System Number for local BGP deployment
@@ -1030,10 +1042,11 @@ func (o SpotMarketRequestInstanceParametersOutput) ToSpotMarketRequestInstancePa
 }
 
 func (o SpotMarketRequestInstanceParametersOutput) ToSpotMarketRequestInstanceParametersPtrOutputWithContext(ctx context.Context) SpotMarketRequestInstanceParametersPtrOutput {
-	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *SpotMarketRequestInstanceParameters {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SpotMarketRequestInstanceParameters) *SpotMarketRequestInstanceParameters {
 		return &v
 	}).(SpotMarketRequestInstanceParametersPtrOutput)
 }
+
 func (o SpotMarketRequestInstanceParametersOutput) AlwaysPxe() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SpotMarketRequestInstanceParameters) *bool { return v.AlwaysPxe }).(pulumi.BoolPtrOutput)
 }
@@ -1110,7 +1123,13 @@ func (o SpotMarketRequestInstanceParametersPtrOutput) ToSpotMarketRequestInstanc
 }
 
 func (o SpotMarketRequestInstanceParametersPtrOutput) Elem() SpotMarketRequestInstanceParametersOutput {
-	return o.ApplyT(func(v *SpotMarketRequestInstanceParameters) SpotMarketRequestInstanceParameters { return *v }).(SpotMarketRequestInstanceParametersOutput)
+	return o.ApplyT(func(v *SpotMarketRequestInstanceParameters) SpotMarketRequestInstanceParameters {
+		if v != nil {
+			return *v
+		}
+		var ret SpotMarketRequestInstanceParameters
+		return ret
+	}).(SpotMarketRequestInstanceParametersOutput)
 }
 
 func (o SpotMarketRequestInstanceParametersPtrOutput) AlwaysPxe() pulumi.BoolPtrOutput {
@@ -2700,6 +2719,44 @@ func (o GetVolumeSnapshotPolicyArrayOutput) Index(i pulumi.IntInput) GetVolumeSn
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ConnectionPortInput)(nil)).Elem(), ConnectionPortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConnectionPortArrayInput)(nil)).Elem(), ConnectionPortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceIpAddressInput)(nil)).Elem(), DeviceIpAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceIpAddressArrayInput)(nil)).Elem(), DeviceIpAddressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceNetworkInput)(nil)).Elem(), DeviceNetworkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceNetworkArrayInput)(nil)).Elem(), DeviceNetworkArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortInput)(nil)).Elem(), DevicePortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortArrayInput)(nil)).Elem(), DevicePortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceReinstallInput)(nil)).Elem(), DeviceReinstallArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceReinstallPtrInput)(nil)).Elem(), DeviceReinstallArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectBgpConfigInput)(nil)).Elem(), ProjectBgpConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectBgpConfigPtrInput)(nil)).Elem(), ProjectBgpConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SpotMarketRequestInstanceParametersInput)(nil)).Elem(), SpotMarketRequestInstanceParametersArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SpotMarketRequestInstanceParametersPtrInput)(nil)).Elem(), SpotMarketRequestInstanceParametersArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentTypeInput)(nil)).Elem(), VolumeAttachmentTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentTypeArrayInput)(nil)).Elem(), VolumeAttachmentTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeSnapshotPolicyInput)(nil)).Elem(), VolumeSnapshotPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeSnapshotPolicyArrayInput)(nil)).Elem(), VolumeSnapshotPolicyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetConnectionPortInput)(nil)).Elem(), GetConnectionPortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetConnectionPortArrayInput)(nil)).Elem(), GetConnectionPortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceBgpNeighborsBgpNeighborInput)(nil)).Elem(), GetDeviceBgpNeighborsBgpNeighborArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceBgpNeighborsBgpNeighborArrayInput)(nil)).Elem(), GetDeviceBgpNeighborsBgpNeighborArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceBgpNeighborsBgpNeighborRoutesInInput)(nil)).Elem(), GetDeviceBgpNeighborsBgpNeighborRoutesInArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceBgpNeighborsBgpNeighborRoutesInArrayInput)(nil)).Elem(), GetDeviceBgpNeighborsBgpNeighborRoutesInArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceBgpNeighborsBgpNeighborRoutesOutInput)(nil)).Elem(), GetDeviceBgpNeighborsBgpNeighborRoutesOutArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceBgpNeighborsBgpNeighborRoutesOutArrayInput)(nil)).Elem(), GetDeviceBgpNeighborsBgpNeighborRoutesOutArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceNetworkInput)(nil)).Elem(), GetDeviceNetworkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDeviceNetworkArrayInput)(nil)).Elem(), GetDeviceNetworkArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDevicePortInput)(nil)).Elem(), GetDevicePortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetDevicePortArrayInput)(nil)).Elem(), GetDevicePortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFacilityCapacityInput)(nil)).Elem(), GetFacilityCapacityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetFacilityCapacityArrayInput)(nil)).Elem(), GetFacilityCapacityArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetMetroCapacityInput)(nil)).Elem(), GetMetroCapacityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetMetroCapacityArrayInput)(nil)).Elem(), GetMetroCapacityArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectBgpConfigInput)(nil)).Elem(), GetProjectBgpConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProjectBgpConfigArrayInput)(nil)).Elem(), GetProjectBgpConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetVolumeSnapshotPolicyInput)(nil)).Elem(), GetVolumeSnapshotPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetVolumeSnapshotPolicyArrayInput)(nil)).Elem(), GetVolumeSnapshotPolicyArray{})
 	pulumi.RegisterOutputType(ConnectionPortOutput{})
 	pulumi.RegisterOutputType(ConnectionPortArrayOutput{})
 	pulumi.RegisterOutputType(DeviceIpAddressOutput{})

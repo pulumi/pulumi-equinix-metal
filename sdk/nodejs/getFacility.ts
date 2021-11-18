@@ -30,15 +30,15 @@ export interface GetFacilityArgs {
     /**
      * (Optional) Ensure that queried facility has capacity for specified number of given plans
      */
-    readonly capacities?: inputs.GetFacilityCapacity[];
+    capacities?: inputs.GetFacilityCapacity[];
     /**
      * The facility code
      */
-    readonly code: string;
+    code: string;
     /**
      * Set of feature strings that the facility must have
      */
-    readonly featuresRequireds?: string[];
+    featuresRequireds?: string[];
 }
 
 /**
@@ -67,4 +67,26 @@ export interface GetFacilityResult {
      * The name of the facility
      */
     readonly name: string;
+}
+
+export function getFacilityOutput(args: GetFacilityOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetFacilityResult> {
+    return pulumi.output(args).apply(a => getFacility(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getFacility.
+ */
+export interface GetFacilityOutputArgs {
+    /**
+     * (Optional) Ensure that queried facility has capacity for specified number of given plans
+     */
+    capacities?: pulumi.Input<pulumi.Input<inputs.GetFacilityCapacityArgs>[]>;
+    /**
+     * The facility code
+     */
+    code: pulumi.Input<string>;
+    /**
+     * Set of feature strings that the facility must have
+     */
+    featuresRequireds?: pulumi.Input<pulumi.Input<string>[]>;
 }

@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -45,4 +48,96 @@ type LookupSpotMarketRequestResult struct {
 	// Project ID
 	ProjectId string `pulumi:"projectId"`
 	RequestId string `pulumi:"requestId"`
+}
+
+func LookupSpotMarketRequestOutput(ctx *pulumi.Context, args LookupSpotMarketRequestOutputArgs, opts ...pulumi.InvokeOption) LookupSpotMarketRequestResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupSpotMarketRequestResult, error) {
+			args := v.(LookupSpotMarketRequestArgs)
+			r, err := LookupSpotMarketRequest(ctx, &args, opts...)
+			return *r, err
+		}).(LookupSpotMarketRequestResultOutput)
+}
+
+// A collection of arguments for invoking getSpotMarketRequest.
+type LookupSpotMarketRequestOutputArgs struct {
+	// The id of the Spot Market Request
+	RequestId pulumi.StringInput `pulumi:"requestId"`
+}
+
+func (LookupSpotMarketRequestOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupSpotMarketRequestArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getSpotMarketRequest.
+type LookupSpotMarketRequestResultOutput struct{ *pulumi.OutputState }
+
+func (LookupSpotMarketRequestResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupSpotMarketRequestResult)(nil)).Elem()
+}
+
+func (o LookupSpotMarketRequestResultOutput) ToLookupSpotMarketRequestResultOutput() LookupSpotMarketRequestResultOutput {
+	return o
+}
+
+func (o LookupSpotMarketRequestResultOutput) ToLookupSpotMarketRequestResultOutputWithContext(ctx context.Context) LookupSpotMarketRequestResultOutput {
+	return o
+}
+
+// List of IDs of devices spawned by the referenced Spot Market Request
+func (o LookupSpotMarketRequestResultOutput) DeviceIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) []string { return v.DeviceIds }).(pulumi.StringArrayOutput)
+}
+
+// Maximum number devices to be created
+func (o LookupSpotMarketRequestResultOutput) DevicesMax() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) int { return v.DevicesMax }).(pulumi.IntOutput)
+}
+
+// Miniumum number devices to be created
+func (o LookupSpotMarketRequestResultOutput) DevicesMin() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) int { return v.DevicesMin }).(pulumi.IntOutput)
+}
+
+// Date and time When the spot market request will be ended.
+func (o LookupSpotMarketRequestResultOutput) EndAt() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) string { return v.EndAt }).(pulumi.StringOutput)
+}
+
+// Facility IDs where devices should be created
+func (o LookupSpotMarketRequestResultOutput) Facilities() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) []string { return v.Facilities }).(pulumi.StringArrayOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o LookupSpotMarketRequestResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Maximum price user is willing to pay per hour per device
+func (o LookupSpotMarketRequestResultOutput) MaxBidPrice() pulumi.Float64Output {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) float64 { return v.MaxBidPrice }).(pulumi.Float64Output)
+}
+
+// Metro where devices should be created.
+func (o LookupSpotMarketRequestResultOutput) Metro() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) string { return v.Metro }).(pulumi.StringOutput)
+}
+
+// The device plan slug.
+func (o LookupSpotMarketRequestResultOutput) Plan() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) string { return v.Plan }).(pulumi.StringOutput)
+}
+
+// Project ID
+func (o LookupSpotMarketRequestResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+func (o LookupSpotMarketRequestResultOutput) RequestId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupSpotMarketRequestResult) string { return v.RequestId }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupSpotMarketRequestResultOutput{})
 }

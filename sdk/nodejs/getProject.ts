@@ -42,11 +42,11 @@ export interface GetProjectArgs {
     /**
      * The name which is used to look up the project
      */
-    readonly name?: string;
+    name?: string;
     /**
      * The UUID by which to look up the project
      */
-    readonly projectId?: string;
+    projectId?: string;
 }
 
 /**
@@ -87,4 +87,22 @@ export interface GetProjectResult {
      * List of UUIDs of user accounts which belong to this project
      */
     readonly userIds: string[];
+}
+
+export function getProjectOutput(args?: GetProjectOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProjectResult> {
+    return pulumi.output(args).apply(a => getProject(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getProject.
+ */
+export interface GetProjectOutputArgs {
+    /**
+     * The name which is used to look up the project
+     */
+    name?: pulumi.Input<string>;
+    /**
+     * The UUID by which to look up the project
+     */
+    projectId?: pulumi.Input<string>;
 }

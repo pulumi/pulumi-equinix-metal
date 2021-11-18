@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -37,4 +40,69 @@ type GetMetroResult struct {
 	Id string `pulumi:"id"`
 	// The name of the metro
 	Name string `pulumi:"name"`
+}
+
+func GetMetroOutput(ctx *pulumi.Context, args GetMetroOutputArgs, opts ...pulumi.InvokeOption) GetMetroResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (GetMetroResult, error) {
+			args := v.(GetMetroArgs)
+			r, err := GetMetro(ctx, &args, opts...)
+			return *r, err
+		}).(GetMetroResultOutput)
+}
+
+// A collection of arguments for invoking getMetro.
+type GetMetroOutputArgs struct {
+	// (Optional) Ensure that queried metro has capacity for specified number of given plans
+	Capacities GetMetroCapacityArrayInput `pulumi:"capacities"`
+	// The metro code
+	Code pulumi.StringInput `pulumi:"code"`
+}
+
+func (GetMetroOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMetroArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getMetro.
+type GetMetroResultOutput struct{ *pulumi.OutputState }
+
+func (GetMetroResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMetroResult)(nil)).Elem()
+}
+
+func (o GetMetroResultOutput) ToGetMetroResultOutput() GetMetroResultOutput {
+	return o
+}
+
+func (o GetMetroResultOutput) ToGetMetroResultOutputWithContext(ctx context.Context) GetMetroResultOutput {
+	return o
+}
+
+// (Optional) Ensure that queried metro has capacity for specified number of given plans
+func (o GetMetroResultOutput) Capacities() GetMetroCapacityArrayOutput {
+	return o.ApplyT(func(v GetMetroResult) []GetMetroCapacity { return v.Capacities }).(GetMetroCapacityArrayOutput)
+}
+
+// The code of the metro
+func (o GetMetroResultOutput) Code() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMetroResult) string { return v.Code }).(pulumi.StringOutput)
+}
+
+// The country of the metro
+func (o GetMetroResultOutput) Country() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMetroResult) string { return v.Country }).(pulumi.StringOutput)
+}
+
+// The ID of the metro
+func (o GetMetroResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMetroResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The name of the metro
+func (o GetMetroResultOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMetroResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetMetroResultOutput{})
 }

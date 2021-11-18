@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -34,27 +33,27 @@ export interface GetPrecreatedIpBlockArgs {
     /**
      * 4 or 6, depending on which block you are looking for.
      */
-    readonly addressFamily: number;
+    addressFamily: number;
     /**
      * Facility of the searched block. (for non-global blocks).
      */
-    readonly facility?: string;
+    facility?: string;
     /**
      * Whether to look for global block. Default is false for backward compatibility.
      */
-    readonly global?: boolean;
+    global?: boolean;
     /**
      * Metro of the searched block (for non-global blocks).
      */
-    readonly metro?: string;
+    metro?: string;
     /**
      * ID of the project where the searched block should be.
      */
-    readonly projectId: string;
+    projectId: string;
     /**
      * Whether to look for public or private block.
      */
-    readonly public: boolean;
+    public: boolean;
 }
 
 /**
@@ -84,4 +83,38 @@ export interface GetPrecreatedIpBlockResult {
     readonly public: boolean;
     readonly quantity: number;
     readonly type: string;
+}
+
+export function getPrecreatedIpBlockOutput(args: GetPrecreatedIpBlockOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetPrecreatedIpBlockResult> {
+    return pulumi.output(args).apply(a => getPrecreatedIpBlock(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getPrecreatedIpBlock.
+ */
+export interface GetPrecreatedIpBlockOutputArgs {
+    /**
+     * 4 or 6, depending on which block you are looking for.
+     */
+    addressFamily: pulumi.Input<number>;
+    /**
+     * Facility of the searched block. (for non-global blocks).
+     */
+    facility?: pulumi.Input<string>;
+    /**
+     * Whether to look for global block. Default is false for backward compatibility.
+     */
+    global?: pulumi.Input<boolean>;
+    /**
+     * Metro of the searched block (for non-global blocks).
+     */
+    metro?: pulumi.Input<string>;
+    /**
+     * ID of the project where the searched block should be.
+     */
+    projectId: pulumi.Input<string>;
+    /**
+     * Whether to look for public or private block.
+     */
+    public: pulumi.Input<boolean>;
 }

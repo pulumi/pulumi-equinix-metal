@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -18,7 +17,7 @@ import * as utilities from "./utilities";
  *     connectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
  * });
  * const exampleVc = exampleConnection.then(exampleConnection => equinix_metal.getVirtualCircuit({
- *     virtualCircuitId: exampleConnection.ports[1].virtualCircuitIds[0],
+ *     virtualCircuitId: exampleConnection.ports?[1]?.virtualCircuitIds?[0],
  * }));
  * ```
  */
@@ -42,7 +41,7 @@ export interface GetVirtualCircuitArgs {
     /**
      * ID of the virtual circuit resource
      */
-    readonly virtualCircuitId: string;
+    virtualCircuitId: string;
 }
 
 /**
@@ -78,4 +77,18 @@ export interface GetVirtualCircuitResult {
     readonly tags: string[];
     readonly virtualCircuitId: string;
     readonly vnid: number;
+}
+
+export function getVirtualCircuitOutput(args: GetVirtualCircuitOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetVirtualCircuitResult> {
+    return pulumi.output(args).apply(a => getVirtualCircuit(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getVirtualCircuit.
+ */
+export interface GetVirtualCircuitOutputArgs {
+    /**
+     * ID of the virtual circuit resource
+     */
+    virtualCircuitId: pulumi.Input<string>;
 }

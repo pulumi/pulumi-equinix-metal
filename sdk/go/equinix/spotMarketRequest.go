@@ -34,7 +34,7 @@ import (
 // 			},
 // 			DevicesMin: pulumi.Int(1),
 // 			DevicesMax: pulumi.Int(1),
-// 			InstanceParameters: &equinix - metal.SpotMarketRequestInstanceParametersArgs{
+// 			InstanceParameters: &SpotMarketRequestInstanceParametersArgs{
 // 				Hostname:        pulumi.String("testspot"),
 // 				BillingCycle:    pulumi.String("hourly"),
 // 				OperatingSystem: pulumi.String("ubuntu_20_04"),
@@ -342,7 +342,7 @@ type SpotMarketRequestArrayInput interface {
 type SpotMarketRequestArray []SpotMarketRequestInput
 
 func (SpotMarketRequestArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*SpotMarketRequest)(nil))
+	return reflect.TypeOf((*[]*SpotMarketRequest)(nil)).Elem()
 }
 
 func (i SpotMarketRequestArray) ToSpotMarketRequestArrayOutput() SpotMarketRequestArrayOutput {
@@ -367,7 +367,7 @@ type SpotMarketRequestMapInput interface {
 type SpotMarketRequestMap map[string]SpotMarketRequestInput
 
 func (SpotMarketRequestMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*SpotMarketRequest)(nil))
+	return reflect.TypeOf((*map[string]*SpotMarketRequest)(nil)).Elem()
 }
 
 func (i SpotMarketRequestMap) ToSpotMarketRequestMapOutput() SpotMarketRequestMapOutput {
@@ -378,9 +378,7 @@ func (i SpotMarketRequestMap) ToSpotMarketRequestMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestMapOutput)
 }
 
-type SpotMarketRequestOutput struct {
-	*pulumi.OutputState
-}
+type SpotMarketRequestOutput struct{ *pulumi.OutputState }
 
 func (SpotMarketRequestOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*SpotMarketRequest)(nil))
@@ -399,14 +397,12 @@ func (o SpotMarketRequestOutput) ToSpotMarketRequestPtrOutput() SpotMarketReques
 }
 
 func (o SpotMarketRequestOutput) ToSpotMarketRequestPtrOutputWithContext(ctx context.Context) SpotMarketRequestPtrOutput {
-	return o.ApplyT(func(v SpotMarketRequest) *SpotMarketRequest {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SpotMarketRequest) *SpotMarketRequest {
 		return &v
 	}).(SpotMarketRequestPtrOutput)
 }
 
-type SpotMarketRequestPtrOutput struct {
-	*pulumi.OutputState
-}
+type SpotMarketRequestPtrOutput struct{ *pulumi.OutputState }
 
 func (SpotMarketRequestPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SpotMarketRequest)(nil))
@@ -418,6 +414,16 @@ func (o SpotMarketRequestPtrOutput) ToSpotMarketRequestPtrOutput() SpotMarketReq
 
 func (o SpotMarketRequestPtrOutput) ToSpotMarketRequestPtrOutputWithContext(ctx context.Context) SpotMarketRequestPtrOutput {
 	return o
+}
+
+func (o SpotMarketRequestPtrOutput) Elem() SpotMarketRequestOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) SpotMarketRequest {
+		if v != nil {
+			return *v
+		}
+		var ret SpotMarketRequest
+		return ret
+	}).(SpotMarketRequestOutput)
 }
 
 type SpotMarketRequestArrayOutput struct{ *pulumi.OutputState }
@@ -461,6 +467,10 @@ func (o SpotMarketRequestMapOutput) MapIndex(k pulumi.StringInput) SpotMarketReq
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*SpotMarketRequestInput)(nil)).Elem(), &SpotMarketRequest{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SpotMarketRequestPtrInput)(nil)).Elem(), &SpotMarketRequest{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SpotMarketRequestArrayInput)(nil)).Elem(), SpotMarketRequestArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SpotMarketRequestMapInput)(nil)).Elem(), SpotMarketRequestMap{})
 	pulumi.RegisterOutputType(SpotMarketRequestOutput{})
 	pulumi.RegisterOutputType(SpotMarketRequestPtrOutput{})
 	pulumi.RegisterOutputType(SpotMarketRequestArrayOutput{})

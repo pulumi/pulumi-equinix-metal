@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +24,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.LookupConnection(ctx, &equinix-metal.LookupConnectionArgs{
+// 		_, err := equinix - metal.LookupConnection(ctx, &GetConnectionArgs{
 // 			ConnectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
 // 		}, nil)
 // 		if err != nil {
@@ -79,4 +82,121 @@ type LookupConnectionResult struct {
 	Token string `pulumi:"token"`
 	// Connection type, dedicated or shared
 	Type string `pulumi:"type"`
+}
+
+func LookupConnectionOutput(ctx *pulumi.Context, args LookupConnectionOutputArgs, opts ...pulumi.InvokeOption) LookupConnectionResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (LookupConnectionResult, error) {
+			args := v.(LookupConnectionArgs)
+			r, err := LookupConnection(ctx, &args, opts...)
+			return *r, err
+		}).(LookupConnectionResultOutput)
+}
+
+// A collection of arguments for invoking getConnection.
+type LookupConnectionOutputArgs struct {
+	// ID of the connection resource
+	ConnectionId pulumi.StringInput `pulumi:"connectionId"`
+}
+
+func (LookupConnectionOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupConnectionArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getConnection.
+type LookupConnectionResultOutput struct{ *pulumi.OutputState }
+
+func (LookupConnectionResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupConnectionResult)(nil)).Elem()
+}
+
+func (o LookupConnectionResultOutput) ToLookupConnectionResultOutput() LookupConnectionResultOutput {
+	return o
+}
+
+func (o LookupConnectionResultOutput) ToLookupConnectionResultOutputWithContext(ctx context.Context) LookupConnectionResultOutput {
+	return o
+}
+
+func (o LookupConnectionResultOutput) ConnectionId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.ConnectionId }).(pulumi.StringOutput)
+}
+
+// Description of the connection resource
+func (o LookupConnectionResultOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// Slug of a facility to which the connection belongs
+func (o LookupConnectionResultOutput) Facility() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Facility }).(pulumi.StringOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o LookupConnectionResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Slug of a metro to which the connection belongs
+func (o LookupConnectionResultOutput) Metro() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Metro }).(pulumi.StringOutput)
+}
+
+// Mode for connections in IBX facilities with the dedicated type - standard or tunnel
+func (o LookupConnectionResultOutput) Mode() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Mode }).(pulumi.StringOutput)
+}
+
+// Port name
+func (o LookupConnectionResultOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// ID of organization to which the connection belongs
+func (o LookupConnectionResultOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.OrganizationId }).(pulumi.StringOutput)
+}
+
+// List of connection ports - primary (`ports[0]`) and secondary (`ports[1]`)
+func (o LookupConnectionResultOutput) Ports() GetConnectionPortArrayOutput {
+	return o.ApplyT(func(v LookupConnectionResult) []GetConnectionPort { return v.Ports }).(GetConnectionPortArrayOutput)
+}
+
+// ID of project to which the connection belongs
+func (o LookupConnectionResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Connection redundancy, reduntant or primary
+func (o LookupConnectionResultOutput) Redundancy() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Redundancy }).(pulumi.StringOutput)
+}
+
+// Port speed in bits per second
+func (o LookupConnectionResultOutput) Speed() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupConnectionResult) int { return v.Speed }).(pulumi.IntOutput)
+}
+
+// Port status
+func (o LookupConnectionResultOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// String list of tags
+func (o LookupConnectionResultOutput) Tags() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupConnectionResult) []string { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// Fabric Token for the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
+func (o LookupConnectionResultOutput) Token() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Token }).(pulumi.StringOutput)
+}
+
+// Connection type, dedicated or shared
+func (o LookupConnectionResultOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupConnectionResult) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupConnectionResultOutput{})
 }

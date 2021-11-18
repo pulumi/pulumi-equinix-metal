@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -46,6 +47,42 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetGatewayResult> InvokeAsync(GetGatewayArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetGatewayResult>("equinix-metal:index/getGateway:getGateway", args ?? new GetGatewayArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this datasource to retrieve Metal Gateway resources in Equinix Metal.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         // Create Metal Gateway for a VLAN with a private IPv4 block with 8 IP addresses
+        ///         var testVlan = new EquinixMetal.Vlan("testVlan", new EquinixMetal.VlanArgs
+        ///         {
+        ///             Description = "test VLAN in SV",
+        ///             Metro = "sv",
+        ///             ProjectId = local.Project_id,
+        ///         });
+        ///         var testGateway = Output.Create(EquinixMetal.GetGateway.InvokeAsync(new EquinixMetal.GetGatewayArgs
+        ///         {
+        ///             GatewayId = local.Gateway_id,
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetGatewayResult> Invoke(GetGatewayInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetGatewayResult>("equinix-metal:index/getGateway:getGateway", args ?? new GetGatewayInvokeArgs(), options.WithVersion());
     }
 
 
@@ -58,6 +95,19 @@ namespace Pulumi.EquinixMetal
         public string GatewayId { get; set; } = null!;
 
         public GetGatewayArgs()
+        {
+        }
+    }
+
+    public sealed class GetGatewayInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// UUID of the metal gateway resource to retrieve
+        /// </summary>
+        [Input("gatewayId", required: true)]
+        public Input<string> GatewayId { get; set; } = null!;
+
+        public GetGatewayInvokeArgs()
         {
         }
     }

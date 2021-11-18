@@ -4,6 +4,9 @@
 package equinix
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -55,4 +58,122 @@ type GetPrecreatedIpBlockResult struct {
 	Public     bool    `pulumi:"public"`
 	Quantity   int     `pulumi:"quantity"`
 	Type       string  `pulumi:"type"`
+}
+
+func GetPrecreatedIpBlockOutput(ctx *pulumi.Context, args GetPrecreatedIpBlockOutputArgs, opts ...pulumi.InvokeOption) GetPrecreatedIpBlockResultOutput {
+	return pulumi.ToOutputWithContext(context.Background(), args).
+		ApplyT(func(v interface{}) (GetPrecreatedIpBlockResult, error) {
+			args := v.(GetPrecreatedIpBlockArgs)
+			r, err := GetPrecreatedIpBlock(ctx, &args, opts...)
+			return *r, err
+		}).(GetPrecreatedIpBlockResultOutput)
+}
+
+// A collection of arguments for invoking getPrecreatedIpBlock.
+type GetPrecreatedIpBlockOutputArgs struct {
+	// 4 or 6, depending on which block you are looking for.
+	AddressFamily pulumi.IntInput `pulumi:"addressFamily"`
+	// Facility of the searched block. (for non-global blocks).
+	Facility pulumi.StringPtrInput `pulumi:"facility"`
+	// Whether to look for global block. Default is false for backward compatibility.
+	Global pulumi.BoolPtrInput `pulumi:"global"`
+	// Metro of the searched block (for non-global blocks).
+	Metro pulumi.StringPtrInput `pulumi:"metro"`
+	// ID of the project where the searched block should be.
+	ProjectId pulumi.StringInput `pulumi:"projectId"`
+	// Whether to look for public or private block.
+	Public pulumi.BoolInput `pulumi:"public"`
+}
+
+func (GetPrecreatedIpBlockOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrecreatedIpBlockArgs)(nil)).Elem()
+}
+
+// A collection of values returned by getPrecreatedIpBlock.
+type GetPrecreatedIpBlockResultOutput struct{ *pulumi.OutputState }
+
+func (GetPrecreatedIpBlockResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrecreatedIpBlockResult)(nil)).Elem()
+}
+
+func (o GetPrecreatedIpBlockResultOutput) ToGetPrecreatedIpBlockResultOutput() GetPrecreatedIpBlockResultOutput {
+	return o
+}
+
+func (o GetPrecreatedIpBlockResultOutput) ToGetPrecreatedIpBlockResultOutputWithContext(ctx context.Context) GetPrecreatedIpBlockResultOutput {
+	return o
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.Address }).(pulumi.StringOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) AddressFamily() pulumi.IntOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) int { return v.AddressFamily }).(pulumi.IntOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Cidr() pulumi.IntOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) int { return v.Cidr }).(pulumi.IntOutput)
+}
+
+// CIDR notation of the looked up block.
+func (o GetPrecreatedIpBlockResultOutput) CidrNotation() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.CidrNotation }).(pulumi.StringOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Facility() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) *string { return v.Facility }).(pulumi.StringPtrOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Gateway() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.Gateway }).(pulumi.StringOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Global() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) *bool { return v.Global }).(pulumi.BoolPtrOutput)
+}
+
+// The provider-assigned unique ID for this managed resource.
+func (o GetPrecreatedIpBlockResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Manageable() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) bool { return v.Manageable }).(pulumi.BoolOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Management() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) bool { return v.Management }).(pulumi.BoolOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Metro() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) *string { return v.Metro }).(pulumi.StringPtrOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Netmask() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.Netmask }).(pulumi.StringOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Network() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.Network }).(pulumi.StringOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Public() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) bool { return v.Public }).(pulumi.BoolOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Quantity() pulumi.IntOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) int { return v.Quantity }).(pulumi.IntOutput)
+}
+
+func (o GetPrecreatedIpBlockResultOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrecreatedIpBlockResult) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetPrecreatedIpBlockResultOutput{})
 }

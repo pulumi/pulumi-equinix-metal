@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -53,19 +52,19 @@ export interface GetOperatingSystemArgs {
     /**
      * Name of the OS distribution.
      */
-    readonly distro?: string;
+    distro?: string;
     /**
      * Name or part of the name of the distribution. Case insensitive.
      */
-    readonly name?: string;
+    name?: string;
     /**
      * Plan name.
      */
-    readonly provisionableOn?: string;
+    provisionableOn?: string;
     /**
      * Version of the distribution
      */
-    readonly version?: string;
+    version?: string;
 }
 
 /**
@@ -84,4 +83,30 @@ export interface GetOperatingSystemResult {
      */
     readonly slug: string;
     readonly version?: string;
+}
+
+export function getOperatingSystemOutput(args?: GetOperatingSystemOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetOperatingSystemResult> {
+    return pulumi.output(args).apply(a => getOperatingSystem(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getOperatingSystem.
+ */
+export interface GetOperatingSystemOutputArgs {
+    /**
+     * Name of the OS distribution.
+     */
+    distro?: pulumi.Input<string>;
+    /**
+     * Name or part of the name of the distribution. Case insensitive.
+     */
+    name?: pulumi.Input<string>;
+    /**
+     * Plan name.
+     */
+    provisionableOn?: pulumi.Input<string>;
+    /**
+     * Version of the distribution
+     */
+    version?: pulumi.Input<string>;
 }

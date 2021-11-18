@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -17,6 +18,13 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetPrecreatedIpBlockResult> InvokeAsync(GetPrecreatedIpBlockArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this data source to get CIDR expression for precreated IPv6 and IPv4 blocks in Equinix Metal.
+        /// You can then use the cidrsubnet TF builtin function to derive subnets.
+        /// </summary>
+        public static Output<GetPrecreatedIpBlockResult> Invoke(GetPrecreatedIpBlockInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockInvokeArgs(), options.WithVersion());
     }
 
 
@@ -59,6 +67,49 @@ namespace Pulumi.EquinixMetal
         public bool Public { get; set; }
 
         public GetPrecreatedIpBlockArgs()
+        {
+        }
+    }
+
+    public sealed class GetPrecreatedIpBlockInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// 4 or 6, depending on which block you are looking for.
+        /// </summary>
+        [Input("addressFamily", required: true)]
+        public Input<int> AddressFamily { get; set; } = null!;
+
+        /// <summary>
+        /// Facility of the searched block. (for non-global blocks).
+        /// </summary>
+        [Input("facility")]
+        public Input<string>? Facility { get; set; }
+
+        /// <summary>
+        /// Whether to look for global block. Default is false for backward compatibility.
+        /// </summary>
+        [Input("global")]
+        public Input<bool>? Global { get; set; }
+
+        /// <summary>
+        /// Metro of the searched block (for non-global blocks).
+        /// </summary>
+        [Input("metro")]
+        public Input<string>? Metro { get; set; }
+
+        /// <summary>
+        /// ID of the project where the searched block should be.
+        /// </summary>
+        [Input("projectId", required: true)]
+        public Input<string> ProjectId { get; set; } = null!;
+
+        /// <summary>
+        /// Whether to look for public or private block.
+        /// </summary>
+        [Input("public", required: true)]
+        public Input<bool> Public { get; set; } = null!;
+
+        public GetPrecreatedIpBlockInvokeArgs()
         {
         }
     }

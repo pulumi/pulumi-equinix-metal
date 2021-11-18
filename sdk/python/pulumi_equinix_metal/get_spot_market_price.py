@@ -12,6 +12,7 @@ __all__ = [
     'GetSpotMarketPriceResult',
     'AwaitableGetSpotMarketPriceResult',
     'get_spot_market_price',
+    'get_spot_market_price_output',
 ]
 
 @pulumi.output_type
@@ -131,3 +132,41 @@ def get_spot_market_price(facility: Optional[str] = None,
         metro=__ret__.metro,
         plan=__ret__.plan,
         price=__ret__.price)
+
+
+@_utilities.lift_output_func(get_spot_market_price)
+def get_spot_market_price_output(facility: Optional[pulumi.Input[Optional[str]]] = None,
+                                 metro: Optional[pulumi.Input[Optional[str]]] = None,
+                                 plan: Optional[pulumi.Input[str]] = None,
+                                 opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSpotMarketPriceResult]:
+    """
+    Use this data source to get Equinix Metal Spot Market Price for a plan.
+
+    ## Example Usage
+
+    Lookup by facility:
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    example = equinix_metal.get_spot_market_price(facility="ny5",
+        plan="c3.small.x86")
+    ```
+
+    Lookup by metro:
+
+    ```python
+    import pulumi
+    import pulumi_equinix_metal as equinix_metal
+
+    example = equinix_metal.get_spot_market_price(metro="sv",
+        plan="c3.small.x86")
+    ```
+
+
+    :param str facility: Name of the facility.
+    :param str metro: Name of the metro.
+    :param str plan: Name of the plan.
+    """
+    ...

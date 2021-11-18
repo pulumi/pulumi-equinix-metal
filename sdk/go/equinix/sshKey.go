@@ -15,6 +15,54 @@ import (
 //
 // The link between User SSH key and device is implicit. If you want to make sure that a key will be copied to a device, you must ensure that the device resource `dependsOn` the key resource.
 //
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"io/ioutil"
+//
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func readFileOrPanic(path string) pulumi.StringPtrInput {
+// 	data, err := ioutil.ReadFile(path)
+// 	if err != nil {
+// 		panic(err.Error())
+// 	}
+// 	return pulumi.String(string(data))
+// }
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := equinix - metal.NewSshKey(ctx, "key1", &equinix-metal.SshKeyArgs{
+// 			PublicKey: readFileOrPanic("/home/terraform/.ssh/id_rsa.pub"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = equinix - metal.NewDevice(ctx, "test", &equinix-metal.DeviceArgs{
+// 			Hostname: pulumi.String("test-device"),
+// 			Plan:     pulumi.String("c3.small.x86"),
+// 			Facilities: pulumi.StringArray{
+// 				pulumi.String("sjc1"),
+// 			},
+// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
+// 			BillingCycle:    pulumi.String("hourly"),
+// 			ProjectId:       pulumi.Any(local.Project_id),
+// 		}, pulumi.DependsOn([]pulumi.Resource{
+// 			pulumi.Resource("metal_ssh_key.key1"),
+// 		}))
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
 // ## Import
 //
 // This resource can be imported using an existing SSH Key ID
@@ -190,7 +238,7 @@ type SshKeyArrayInput interface {
 type SshKeyArray []SshKeyInput
 
 func (SshKeyArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*SshKey)(nil))
+	return reflect.TypeOf((*[]*SshKey)(nil)).Elem()
 }
 
 func (i SshKeyArray) ToSshKeyArrayOutput() SshKeyArrayOutput {
@@ -215,7 +263,7 @@ type SshKeyMapInput interface {
 type SshKeyMap map[string]SshKeyInput
 
 func (SshKeyMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*SshKey)(nil))
+	return reflect.TypeOf((*map[string]*SshKey)(nil)).Elem()
 }
 
 func (i SshKeyMap) ToSshKeyMapOutput() SshKeyMapOutput {
@@ -226,9 +274,7 @@ func (i SshKeyMap) ToSshKeyMapOutputWithContext(ctx context.Context) SshKeyMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(SshKeyMapOutput)
 }
 
-type SshKeyOutput struct {
-	*pulumi.OutputState
-}
+type SshKeyOutput struct{ *pulumi.OutputState }
 
 func (SshKeyOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*SshKey)(nil))
@@ -247,14 +293,12 @@ func (o SshKeyOutput) ToSshKeyPtrOutput() SshKeyPtrOutput {
 }
 
 func (o SshKeyOutput) ToSshKeyPtrOutputWithContext(ctx context.Context) SshKeyPtrOutput {
-	return o.ApplyT(func(v SshKey) *SshKey {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SshKey) *SshKey {
 		return &v
 	}).(SshKeyPtrOutput)
 }
 
-type SshKeyPtrOutput struct {
-	*pulumi.OutputState
-}
+type SshKeyPtrOutput struct{ *pulumi.OutputState }
 
 func (SshKeyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SshKey)(nil))
@@ -266,6 +310,16 @@ func (o SshKeyPtrOutput) ToSshKeyPtrOutput() SshKeyPtrOutput {
 
 func (o SshKeyPtrOutput) ToSshKeyPtrOutputWithContext(ctx context.Context) SshKeyPtrOutput {
 	return o
+}
+
+func (o SshKeyPtrOutput) Elem() SshKeyOutput {
+	return o.ApplyT(func(v *SshKey) SshKey {
+		if v != nil {
+			return *v
+		}
+		var ret SshKey
+		return ret
+	}).(SshKeyOutput)
 }
 
 type SshKeyArrayOutput struct{ *pulumi.OutputState }
@@ -309,6 +363,10 @@ func (o SshKeyMapOutput) MapIndex(k pulumi.StringInput) SshKeyOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*SshKeyInput)(nil)).Elem(), &SshKey{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SshKeyPtrInput)(nil)).Elem(), &SshKey{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SshKeyArrayInput)(nil)).Elem(), SshKeyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SshKeyMapInput)(nil)).Elem(), SshKeyMap{})
 	pulumi.RegisterOutputType(SshKeyOutput{})
 	pulumi.RegisterOutputType(SshKeyPtrOutput{})
 	pulumi.RegisterOutputType(SshKeyArrayOutput{})

@@ -13,6 +13,7 @@ __all__ = [
     'GetVolumeResult',
     'AwaitableGetVolumeResult',
     'get_volume',
+    'get_volume_output',
 ]
 
 @pulumi.output_type
@@ -202,3 +203,14 @@ def get_volume(name: Optional[str] = None,
         state=__ret__.state,
         updated=__ret__.updated,
         volume_id=__ret__.volume_id)
+
+
+@_utilities.lift_output_func(get_volume)
+def get_volume_output(name: Optional[pulumi.Input[Optional[str]]] = None,
+                      project_id: Optional[pulumi.Input[Optional[str]]] = None,
+                      volume_id: Optional[pulumi.Input[Optional[str]]] = None,
+                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetVolumeResult]:
+    """
+    Datasource `Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
+    """
+    ...

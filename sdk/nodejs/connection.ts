@@ -175,59 +175,59 @@ export interface ConnectionState {
     /**
      * Description for the connection resource
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Facility where the connection will be created
      */
-    readonly facility?: pulumi.Input<string>;
+    facility?: pulumi.Input<string>;
     /**
      * Metro where the connection will be created
      */
-    readonly metro?: pulumi.Input<string>;
+    metro?: pulumi.Input<string>;
     /**
      * Mode for connections in IBX facilities with the dedicated type - standard or tunnel
      */
-    readonly mode?: pulumi.Input<string>;
+    mode?: pulumi.Input<string>;
     /**
      * Name of the connection resource
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * ID of the organization responsible for the connection
      */
-    readonly organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string>;
     /**
      * List of connection ports - primary (`ports[0]`) and secondary (`ports[1]`). Schema of port is described in documentation of the equinix-metal.Connection datasource.
      */
-    readonly ports?: pulumi.Input<pulumi.Input<inputs.ConnectionPort>[]>;
+    ports?: pulumi.Input<pulumi.Input<inputs.ConnectionPort>[]>;
     /**
      * ID of the project where the connection is scoped to, must be set for shared connection
      */
-    readonly projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
     /**
      * Connection redundancy - redundant or primary
      */
-    readonly redundancy?: pulumi.Input<string>;
+    redundancy?: pulumi.Input<string>;
     /**
      * Port speed in bits per second
      */
-    readonly speed?: pulumi.Input<number>;
+    speed?: pulumi.Input<number>;
     /**
      * Status of the connection resource
      */
-    readonly status?: pulumi.Input<string>;
+    status?: pulumi.Input<string>;
     /**
      * String list of tags
      */
-    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Fabric Token from the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
      */
-    readonly token?: pulumi.Input<string>;
+    token?: pulumi.Input<string>;
     /**
      * Connection type - dedicated or shared
      */
-    readonly type?: pulumi.Input<string>;
+    type?: pulumi.Input<string>;
 }
 
 /**
@@ -237,41 +237,41 @@ export interface ConnectionArgs {
     /**
      * Description for the connection resource
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Facility where the connection will be created
      */
-    readonly facility?: pulumi.Input<string>;
+    facility?: pulumi.Input<string>;
     /**
      * Metro where the connection will be created
      */
-    readonly metro?: pulumi.Input<string>;
+    metro?: pulumi.Input<string>;
     /**
      * Mode for connections in IBX facilities with the dedicated type - standard or tunnel
      */
-    readonly mode?: pulumi.Input<string>;
+    mode?: pulumi.Input<string>;
     /**
      * Name of the connection resource
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * ID of the organization responsible for the connection
      */
-    readonly organizationId: pulumi.Input<string>;
+    organizationId: pulumi.Input<string>;
     /**
      * ID of the project where the connection is scoped to, must be set for shared connection
      */
-    readonly projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string>;
     /**
      * Connection redundancy - redundant or primary
      */
-    readonly redundancy: pulumi.Input<string>;
+    redundancy: pulumi.Input<string>;
     /**
      * String list of tags
      */
-    readonly tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Connection type - dedicated or shared
      */
-    readonly type: pulumi.Input<string>;
+    type: pulumi.Input<string>;
 }

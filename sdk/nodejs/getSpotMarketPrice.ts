@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -19,7 +18,7 @@ import * as utilities from "./utilities";
  * const example = pulumi.output(metal.getSpotMarketPrice({
  *     facility: "ny5",
  *     plan: "c3.small.x86",
- * }, { async: true }));
+ * }));
  * ```
  *
  * Lookup by metro:
@@ -31,7 +30,7 @@ import * as utilities from "./utilities";
  * const example = pulumi.output(metal.getSpotMarketPrice({
  *     metro: "sv",
  *     plan: "c3.small.x86",
- * }, { async: true }));
+ * }));
  * ```
  */
 export function getSpotMarketPrice(args: GetSpotMarketPriceArgs, opts?: pulumi.InvokeOptions): Promise<GetSpotMarketPriceResult> {
@@ -56,15 +55,15 @@ export interface GetSpotMarketPriceArgs {
     /**
      * Name of the facility.
      */
-    readonly facility?: string;
+    facility?: string;
     /**
      * Name of the metro.
      */
-    readonly metro?: string;
+    metro?: string;
     /**
      * Name of the plan.
      */
-    readonly plan: string;
+    plan: string;
 }
 
 /**
@@ -82,4 +81,26 @@ export interface GetSpotMarketPriceResult {
      * Current spot market price for given plan in given facility.
      */
     readonly price: number;
+}
+
+export function getSpotMarketPriceOutput(args: GetSpotMarketPriceOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSpotMarketPriceResult> {
+    return pulumi.output(args).apply(a => getSpotMarketPrice(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getSpotMarketPrice.
+ */
+export interface GetSpotMarketPriceOutputArgs {
+    /**
+     * Name of the facility.
+     */
+    facility?: pulumi.Input<string>;
+    /**
+     * Name of the metro.
+     */
+    metro?: pulumi.Input<string>;
+    /**
+     * Name of the plan.
+     */
+    plan: pulumi.Input<string>;
 }

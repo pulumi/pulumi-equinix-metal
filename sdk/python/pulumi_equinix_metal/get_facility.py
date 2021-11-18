@@ -14,6 +14,7 @@ __all__ = [
     'GetFacilityResult',
     'AwaitableGetFacilityResult',
     'get_facility',
+    'get_facility_output',
 ]
 
 @pulumi.output_type
@@ -140,3 +141,19 @@ def get_facility(capacities: Optional[Sequence[pulumi.InputType['GetFacilityCapa
         id=__ret__.id,
         metro=__ret__.metro,
         name=__ret__.name)
+
+
+@_utilities.lift_output_func(get_facility)
+def get_facility_output(capacities: Optional[pulumi.Input[Optional[Sequence[pulumi.InputType['GetFacilityCapacityArgs']]]]] = None,
+                        code: Optional[pulumi.Input[str]] = None,
+                        features_requireds: Optional[pulumi.Input[Optional[Sequence[str]]]] = None,
+                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetFacilityResult]:
+    """
+    Provides an Equinix Metal facility datasource.
+
+
+    :param Sequence[pulumi.InputType['GetFacilityCapacityArgs']] capacities: (Optional) Ensure that queried facility has capacity for specified number of given plans
+    :param str code: The facility code
+    :param Sequence[str] features_requireds: Set of feature strings that the facility must have
+    """
+    ...

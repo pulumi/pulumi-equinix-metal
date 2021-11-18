@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -42,11 +41,11 @@ export interface GetOrganizationArgs {
     /**
      * The organization name
      */
-    readonly name?: string;
+    name?: string;
     /**
      * The UUID of the organization resource
      */
-    readonly organizationId?: string;
+    organizationId?: string;
 }
 
 /**
@@ -79,4 +78,22 @@ export interface GetOrganizationResult {
      * Website link
      */
     readonly website: string;
+}
+
+export function getOrganizationOutput(args?: GetOrganizationOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetOrganizationResult> {
+    return pulumi.output(args).apply(a => getOrganization(a, opts))
+}
+
+/**
+ * A collection of arguments for invoking getOrganization.
+ */
+export interface GetOrganizationOutputArgs {
+    /**
+     * The organization name
+     */
+    name?: pulumi.Input<string>;
+    /**
+     * The UUID of the organization resource
+     */
+    organizationId?: pulumi.Input<string>;
 }

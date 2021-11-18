@@ -10,21 +10,21 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class GetMetroCapacityInputArgs : Pulumi.ResourceArgs
+    public sealed class GetMetroCapacityArgs : Pulumi.InvokeArgs
     {
         /// <summary>
         /// device plan to check
         /// </summary>
         [Input("plan", required: true)]
-        public Input<string> Plan { get; set; } = null!;
+        public string Plan { get; set; } = null!;
 
         /// <summary>
         /// number of device to check
         /// </summary>
         [Input("quantity")]
-        public Input<int>? Quantity { get; set; }
+        public int? Quantity { get; set; }
 
-        public GetMetroCapacityInputArgs()
+        public GetMetroCapacityArgs()
         {
         }
     }

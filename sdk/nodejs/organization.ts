@@ -119,28 +119,28 @@ export class Organization extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Organization resources.
  */
 export interface OrganizationState {
-    readonly created?: pulumi.Input<string>;
+    created?: pulumi.Input<string>;
     /**
      * Description string
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Logo URL
      */
-    readonly logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string>;
     /**
      * The name of the Organization
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * Twitter handle
      */
-    readonly twitter?: pulumi.Input<string>;
-    readonly updated?: pulumi.Input<string>;
+    twitter?: pulumi.Input<string>;
+    updated?: pulumi.Input<string>;
     /**
      * Website link
      */
-    readonly website?: pulumi.Input<string>;
+    website?: pulumi.Input<string>;
 }
 
 /**
@@ -150,21 +150,21 @@ export interface OrganizationArgs {
     /**
      * Description string
      */
-    readonly description?: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
     /**
      * Logo URL
      */
-    readonly logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string>;
     /**
      * The name of the Organization
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * Twitter handle
      */
-    readonly twitter?: pulumi.Input<string>;
+    twitter?: pulumi.Input<string>;
     /**
      * Website link
      */
-    readonly website?: pulumi.Input<string>;
+    website?: pulumi.Input<string>;
 }

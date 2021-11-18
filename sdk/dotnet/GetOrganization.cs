@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -42,6 +43,38 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetOrganizationResult> InvokeAsync(GetOrganizationArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetOrganizationResult>("equinix-metal:index/getOrganization:getOrganization", args ?? new GetOrganizationArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Provides an Equinix Metal organization datasource.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var test = Output.Create(EquinixMetal.GetOrganization.InvokeAsync(new EquinixMetal.GetOrganizationArgs
+        ///         {
+        ///             OrganizationId = local.Org_id,
+        ///         }));
+        ///         this.ProjectsInTheOrg = test.Apply(test =&gt; test.ProjectIds);
+        ///     }
+        /// 
+        ///     [Output("projectsInTheOrg")]
+        ///     public Output&lt;string&gt; ProjectsInTheOrg { get; set; }
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetOrganizationResult> Invoke(GetOrganizationInvokeArgs? args = null, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetOrganizationResult>("equinix-metal:index/getOrganization:getOrganization", args ?? new GetOrganizationInvokeArgs(), options.WithVersion());
     }
 
 
@@ -60,6 +93,25 @@ namespace Pulumi.EquinixMetal
         public string? OrganizationId { get; set; }
 
         public GetOrganizationArgs()
+        {
+        }
+    }
+
+    public sealed class GetOrganizationInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// The organization name
+        /// </summary>
+        [Input("name")]
+        public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// The UUID of the organization resource
+        /// </summary>
+        [Input("organizationId")]
+        public Input<string>? OrganizationId { get; set; }
+
+        public GetOrganizationInvokeArgs()
         {
         }
     }

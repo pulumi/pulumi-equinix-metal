@@ -204,31 +204,31 @@ export interface PortVlanAttachmentState {
     /**
      * ID of device to be assigned to the VLAN
      */
-    readonly deviceId?: pulumi.Input<string>;
+    deviceId?: pulumi.Input<string>;
     /**
      * Add port back to the bond when this resource is removed. Default is false.
      */
-    readonly forceBond?: pulumi.Input<boolean>;
+    forceBond?: pulumi.Input<boolean>;
     /**
      * Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `dependsOn` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
      */
-    readonly native?: pulumi.Input<boolean>;
+    native?: pulumi.Input<boolean>;
     /**
      * UUID of device port
      */
-    readonly portId?: pulumi.Input<string>;
+    portId?: pulumi.Input<string>;
     /**
      * Name of network port to be assigned to the VLAN
      */
-    readonly portName?: pulumi.Input<string>;
+    portName?: pulumi.Input<string>;
     /**
      * UUID of VLAN API resource
      */
-    readonly vlanId?: pulumi.Input<string>;
+    vlanId?: pulumi.Input<string>;
     /**
      * VXLAN Network Identifier, integer
      */
-    readonly vlanVnid?: pulumi.Input<number>;
+    vlanVnid?: pulumi.Input<number>;
 }
 
 /**
@@ -238,21 +238,21 @@ export interface PortVlanAttachmentArgs {
     /**
      * ID of device to be assigned to the VLAN
      */
-    readonly deviceId: pulumi.Input<string>;
+    deviceId: pulumi.Input<string>;
     /**
      * Add port back to the bond when this resource is removed. Default is false.
      */
-    readonly forceBond?: pulumi.Input<boolean>;
+    forceBond?: pulumi.Input<boolean>;
     /**
      * Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `dependsOn` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
      */
-    readonly native?: pulumi.Input<boolean>;
+    native?: pulumi.Input<boolean>;
     /**
      * Name of network port to be assigned to the VLAN
      */
-    readonly portName: pulumi.Input<string>;
+    portName: pulumi.Input<string>;
     /**
      * VXLAN Network Identifier, integer
      */
-    readonly vlanVnid: pulumi.Input<number>;
+    vlanVnid: pulumi.Input<number>;
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -40,6 +41,36 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public static Task<GetProjectSshKeyResult> InvokeAsync(GetProjectSshKeyArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetProjectSshKeyResult>("equinix-metal:index/getProjectSshKey:getProjectSshKey", args ?? new GetProjectSshKeyArgs(), options.WithVersion());
+
+        /// <summary>
+        /// Use this datasource to retrieve attributes of a Project SSH Key API resource.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using EquinixMetal = Pulumi.EquinixMetal;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var myKey = Output.Create(EquinixMetal.GetProjectSshKey.InvokeAsync(new EquinixMetal.GetProjectSshKeyArgs
+        ///         {
+        ///             Search = "username@hostname",
+        ///             ProjectId = local.Project_id,
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetProjectSshKeyResult> Invoke(GetProjectSshKeyInvokeArgs args, InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.Invoke<GetProjectSshKeyResult>("equinix-metal:index/getProjectSshKey:getProjectSshKey", args ?? new GetProjectSshKeyInvokeArgs(), options.WithVersion());
     }
 
 
@@ -65,6 +96,32 @@ namespace Pulumi.EquinixMetal
         public string? Search { get; set; }
 
         public GetProjectSshKeyArgs()
+        {
+        }
+    }
+
+    public sealed class GetProjectSshKeyInvokeArgs : Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// The id of the SSH Key to search for in the Equinix Metal project
+        /// </summary>
+        [Input("id")]
+        public Input<string>? Id { get; set; }
+
+        /// <summary>
+        /// The Equinix Metal project id of the Equinix Metal SSH Key
+        /// </summary>
+        [Input("projectId", required: true)]
+        public Input<string> ProjectId { get; set; } = null!;
+
+        /// <summary>
+        /// The name, fingerprint, or public_key of the SSH Key to search for
+        /// in the Equinix Metal project
+        /// </summary>
+        [Input("search")]
+        public Input<string>? Search { get; set; }
+
+        public GetProjectSshKeyInvokeArgs()
         {
         }
     }
