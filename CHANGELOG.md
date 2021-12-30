@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Upgrade terraform-provider-metal to v3.2.1
+_(none)_
 
 ---
+
+## 3.2.1 (2021-12-30)
+* Upgrade terraform-provider-metal to v3.2.1
 
 ## 3.2.0 (2021-11-18)
 * Upgrade to terraform-bridge 3.11.0
