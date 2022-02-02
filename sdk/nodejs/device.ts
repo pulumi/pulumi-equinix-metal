@@ -336,45 +336,45 @@ export class Device extends pulumi.CustomResource {
      */
     constructor(name: string, args: DeviceArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: DeviceArgs | DeviceState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as DeviceState | undefined;
-            inputs["accessPrivateIpv4"] = state ? state.accessPrivateIpv4 : undefined;
-            inputs["accessPublicIpv4"] = state ? state.accessPublicIpv4 : undefined;
-            inputs["accessPublicIpv6"] = state ? state.accessPublicIpv6 : undefined;
-            inputs["alwaysPxe"] = state ? state.alwaysPxe : undefined;
-            inputs["billingCycle"] = state ? state.billingCycle : undefined;
-            inputs["created"] = state ? state.created : undefined;
-            inputs["customData"] = state ? state.customData : undefined;
-            inputs["deployedFacility"] = state ? state.deployedFacility : undefined;
-            inputs["deployedHardwareReservationId"] = state ? state.deployedHardwareReservationId : undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["facilities"] = state ? state.facilities : undefined;
-            inputs["forceDetachVolumes"] = state ? state.forceDetachVolumes : undefined;
-            inputs["hardwareReservationId"] = state ? state.hardwareReservationId : undefined;
-            inputs["hostname"] = state ? state.hostname : undefined;
-            inputs["ipAddresses"] = state ? state.ipAddresses : undefined;
-            inputs["ipxeScriptUrl"] = state ? state.ipxeScriptUrl : undefined;
-            inputs["locked"] = state ? state.locked : undefined;
-            inputs["metro"] = state ? state.metro : undefined;
-            inputs["networkType"] = state ? state.networkType : undefined;
-            inputs["networks"] = state ? state.networks : undefined;
-            inputs["operatingSystem"] = state ? state.operatingSystem : undefined;
-            inputs["plan"] = state ? state.plan : undefined;
-            inputs["ports"] = state ? state.ports : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["projectSshKeyIds"] = state ? state.projectSshKeyIds : undefined;
-            inputs["reinstall"] = state ? state.reinstall : undefined;
-            inputs["rootPassword"] = state ? state.rootPassword : undefined;
-            inputs["sshKeyIds"] = state ? state.sshKeyIds : undefined;
-            inputs["state"] = state ? state.state : undefined;
-            inputs["storage"] = state ? state.storage : undefined;
-            inputs["tags"] = state ? state.tags : undefined;
-            inputs["terminationTime"] = state ? state.terminationTime : undefined;
-            inputs["updated"] = state ? state.updated : undefined;
-            inputs["userData"] = state ? state.userData : undefined;
-            inputs["waitForReservationDeprovision"] = state ? state.waitForReservationDeprovision : undefined;
+            resourceInputs["accessPrivateIpv4"] = state ? state.accessPrivateIpv4 : undefined;
+            resourceInputs["accessPublicIpv4"] = state ? state.accessPublicIpv4 : undefined;
+            resourceInputs["accessPublicIpv6"] = state ? state.accessPublicIpv6 : undefined;
+            resourceInputs["alwaysPxe"] = state ? state.alwaysPxe : undefined;
+            resourceInputs["billingCycle"] = state ? state.billingCycle : undefined;
+            resourceInputs["created"] = state ? state.created : undefined;
+            resourceInputs["customData"] = state ? state.customData : undefined;
+            resourceInputs["deployedFacility"] = state ? state.deployedFacility : undefined;
+            resourceInputs["deployedHardwareReservationId"] = state ? state.deployedHardwareReservationId : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["facilities"] = state ? state.facilities : undefined;
+            resourceInputs["forceDetachVolumes"] = state ? state.forceDetachVolumes : undefined;
+            resourceInputs["hardwareReservationId"] = state ? state.hardwareReservationId : undefined;
+            resourceInputs["hostname"] = state ? state.hostname : undefined;
+            resourceInputs["ipAddresses"] = state ? state.ipAddresses : undefined;
+            resourceInputs["ipxeScriptUrl"] = state ? state.ipxeScriptUrl : undefined;
+            resourceInputs["locked"] = state ? state.locked : undefined;
+            resourceInputs["metro"] = state ? state.metro : undefined;
+            resourceInputs["networkType"] = state ? state.networkType : undefined;
+            resourceInputs["networks"] = state ? state.networks : undefined;
+            resourceInputs["operatingSystem"] = state ? state.operatingSystem : undefined;
+            resourceInputs["plan"] = state ? state.plan : undefined;
+            resourceInputs["ports"] = state ? state.ports : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["projectSshKeyIds"] = state ? state.projectSshKeyIds : undefined;
+            resourceInputs["reinstall"] = state ? state.reinstall : undefined;
+            resourceInputs["rootPassword"] = state ? state.rootPassword : undefined;
+            resourceInputs["sshKeyIds"] = state ? state.sshKeyIds : undefined;
+            resourceInputs["state"] = state ? state.state : undefined;
+            resourceInputs["storage"] = state ? state.storage : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
+            resourceInputs["terminationTime"] = state ? state.terminationTime : undefined;
+            resourceInputs["updated"] = state ? state.updated : undefined;
+            resourceInputs["userData"] = state ? state.userData : undefined;
+            resourceInputs["waitForReservationDeprovision"] = state ? state.waitForReservationDeprovision : undefined;
         } else {
             const args = argsOrState as DeviceArgs | undefined;
             if ((!args || args.operatingSystem === undefined) && !opts.urn) {
@@ -386,46 +386,44 @@ export class Device extends pulumi.CustomResource {
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
-            inputs["alwaysPxe"] = args ? args.alwaysPxe : undefined;
-            inputs["billingCycle"] = args ? args.billingCycle : undefined;
-            inputs["customData"] = args ? args.customData : undefined;
-            inputs["description"] = args ? args.description : undefined;
-            inputs["facilities"] = args ? args.facilities : undefined;
-            inputs["forceDetachVolumes"] = args ? args.forceDetachVolumes : undefined;
-            inputs["hardwareReservationId"] = args ? args.hardwareReservationId : undefined;
-            inputs["hostname"] = args ? args.hostname : undefined;
-            inputs["ipAddresses"] = args ? args.ipAddresses : undefined;
-            inputs["ipxeScriptUrl"] = args ? args.ipxeScriptUrl : undefined;
-            inputs["metro"] = args ? args.metro : undefined;
-            inputs["operatingSystem"] = args ? args.operatingSystem : undefined;
-            inputs["plan"] = args ? args.plan : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["projectSshKeyIds"] = args ? args.projectSshKeyIds : undefined;
-            inputs["reinstall"] = args ? args.reinstall : undefined;
-            inputs["storage"] = args ? args.storage : undefined;
-            inputs["tags"] = args ? args.tags : undefined;
-            inputs["terminationTime"] = args ? args.terminationTime : undefined;
-            inputs["userData"] = args ? args.userData : undefined;
-            inputs["waitForReservationDeprovision"] = args ? args.waitForReservationDeprovision : undefined;
-            inputs["accessPrivateIpv4"] = undefined /*out*/;
-            inputs["accessPublicIpv4"] = undefined /*out*/;
-            inputs["accessPublicIpv6"] = undefined /*out*/;
-            inputs["created"] = undefined /*out*/;
-            inputs["deployedFacility"] = undefined /*out*/;
-            inputs["deployedHardwareReservationId"] = undefined /*out*/;
-            inputs["locked"] = undefined /*out*/;
-            inputs["networkType"] = undefined /*out*/;
-            inputs["networks"] = undefined /*out*/;
-            inputs["ports"] = undefined /*out*/;
-            inputs["rootPassword"] = undefined /*out*/;
-            inputs["sshKeyIds"] = undefined /*out*/;
-            inputs["state"] = undefined /*out*/;
-            inputs["updated"] = undefined /*out*/;
+            resourceInputs["alwaysPxe"] = args ? args.alwaysPxe : undefined;
+            resourceInputs["billingCycle"] = args ? args.billingCycle : undefined;
+            resourceInputs["customData"] = args ? args.customData : undefined;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["facilities"] = args ? args.facilities : undefined;
+            resourceInputs["forceDetachVolumes"] = args ? args.forceDetachVolumes : undefined;
+            resourceInputs["hardwareReservationId"] = args ? args.hardwareReservationId : undefined;
+            resourceInputs["hostname"] = args ? args.hostname : undefined;
+            resourceInputs["ipAddresses"] = args ? args.ipAddresses : undefined;
+            resourceInputs["ipxeScriptUrl"] = args ? args.ipxeScriptUrl : undefined;
+            resourceInputs["metro"] = args ? args.metro : undefined;
+            resourceInputs["operatingSystem"] = args ? args.operatingSystem : undefined;
+            resourceInputs["plan"] = args ? args.plan : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["projectSshKeyIds"] = args ? args.projectSshKeyIds : undefined;
+            resourceInputs["reinstall"] = args ? args.reinstall : undefined;
+            resourceInputs["storage"] = args ? args.storage : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["terminationTime"] = args ? args.terminationTime : undefined;
+            resourceInputs["userData"] = args ? args.userData : undefined;
+            resourceInputs["waitForReservationDeprovision"] = args ? args.waitForReservationDeprovision : undefined;
+            resourceInputs["accessPrivateIpv4"] = undefined /*out*/;
+            resourceInputs["accessPublicIpv4"] = undefined /*out*/;
+            resourceInputs["accessPublicIpv6"] = undefined /*out*/;
+            resourceInputs["created"] = undefined /*out*/;
+            resourceInputs["deployedFacility"] = undefined /*out*/;
+            resourceInputs["deployedHardwareReservationId"] = undefined /*out*/;
+            resourceInputs["locked"] = undefined /*out*/;
+            resourceInputs["networkType"] = undefined /*out*/;
+            resourceInputs["networks"] = undefined /*out*/;
+            resourceInputs["ports"] = undefined /*out*/;
+            resourceInputs["rootPassword"] = undefined /*out*/;
+            resourceInputs["sshKeyIds"] = undefined /*out*/;
+            resourceInputs["state"] = undefined /*out*/;
+            resourceInputs["updated"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Device.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Device.__pulumiType, name, resourceInputs, opts);
     }
 }
 

@@ -35,6 +35,9 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
+// 		_ = equinix - metal.LookupVlanOutput(ctx, GetVlanOutputArgs{
+// 			VlanId: foovlan.ID(),
+// 		}, nil)
 // 		return nil
 // 	})
 // }

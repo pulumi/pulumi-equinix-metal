@@ -21,9 +21,9 @@ import * as utilities from "./utilities";
  *     metro: "sv",
  *     vxlan: 5,
  * });
- * const dsvlan = foovlan.id.apply(id => equinix_metal.getVlan({
- *     vlanId: id,
- * }));
+ * const dsvlan = equinix_metal.getVlanOutput({
+ *     vlanId: foovlan.id,
+ * });
  * ```
  *
  * Fetch a vlan by project ID, vxlan and metro
@@ -50,9 +50,7 @@ export function getVlan(args?: GetVlanArgs, opts?: pulumi.InvokeOptions): Promis
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getVlan:getVlan", {
         "facility": args.facility,
         "metro": args.metro,

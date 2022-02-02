@@ -97,30 +97,28 @@ export class Vlan extends pulumi.CustomResource {
      */
     constructor(name: string, args: VlanArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: VlanArgs | VlanState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as VlanState | undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["facility"] = state ? state.facility : undefined;
-            inputs["metro"] = state ? state.metro : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["vxlan"] = state ? state.vxlan : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["facility"] = state ? state.facility : undefined;
+            resourceInputs["metro"] = state ? state.metro : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["vxlan"] = state ? state.vxlan : undefined;
         } else {
             const args = argsOrState as VlanArgs | undefined;
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
-            inputs["description"] = args ? args.description : undefined;
-            inputs["facility"] = args ? args.facility : undefined;
-            inputs["metro"] = args ? args.metro : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["vxlan"] = args ? args.vxlan : undefined;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["facility"] = args ? args.facility : undefined;
+            resourceInputs["metro"] = args ? args.metro : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["vxlan"] = args ? args.vxlan : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Vlan.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Vlan.__pulumiType, name, resourceInputs, opts);
     }
 }
 

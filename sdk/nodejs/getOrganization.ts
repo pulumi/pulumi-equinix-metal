@@ -25,9 +25,7 @@ export function getOrganization(args?: GetOrganizationArgs, opts?: pulumi.Invoke
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getOrganization:getOrganization", {
         "name": args.name,
         "organizationId": args.organizationId,

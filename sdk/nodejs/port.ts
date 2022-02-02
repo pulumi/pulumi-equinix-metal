@@ -98,24 +98,24 @@ export class Port extends pulumi.CustomResource {
      */
     constructor(name: string, args: PortArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: PortArgs | PortState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as PortState | undefined;
-            inputs["bondId"] = state ? state.bondId : undefined;
-            inputs["bondName"] = state ? state.bondName : undefined;
-            inputs["bonded"] = state ? state.bonded : undefined;
-            inputs["disbondSupported"] = state ? state.disbondSupported : undefined;
-            inputs["layer2"] = state ? state.layer2 : undefined;
-            inputs["mac"] = state ? state.mac : undefined;
-            inputs["name"] = state ? state.name : undefined;
-            inputs["nativeVlanId"] = state ? state.nativeVlanId : undefined;
-            inputs["networkType"] = state ? state.networkType : undefined;
-            inputs["portId"] = state ? state.portId : undefined;
-            inputs["resetOnDelete"] = state ? state.resetOnDelete : undefined;
-            inputs["type"] = state ? state.type : undefined;
-            inputs["vlanIds"] = state ? state.vlanIds : undefined;
-            inputs["vxlanIds"] = state ? state.vxlanIds : undefined;
+            resourceInputs["bondId"] = state ? state.bondId : undefined;
+            resourceInputs["bondName"] = state ? state.bondName : undefined;
+            resourceInputs["bonded"] = state ? state.bonded : undefined;
+            resourceInputs["disbondSupported"] = state ? state.disbondSupported : undefined;
+            resourceInputs["layer2"] = state ? state.layer2 : undefined;
+            resourceInputs["mac"] = state ? state.mac : undefined;
+            resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["nativeVlanId"] = state ? state.nativeVlanId : undefined;
+            resourceInputs["networkType"] = state ? state.networkType : undefined;
+            resourceInputs["portId"] = state ? state.portId : undefined;
+            resourceInputs["resetOnDelete"] = state ? state.resetOnDelete : undefined;
+            resourceInputs["type"] = state ? state.type : undefined;
+            resourceInputs["vlanIds"] = state ? state.vlanIds : undefined;
+            resourceInputs["vxlanIds"] = state ? state.vxlanIds : undefined;
         } else {
             const args = argsOrState as PortArgs | undefined;
             if ((!args || args.bonded === undefined) && !opts.urn) {
@@ -124,25 +124,23 @@ export class Port extends pulumi.CustomResource {
             if ((!args || args.portId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'portId'");
             }
-            inputs["bonded"] = args ? args.bonded : undefined;
-            inputs["layer2"] = args ? args.layer2 : undefined;
-            inputs["nativeVlanId"] = args ? args.nativeVlanId : undefined;
-            inputs["portId"] = args ? args.portId : undefined;
-            inputs["resetOnDelete"] = args ? args.resetOnDelete : undefined;
-            inputs["vlanIds"] = args ? args.vlanIds : undefined;
-            inputs["vxlanIds"] = args ? args.vxlanIds : undefined;
-            inputs["bondId"] = undefined /*out*/;
-            inputs["bondName"] = undefined /*out*/;
-            inputs["disbondSupported"] = undefined /*out*/;
-            inputs["mac"] = undefined /*out*/;
-            inputs["name"] = undefined /*out*/;
-            inputs["networkType"] = undefined /*out*/;
-            inputs["type"] = undefined /*out*/;
+            resourceInputs["bonded"] = args ? args.bonded : undefined;
+            resourceInputs["layer2"] = args ? args.layer2 : undefined;
+            resourceInputs["nativeVlanId"] = args ? args.nativeVlanId : undefined;
+            resourceInputs["portId"] = args ? args.portId : undefined;
+            resourceInputs["resetOnDelete"] = args ? args.resetOnDelete : undefined;
+            resourceInputs["vlanIds"] = args ? args.vlanIds : undefined;
+            resourceInputs["vxlanIds"] = args ? args.vxlanIds : undefined;
+            resourceInputs["bondId"] = undefined /*out*/;
+            resourceInputs["bondName"] = undefined /*out*/;
+            resourceInputs["disbondSupported"] = undefined /*out*/;
+            resourceInputs["mac"] = undefined /*out*/;
+            resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["networkType"] = undefined /*out*/;
+            resourceInputs["type"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Port.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Port.__pulumiType, name, resourceInputs, opts);
     }
 }
 

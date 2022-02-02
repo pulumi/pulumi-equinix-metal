@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -16,13 +15,13 @@ namespace Pulumi.EquinixMetal
         /// Use this data source to find IP address blocks in Equinix Metal. You can use IP address or a block ID for lookup.
         /// </summary>
         public static Task<GetReservedIpBlockResult> InvokeAsync(GetReservedIpBlockArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to find IP address blocks in Equinix Metal. You can use IP address or a block ID for lookup.
         /// </summary>
         public static Output<GetReservedIpBlockResult> Invoke(GetReservedIpBlockInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockInvokeArgs(), options.WithDefaults());
     }
 
 

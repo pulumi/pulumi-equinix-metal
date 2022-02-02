@@ -80,31 +80,29 @@ export class Project extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ProjectArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ProjectArgs | ProjectState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ProjectState | undefined;
-            inputs["backendTransfer"] = state ? state.backendTransfer : undefined;
-            inputs["bgpConfig"] = state ? state.bgpConfig : undefined;
-            inputs["created"] = state ? state.created : undefined;
-            inputs["name"] = state ? state.name : undefined;
-            inputs["organizationId"] = state ? state.organizationId : undefined;
-            inputs["paymentMethodId"] = state ? state.paymentMethodId : undefined;
-            inputs["updated"] = state ? state.updated : undefined;
+            resourceInputs["backendTransfer"] = state ? state.backendTransfer : undefined;
+            resourceInputs["bgpConfig"] = state ? state.bgpConfig : undefined;
+            resourceInputs["created"] = state ? state.created : undefined;
+            resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["organizationId"] = state ? state.organizationId : undefined;
+            resourceInputs["paymentMethodId"] = state ? state.paymentMethodId : undefined;
+            resourceInputs["updated"] = state ? state.updated : undefined;
         } else {
             const args = argsOrState as ProjectArgs | undefined;
-            inputs["backendTransfer"] = args ? args.backendTransfer : undefined;
-            inputs["bgpConfig"] = args ? args.bgpConfig : undefined;
-            inputs["name"] = args ? args.name : undefined;
-            inputs["organizationId"] = args ? args.organizationId : undefined;
-            inputs["paymentMethodId"] = args ? args.paymentMethodId : undefined;
-            inputs["created"] = undefined /*out*/;
-            inputs["updated"] = undefined /*out*/;
+            resourceInputs["backendTransfer"] = args ? args.backendTransfer : undefined;
+            resourceInputs["bgpConfig"] = args ? args.bgpConfig : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["organizationId"] = args ? args.organizationId : undefined;
+            resourceInputs["paymentMethodId"] = args ? args.paymentMethodId : undefined;
+            resourceInputs["created"] = undefined /*out*/;
+            resourceInputs["updated"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Project.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Project.__pulumiType, name, resourceInputs, opts);
     }
 }
 

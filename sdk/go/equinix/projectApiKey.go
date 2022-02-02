@@ -147,7 +147,7 @@ type ProjectApiKeyInput interface {
 }
 
 func (*ProjectApiKey) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectApiKey)(nil))
+	return reflect.TypeOf((**ProjectApiKey)(nil)).Elem()
 }
 
 func (i *ProjectApiKey) ToProjectApiKeyOutput() ProjectApiKeyOutput {
@@ -156,35 +156,6 @@ func (i *ProjectApiKey) ToProjectApiKeyOutput() ProjectApiKeyOutput {
 
 func (i *ProjectApiKey) ToProjectApiKeyOutputWithContext(ctx context.Context) ProjectApiKeyOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectApiKeyOutput)
-}
-
-func (i *ProjectApiKey) ToProjectApiKeyPtrOutput() ProjectApiKeyPtrOutput {
-	return i.ToProjectApiKeyPtrOutputWithContext(context.Background())
-}
-
-func (i *ProjectApiKey) ToProjectApiKeyPtrOutputWithContext(ctx context.Context) ProjectApiKeyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectApiKeyPtrOutput)
-}
-
-type ProjectApiKeyPtrInput interface {
-	pulumi.Input
-
-	ToProjectApiKeyPtrOutput() ProjectApiKeyPtrOutput
-	ToProjectApiKeyPtrOutputWithContext(ctx context.Context) ProjectApiKeyPtrOutput
-}
-
-type projectApiKeyPtrType ProjectApiKeyArgs
-
-func (*projectApiKeyPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ProjectApiKey)(nil))
-}
-
-func (i *projectApiKeyPtrType) ToProjectApiKeyPtrOutput() ProjectApiKeyPtrOutput {
-	return i.ToProjectApiKeyPtrOutputWithContext(context.Background())
-}
-
-func (i *projectApiKeyPtrType) ToProjectApiKeyPtrOutputWithContext(ctx context.Context) ProjectApiKeyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProjectApiKeyPtrOutput)
 }
 
 // ProjectApiKeyArrayInput is an input type that accepts ProjectApiKeyArray and ProjectApiKeyArrayOutput values.
@@ -240,7 +211,7 @@ func (i ProjectApiKeyMap) ToProjectApiKeyMapOutputWithContext(ctx context.Contex
 type ProjectApiKeyOutput struct{ *pulumi.OutputState }
 
 func (ProjectApiKeyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ProjectApiKey)(nil))
+	return reflect.TypeOf((**ProjectApiKey)(nil)).Elem()
 }
 
 func (o ProjectApiKeyOutput) ToProjectApiKeyOutput() ProjectApiKeyOutput {
@@ -251,44 +222,10 @@ func (o ProjectApiKeyOutput) ToProjectApiKeyOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o ProjectApiKeyOutput) ToProjectApiKeyPtrOutput() ProjectApiKeyPtrOutput {
-	return o.ToProjectApiKeyPtrOutputWithContext(context.Background())
-}
-
-func (o ProjectApiKeyOutput) ToProjectApiKeyPtrOutputWithContext(ctx context.Context) ProjectApiKeyPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectApiKey) *ProjectApiKey {
-		return &v
-	}).(ProjectApiKeyPtrOutput)
-}
-
-type ProjectApiKeyPtrOutput struct{ *pulumi.OutputState }
-
-func (ProjectApiKeyPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ProjectApiKey)(nil))
-}
-
-func (o ProjectApiKeyPtrOutput) ToProjectApiKeyPtrOutput() ProjectApiKeyPtrOutput {
-	return o
-}
-
-func (o ProjectApiKeyPtrOutput) ToProjectApiKeyPtrOutputWithContext(ctx context.Context) ProjectApiKeyPtrOutput {
-	return o
-}
-
-func (o ProjectApiKeyPtrOutput) Elem() ProjectApiKeyOutput {
-	return o.ApplyT(func(v *ProjectApiKey) ProjectApiKey {
-		if v != nil {
-			return *v
-		}
-		var ret ProjectApiKey
-		return ret
-	}).(ProjectApiKeyOutput)
-}
-
 type ProjectApiKeyArrayOutput struct{ *pulumi.OutputState }
 
 func (ProjectApiKeyArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ProjectApiKey)(nil))
+	return reflect.TypeOf((*[]*ProjectApiKey)(nil)).Elem()
 }
 
 func (o ProjectApiKeyArrayOutput) ToProjectApiKeyArrayOutput() ProjectApiKeyArrayOutput {
@@ -300,15 +237,15 @@ func (o ProjectApiKeyArrayOutput) ToProjectApiKeyArrayOutputWithContext(ctx cont
 }
 
 func (o ProjectApiKeyArrayOutput) Index(i pulumi.IntInput) ProjectApiKeyOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProjectApiKey {
-		return vs[0].([]ProjectApiKey)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ProjectApiKey {
+		return vs[0].([]*ProjectApiKey)[vs[1].(int)]
 	}).(ProjectApiKeyOutput)
 }
 
 type ProjectApiKeyMapOutput struct{ *pulumi.OutputState }
 
 func (ProjectApiKeyMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]ProjectApiKey)(nil))
+	return reflect.TypeOf((*map[string]*ProjectApiKey)(nil)).Elem()
 }
 
 func (o ProjectApiKeyMapOutput) ToProjectApiKeyMapOutput() ProjectApiKeyMapOutput {
@@ -320,18 +257,16 @@ func (o ProjectApiKeyMapOutput) ToProjectApiKeyMapOutputWithContext(ctx context.
 }
 
 func (o ProjectApiKeyMapOutput) MapIndex(k pulumi.StringInput) ProjectApiKeyOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ProjectApiKey {
-		return vs[0].(map[string]ProjectApiKey)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *ProjectApiKey {
+		return vs[0].(map[string]*ProjectApiKey)[vs[1].(string)]
 	}).(ProjectApiKeyOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectApiKeyInput)(nil)).Elem(), &ProjectApiKey{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ProjectApiKeyPtrInput)(nil)).Elem(), &ProjectApiKey{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectApiKeyArrayInput)(nil)).Elem(), ProjectApiKeyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProjectApiKeyMapInput)(nil)).Elem(), ProjectApiKeyMap{})
 	pulumi.RegisterOutputType(ProjectApiKeyOutput{})
-	pulumi.RegisterOutputType(ProjectApiKeyPtrOutput{})
 	pulumi.RegisterOutputType(ProjectApiKeyArrayOutput{})
 	pulumi.RegisterOutputType(ProjectApiKeyMapOutput{})
 }

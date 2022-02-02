@@ -106,15 +106,15 @@ export class Gateway extends pulumi.CustomResource {
      */
     constructor(name: string, args: GatewayArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: GatewayArgs | GatewayState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as GatewayState | undefined;
-            inputs["ipReservationId"] = state ? state.ipReservationId : undefined;
-            inputs["privateIpv4SubnetSize"] = state ? state.privateIpv4SubnetSize : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["state"] = state ? state.state : undefined;
-            inputs["vlanId"] = state ? state.vlanId : undefined;
+            resourceInputs["ipReservationId"] = state ? state.ipReservationId : undefined;
+            resourceInputs["privateIpv4SubnetSize"] = state ? state.privateIpv4SubnetSize : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["state"] = state ? state.state : undefined;
+            resourceInputs["vlanId"] = state ? state.vlanId : undefined;
         } else {
             const args = argsOrState as GatewayArgs | undefined;
             if ((!args || args.projectId === undefined) && !opts.urn) {
@@ -123,16 +123,14 @@ export class Gateway extends pulumi.CustomResource {
             if ((!args || args.vlanId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'vlanId'");
             }
-            inputs["ipReservationId"] = args ? args.ipReservationId : undefined;
-            inputs["privateIpv4SubnetSize"] = args ? args.privateIpv4SubnetSize : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["vlanId"] = args ? args.vlanId : undefined;
-            inputs["state"] = undefined /*out*/;
+            resourceInputs["ipReservationId"] = args ? args.ipReservationId : undefined;
+            resourceInputs["privateIpv4SubnetSize"] = args ? args.privateIpv4SubnetSize : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["vlanId"] = args ? args.vlanId : undefined;
+            resourceInputs["state"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Gateway.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Gateway.__pulumiType, name, resourceInputs, opts);
     }
 }
 

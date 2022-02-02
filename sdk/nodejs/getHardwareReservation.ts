@@ -15,9 +15,7 @@ export function getHardwareReservation(args?: GetHardwareReservationArgs, opts?:
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getHardwareReservation:getHardwareReservation", {
         "deviceId": args.deviceId,
         "id": args.id,

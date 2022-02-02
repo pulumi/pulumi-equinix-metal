@@ -160,17 +160,17 @@ export class PortVlanAttachment extends pulumi.CustomResource {
      */
     constructor(name: string, args: PortVlanAttachmentArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: PortVlanAttachmentArgs | PortVlanAttachmentState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as PortVlanAttachmentState | undefined;
-            inputs["deviceId"] = state ? state.deviceId : undefined;
-            inputs["forceBond"] = state ? state.forceBond : undefined;
-            inputs["native"] = state ? state.native : undefined;
-            inputs["portId"] = state ? state.portId : undefined;
-            inputs["portName"] = state ? state.portName : undefined;
-            inputs["vlanId"] = state ? state.vlanId : undefined;
-            inputs["vlanVnid"] = state ? state.vlanVnid : undefined;
+            resourceInputs["deviceId"] = state ? state.deviceId : undefined;
+            resourceInputs["forceBond"] = state ? state.forceBond : undefined;
+            resourceInputs["native"] = state ? state.native : undefined;
+            resourceInputs["portId"] = state ? state.portId : undefined;
+            resourceInputs["portName"] = state ? state.portName : undefined;
+            resourceInputs["vlanId"] = state ? state.vlanId : undefined;
+            resourceInputs["vlanVnid"] = state ? state.vlanVnid : undefined;
         } else {
             const args = argsOrState as PortVlanAttachmentArgs | undefined;
             if ((!args || args.deviceId === undefined) && !opts.urn) {
@@ -182,18 +182,16 @@ export class PortVlanAttachment extends pulumi.CustomResource {
             if ((!args || args.vlanVnid === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'vlanVnid'");
             }
-            inputs["deviceId"] = args ? args.deviceId : undefined;
-            inputs["forceBond"] = args ? args.forceBond : undefined;
-            inputs["native"] = args ? args.native : undefined;
-            inputs["portName"] = args ? args.portName : undefined;
-            inputs["vlanVnid"] = args ? args.vlanVnid : undefined;
-            inputs["portId"] = undefined /*out*/;
-            inputs["vlanId"] = undefined /*out*/;
+            resourceInputs["deviceId"] = args ? args.deviceId : undefined;
+            resourceInputs["forceBond"] = args ? args.forceBond : undefined;
+            resourceInputs["native"] = args ? args.native : undefined;
+            resourceInputs["portName"] = args ? args.portName : undefined;
+            resourceInputs["vlanVnid"] = args ? args.vlanVnid : undefined;
+            resourceInputs["portId"] = undefined /*out*/;
+            resourceInputs["vlanId"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(PortVlanAttachment.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(PortVlanAttachment.__pulumiType, name, resourceInputs, opts);
     }
 }
 

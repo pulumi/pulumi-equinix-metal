@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -16,13 +15,13 @@ namespace Pulumi.EquinixMetal
         /// Provides an Equinix Metal metro datasource.
         /// </summary>
         public static Task<GetMetroResult> InvokeAsync(GetMetroArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroArgs(), options.WithDefaults());
 
         /// <summary>
         /// Provides an Equinix Metal metro datasource.
         /// </summary>
         public static Output<GetMetroResult> Invoke(GetMetroInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroInvokeArgs(), options.WithDefaults());
     }
 
 

@@ -38,9 +38,7 @@ export function getSpotMarketPrice(args: GetSpotMarketPriceArgs, opts?: pulumi.I
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", {
         "facility": args.facility,
         "metro": args.metro,

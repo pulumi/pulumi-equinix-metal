@@ -72,14 +72,14 @@ export class UserApiKey extends pulumi.CustomResource {
      */
     constructor(name: string, args: UserApiKeyArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: UserApiKeyArgs | UserApiKeyState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as UserApiKeyState | undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["readOnly"] = state ? state.readOnly : undefined;
-            inputs["token"] = state ? state.token : undefined;
-            inputs["userId"] = state ? state.userId : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["readOnly"] = state ? state.readOnly : undefined;
+            resourceInputs["token"] = state ? state.token : undefined;
+            resourceInputs["userId"] = state ? state.userId : undefined;
         } else {
             const args = argsOrState as UserApiKeyArgs | undefined;
             if ((!args || args.description === undefined) && !opts.urn) {
@@ -88,15 +88,13 @@ export class UserApiKey extends pulumi.CustomResource {
             if ((!args || args.readOnly === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'readOnly'");
             }
-            inputs["description"] = args ? args.description : undefined;
-            inputs["readOnly"] = args ? args.readOnly : undefined;
-            inputs["token"] = undefined /*out*/;
-            inputs["userId"] = undefined /*out*/;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["readOnly"] = args ? args.readOnly : undefined;
+            resourceInputs["token"] = undefined /*out*/;
+            resourceInputs["userId"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(UserApiKey.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(UserApiKey.__pulumiType, name, resourceInputs, opts);
     }
 }
 

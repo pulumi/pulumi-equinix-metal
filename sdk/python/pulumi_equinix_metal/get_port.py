@@ -222,8 +222,8 @@ def get_port(device_id: Optional[str] = None,
         operating_system="ubuntu_20_04",
         billing_cycle="hourly",
         project_id=project_id)
-    test_port = test_device.id.apply(lambda id: equinix_metal.get_port(device_id=id,
-        name="eth0"))
+    test_port = equinix_metal.get_port_output(device_id=test_device.id,
+        name="eth0")
     ```
 
 
@@ -281,8 +281,8 @@ def get_port_output(device_id: Optional[pulumi.Input[Optional[str]]] = None,
         operating_system="ubuntu_20_04",
         billing_cycle="hourly",
         project_id=project_id)
-    test_port = test_device.id.apply(lambda id: equinix_metal.get_port(device_id=id,
-        name="eth0"))
+    test_port = equinix_metal.get_port_output(device_id=test_device.id,
+        name="eth0")
     ```
 
 

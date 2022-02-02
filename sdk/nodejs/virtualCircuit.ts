@@ -120,22 +120,22 @@ export class VirtualCircuit extends pulumi.CustomResource {
      */
     constructor(name: string, args: VirtualCircuitArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: VirtualCircuitArgs | VirtualCircuitState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as VirtualCircuitState | undefined;
-            inputs["connectionId"] = state ? state.connectionId : undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["name"] = state ? state.name : undefined;
-            inputs["nniVlan"] = state ? state.nniVlan : undefined;
-            inputs["nniVnid"] = state ? state.nniVnid : undefined;
-            inputs["portId"] = state ? state.portId : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["speed"] = state ? state.speed : undefined;
-            inputs["status"] = state ? state.status : undefined;
-            inputs["tags"] = state ? state.tags : undefined;
-            inputs["vlanId"] = state ? state.vlanId : undefined;
-            inputs["vnid"] = state ? state.vnid : undefined;
+            resourceInputs["connectionId"] = state ? state.connectionId : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["nniVlan"] = state ? state.nniVlan : undefined;
+            resourceInputs["nniVnid"] = state ? state.nniVnid : undefined;
+            resourceInputs["portId"] = state ? state.portId : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["speed"] = state ? state.speed : undefined;
+            resourceInputs["status"] = state ? state.status : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
+            resourceInputs["vlanId"] = state ? state.vlanId : undefined;
+            resourceInputs["vnid"] = state ? state.vnid : undefined;
         } else {
             const args = argsOrState as VirtualCircuitArgs | undefined;
             if ((!args || args.connectionId === undefined) && !opts.urn) {
@@ -150,23 +150,21 @@ export class VirtualCircuit extends pulumi.CustomResource {
             if ((!args || args.vlanId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'vlanId'");
             }
-            inputs["connectionId"] = args ? args.connectionId : undefined;
-            inputs["description"] = args ? args.description : undefined;
-            inputs["name"] = args ? args.name : undefined;
-            inputs["nniVlan"] = args ? args.nniVlan : undefined;
-            inputs["portId"] = args ? args.portId : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["speed"] = args ? args.speed : undefined;
-            inputs["tags"] = args ? args.tags : undefined;
-            inputs["vlanId"] = args ? args.vlanId : undefined;
-            inputs["nniVnid"] = undefined /*out*/;
-            inputs["status"] = undefined /*out*/;
-            inputs["vnid"] = undefined /*out*/;
+            resourceInputs["connectionId"] = args ? args.connectionId : undefined;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["nniVlan"] = args ? args.nniVlan : undefined;
+            resourceInputs["portId"] = args ? args.portId : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["speed"] = args ? args.speed : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["vlanId"] = args ? args.vlanId : undefined;
+            resourceInputs["nniVnid"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
+            resourceInputs["vnid"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(VirtualCircuit.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(VirtualCircuit.__pulumiType, name, resourceInputs, opts);
     }
 }
 

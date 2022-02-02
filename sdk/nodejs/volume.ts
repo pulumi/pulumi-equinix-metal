@@ -59,23 +59,23 @@ export class Volume extends pulumi.CustomResource {
      */
     constructor(name: string, args: VolumeArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: VolumeArgs | VolumeState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as VolumeState | undefined;
-            inputs["attachments"] = state ? state.attachments : undefined;
-            inputs["billingCycle"] = state ? state.billingCycle : undefined;
-            inputs["created"] = state ? state.created : undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["facility"] = state ? state.facility : undefined;
-            inputs["locked"] = state ? state.locked : undefined;
-            inputs["name"] = state ? state.name : undefined;
-            inputs["plan"] = state ? state.plan : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["size"] = state ? state.size : undefined;
-            inputs["snapshotPolicies"] = state ? state.snapshotPolicies : undefined;
-            inputs["state"] = state ? state.state : undefined;
-            inputs["updated"] = state ? state.updated : undefined;
+            resourceInputs["attachments"] = state ? state.attachments : undefined;
+            resourceInputs["billingCycle"] = state ? state.billingCycle : undefined;
+            resourceInputs["created"] = state ? state.created : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["facility"] = state ? state.facility : undefined;
+            resourceInputs["locked"] = state ? state.locked : undefined;
+            resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["plan"] = state ? state.plan : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["size"] = state ? state.size : undefined;
+            resourceInputs["snapshotPolicies"] = state ? state.snapshotPolicies : undefined;
+            resourceInputs["state"] = state ? state.state : undefined;
+            resourceInputs["updated"] = state ? state.updated : undefined;
         } else {
             const args = argsOrState as VolumeArgs | undefined;
             if ((!args || args.facility === undefined) && !opts.urn) {
@@ -90,24 +90,22 @@ export class Volume extends pulumi.CustomResource {
             if ((!args || args.size === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'size'");
             }
-            inputs["billingCycle"] = args ? args.billingCycle : undefined;
-            inputs["description"] = args ? args.description : undefined;
-            inputs["facility"] = args ? args.facility : undefined;
-            inputs["locked"] = args ? args.locked : undefined;
-            inputs["plan"] = args ? args.plan : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["size"] = args ? args.size : undefined;
-            inputs["snapshotPolicies"] = args ? args.snapshotPolicies : undefined;
-            inputs["attachments"] = undefined /*out*/;
-            inputs["created"] = undefined /*out*/;
-            inputs["name"] = undefined /*out*/;
-            inputs["state"] = undefined /*out*/;
-            inputs["updated"] = undefined /*out*/;
+            resourceInputs["billingCycle"] = args ? args.billingCycle : undefined;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["facility"] = args ? args.facility : undefined;
+            resourceInputs["locked"] = args ? args.locked : undefined;
+            resourceInputs["plan"] = args ? args.plan : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["size"] = args ? args.size : undefined;
+            resourceInputs["snapshotPolicies"] = args ? args.snapshotPolicies : undefined;
+            resourceInputs["attachments"] = undefined /*out*/;
+            resourceInputs["created"] = undefined /*out*/;
+            resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["state"] = undefined /*out*/;
+            resourceInputs["updated"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Volume.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Volume.__pulumiType, name, resourceInputs, opts);
     }
 }
 

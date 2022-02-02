@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -53,7 +52,7 @@ namespace Pulumi.EquinixMetal
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetOperatingSystemResult> InvokeAsync(GetOperatingSystemArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to get Equinix Metal Operating System image.
@@ -96,7 +95,7 @@ namespace Pulumi.EquinixMetal
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetOperatingSystemResult> Invoke(GetOperatingSystemInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemInvokeArgs(), options.WithDefaults());
     }
 
 

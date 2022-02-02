@@ -124,18 +124,18 @@ export class SpotMarketRequest extends pulumi.CustomResource {
      */
     constructor(name: string, args: SpotMarketRequestArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: SpotMarketRequestArgs | SpotMarketRequestState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as SpotMarketRequestState | undefined;
-            inputs["devicesMax"] = state ? state.devicesMax : undefined;
-            inputs["devicesMin"] = state ? state.devicesMin : undefined;
-            inputs["facilities"] = state ? state.facilities : undefined;
-            inputs["instanceParameters"] = state ? state.instanceParameters : undefined;
-            inputs["maxBidPrice"] = state ? state.maxBidPrice : undefined;
-            inputs["metro"] = state ? state.metro : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["waitForDevices"] = state ? state.waitForDevices : undefined;
+            resourceInputs["devicesMax"] = state ? state.devicesMax : undefined;
+            resourceInputs["devicesMin"] = state ? state.devicesMin : undefined;
+            resourceInputs["facilities"] = state ? state.facilities : undefined;
+            resourceInputs["instanceParameters"] = state ? state.instanceParameters : undefined;
+            resourceInputs["maxBidPrice"] = state ? state.maxBidPrice : undefined;
+            resourceInputs["metro"] = state ? state.metro : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["waitForDevices"] = state ? state.waitForDevices : undefined;
         } else {
             const args = argsOrState as SpotMarketRequestArgs | undefined;
             if ((!args || args.devicesMax === undefined) && !opts.urn) {
@@ -153,19 +153,17 @@ export class SpotMarketRequest extends pulumi.CustomResource {
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
-            inputs["devicesMax"] = args ? args.devicesMax : undefined;
-            inputs["devicesMin"] = args ? args.devicesMin : undefined;
-            inputs["facilities"] = args ? args.facilities : undefined;
-            inputs["instanceParameters"] = args ? args.instanceParameters : undefined;
-            inputs["maxBidPrice"] = args ? args.maxBidPrice : undefined;
-            inputs["metro"] = args ? args.metro : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["waitForDevices"] = args ? args.waitForDevices : undefined;
+            resourceInputs["devicesMax"] = args ? args.devicesMax : undefined;
+            resourceInputs["devicesMin"] = args ? args.devicesMin : undefined;
+            resourceInputs["facilities"] = args ? args.facilities : undefined;
+            resourceInputs["instanceParameters"] = args ? args.instanceParameters : undefined;
+            resourceInputs["maxBidPrice"] = args ? args.maxBidPrice : undefined;
+            resourceInputs["metro"] = args ? args.metro : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["waitForDevices"] = args ? args.waitForDevices : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(SpotMarketRequest.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(SpotMarketRequest.__pulumiType, name, resourceInputs, opts);
     }
 }
 

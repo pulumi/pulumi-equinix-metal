@@ -55,6 +55,7 @@ setup(name='pulumi_equinix_metal',
       package_data={
           'pulumi_equinix_metal': [
               'py.typed',
+              'pulumi-plugin.json',
           ]
       },
       install_requires=[

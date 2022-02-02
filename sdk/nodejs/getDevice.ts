@@ -39,9 +39,7 @@ export function getDevice(args?: GetDeviceArgs, opts?: pulumi.InvokeOptions): Pr
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getDevice:getDevice", {
         "deviceId": args.deviceId,
         "hostname": args.hostname,

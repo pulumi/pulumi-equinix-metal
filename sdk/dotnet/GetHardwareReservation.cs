@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -18,7 +17,7 @@ namespace Pulumi.EquinixMetal
         /// You can look up hardware reservation by its ID or by ID of device which occupies it.
         /// </summary>
         public static Task<GetHardwareReservationResult> InvokeAsync(GetHardwareReservationArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to retrieve a [hardware reservation resource from Equinix Metal](https://metal.equinix.com/developers/docs/deploy/reserved/).
@@ -26,7 +25,7 @@ namespace Pulumi.EquinixMetal
         /// You can look up hardware reservation by its ID or by ID of device which occupies it.
         /// </summary>
         public static Output<GetHardwareReservationResult> Invoke(GetHardwareReservationInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationInvokeArgs(), options.WithDefaults());
     }
 
 

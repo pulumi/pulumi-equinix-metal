@@ -6,17 +6,16 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
     public static class GetSpotMarketRequest
     {
         public static Task<GetSpotMarketRequestResult> InvokeAsync(GetSpotMarketRequestArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetSpotMarketRequestResult>("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", args ?? new GetSpotMarketRequestArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetSpotMarketRequestResult>("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", args ?? new GetSpotMarketRequestArgs(), options.WithDefaults());
 
         public static Output<GetSpotMarketRequestResult> Invoke(GetSpotMarketRequestInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetSpotMarketRequestResult>("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", args ?? new GetSpotMarketRequestInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetSpotMarketRequestResult>("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", args ?? new GetSpotMarketRequestInvokeArgs(), options.WithDefaults());
     }
 
 

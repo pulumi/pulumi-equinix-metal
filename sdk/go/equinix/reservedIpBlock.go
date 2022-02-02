@@ -55,7 +55,7 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = equinix - metal.NewReservedIpBlock(ctx, "testIndex_reservedIpBlockReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
+// 		_, err = equinix - metal.NewReservedIpBlock(ctx, "testIndex/reservedIpBlockReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
 // 			ProjectId: pulumi.Any(local.Project_id),
 // 			Type:      pulumi.String("global_ipv4"),
 // 			Quantity:  pulumi.Int(1),
@@ -317,7 +317,7 @@ type ReservedIpBlockInput interface {
 }
 
 func (*ReservedIpBlock) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReservedIpBlock)(nil))
+	return reflect.TypeOf((**ReservedIpBlock)(nil)).Elem()
 }
 
 func (i *ReservedIpBlock) ToReservedIpBlockOutput() ReservedIpBlockOutput {
@@ -326,35 +326,6 @@ func (i *ReservedIpBlock) ToReservedIpBlockOutput() ReservedIpBlockOutput {
 
 func (i *ReservedIpBlock) ToReservedIpBlockOutputWithContext(ctx context.Context) ReservedIpBlockOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReservedIpBlockOutput)
-}
-
-func (i *ReservedIpBlock) ToReservedIpBlockPtrOutput() ReservedIpBlockPtrOutput {
-	return i.ToReservedIpBlockPtrOutputWithContext(context.Background())
-}
-
-func (i *ReservedIpBlock) ToReservedIpBlockPtrOutputWithContext(ctx context.Context) ReservedIpBlockPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReservedIpBlockPtrOutput)
-}
-
-type ReservedIpBlockPtrInput interface {
-	pulumi.Input
-
-	ToReservedIpBlockPtrOutput() ReservedIpBlockPtrOutput
-	ToReservedIpBlockPtrOutputWithContext(ctx context.Context) ReservedIpBlockPtrOutput
-}
-
-type reservedIpBlockPtrType ReservedIpBlockArgs
-
-func (*reservedIpBlockPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReservedIpBlock)(nil))
-}
-
-func (i *reservedIpBlockPtrType) ToReservedIpBlockPtrOutput() ReservedIpBlockPtrOutput {
-	return i.ToReservedIpBlockPtrOutputWithContext(context.Background())
-}
-
-func (i *reservedIpBlockPtrType) ToReservedIpBlockPtrOutputWithContext(ctx context.Context) ReservedIpBlockPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReservedIpBlockPtrOutput)
 }
 
 // ReservedIpBlockArrayInput is an input type that accepts ReservedIpBlockArray and ReservedIpBlockArrayOutput values.
@@ -410,7 +381,7 @@ func (i ReservedIpBlockMap) ToReservedIpBlockMapOutputWithContext(ctx context.Co
 type ReservedIpBlockOutput struct{ *pulumi.OutputState }
 
 func (ReservedIpBlockOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReservedIpBlock)(nil))
+	return reflect.TypeOf((**ReservedIpBlock)(nil)).Elem()
 }
 
 func (o ReservedIpBlockOutput) ToReservedIpBlockOutput() ReservedIpBlockOutput {
@@ -421,44 +392,10 @@ func (o ReservedIpBlockOutput) ToReservedIpBlockOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o ReservedIpBlockOutput) ToReservedIpBlockPtrOutput() ReservedIpBlockPtrOutput {
-	return o.ToReservedIpBlockPtrOutputWithContext(context.Background())
-}
-
-func (o ReservedIpBlockOutput) ToReservedIpBlockPtrOutputWithContext(ctx context.Context) ReservedIpBlockPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReservedIpBlock) *ReservedIpBlock {
-		return &v
-	}).(ReservedIpBlockPtrOutput)
-}
-
-type ReservedIpBlockPtrOutput struct{ *pulumi.OutputState }
-
-func (ReservedIpBlockPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReservedIpBlock)(nil))
-}
-
-func (o ReservedIpBlockPtrOutput) ToReservedIpBlockPtrOutput() ReservedIpBlockPtrOutput {
-	return o
-}
-
-func (o ReservedIpBlockPtrOutput) ToReservedIpBlockPtrOutputWithContext(ctx context.Context) ReservedIpBlockPtrOutput {
-	return o
-}
-
-func (o ReservedIpBlockPtrOutput) Elem() ReservedIpBlockOutput {
-	return o.ApplyT(func(v *ReservedIpBlock) ReservedIpBlock {
-		if v != nil {
-			return *v
-		}
-		var ret ReservedIpBlock
-		return ret
-	}).(ReservedIpBlockOutput)
-}
-
 type ReservedIpBlockArrayOutput struct{ *pulumi.OutputState }
 
 func (ReservedIpBlockArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ReservedIpBlock)(nil))
+	return reflect.TypeOf((*[]*ReservedIpBlock)(nil)).Elem()
 }
 
 func (o ReservedIpBlockArrayOutput) ToReservedIpBlockArrayOutput() ReservedIpBlockArrayOutput {
@@ -470,15 +407,15 @@ func (o ReservedIpBlockArrayOutput) ToReservedIpBlockArrayOutputWithContext(ctx 
 }
 
 func (o ReservedIpBlockArrayOutput) Index(i pulumi.IntInput) ReservedIpBlockOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ReservedIpBlock {
-		return vs[0].([]ReservedIpBlock)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ReservedIpBlock {
+		return vs[0].([]*ReservedIpBlock)[vs[1].(int)]
 	}).(ReservedIpBlockOutput)
 }
 
 type ReservedIpBlockMapOutput struct{ *pulumi.OutputState }
 
 func (ReservedIpBlockMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]ReservedIpBlock)(nil))
+	return reflect.TypeOf((*map[string]*ReservedIpBlock)(nil)).Elem()
 }
 
 func (o ReservedIpBlockMapOutput) ToReservedIpBlockMapOutput() ReservedIpBlockMapOutput {
@@ -490,18 +427,16 @@ func (o ReservedIpBlockMapOutput) ToReservedIpBlockMapOutputWithContext(ctx cont
 }
 
 func (o ReservedIpBlockMapOutput) MapIndex(k pulumi.StringInput) ReservedIpBlockOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ReservedIpBlock {
-		return vs[0].(map[string]ReservedIpBlock)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *ReservedIpBlock {
+		return vs[0].(map[string]*ReservedIpBlock)[vs[1].(string)]
 	}).(ReservedIpBlockOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ReservedIpBlockInput)(nil)).Elem(), &ReservedIpBlock{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ReservedIpBlockPtrInput)(nil)).Elem(), &ReservedIpBlock{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReservedIpBlockArrayInput)(nil)).Elem(), ReservedIpBlockArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReservedIpBlockMapInput)(nil)).Elem(), ReservedIpBlockMap{})
 	pulumi.RegisterOutputType(ReservedIpBlockOutput{})
-	pulumi.RegisterOutputType(ReservedIpBlockPtrOutput{})
 	pulumi.RegisterOutputType(ReservedIpBlockArrayOutput{})
 	pulumi.RegisterOutputType(ReservedIpBlockMapOutput{})
 }

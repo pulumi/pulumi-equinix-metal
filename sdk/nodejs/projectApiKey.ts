@@ -74,14 +74,14 @@ export class ProjectApiKey extends pulumi.CustomResource {
      */
     constructor(name: string, args: ProjectApiKeyArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ProjectApiKeyArgs | ProjectApiKeyState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ProjectApiKeyState | undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["readOnly"] = state ? state.readOnly : undefined;
-            inputs["token"] = state ? state.token : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["readOnly"] = state ? state.readOnly : undefined;
+            resourceInputs["token"] = state ? state.token : undefined;
         } else {
             const args = argsOrState as ProjectApiKeyArgs | undefined;
             if ((!args || args.description === undefined) && !opts.urn) {
@@ -93,15 +93,13 @@ export class ProjectApiKey extends pulumi.CustomResource {
             if ((!args || args.readOnly === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'readOnly'");
             }
-            inputs["description"] = args ? args.description : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["readOnly"] = args ? args.readOnly : undefined;
-            inputs["token"] = undefined /*out*/;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["readOnly"] = args ? args.readOnly : undefined;
+            resourceInputs["token"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(ProjectApiKey.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(ProjectApiKey.__pulumiType, name, resourceInputs, opts);
     }
 }
 
