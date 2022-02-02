@@ -87,31 +87,29 @@ export class Organization extends pulumi.CustomResource {
      */
     constructor(name: string, args?: OrganizationArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: OrganizationArgs | OrganizationState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as OrganizationState | undefined;
-            inputs["created"] = state ? state.created : undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["logo"] = state ? state.logo : undefined;
-            inputs["name"] = state ? state.name : undefined;
-            inputs["twitter"] = state ? state.twitter : undefined;
-            inputs["updated"] = state ? state.updated : undefined;
-            inputs["website"] = state ? state.website : undefined;
+            resourceInputs["created"] = state ? state.created : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["logo"] = state ? state.logo : undefined;
+            resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["twitter"] = state ? state.twitter : undefined;
+            resourceInputs["updated"] = state ? state.updated : undefined;
+            resourceInputs["website"] = state ? state.website : undefined;
         } else {
             const args = argsOrState as OrganizationArgs | undefined;
-            inputs["description"] = args ? args.description : undefined;
-            inputs["logo"] = args ? args.logo : undefined;
-            inputs["name"] = args ? args.name : undefined;
-            inputs["twitter"] = args ? args.twitter : undefined;
-            inputs["website"] = args ? args.website : undefined;
-            inputs["created"] = undefined /*out*/;
-            inputs["updated"] = undefined /*out*/;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["logo"] = args ? args.logo : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["twitter"] = args ? args.twitter : undefined;
+            resourceInputs["website"] = args ? args.website : undefined;
+            resourceInputs["created"] = undefined /*out*/;
+            resourceInputs["updated"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Organization.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Organization.__pulumiType, name, resourceInputs, opts);
     }
 }
 

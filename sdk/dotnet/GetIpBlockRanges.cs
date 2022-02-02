@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -47,7 +46,7 @@ namespace Pulumi.EquinixMetal
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetIpBlockRangesResult> InvokeAsync(GetIpBlockRangesArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
@@ -84,7 +83,7 @@ namespace Pulumi.EquinixMetal
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetIpBlockRangesResult> Invoke(GetIpBlockRangesInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesInvokeArgs(), options.WithDefaults());
     }
 
 

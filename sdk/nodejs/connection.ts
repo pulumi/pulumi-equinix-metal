@@ -117,24 +117,24 @@ export class Connection extends pulumi.CustomResource {
      */
     constructor(name: string, args: ConnectionArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ConnectionArgs | ConnectionState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ConnectionState | undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["facility"] = state ? state.facility : undefined;
-            inputs["metro"] = state ? state.metro : undefined;
-            inputs["mode"] = state ? state.mode : undefined;
-            inputs["name"] = state ? state.name : undefined;
-            inputs["organizationId"] = state ? state.organizationId : undefined;
-            inputs["ports"] = state ? state.ports : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["redundancy"] = state ? state.redundancy : undefined;
-            inputs["speed"] = state ? state.speed : undefined;
-            inputs["status"] = state ? state.status : undefined;
-            inputs["tags"] = state ? state.tags : undefined;
-            inputs["token"] = state ? state.token : undefined;
-            inputs["type"] = state ? state.type : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["facility"] = state ? state.facility : undefined;
+            resourceInputs["metro"] = state ? state.metro : undefined;
+            resourceInputs["mode"] = state ? state.mode : undefined;
+            resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["organizationId"] = state ? state.organizationId : undefined;
+            resourceInputs["ports"] = state ? state.ports : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["redundancy"] = state ? state.redundancy : undefined;
+            resourceInputs["speed"] = state ? state.speed : undefined;
+            resourceInputs["status"] = state ? state.status : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
+            resourceInputs["token"] = state ? state.token : undefined;
+            resourceInputs["type"] = state ? state.type : undefined;
         } else {
             const args = argsOrState as ConnectionArgs | undefined;
             if ((!args || args.organizationId === undefined) && !opts.urn) {
@@ -146,25 +146,23 @@ export class Connection extends pulumi.CustomResource {
             if ((!args || args.type === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'type'");
             }
-            inputs["description"] = args ? args.description : undefined;
-            inputs["facility"] = args ? args.facility : undefined;
-            inputs["metro"] = args ? args.metro : undefined;
-            inputs["mode"] = args ? args.mode : undefined;
-            inputs["name"] = args ? args.name : undefined;
-            inputs["organizationId"] = args ? args.organizationId : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["redundancy"] = args ? args.redundancy : undefined;
-            inputs["tags"] = args ? args.tags : undefined;
-            inputs["type"] = args ? args.type : undefined;
-            inputs["ports"] = undefined /*out*/;
-            inputs["speed"] = undefined /*out*/;
-            inputs["status"] = undefined /*out*/;
-            inputs["token"] = undefined /*out*/;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["facility"] = args ? args.facility : undefined;
+            resourceInputs["metro"] = args ? args.metro : undefined;
+            resourceInputs["mode"] = args ? args.mode : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["organizationId"] = args ? args.organizationId : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["redundancy"] = args ? args.redundancy : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["type"] = args ? args.type : undefined;
+            resourceInputs["ports"] = undefined /*out*/;
+            resourceInputs["speed"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
+            resourceInputs["token"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Connection.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Connection.__pulumiType, name, resourceInputs, opts);
     }
 }
 

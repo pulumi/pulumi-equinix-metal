@@ -65,14 +65,14 @@ export class BgpSession extends pulumi.CustomResource {
      */
     constructor(name: string, args: BgpSessionArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: BgpSessionArgs | BgpSessionState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as BgpSessionState | undefined;
-            inputs["addressFamily"] = state ? state.addressFamily : undefined;
-            inputs["defaultRoute"] = state ? state.defaultRoute : undefined;
-            inputs["deviceId"] = state ? state.deviceId : undefined;
-            inputs["status"] = state ? state.status : undefined;
+            resourceInputs["addressFamily"] = state ? state.addressFamily : undefined;
+            resourceInputs["defaultRoute"] = state ? state.defaultRoute : undefined;
+            resourceInputs["deviceId"] = state ? state.deviceId : undefined;
+            resourceInputs["status"] = state ? state.status : undefined;
         } else {
             const args = argsOrState as BgpSessionArgs | undefined;
             if ((!args || args.addressFamily === undefined) && !opts.urn) {
@@ -81,15 +81,13 @@ export class BgpSession extends pulumi.CustomResource {
             if ((!args || args.deviceId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'deviceId'");
             }
-            inputs["addressFamily"] = args ? args.addressFamily : undefined;
-            inputs["defaultRoute"] = args ? args.defaultRoute : undefined;
-            inputs["deviceId"] = args ? args.deviceId : undefined;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["addressFamily"] = args ? args.addressFamily : undefined;
+            resourceInputs["defaultRoute"] = args ? args.defaultRoute : undefined;
+            resourceInputs["deviceId"] = args ? args.deviceId : undefined;
+            resourceInputs["status"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(BgpSession.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(BgpSession.__pulumiType, name, resourceInputs, opts);
     }
 }
 

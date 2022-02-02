@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -16,13 +15,13 @@ namespace Pulumi.EquinixMetal
         /// Provides an Equinix Metal facility datasource.
         /// </summary>
         public static Task<GetFacilityResult> InvokeAsync(GetFacilityArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityArgs(), options.WithDefaults());
 
         /// <summary>
         /// Provides an Equinix Metal facility datasource.
         /// </summary>
         public static Output<GetFacilityResult> Invoke(GetFacilityInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityInvokeArgs(), options.WithDefaults());
     }
 
 

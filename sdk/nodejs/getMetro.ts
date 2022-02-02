@@ -13,9 +13,7 @@ export function getMetro(args: GetMetroArgs, opts?: pulumi.InvokeOptions): Promi
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getMetro:getMetro", {
         "capacities": args.capacities,
         "code": args.code,

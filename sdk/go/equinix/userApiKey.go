@@ -139,7 +139,7 @@ type UserApiKeyInput interface {
 }
 
 func (*UserApiKey) ElementType() reflect.Type {
-	return reflect.TypeOf((*UserApiKey)(nil))
+	return reflect.TypeOf((**UserApiKey)(nil)).Elem()
 }
 
 func (i *UserApiKey) ToUserApiKeyOutput() UserApiKeyOutput {
@@ -148,35 +148,6 @@ func (i *UserApiKey) ToUserApiKeyOutput() UserApiKeyOutput {
 
 func (i *UserApiKey) ToUserApiKeyOutputWithContext(ctx context.Context) UserApiKeyOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(UserApiKeyOutput)
-}
-
-func (i *UserApiKey) ToUserApiKeyPtrOutput() UserApiKeyPtrOutput {
-	return i.ToUserApiKeyPtrOutputWithContext(context.Background())
-}
-
-func (i *UserApiKey) ToUserApiKeyPtrOutputWithContext(ctx context.Context) UserApiKeyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(UserApiKeyPtrOutput)
-}
-
-type UserApiKeyPtrInput interface {
-	pulumi.Input
-
-	ToUserApiKeyPtrOutput() UserApiKeyPtrOutput
-	ToUserApiKeyPtrOutputWithContext(ctx context.Context) UserApiKeyPtrOutput
-}
-
-type userApiKeyPtrType UserApiKeyArgs
-
-func (*userApiKeyPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**UserApiKey)(nil))
-}
-
-func (i *userApiKeyPtrType) ToUserApiKeyPtrOutput() UserApiKeyPtrOutput {
-	return i.ToUserApiKeyPtrOutputWithContext(context.Background())
-}
-
-func (i *userApiKeyPtrType) ToUserApiKeyPtrOutputWithContext(ctx context.Context) UserApiKeyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(UserApiKeyPtrOutput)
 }
 
 // UserApiKeyArrayInput is an input type that accepts UserApiKeyArray and UserApiKeyArrayOutput values.
@@ -232,7 +203,7 @@ func (i UserApiKeyMap) ToUserApiKeyMapOutputWithContext(ctx context.Context) Use
 type UserApiKeyOutput struct{ *pulumi.OutputState }
 
 func (UserApiKeyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*UserApiKey)(nil))
+	return reflect.TypeOf((**UserApiKey)(nil)).Elem()
 }
 
 func (o UserApiKeyOutput) ToUserApiKeyOutput() UserApiKeyOutput {
@@ -243,44 +214,10 @@ func (o UserApiKeyOutput) ToUserApiKeyOutputWithContext(ctx context.Context) Use
 	return o
 }
 
-func (o UserApiKeyOutput) ToUserApiKeyPtrOutput() UserApiKeyPtrOutput {
-	return o.ToUserApiKeyPtrOutputWithContext(context.Background())
-}
-
-func (o UserApiKeyOutput) ToUserApiKeyPtrOutputWithContext(ctx context.Context) UserApiKeyPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserApiKey) *UserApiKey {
-		return &v
-	}).(UserApiKeyPtrOutput)
-}
-
-type UserApiKeyPtrOutput struct{ *pulumi.OutputState }
-
-func (UserApiKeyPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**UserApiKey)(nil))
-}
-
-func (o UserApiKeyPtrOutput) ToUserApiKeyPtrOutput() UserApiKeyPtrOutput {
-	return o
-}
-
-func (o UserApiKeyPtrOutput) ToUserApiKeyPtrOutputWithContext(ctx context.Context) UserApiKeyPtrOutput {
-	return o
-}
-
-func (o UserApiKeyPtrOutput) Elem() UserApiKeyOutput {
-	return o.ApplyT(func(v *UserApiKey) UserApiKey {
-		if v != nil {
-			return *v
-		}
-		var ret UserApiKey
-		return ret
-	}).(UserApiKeyOutput)
-}
-
 type UserApiKeyArrayOutput struct{ *pulumi.OutputState }
 
 func (UserApiKeyArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]UserApiKey)(nil))
+	return reflect.TypeOf((*[]*UserApiKey)(nil)).Elem()
 }
 
 func (o UserApiKeyArrayOutput) ToUserApiKeyArrayOutput() UserApiKeyArrayOutput {
@@ -292,15 +229,15 @@ func (o UserApiKeyArrayOutput) ToUserApiKeyArrayOutputWithContext(ctx context.Co
 }
 
 func (o UserApiKeyArrayOutput) Index(i pulumi.IntInput) UserApiKeyOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UserApiKey {
-		return vs[0].([]UserApiKey)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *UserApiKey {
+		return vs[0].([]*UserApiKey)[vs[1].(int)]
 	}).(UserApiKeyOutput)
 }
 
 type UserApiKeyMapOutput struct{ *pulumi.OutputState }
 
 func (UserApiKeyMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]UserApiKey)(nil))
+	return reflect.TypeOf((*map[string]*UserApiKey)(nil)).Elem()
 }
 
 func (o UserApiKeyMapOutput) ToUserApiKeyMapOutput() UserApiKeyMapOutput {
@@ -312,18 +249,16 @@ func (o UserApiKeyMapOutput) ToUserApiKeyMapOutputWithContext(ctx context.Contex
 }
 
 func (o UserApiKeyMapOutput) MapIndex(k pulumi.StringInput) UserApiKeyOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) UserApiKey {
-		return vs[0].(map[string]UserApiKey)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *UserApiKey {
+		return vs[0].(map[string]*UserApiKey)[vs[1].(string)]
 	}).(UserApiKeyOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*UserApiKeyInput)(nil)).Elem(), &UserApiKey{})
-	pulumi.RegisterInputType(reflect.TypeOf((*UserApiKeyPtrInput)(nil)).Elem(), &UserApiKey{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UserApiKeyArrayInput)(nil)).Elem(), UserApiKeyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UserApiKeyMapInput)(nil)).Elem(), UserApiKeyMap{})
 	pulumi.RegisterOutputType(UserApiKeyOutput{})
-	pulumi.RegisterOutputType(UserApiKeyPtrOutput{})
 	pulumi.RegisterOutputType(UserApiKeyArrayOutput{})
 	pulumi.RegisterOutputType(UserApiKeyMapOutput{})
 }

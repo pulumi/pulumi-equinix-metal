@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -40,7 +39,7 @@ namespace Pulumi.EquinixMetal
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetProjectSshKeyResult> InvokeAsync(GetProjectSshKeyArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetProjectSshKeyResult>("equinix-metal:index/getProjectSshKey:getProjectSshKey", args ?? new GetProjectSshKeyArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetProjectSshKeyResult>("equinix-metal:index/getProjectSshKey:getProjectSshKey", args ?? new GetProjectSshKeyArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this datasource to retrieve attributes of a Project SSH Key API resource.
@@ -70,7 +69,7 @@ namespace Pulumi.EquinixMetal
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetProjectSshKeyResult> Invoke(GetProjectSshKeyInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetProjectSshKeyResult>("equinix-metal:index/getProjectSshKey:getProjectSshKey", args ?? new GetProjectSshKeyInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetProjectSshKeyResult>("equinix-metal:index/getProjectSshKey:getProjectSshKey", args ?? new GetProjectSshKeyInvokeArgs(), options.WithDefaults());
     }
 
 

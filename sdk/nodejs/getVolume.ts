@@ -14,9 +14,7 @@ export function getVolume(args?: GetVolumeArgs, opts?: pulumi.InvokeOptions): Pr
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getVolume:getVolume", {
         "name": args.name,
         "projectId": args.projectId,

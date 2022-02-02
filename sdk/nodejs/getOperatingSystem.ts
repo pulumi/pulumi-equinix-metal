@@ -34,9 +34,7 @@ export function getOperatingSystem(args?: GetOperatingSystemArgs, opts?: pulumi.
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getOperatingSystem:getOperatingSystem", {
         "distro": args.distro,
         "name": args.name,

@@ -187,28 +187,28 @@ export class ReservedIpBlock extends pulumi.CustomResource {
      */
     constructor(name: string, args: ReservedIpBlockArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ReservedIpBlockArgs | ReservedIpBlockState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ReservedIpBlockState | undefined;
-            inputs["address"] = state ? state.address : undefined;
-            inputs["addressFamily"] = state ? state.addressFamily : undefined;
-            inputs["cidr"] = state ? state.cidr : undefined;
-            inputs["cidrNotation"] = state ? state.cidrNotation : undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["facility"] = state ? state.facility : undefined;
-            inputs["gateway"] = state ? state.gateway : undefined;
-            inputs["global"] = state ? state.global : undefined;
-            inputs["manageable"] = state ? state.manageable : undefined;
-            inputs["management"] = state ? state.management : undefined;
-            inputs["metro"] = state ? state.metro : undefined;
-            inputs["netmask"] = state ? state.netmask : undefined;
-            inputs["network"] = state ? state.network : undefined;
-            inputs["projectId"] = state ? state.projectId : undefined;
-            inputs["public"] = state ? state.public : undefined;
-            inputs["quantity"] = state ? state.quantity : undefined;
-            inputs["tags"] = state ? state.tags : undefined;
-            inputs["type"] = state ? state.type : undefined;
+            resourceInputs["address"] = state ? state.address : undefined;
+            resourceInputs["addressFamily"] = state ? state.addressFamily : undefined;
+            resourceInputs["cidr"] = state ? state.cidr : undefined;
+            resourceInputs["cidrNotation"] = state ? state.cidrNotation : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["facility"] = state ? state.facility : undefined;
+            resourceInputs["gateway"] = state ? state.gateway : undefined;
+            resourceInputs["global"] = state ? state.global : undefined;
+            resourceInputs["manageable"] = state ? state.manageable : undefined;
+            resourceInputs["management"] = state ? state.management : undefined;
+            resourceInputs["metro"] = state ? state.metro : undefined;
+            resourceInputs["netmask"] = state ? state.netmask : undefined;
+            resourceInputs["network"] = state ? state.network : undefined;
+            resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["public"] = state ? state.public : undefined;
+            resourceInputs["quantity"] = state ? state.quantity : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
+            resourceInputs["type"] = state ? state.type : undefined;
         } else {
             const args = argsOrState as ReservedIpBlockArgs | undefined;
             if ((!args || args.projectId === undefined) && !opts.urn) {
@@ -217,29 +217,27 @@ export class ReservedIpBlock extends pulumi.CustomResource {
             if ((!args || args.quantity === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'quantity'");
             }
-            inputs["description"] = args ? args.description : undefined;
-            inputs["facility"] = args ? args.facility : undefined;
-            inputs["metro"] = args ? args.metro : undefined;
-            inputs["projectId"] = args ? args.projectId : undefined;
-            inputs["quantity"] = args ? args.quantity : undefined;
-            inputs["tags"] = args ? args.tags : undefined;
-            inputs["type"] = args ? args.type : undefined;
-            inputs["address"] = undefined /*out*/;
-            inputs["addressFamily"] = undefined /*out*/;
-            inputs["cidr"] = undefined /*out*/;
-            inputs["cidrNotation"] = undefined /*out*/;
-            inputs["gateway"] = undefined /*out*/;
-            inputs["global"] = undefined /*out*/;
-            inputs["manageable"] = undefined /*out*/;
-            inputs["management"] = undefined /*out*/;
-            inputs["netmask"] = undefined /*out*/;
-            inputs["network"] = undefined /*out*/;
-            inputs["public"] = undefined /*out*/;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["facility"] = args ? args.facility : undefined;
+            resourceInputs["metro"] = args ? args.metro : undefined;
+            resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["quantity"] = args ? args.quantity : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["type"] = args ? args.type : undefined;
+            resourceInputs["address"] = undefined /*out*/;
+            resourceInputs["addressFamily"] = undefined /*out*/;
+            resourceInputs["cidr"] = undefined /*out*/;
+            resourceInputs["cidrNotation"] = undefined /*out*/;
+            resourceInputs["gateway"] = undefined /*out*/;
+            resourceInputs["global"] = undefined /*out*/;
+            resourceInputs["manageable"] = undefined /*out*/;
+            resourceInputs["management"] = undefined /*out*/;
+            resourceInputs["netmask"] = undefined /*out*/;
+            resourceInputs["network"] = undefined /*out*/;
+            resourceInputs["public"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(ReservedIpBlock.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(ReservedIpBlock.__pulumiType, name, resourceInputs, opts);
     }
 }
 

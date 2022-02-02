@@ -134,7 +134,7 @@ def get_vlan(facility: Optional[str] = None,
         project_id=local["project_id"],
         metro="sv",
         vxlan=5)
-    dsvlan = foovlan.id.apply(lambda id: equinix_metal.get_vlan(vlan_id=id))
+    dsvlan = equinix_metal.get_vlan_output(vlan_id=foovlan.id)
     ```
 
     Fetch a vlan by project ID, vxlan and metro
@@ -205,7 +205,7 @@ def get_vlan_output(facility: Optional[pulumi.Input[Optional[str]]] = None,
         project_id=local["project_id"],
         metro="sv",
         vxlan=5)
-    dsvlan = foovlan.id.apply(lambda id: equinix_metal.get_vlan(vlan_id=id))
+    dsvlan = equinix_metal.get_vlan_output(vlan_id=foovlan.id)
     ```
 
     Fetch a vlan by project ID, vxlan and metro

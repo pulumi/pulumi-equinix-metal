@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using Pulumi.Utilities;
 
 namespace Pulumi.EquinixMetal
 {
@@ -17,14 +16,14 @@ namespace Pulumi.EquinixMetal
         /// You can then use the cidrsubnet TF builtin function to derive subnets.
         /// </summary>
         public static Task<GetPrecreatedIpBlockResult> InvokeAsync(GetPrecreatedIpBlockArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to get CIDR expression for precreated IPv6 and IPv4 blocks in Equinix Metal.
         /// You can then use the cidrsubnet TF builtin function to derive subnets.
         /// </summary>
         public static Output<GetPrecreatedIpBlockResult> Invoke(GetPrecreatedIpBlockInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockInvokeArgs(), options.WithVersion());
+            => Pulumi.Deployment.Instance.Invoke<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockInvokeArgs(), options.WithDefaults());
     }
 
 

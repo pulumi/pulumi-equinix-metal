@@ -284,7 +284,7 @@ type PortVlanAttachmentInput interface {
 }
 
 func (*PortVlanAttachment) ElementType() reflect.Type {
-	return reflect.TypeOf((*PortVlanAttachment)(nil))
+	return reflect.TypeOf((**PortVlanAttachment)(nil)).Elem()
 }
 
 func (i *PortVlanAttachment) ToPortVlanAttachmentOutput() PortVlanAttachmentOutput {
@@ -293,35 +293,6 @@ func (i *PortVlanAttachment) ToPortVlanAttachmentOutput() PortVlanAttachmentOutp
 
 func (i *PortVlanAttachment) ToPortVlanAttachmentOutputWithContext(ctx context.Context) PortVlanAttachmentOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PortVlanAttachmentOutput)
-}
-
-func (i *PortVlanAttachment) ToPortVlanAttachmentPtrOutput() PortVlanAttachmentPtrOutput {
-	return i.ToPortVlanAttachmentPtrOutputWithContext(context.Background())
-}
-
-func (i *PortVlanAttachment) ToPortVlanAttachmentPtrOutputWithContext(ctx context.Context) PortVlanAttachmentPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PortVlanAttachmentPtrOutput)
-}
-
-type PortVlanAttachmentPtrInput interface {
-	pulumi.Input
-
-	ToPortVlanAttachmentPtrOutput() PortVlanAttachmentPtrOutput
-	ToPortVlanAttachmentPtrOutputWithContext(ctx context.Context) PortVlanAttachmentPtrOutput
-}
-
-type portVlanAttachmentPtrType PortVlanAttachmentArgs
-
-func (*portVlanAttachmentPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PortVlanAttachment)(nil))
-}
-
-func (i *portVlanAttachmentPtrType) ToPortVlanAttachmentPtrOutput() PortVlanAttachmentPtrOutput {
-	return i.ToPortVlanAttachmentPtrOutputWithContext(context.Background())
-}
-
-func (i *portVlanAttachmentPtrType) ToPortVlanAttachmentPtrOutputWithContext(ctx context.Context) PortVlanAttachmentPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PortVlanAttachmentPtrOutput)
 }
 
 // PortVlanAttachmentArrayInput is an input type that accepts PortVlanAttachmentArray and PortVlanAttachmentArrayOutput values.
@@ -377,7 +348,7 @@ func (i PortVlanAttachmentMap) ToPortVlanAttachmentMapOutputWithContext(ctx cont
 type PortVlanAttachmentOutput struct{ *pulumi.OutputState }
 
 func (PortVlanAttachmentOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PortVlanAttachment)(nil))
+	return reflect.TypeOf((**PortVlanAttachment)(nil)).Elem()
 }
 
 func (o PortVlanAttachmentOutput) ToPortVlanAttachmentOutput() PortVlanAttachmentOutput {
@@ -388,44 +359,10 @@ func (o PortVlanAttachmentOutput) ToPortVlanAttachmentOutputWithContext(ctx cont
 	return o
 }
 
-func (o PortVlanAttachmentOutput) ToPortVlanAttachmentPtrOutput() PortVlanAttachmentPtrOutput {
-	return o.ToPortVlanAttachmentPtrOutputWithContext(context.Background())
-}
-
-func (o PortVlanAttachmentOutput) ToPortVlanAttachmentPtrOutputWithContext(ctx context.Context) PortVlanAttachmentPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PortVlanAttachment) *PortVlanAttachment {
-		return &v
-	}).(PortVlanAttachmentPtrOutput)
-}
-
-type PortVlanAttachmentPtrOutput struct{ *pulumi.OutputState }
-
-func (PortVlanAttachmentPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PortVlanAttachment)(nil))
-}
-
-func (o PortVlanAttachmentPtrOutput) ToPortVlanAttachmentPtrOutput() PortVlanAttachmentPtrOutput {
-	return o
-}
-
-func (o PortVlanAttachmentPtrOutput) ToPortVlanAttachmentPtrOutputWithContext(ctx context.Context) PortVlanAttachmentPtrOutput {
-	return o
-}
-
-func (o PortVlanAttachmentPtrOutput) Elem() PortVlanAttachmentOutput {
-	return o.ApplyT(func(v *PortVlanAttachment) PortVlanAttachment {
-		if v != nil {
-			return *v
-		}
-		var ret PortVlanAttachment
-		return ret
-	}).(PortVlanAttachmentOutput)
-}
-
 type PortVlanAttachmentArrayOutput struct{ *pulumi.OutputState }
 
 func (PortVlanAttachmentArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PortVlanAttachment)(nil))
+	return reflect.TypeOf((*[]*PortVlanAttachment)(nil)).Elem()
 }
 
 func (o PortVlanAttachmentArrayOutput) ToPortVlanAttachmentArrayOutput() PortVlanAttachmentArrayOutput {
@@ -437,15 +374,15 @@ func (o PortVlanAttachmentArrayOutput) ToPortVlanAttachmentArrayOutputWithContex
 }
 
 func (o PortVlanAttachmentArrayOutput) Index(i pulumi.IntInput) PortVlanAttachmentOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PortVlanAttachment {
-		return vs[0].([]PortVlanAttachment)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PortVlanAttachment {
+		return vs[0].([]*PortVlanAttachment)[vs[1].(int)]
 	}).(PortVlanAttachmentOutput)
 }
 
 type PortVlanAttachmentMapOutput struct{ *pulumi.OutputState }
 
 func (PortVlanAttachmentMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]PortVlanAttachment)(nil))
+	return reflect.TypeOf((*map[string]*PortVlanAttachment)(nil)).Elem()
 }
 
 func (o PortVlanAttachmentMapOutput) ToPortVlanAttachmentMapOutput() PortVlanAttachmentMapOutput {
@@ -457,18 +394,16 @@ func (o PortVlanAttachmentMapOutput) ToPortVlanAttachmentMapOutputWithContext(ct
 }
 
 func (o PortVlanAttachmentMapOutput) MapIndex(k pulumi.StringInput) PortVlanAttachmentOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PortVlanAttachment {
-		return vs[0].(map[string]PortVlanAttachment)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *PortVlanAttachment {
+		return vs[0].(map[string]*PortVlanAttachment)[vs[1].(string)]
 	}).(PortVlanAttachmentOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PortVlanAttachmentInput)(nil)).Elem(), &PortVlanAttachment{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PortVlanAttachmentPtrInput)(nil)).Elem(), &PortVlanAttachment{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PortVlanAttachmentArrayInput)(nil)).Elem(), PortVlanAttachmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PortVlanAttachmentMapInput)(nil)).Elem(), PortVlanAttachmentMap{})
 	pulumi.RegisterOutputType(PortVlanAttachmentOutput{})
-	pulumi.RegisterOutputType(PortVlanAttachmentPtrOutput{})
 	pulumi.RegisterOutputType(PortVlanAttachmentArrayOutput{})
 	pulumi.RegisterOutputType(PortVlanAttachmentMapOutput{})
 }

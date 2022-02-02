@@ -120,7 +120,7 @@ type BgpSessionInput interface {
 }
 
 func (*BgpSession) ElementType() reflect.Type {
-	return reflect.TypeOf((*BgpSession)(nil))
+	return reflect.TypeOf((**BgpSession)(nil)).Elem()
 }
 
 func (i *BgpSession) ToBgpSessionOutput() BgpSessionOutput {
@@ -129,35 +129,6 @@ func (i *BgpSession) ToBgpSessionOutput() BgpSessionOutput {
 
 func (i *BgpSession) ToBgpSessionOutputWithContext(ctx context.Context) BgpSessionOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionOutput)
-}
-
-func (i *BgpSession) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
-	return i.ToBgpSessionPtrOutputWithContext(context.Background())
-}
-
-func (i *BgpSession) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionPtrOutput)
-}
-
-type BgpSessionPtrInput interface {
-	pulumi.Input
-
-	ToBgpSessionPtrOutput() BgpSessionPtrOutput
-	ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput
-}
-
-type bgpSessionPtrType BgpSessionArgs
-
-func (*bgpSessionPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**BgpSession)(nil))
-}
-
-func (i *bgpSessionPtrType) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
-	return i.ToBgpSessionPtrOutputWithContext(context.Background())
-}
-
-func (i *bgpSessionPtrType) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionPtrOutput)
 }
 
 // BgpSessionArrayInput is an input type that accepts BgpSessionArray and BgpSessionArrayOutput values.
@@ -213,7 +184,7 @@ func (i BgpSessionMap) ToBgpSessionMapOutputWithContext(ctx context.Context) Bgp
 type BgpSessionOutput struct{ *pulumi.OutputState }
 
 func (BgpSessionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*BgpSession)(nil))
+	return reflect.TypeOf((**BgpSession)(nil)).Elem()
 }
 
 func (o BgpSessionOutput) ToBgpSessionOutput() BgpSessionOutput {
@@ -224,44 +195,10 @@ func (o BgpSessionOutput) ToBgpSessionOutputWithContext(ctx context.Context) Bgp
 	return o
 }
 
-func (o BgpSessionOutput) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
-	return o.ToBgpSessionPtrOutputWithContext(context.Background())
-}
-
-func (o BgpSessionOutput) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v BgpSession) *BgpSession {
-		return &v
-	}).(BgpSessionPtrOutput)
-}
-
-type BgpSessionPtrOutput struct{ *pulumi.OutputState }
-
-func (BgpSessionPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**BgpSession)(nil))
-}
-
-func (o BgpSessionPtrOutput) ToBgpSessionPtrOutput() BgpSessionPtrOutput {
-	return o
-}
-
-func (o BgpSessionPtrOutput) ToBgpSessionPtrOutputWithContext(ctx context.Context) BgpSessionPtrOutput {
-	return o
-}
-
-func (o BgpSessionPtrOutput) Elem() BgpSessionOutput {
-	return o.ApplyT(func(v *BgpSession) BgpSession {
-		if v != nil {
-			return *v
-		}
-		var ret BgpSession
-		return ret
-	}).(BgpSessionOutput)
-}
-
 type BgpSessionArrayOutput struct{ *pulumi.OutputState }
 
 func (BgpSessionArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]BgpSession)(nil))
+	return reflect.TypeOf((*[]*BgpSession)(nil)).Elem()
 }
 
 func (o BgpSessionArrayOutput) ToBgpSessionArrayOutput() BgpSessionArrayOutput {
@@ -273,15 +210,15 @@ func (o BgpSessionArrayOutput) ToBgpSessionArrayOutputWithContext(ctx context.Co
 }
 
 func (o BgpSessionArrayOutput) Index(i pulumi.IntInput) BgpSessionOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) BgpSession {
-		return vs[0].([]BgpSession)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *BgpSession {
+		return vs[0].([]*BgpSession)[vs[1].(int)]
 	}).(BgpSessionOutput)
 }
 
 type BgpSessionMapOutput struct{ *pulumi.OutputState }
 
 func (BgpSessionMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]BgpSession)(nil))
+	return reflect.TypeOf((*map[string]*BgpSession)(nil)).Elem()
 }
 
 func (o BgpSessionMapOutput) ToBgpSessionMapOutput() BgpSessionMapOutput {
@@ -293,18 +230,16 @@ func (o BgpSessionMapOutput) ToBgpSessionMapOutputWithContext(ctx context.Contex
 }
 
 func (o BgpSessionMapOutput) MapIndex(k pulumi.StringInput) BgpSessionOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) BgpSession {
-		return vs[0].(map[string]BgpSession)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *BgpSession {
+		return vs[0].(map[string]*BgpSession)[vs[1].(string)]
 	}).(BgpSessionOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*BgpSessionInput)(nil)).Elem(), &BgpSession{})
-	pulumi.RegisterInputType(reflect.TypeOf((*BgpSessionPtrInput)(nil)).Elem(), &BgpSession{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BgpSessionArrayInput)(nil)).Elem(), BgpSessionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BgpSessionMapInput)(nil)).Elem(), BgpSessionMap{})
 	pulumi.RegisterOutputType(BgpSessionOutput{})
-	pulumi.RegisterOutputType(BgpSessionPtrOutput{})
 	pulumi.RegisterOutputType(BgpSessionArrayOutput{})
 	pulumi.RegisterOutputType(BgpSessionMapOutput{})
 }

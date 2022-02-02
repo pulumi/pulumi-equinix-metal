@@ -13,9 +13,7 @@ export function getReservedIpBlock(args?: GetReservedIpBlockArgs, opts?: pulumi.
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", {
         "id": args.id,
         "ipAddress": args.ipAddress,

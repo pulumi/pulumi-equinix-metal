@@ -40,6 +40,10 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
+// 		_ = equinix - metal.LookupPortOutput(ctx, GetPortOutputArgs{
+// 			DeviceId: testDevice.ID(),
+// 			Name:     pulumi.String("eth0"),
+// 		}, nil)
 // 		return nil
 // 	})
 // }

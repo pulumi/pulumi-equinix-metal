@@ -94,22 +94,22 @@ export class IpAttachment extends pulumi.CustomResource {
      */
     constructor(name: string, args: IpAttachmentArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: IpAttachmentArgs | IpAttachmentState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as IpAttachmentState | undefined;
-            inputs["address"] = state ? state.address : undefined;
-            inputs["addressFamily"] = state ? state.addressFamily : undefined;
-            inputs["cidr"] = state ? state.cidr : undefined;
-            inputs["cidrNotation"] = state ? state.cidrNotation : undefined;
-            inputs["deviceId"] = state ? state.deviceId : undefined;
-            inputs["gateway"] = state ? state.gateway : undefined;
-            inputs["global"] = state ? state.global : undefined;
-            inputs["manageable"] = state ? state.manageable : undefined;
-            inputs["management"] = state ? state.management : undefined;
-            inputs["netmask"] = state ? state.netmask : undefined;
-            inputs["network"] = state ? state.network : undefined;
-            inputs["public"] = state ? state.public : undefined;
+            resourceInputs["address"] = state ? state.address : undefined;
+            resourceInputs["addressFamily"] = state ? state.addressFamily : undefined;
+            resourceInputs["cidr"] = state ? state.cidr : undefined;
+            resourceInputs["cidrNotation"] = state ? state.cidrNotation : undefined;
+            resourceInputs["deviceId"] = state ? state.deviceId : undefined;
+            resourceInputs["gateway"] = state ? state.gateway : undefined;
+            resourceInputs["global"] = state ? state.global : undefined;
+            resourceInputs["manageable"] = state ? state.manageable : undefined;
+            resourceInputs["management"] = state ? state.management : undefined;
+            resourceInputs["netmask"] = state ? state.netmask : undefined;
+            resourceInputs["network"] = state ? state.network : undefined;
+            resourceInputs["public"] = state ? state.public : undefined;
         } else {
             const args = argsOrState as IpAttachmentArgs | undefined;
             if ((!args || args.cidrNotation === undefined) && !opts.urn) {
@@ -118,23 +118,21 @@ export class IpAttachment extends pulumi.CustomResource {
             if ((!args || args.deviceId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'deviceId'");
             }
-            inputs["cidrNotation"] = args ? args.cidrNotation : undefined;
-            inputs["deviceId"] = args ? args.deviceId : undefined;
-            inputs["address"] = undefined /*out*/;
-            inputs["addressFamily"] = undefined /*out*/;
-            inputs["cidr"] = undefined /*out*/;
-            inputs["gateway"] = undefined /*out*/;
-            inputs["global"] = undefined /*out*/;
-            inputs["manageable"] = undefined /*out*/;
-            inputs["management"] = undefined /*out*/;
-            inputs["netmask"] = undefined /*out*/;
-            inputs["network"] = undefined /*out*/;
-            inputs["public"] = undefined /*out*/;
+            resourceInputs["cidrNotation"] = args ? args.cidrNotation : undefined;
+            resourceInputs["deviceId"] = args ? args.deviceId : undefined;
+            resourceInputs["address"] = undefined /*out*/;
+            resourceInputs["addressFamily"] = undefined /*out*/;
+            resourceInputs["cidr"] = undefined /*out*/;
+            resourceInputs["gateway"] = undefined /*out*/;
+            resourceInputs["global"] = undefined /*out*/;
+            resourceInputs["manageable"] = undefined /*out*/;
+            resourceInputs["management"] = undefined /*out*/;
+            resourceInputs["netmask"] = undefined /*out*/;
+            resourceInputs["network"] = undefined /*out*/;
+            resourceInputs["public"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(IpAttachment.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(IpAttachment.__pulumiType, name, resourceInputs, opts);
     }
 }
 

@@ -24,10 +24,10 @@ import * as utilities from "./utilities";
  *     billingCycle: "hourly",
  *     projectId: projectId,
  * });
- * const testPort = testDevice.id.apply(id => equinix_metal.getPort({
- *     deviceId: id,
+ * const testPort = equinix_metal.getPortOutput({
+ *     deviceId: testDevice.id,
  *     name: "eth0",
- * }));
+ * });
  * ```
  */
 export function getPort(args?: GetPortArgs, opts?: pulumi.InvokeOptions): Promise<GetPortResult> {
@@ -36,9 +36,7 @@ export function getPort(args?: GetPortArgs, opts?: pulumi.InvokeOptions): Promis
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getPort:getPort", {
         "deviceId": args.deviceId,
         "name": args.name,

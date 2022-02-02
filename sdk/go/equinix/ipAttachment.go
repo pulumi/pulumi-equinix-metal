@@ -165,7 +165,7 @@ type IpAttachmentInput interface {
 }
 
 func (*IpAttachment) ElementType() reflect.Type {
-	return reflect.TypeOf((*IpAttachment)(nil))
+	return reflect.TypeOf((**IpAttachment)(nil)).Elem()
 }
 
 func (i *IpAttachment) ToIpAttachmentOutput() IpAttachmentOutput {
@@ -174,35 +174,6 @@ func (i *IpAttachment) ToIpAttachmentOutput() IpAttachmentOutput {
 
 func (i *IpAttachment) ToIpAttachmentOutputWithContext(ctx context.Context) IpAttachmentOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IpAttachmentOutput)
-}
-
-func (i *IpAttachment) ToIpAttachmentPtrOutput() IpAttachmentPtrOutput {
-	return i.ToIpAttachmentPtrOutputWithContext(context.Background())
-}
-
-func (i *IpAttachment) ToIpAttachmentPtrOutputWithContext(ctx context.Context) IpAttachmentPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IpAttachmentPtrOutput)
-}
-
-type IpAttachmentPtrInput interface {
-	pulumi.Input
-
-	ToIpAttachmentPtrOutput() IpAttachmentPtrOutput
-	ToIpAttachmentPtrOutputWithContext(ctx context.Context) IpAttachmentPtrOutput
-}
-
-type ipAttachmentPtrType IpAttachmentArgs
-
-func (*ipAttachmentPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**IpAttachment)(nil))
-}
-
-func (i *ipAttachmentPtrType) ToIpAttachmentPtrOutput() IpAttachmentPtrOutput {
-	return i.ToIpAttachmentPtrOutputWithContext(context.Background())
-}
-
-func (i *ipAttachmentPtrType) ToIpAttachmentPtrOutputWithContext(ctx context.Context) IpAttachmentPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IpAttachmentPtrOutput)
 }
 
 // IpAttachmentArrayInput is an input type that accepts IpAttachmentArray and IpAttachmentArrayOutput values.
@@ -258,7 +229,7 @@ func (i IpAttachmentMap) ToIpAttachmentMapOutputWithContext(ctx context.Context)
 type IpAttachmentOutput struct{ *pulumi.OutputState }
 
 func (IpAttachmentOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IpAttachment)(nil))
+	return reflect.TypeOf((**IpAttachment)(nil)).Elem()
 }
 
 func (o IpAttachmentOutput) ToIpAttachmentOutput() IpAttachmentOutput {
@@ -269,44 +240,10 @@ func (o IpAttachmentOutput) ToIpAttachmentOutputWithContext(ctx context.Context)
 	return o
 }
 
-func (o IpAttachmentOutput) ToIpAttachmentPtrOutput() IpAttachmentPtrOutput {
-	return o.ToIpAttachmentPtrOutputWithContext(context.Background())
-}
-
-func (o IpAttachmentOutput) ToIpAttachmentPtrOutputWithContext(ctx context.Context) IpAttachmentPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v IpAttachment) *IpAttachment {
-		return &v
-	}).(IpAttachmentPtrOutput)
-}
-
-type IpAttachmentPtrOutput struct{ *pulumi.OutputState }
-
-func (IpAttachmentPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**IpAttachment)(nil))
-}
-
-func (o IpAttachmentPtrOutput) ToIpAttachmentPtrOutput() IpAttachmentPtrOutput {
-	return o
-}
-
-func (o IpAttachmentPtrOutput) ToIpAttachmentPtrOutputWithContext(ctx context.Context) IpAttachmentPtrOutput {
-	return o
-}
-
-func (o IpAttachmentPtrOutput) Elem() IpAttachmentOutput {
-	return o.ApplyT(func(v *IpAttachment) IpAttachment {
-		if v != nil {
-			return *v
-		}
-		var ret IpAttachment
-		return ret
-	}).(IpAttachmentOutput)
-}
-
 type IpAttachmentArrayOutput struct{ *pulumi.OutputState }
 
 func (IpAttachmentArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]IpAttachment)(nil))
+	return reflect.TypeOf((*[]*IpAttachment)(nil)).Elem()
 }
 
 func (o IpAttachmentArrayOutput) ToIpAttachmentArrayOutput() IpAttachmentArrayOutput {
@@ -318,15 +255,15 @@ func (o IpAttachmentArrayOutput) ToIpAttachmentArrayOutputWithContext(ctx contex
 }
 
 func (o IpAttachmentArrayOutput) Index(i pulumi.IntInput) IpAttachmentOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpAttachment {
-		return vs[0].([]IpAttachment)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *IpAttachment {
+		return vs[0].([]*IpAttachment)[vs[1].(int)]
 	}).(IpAttachmentOutput)
 }
 
 type IpAttachmentMapOutput struct{ *pulumi.OutputState }
 
 func (IpAttachmentMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]IpAttachment)(nil))
+	return reflect.TypeOf((*map[string]*IpAttachment)(nil)).Elem()
 }
 
 func (o IpAttachmentMapOutput) ToIpAttachmentMapOutput() IpAttachmentMapOutput {
@@ -338,18 +275,16 @@ func (o IpAttachmentMapOutput) ToIpAttachmentMapOutputWithContext(ctx context.Co
 }
 
 func (o IpAttachmentMapOutput) MapIndex(k pulumi.StringInput) IpAttachmentOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) IpAttachment {
-		return vs[0].(map[string]IpAttachment)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *IpAttachment {
+		return vs[0].(map[string]*IpAttachment)[vs[1].(string)]
 	}).(IpAttachmentOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*IpAttachmentInput)(nil)).Elem(), &IpAttachment{})
-	pulumi.RegisterInputType(reflect.TypeOf((*IpAttachmentPtrInput)(nil)).Elem(), &IpAttachment{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IpAttachmentArrayInput)(nil)).Elem(), IpAttachmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IpAttachmentMapInput)(nil)).Elem(), IpAttachmentMap{})
 	pulumi.RegisterOutputType(IpAttachmentOutput{})
-	pulumi.RegisterOutputType(IpAttachmentPtrOutput{})
 	pulumi.RegisterOutputType(IpAttachmentArrayOutput{})
 	pulumi.RegisterOutputType(IpAttachmentMapOutput{})
 }

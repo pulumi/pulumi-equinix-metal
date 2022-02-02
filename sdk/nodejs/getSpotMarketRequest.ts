@@ -9,9 +9,7 @@ export function getSpotMarketRequest(args: GetSpotMarketRequestArgs, opts?: pulu
         opts = {}
     }
 
-    if (!opts.version) {
-        opts.version = utilities.getVersion();
-    }
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", {
         "requestId": args.requestId,
     }, opts);
