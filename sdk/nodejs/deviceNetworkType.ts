@@ -5,6 +5,10 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * ## Example Usage
+ *
+ * See the Network Types Guide for examples of this resource and to learn about the recommended `equinix-metal.Port` alternative.
+ *
  * ## Import
  *
  * This resource can also be imported using existing device ID

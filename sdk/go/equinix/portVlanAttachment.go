@@ -29,6 +29,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -81,6 +82,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )

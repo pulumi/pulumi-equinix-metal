@@ -18,15 +18,15 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		opt0 := "username@hostname"
 // 		_, err := equinix - metal.LookupProjectSshKey(ctx, &GetProjectSshKeyArgs{
-// 			Search:    &opt0,
+// 			Search:    pulumi.StringRef("username@hostname"),
 // 			ProjectId: local.Project_id,
 // 		}, nil)
 // 		if err != nil {
