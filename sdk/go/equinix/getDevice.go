@@ -22,17 +22,16 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		opt0 := local.Project_id
-// 		opt1 := "mydevice"
 // 		test, err := equinix - metal.LookupDevice(ctx, &GetDeviceArgs{
-// 			ProjectId: &opt0,
-// 			Hostname:  &opt1,
+// 			ProjectId: pulumi.StringRef(local.Project_id),
+// 			Hostname:  pulumi.StringRef("mydevice"),
 // 		}, nil)
 // 		if err != nil {
 // 			return err
@@ -47,6 +46,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )

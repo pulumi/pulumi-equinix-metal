@@ -10,6 +10,10 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal
 {
     /// <summary>
+    /// ## Example Usage
+    /// 
+    /// See the Network Types Guide for examples of this resource and to learn about the recommended `equinix-metal.Port` alternative.
+    /// 
     /// ## Import
     /// 
     /// This resource can also be imported using existing device ID

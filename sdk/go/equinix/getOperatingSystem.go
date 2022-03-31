@@ -18,19 +18,17 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		opt0 := "ubuntu"
-// 		opt1 := "20.04"
-// 		opt2 := "c3.medium.x86"
 // 		example, err := equinix - metal.GetOperatingSystem(ctx, &GetOperatingSystemArgs{
-// 			Distro:          &opt0,
-// 			Version:         &opt1,
-// 			ProvisionableOn: &opt2,
+// 			Distro:          pulumi.StringRef("ubuntu"),
+// 			Version:         pulumi.StringRef("20.04"),
+// 			ProvisionableOn: pulumi.StringRef("c3.medium.x86"),
 // 		}, nil)
 // 		if err != nil {
 // 			return err

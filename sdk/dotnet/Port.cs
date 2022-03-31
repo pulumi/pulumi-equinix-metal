@@ -9,6 +9,11 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EquinixMetal
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// See the Network Types Guide for examples of this resource.
+    /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/port:Port")]
     public partial class Port : Pulumi.CustomResource
     {

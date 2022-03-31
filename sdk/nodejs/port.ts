@@ -4,6 +4,11 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * See the Network Types Guide for examples of this resource.
+ */
 export class Port extends pulumi.CustomResource {
     /**
      * Get an existing Port resource's state with the given name, ID, and optional extra
