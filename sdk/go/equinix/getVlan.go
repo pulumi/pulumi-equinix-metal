@@ -21,6 +21,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -49,6 +50,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -63,13 +65,10 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		opt0 := local.Project_id
-// 		opt1 := 5
-// 		opt2 := "sv"
 // 		_, err = equinix - metal.LookupVlan(ctx, &GetVlanArgs{
-// 			ProjectId: &opt0,
-// 			Vxlan:     &opt1,
-// 			Metro:     &opt2,
+// 			ProjectId: pulumi.StringRef(local.Project_id),
+// 			Vxlan:     pulumi.IntRef(5),
+// 			Metro:     pulumi.StringRef("sv"),
 // 		}, nil)
 // 		if err != nil {
 // 			return err

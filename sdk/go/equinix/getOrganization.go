@@ -18,15 +18,15 @@ import (
 // package main
 //
 // import (
+// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 // 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		opt0 := local.Org_id
 // 		test, err := equinix - metal.LookupOrganization(ctx, &GetOrganizationArgs{
-// 			OrganizationId: &opt0,
+// 			OrganizationId: pulumi.StringRef(local.Org_id),
 // 		}, nil)
 // 		if err != nil {
 // 			return err

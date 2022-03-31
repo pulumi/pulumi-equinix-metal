@@ -374,7 +374,10 @@ class Port(pulumi.CustomResource):
                  vxlan_ids: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
                  __props__=None):
         """
-        Create a Port resource with the given unique name, props, and options.
+        ## Example Usage
+
+        See the Network Types Guide for examples of this resource.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] bonded: Whether the port should be bonded
@@ -392,7 +395,10 @@ class Port(pulumi.CustomResource):
                  args: PortArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Port resource with the given unique name, props, and options.
+        ## Example Usage
+
+        See the Network Types Guide for examples of this resource.
+
         :param str resource_name: The name of the resource.
         :param PortArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

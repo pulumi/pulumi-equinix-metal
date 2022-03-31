@@ -97,6 +97,10 @@ class DeviceNetworkType(pulumi.CustomResource):
                  type: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
+        ## Example Usage
+
+        See the Network Types Guide for examples of this resource and to learn about the recommended `Port` alternative.
+
         ## Import
 
         This resource can also be imported using existing device ID
@@ -117,6 +121,10 @@ class DeviceNetworkType(pulumi.CustomResource):
                  args: DeviceNetworkTypeArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        ## Example Usage
+
+        See the Network Types Guide for examples of this resource and to learn about the recommended `Port` alternative.
+
         ## Import
 
         This resource can also be imported using existing device ID

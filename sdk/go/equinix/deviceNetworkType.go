@@ -11,6 +11,10 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## Example Usage
+//
+// See the Network Types Guide for examples of this resource and to learn about the recommended `Port` alternative.
+//
 // ## Import
 //
 // This resource can also be imported using existing device ID
