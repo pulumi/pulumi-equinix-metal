@@ -40,7 +40,7 @@ namespace Pulumi.EquinixMetal
         ///             {
         ///                 "ny5",
         ///             },
-        ///             OperatingSystem = example.Apply(example =&gt; example.Id),
+        ///             OperatingSystem = example.Apply(example =&gt; example.Id).Apply(System.Enum.Parse&lt;EquinixMetal.Index/OperatingSystem.OperatingSystem&gt;),
         ///             BillingCycle = "hourly",
         ///             ProjectId = local.Project_id,
         ///         });
@@ -83,7 +83,7 @@ namespace Pulumi.EquinixMetal
         ///             {
         ///                 "ny5",
         ///             },
-        ///             OperatingSystem = example.Apply(example =&gt; example.Id),
+        ///             OperatingSystem = example.Apply(example =&gt; example.Id).Apply(System.Enum.Parse&lt;EquinixMetal.Index/OperatingSystem.OperatingSystem&gt;),
         ///             BillingCycle = "hourly",
         ///             ProjectId = local.Project_id,
         ///         });

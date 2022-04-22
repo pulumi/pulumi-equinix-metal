@@ -45,7 +45,7 @@ import * as utilities from "./utilities";
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  *     ipxeScriptUrl: "https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe",
- *     alwaysPxe: "false",
+ *     alwaysPxe: false,
  *     userData: data.ignition_config.example.rendered,
  * });
  * ```
