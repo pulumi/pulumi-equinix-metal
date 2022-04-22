@@ -112,7 +112,7 @@ def get_operating_system(distro: Optional[str] = None,
         hostname="tf.ubuntu",
         plan="c3.medium.x86",
         facilities=["ny5"],
-        operating_system=example.id,
+        operating_system=example.id.apply(lambda x: equinix_metal.OperatingSystem(x)),
         billing_cycle="hourly",
         project_id=local["project_id"])
     ```
@@ -165,7 +165,7 @@ def get_operating_system_output(distro: Optional[pulumi.Input[Optional[str]]] = 
         hostname="tf.ubuntu",
         plan="c3.medium.x86",
         facilities=["ny5"],
-        operating_system=example.id,
+        operating_system=example.id.apply(lambda x: equinix_metal.OperatingSystem(x)),
         billing_cycle="hourly",
         project_id=local["project_id"])
     ```

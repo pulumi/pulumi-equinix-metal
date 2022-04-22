@@ -22,7 +22,7 @@ import * as utilities from "./utilities";
  *     hostname: "tf.ubuntu",
  *     plan: "c3.medium.x86",
  *     facilities: ["ny5"],
- *     operatingSystem: example.then(example => example.id),
+ *     operatingSystem: example.then(example => example.id).apply((x) => equinix_metal.index/operatingsystem.OperatingSystem[x]),
  *     billingCycle: "hourly",
  *     projectId: local.project_id,
  * });
