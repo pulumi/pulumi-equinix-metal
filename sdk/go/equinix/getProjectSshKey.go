@@ -18,23 +18,26 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.LookupProjectSshKey(ctx, &GetProjectSshKeyArgs{
-// 			Search:    pulumi.StringRef("username@hostname"),
-// 			ProjectId: local.Project_id,
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.LookupProjectSshKey(ctx, &GetProjectSshKeyArgs{
+//				Search:    pulumi.StringRef("username@hostname"),
+//				ProjectId: local.Project_id,
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 func LookupProjectSshKey(ctx *pulumi.Context, args *LookupProjectSshKeyArgs, opts ...pulumi.InvokeOption) (*LookupProjectSshKeyResult, error) {
 	var rv LookupProjectSshKeyResult

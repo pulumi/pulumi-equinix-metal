@@ -155,7 +155,7 @@ func (i *Volume) ToVolumeOutputWithContext(ctx context.Context) VolumeOutput {
 // VolumeArrayInput is an input type that accepts VolumeArray and VolumeArrayOutput values.
 // You can construct a concrete instance of `VolumeArrayInput` via:
 //
-//          VolumeArray{ VolumeArgs{...} }
+//	VolumeArray{ VolumeArgs{...} }
 type VolumeArrayInput interface {
 	pulumi.Input
 
@@ -180,7 +180,7 @@ func (i VolumeArray) ToVolumeArrayOutputWithContext(ctx context.Context) VolumeA
 // VolumeMapInput is an input type that accepts VolumeMap and VolumeMapOutput values.
 // You can construct a concrete instance of `VolumeMapInput` via:
 //
-//          VolumeMap{ "key": VolumeArgs{...} }
+//	VolumeMap{ "key": VolumeArgs{...} }
 type VolumeMapInput interface {
 	pulumi.Input
 

@@ -21,55 +21,60 @@ import (
 // package main
 //
 // import (
-// 	"io/ioutil"
 //
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"io/ioutil"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func readFileOrPanic(path string) pulumi.StringPtrInput {
-// 	data, err := ioutil.ReadFile(path)
-// 	if err != nil {
-// 		panic(err.Error())
-// 	}
-// 	return pulumi.String(string(data))
-// }
+//	func readFileOrPanic(path string) pulumi.StringPtrInput {
+//		data, err := ioutil.ReadFile(path)
+//		if err != nil {
+//			panic(err.Error())
+//		}
+//		return pulumi.String(string(data))
+//	}
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewSshKey(ctx, "key1", &equinix-metal.SshKeyArgs{
-// 			PublicKey: readFileOrPanic("/home/terraform/.ssh/id_rsa.pub"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewDevice(ctx, "test", &equinix-metal.DeviceArgs{
-// 			Hostname: pulumi.String("test-device"),
-// 			Plan:     pulumi.String("c3.small.x86"),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("sjc1"),
-// 			},
-// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
-// 			BillingCycle:    pulumi.String("hourly"),
-// 			ProjectId:       pulumi.Any(local.Project_id),
-// 		}, pulumi.DependsOn([]pulumi.Resource{
-// 			pulumi.Resource("metal_ssh_key.key1"),
-// 		}))
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewSshKey(ctx, "key1", &equinix-metal.SshKeyArgs{
+//				PublicKey: readFileOrPanic("/home/terraform/.ssh/id_rsa.pub"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewDevice(ctx, "test", &equinix-metal.DeviceArgs{
+//				Hostname: pulumi.String("test-device"),
+//				Plan:     pulumi.String("c3.small.x86"),
+//				Facilities: pulumi.StringArray{
+//					pulumi.String("sjc1"),
+//				},
+//				OperatingSystem: pulumi.String("ubuntu_20_04"),
+//				BillingCycle:    pulumi.String("hourly"),
+//				ProjectId:       pulumi.Any(local.Project_id),
+//			}, pulumi.DependsOn([]pulumi.Resource{
+//				pulumi.Resource("metal_ssh_key.key1"),
+//			}))
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ## Import
 //
-// This resource can be imported using an existing SSH Key ID
+// # This resource can be imported using an existing SSH Key ID
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/sshKey:SshKey metal_ssh_key {existing_sshkey_id}
+//
+//	$ pulumi import equinix-metal:index/sshKey:SshKey metal_ssh_key {existing_sshkey_id}
+//
 // ```
 type SshKey struct {
 	pulumi.CustomResourceState
@@ -199,7 +204,7 @@ func (i *SshKey) ToSshKeyOutputWithContext(ctx context.Context) SshKeyOutput {
 // SshKeyArrayInput is an input type that accepts SshKeyArray and SshKeyArrayOutput values.
 // You can construct a concrete instance of `SshKeyArrayInput` via:
 //
-//          SshKeyArray{ SshKeyArgs{...} }
+//	SshKeyArray{ SshKeyArgs{...} }
 type SshKeyArrayInput interface {
 	pulumi.Input
 
@@ -224,7 +229,7 @@ func (i SshKeyArray) ToSshKeyArrayOutputWithContext(ctx context.Context) SshKeyA
 // SshKeyMapInput is an input type that accepts SshKeyMap and SshKeyMapOutput values.
 // You can construct a concrete instance of `SshKeyMapInput` via:
 //
-//          SshKeyMap{ "key": SshKeyArgs{...} }
+//	SshKeyMap{ "key": SshKeyArgs{...} }
 type SshKeyMapInput interface {
 	pulumi.Input
 

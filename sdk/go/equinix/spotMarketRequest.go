@@ -20,42 +20,47 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewSpotMarketRequest(ctx, "req", &equinix-metal.SpotMarketRequestArgs{
-// 			ProjectId:   pulumi.Any(local.Project_id),
-// 			MaxBidPrice: pulumi.Float64(0.03),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ny5"),
-// 			},
-// 			DevicesMin: pulumi.Int(1),
-// 			DevicesMax: pulumi.Int(1),
-// 			InstanceParameters: &SpotMarketRequestInstanceParametersArgs{
-// 				Hostname:        pulumi.String("testspot"),
-// 				BillingCycle:    pulumi.String("hourly"),
-// 				OperatingSystem: pulumi.String("ubuntu_20_04"),
-// 				Plan:            pulumi.String("c3.small.x86"),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewSpotMarketRequest(ctx, "req", &equinix-metal.SpotMarketRequestArgs{
+//				ProjectId:   pulumi.Any(local.Project_id),
+//				MaxBidPrice: pulumi.Float64(0.03),
+//				Facilities: pulumi.StringArray{
+//					pulumi.String("ny5"),
+//				},
+//				DevicesMin: pulumi.Int(1),
+//				DevicesMax: pulumi.Int(1),
+//				InstanceParameters: &SpotMarketRequestInstanceParametersArgs{
+//					Hostname:        pulumi.String("testspot"),
+//					BillingCycle:    pulumi.String("hourly"),
+//					OperatingSystem: pulumi.String("ubuntu_20_04"),
+//					Plan:            pulumi.String("c3.small.x86"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ## Import
 //
-// This resource can be imported using an existing spot market request ID
+// # This resource can be imported using an existing spot market request ID
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/spotMarketRequest:SpotMarketRequest metal_spot_market_request {existing_spot_market_request_id}
+//
+//	$ pulumi import equinix-metal:index/spotMarketRequest:SpotMarketRequest metal_spot_market_request {existing_spot_market_request_id}
+//
 // ```
 type SpotMarketRequest struct {
 	pulumi.CustomResourceState
@@ -303,7 +308,7 @@ func (i *SpotMarketRequest) ToSpotMarketRequestOutputWithContext(ctx context.Con
 // SpotMarketRequestArrayInput is an input type that accepts SpotMarketRequestArray and SpotMarketRequestArrayOutput values.
 // You can construct a concrete instance of `SpotMarketRequestArrayInput` via:
 //
-//          SpotMarketRequestArray{ SpotMarketRequestArgs{...} }
+//	SpotMarketRequestArray{ SpotMarketRequestArgs{...} }
 type SpotMarketRequestArrayInput interface {
 	pulumi.Input
 
@@ -328,7 +333,7 @@ func (i SpotMarketRequestArray) ToSpotMarketRequestArrayOutputWithContext(ctx co
 // SpotMarketRequestMapInput is an input type that accepts SpotMarketRequestMap and SpotMarketRequestMapOutput values.
 // You can construct a concrete instance of `SpotMarketRequestMapInput` via:
 //
-//          SpotMarketRequestMap{ "key": SpotMarketRequestArgs{...} }
+//	SpotMarketRequestMap{ "key": SpotMarketRequestArgs{...} }
 type SpotMarketRequestMapInput interface {
 	pulumi.Input
 

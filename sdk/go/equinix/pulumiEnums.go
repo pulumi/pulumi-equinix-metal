@@ -139,7 +139,7 @@ func (o BillingCyclePtrOutput) ToStringPtrOutputWithContext(ctx context.Context)
 // BillingCycleInput is an input type that accepts BillingCycleArgs and BillingCycleOutput values.
 // You can construct a concrete instance of `BillingCycleInput` via:
 //
-//          BillingCycleArgs{...}
+//	BillingCycleArgs{...}
 type BillingCycleInput interface {
 	pulumi.Input
 
@@ -327,7 +327,7 @@ func (o FacilityPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pul
 // FacilityInput is an input type that accepts FacilityArgs and FacilityOutput values.
 // You can construct a concrete instance of `FacilityInput` via:
 //
-//          FacilityArgs{...}
+//	FacilityArgs{...}
 type FacilityInput interface {
 	pulumi.Input
 
@@ -491,7 +491,7 @@ func (o IpBlockTypePtrOutput) ToStringPtrOutputWithContext(ctx context.Context) 
 // IpBlockTypeInput is an input type that accepts IpBlockTypeArgs and IpBlockTypeOutput values.
 // You can construct a concrete instance of `IpBlockTypeInput` via:
 //
-//          IpBlockTypeArgs{...}
+//	IpBlockTypeArgs{...}
 type IpBlockTypeInput interface {
 	pulumi.Input
 
@@ -657,7 +657,7 @@ func (o NetworkTypePtrOutput) ToStringPtrOutputWithContext(ctx context.Context) 
 // NetworkTypeInput is an input type that accepts NetworkTypeArgs and NetworkTypeOutput values.
 // You can construct a concrete instance of `NetworkTypeInput` via:
 //
-//          NetworkTypeArgs{...}
+//	NetworkTypeArgs{...}
 type NetworkTypeInput interface {
 	pulumi.Input
 
@@ -858,7 +858,7 @@ func (o OperatingSystemPtrOutput) ToStringPtrOutputWithContext(ctx context.Conte
 // OperatingSystemInput is an input type that accepts OperatingSystemArgs and OperatingSystemOutput values.
 // You can construct a concrete instance of `OperatingSystemInput` via:
 //
-//          OperatingSystemArgs{...}
+//	OperatingSystemArgs{...}
 type OperatingSystemInput interface {
 	pulumi.Input
 
@@ -1039,7 +1039,7 @@ func (o PlanPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.
 // PlanInput is an input type that accepts PlanArgs and PlanOutput values.
 // You can construct a concrete instance of `PlanInput` via:
 //
-//          PlanArgs{...}
+//	PlanArgs{...}
 type PlanInput interface {
 	pulumi.Input
 

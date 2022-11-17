@@ -18,23 +18,26 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		tfProject1, err := equinix - metal.LookupProject(ctx, &GetProjectArgs{
-// 			Name: pulumi.StringRef("Terraform Fun"),
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("usersOfTerraformFun", tfProject1.UserIds)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			tfProject1, err := equinix - metal.LookupProject(ctx, &GetProjectArgs{
+//				Name: pulumi.StringRef("Terraform Fun"),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("usersOfTerraformFun", tfProject1.UserIds)
+//			return nil
+//		})
+//	}
+//
 // ```
 func LookupProject(ctx *pulumi.Context, args *LookupProjectArgs, opts ...pulumi.InvokeOption) (*LookupProjectResult, error) {
 	var rv LookupProjectResult

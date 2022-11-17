@@ -13,7 +13,7 @@ import (
 
 // Provides a resource to allow users to manage Virtual Networks in their projects.
 //
-// To learn more about Layer 2 networking in Equinix Metal, refer to
+// # To learn more about Layer 2 networking in Equinix Metal, refer to
 //
 // * <https://metal.equinix.com/developers/docs/networking/layer2/>
 // * <https://metal.equinix.com/developers/docs/networking/layer2-configs/>
@@ -24,32 +24,35 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewVlan(ctx, "vlan1Vlan", &equinix-metal.VlanArgs{
-// 			Description: pulumi.String("VLAN in New Jersey"),
-// 			Facility:    pulumi.String("sv15"),
-// 			ProjectId:   pulumi.Any(local.Project_id),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewVlan(ctx, "vlan1Index/vlanVlan", &equinix-metal.VlanArgs{
-// 			Description: pulumi.String("VLAN in New Jersey"),
-// 			Metro:       pulumi.String("sv"),
-// 			ProjectId:   pulumi.Any(local.Project_id),
-// 			Vxlan:       pulumi.Int(1040),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewVlan(ctx, "vlan1Vlan", &equinix-metal.VlanArgs{
+//				Description: pulumi.String("VLAN in New Jersey"),
+//				Facility:    pulumi.String("sv15"),
+//				ProjectId:   pulumi.Any(local.Project_id),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewVlan(ctx, "vlan1Index/vlanVlan", &equinix-metal.VlanArgs{
+//				Description: pulumi.String("VLAN in New Jersey"),
+//				Metro:       pulumi.String("sv"),
+//				ProjectId:   pulumi.Any(local.Project_id),
+//				Vxlan:       pulumi.Int(1040),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ## Import
@@ -57,7 +60,9 @@ import (
 // This resource can be imported using an existing VLAN ID (UUID)
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/vlan:Vlan metal_vlan {existing_vlan_id}
+//
+//	$ pulumi import equinix-metal:index/vlan:Vlan metal_vlan {existing_vlan_id}
+//
 // ```
 type Vlan struct {
 	pulumi.CustomResourceState
@@ -183,7 +188,7 @@ func (i *Vlan) ToVlanOutputWithContext(ctx context.Context) VlanOutput {
 // VlanArrayInput is an input type that accepts VlanArray and VlanArrayOutput values.
 // You can construct a concrete instance of `VlanArrayInput` via:
 //
-//          VlanArray{ VlanArgs{...} }
+//	VlanArray{ VlanArgs{...} }
 type VlanArrayInput interface {
 	pulumi.Input
 
@@ -208,7 +213,7 @@ func (i VlanArray) ToVlanArrayOutputWithContext(ctx context.Context) VlanArrayOu
 // VlanMapInput is an input type that accepts VlanMap and VlanMapOutput values.
 // You can construct a concrete instance of `VlanMapInput` via:
 //
-//          VlanMap{ "key": VlanArgs{...} }
+//	VlanMap{ "key": VlanArgs{...} }
 type VlanMapInput interface {
 	pulumi.Input
 

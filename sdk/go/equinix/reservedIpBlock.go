@@ -32,99 +32,107 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewReservedIpBlock(ctx, "twoElasticAddresses", &equinix-metal.ReservedIpBlockArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Facility:  pulumi.String("sv15"),
-// 			Quantity:  pulumi.Int(2),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewReservedIpBlock(ctx, "testReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Type:      pulumi.String("public_ipv4"),
-// 			Metro:     pulumi.String("sv"),
-// 			Quantity:  pulumi.Int(1),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewReservedIpBlock(ctx, "testIndex/reservedIpBlockReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Type:      pulumi.String("global_ipv4"),
-// 			Quantity:  pulumi.Int(1),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewReservedIpBlock(ctx, "twoElasticAddresses", &equinix-metal.ReservedIpBlockArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Facility:  pulumi.String("sv15"),
+//				Quantity:  pulumi.Int(2),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewReservedIpBlock(ctx, "testReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Type:      pulumi.String("public_ipv4"),
+//				Metro:     pulumi.String("sv"),
+//				Quantity:  pulumi.Int(1),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewReservedIpBlock(ctx, "testIndex/reservedIpBlockReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Type:      pulumi.String("global_ipv4"),
+//				Quantity:  pulumi.Int(1),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
-// Allocate a block and run a device with public IPv4 from the block
+// # Allocate a block and run a device with public IPv4 from the block
 //
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		example, err := equinix - metal.NewReservedIpBlock(ctx, "example", &equinix-metal.ReservedIpBlockArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Facility:  pulumi.String("sv15"),
-// 			Quantity:  pulumi.Int(2),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewDevice(ctx, "nodes", &equinix-metal.DeviceArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("sv15"),
-// 			},
-// 			Plan:            pulumi.String("c3.small.x86"),
-// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
-// 			Hostname:        pulumi.String("test"),
-// 			BillingCycle:    pulumi.String("hourly"),
-// 			IpAddresses: DeviceIpAddressArray{
-// 				&DeviceIpAddressArgs{
-// 					Type: pulumi.String("public_ipv4"),
-// 					Cidr: pulumi.Int(31),
-// 					ReservationIds: pulumi.StringArray{
-// 						example.ID(),
-// 					},
-// 				},
-// 				&DeviceIpAddressArgs{
-// 					Type: pulumi.String("private_ipv4"),
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			example, err := equinix - metal.NewReservedIpBlock(ctx, "example", &equinix-metal.ReservedIpBlockArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Facility:  pulumi.String("sv15"),
+//				Quantity:  pulumi.Int(2),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewDevice(ctx, "nodes", &equinix-metal.DeviceArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Facilities: pulumi.StringArray{
+//					pulumi.String("sv15"),
+//				},
+//				Plan:            pulumi.String("c3.small.x86"),
+//				OperatingSystem: pulumi.String("ubuntu_20_04"),
+//				Hostname:        pulumi.String("test"),
+//				BillingCycle:    pulumi.String("hourly"),
+//				IpAddresses: DeviceIpAddressArray{
+//					&DeviceIpAddressArgs{
+//						Type: pulumi.String("public_ipv4"),
+//						Cidr: pulumi.Int(31),
+//						ReservationIds: pulumi.StringArray{
+//							example.ID(),
+//						},
+//					},
+//					&DeviceIpAddressArgs{
+//						Type: pulumi.String("private_ipv4"),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ## Import
 //
-// This resource can be imported using an existing IP reservation ID
+// # This resource can be imported using an existing IP reservation ID
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+//
+//	$ pulumi import equinix-metal:index/reservedIpBlock:ReservedIpBlock metal_reserved_ip_block {existing_ip_reservation_id}
+//
 // ```
 type ReservedIpBlock struct {
 	pulumi.CustomResourceState
@@ -332,7 +340,7 @@ func (i *ReservedIpBlock) ToReservedIpBlockOutputWithContext(ctx context.Context
 // ReservedIpBlockArrayInput is an input type that accepts ReservedIpBlockArray and ReservedIpBlockArrayOutput values.
 // You can construct a concrete instance of `ReservedIpBlockArrayInput` via:
 //
-//          ReservedIpBlockArray{ ReservedIpBlockArgs{...} }
+//	ReservedIpBlockArray{ ReservedIpBlockArgs{...} }
 type ReservedIpBlockArrayInput interface {
 	pulumi.Input
 
@@ -357,7 +365,7 @@ func (i ReservedIpBlockArray) ToReservedIpBlockArrayOutputWithContext(ctx contex
 // ReservedIpBlockMapInput is an input type that accepts ReservedIpBlockMap and ReservedIpBlockMapOutput values.
 // You can construct a concrete instance of `ReservedIpBlockMapInput` via:
 //
-//          ReservedIpBlockMap{ "key": ReservedIpBlockArgs{...} }
+//	ReservedIpBlockMap{ "key": ReservedIpBlockArgs{...} }
 type ReservedIpBlockMapInput interface {
 	pulumi.Input
 

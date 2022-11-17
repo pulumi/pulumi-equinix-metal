@@ -12,10 +12,12 @@ import (
 
 // ## Import
 //
-// This resource can be imported using an existing project ID
+// # This resource can be imported using an existing project ID
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/project:Project metal_project {existing_project_id}
+//
+//	$ pulumi import equinix-metal:index/project:Project metal_project {existing_project_id}
+//
 // ```
 type Project struct {
 	pulumi.CustomResourceState
@@ -155,7 +157,7 @@ func (i *Project) ToProjectOutputWithContext(ctx context.Context) ProjectOutput 
 // ProjectArrayInput is an input type that accepts ProjectArray and ProjectArrayOutput values.
 // You can construct a concrete instance of `ProjectArrayInput` via:
 //
-//          ProjectArray{ ProjectArgs{...} }
+//	ProjectArray{ ProjectArgs{...} }
 type ProjectArrayInput interface {
 	pulumi.Input
 
@@ -180,7 +182,7 @@ func (i ProjectArray) ToProjectArrayOutputWithContext(ctx context.Context) Proje
 // ProjectMapInput is an input type that accepts ProjectMap and ProjectMapOutput values.
 // You can construct a concrete instance of `ProjectMapInput` via:
 //
-//          ProjectMap{ "key": ProjectArgs{...} }
+//	ProjectMap{ "key": ProjectArgs{...} }
 type ProjectMapInput interface {
 	pulumi.Input
 

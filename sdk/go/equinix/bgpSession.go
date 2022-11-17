@@ -134,7 +134,7 @@ func (i *BgpSession) ToBgpSessionOutputWithContext(ctx context.Context) BgpSessi
 // BgpSessionArrayInput is an input type that accepts BgpSessionArray and BgpSessionArrayOutput values.
 // You can construct a concrete instance of `BgpSessionArrayInput` via:
 //
-//          BgpSessionArray{ BgpSessionArgs{...} }
+//	BgpSessionArray{ BgpSessionArgs{...} }
 type BgpSessionArrayInput interface {
 	pulumi.Input
 
@@ -159,7 +159,7 @@ func (i BgpSessionArray) ToBgpSessionArrayOutputWithContext(ctx context.Context)
 // BgpSessionMapInput is an input type that accepts BgpSessionMap and BgpSessionMapOutput values.
 // You can construct a concrete instance of `BgpSessionMapInput` via:
 //
-//          BgpSessionMap{ "key": BgpSessionArgs{...} }
+//	BgpSessionMap{ "key": BgpSessionArgs{...} }
 type BgpSessionMapInput interface {
 	pulumi.Input
 

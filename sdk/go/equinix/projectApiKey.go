@@ -17,23 +17,26 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewProjectApiKey(ctx, "test", &equinix-metal.ProjectApiKeyArgs{
-// 			ProjectId:   pulumi.Any(local.Existing_project_id),
-// 			Description: pulumi.String("Read-only key scoped to a projct"),
-// 			ReadOnly:    pulumi.Bool(true),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewProjectApiKey(ctx, "test", &equinix-metal.ProjectApiKeyArgs{
+//				ProjectId:   pulumi.Any(local.Existing_project_id),
+//				Description: pulumi.String("Read-only key scoped to a projct"),
+//				ReadOnly:    pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type ProjectApiKey struct {
 	pulumi.CustomResourceState
@@ -161,7 +164,7 @@ func (i *ProjectApiKey) ToProjectApiKeyOutputWithContext(ctx context.Context) Pr
 // ProjectApiKeyArrayInput is an input type that accepts ProjectApiKeyArray and ProjectApiKeyArrayOutput values.
 // You can construct a concrete instance of `ProjectApiKeyArrayInput` via:
 //
-//          ProjectApiKeyArray{ ProjectApiKeyArgs{...} }
+//	ProjectApiKeyArray{ ProjectApiKeyArgs{...} }
 type ProjectApiKeyArrayInput interface {
 	pulumi.Input
 
@@ -186,7 +189,7 @@ func (i ProjectApiKeyArray) ToProjectApiKeyArrayOutputWithContext(ctx context.Co
 // ProjectApiKeyMapInput is an input type that accepts ProjectApiKeyMap and ProjectApiKeyMapOutput values.
 // You can construct a concrete instance of `ProjectApiKeyMapInput` via:
 //
-//          ProjectApiKeyMap{ "key": ProjectApiKeyArgs{...} }
+//	ProjectApiKeyMap{ "key": ProjectApiKeyArgs{...} }
 type ProjectApiKeyMapInput interface {
 	pulumi.Input
 

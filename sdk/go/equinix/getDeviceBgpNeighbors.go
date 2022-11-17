@@ -22,23 +22,26 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		test, err := equinix - metal.GetDeviceBgpNeighbors(ctx, &GetDeviceBgpNeighborsArgs{
-// 			DeviceId: "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("bgpNeighborsListing", test.BgpNeighbors)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			test, err := equinix - metal.GetDeviceBgpNeighbors(ctx, &GetDeviceBgpNeighborsArgs{
+//				DeviceId: "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("bgpNeighborsListing", test.BgpNeighbors)
+//			return nil
+//		})
+//	}
+//
 // ```
 func GetDeviceBgpNeighbors(ctx *pulumi.Context, args *GetDeviceBgpNeighborsArgs, opts ...pulumi.InvokeOption) (*GetDeviceBgpNeighborsResult, error) {
 	var rv GetDeviceBgpNeighborsResult
