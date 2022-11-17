@@ -18,30 +18,33 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
-// 			Description: pulumi.String("test VLAN in SV"),
-// 			Metro:       pulumi.String("sv"),
-// 			ProjectId:   pulumi.Any(local.Project_id),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.LookupGateway(ctx, &GetGatewayArgs{
-// 			GatewayId: local.Gateway_id,
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
+//				Description: pulumi.String("test VLAN in SV"),
+//				Metro:       pulumi.String("sv"),
+//				ProjectId:   pulumi.Any(local.Project_id),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.LookupGateway(ctx, &GetGatewayArgs{
+//				GatewayId: local.Gateway_id,
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 func LookupGateway(ctx *pulumi.Context, args *LookupGatewayArgs, opts ...pulumi.InvokeOption) (*LookupGatewayResult, error) {
 	var rv LookupGatewayResult

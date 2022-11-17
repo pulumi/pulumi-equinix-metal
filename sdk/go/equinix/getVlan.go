@@ -21,61 +21,67 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		foovlan, err := equinix - metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Metro:     pulumi.String("sv"),
-// 			Vxlan:     pulumi.Int(5),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_ = equinix - metal.LookupVlanOutput(ctx, GetVlanOutputArgs{
-// 			VlanId: foovlan.ID(),
-// 		}, nil)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			foovlan, err := equinix - metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Metro:     pulumi.String("sv"),
+//				Vxlan:     pulumi.Int(5),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_ = equinix - metal.LookupVlanOutput(ctx, GetVlanOutputArgs{
+//				VlanId: foovlan.ID(),
+//			}, nil)
+//			return nil
+//		})
+//	}
+//
 // ```
 //
-// Fetch a vlan by project ID, vxlan and metro
+// # Fetch a vlan by project ID, vxlan and metro
 //
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Metro:     pulumi.String("sv"),
-// 			Vxlan:     pulumi.Int(5),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.LookupVlan(ctx, &GetVlanArgs{
-// 			ProjectId: pulumi.StringRef(local.Project_id),
-// 			Vxlan:     pulumi.IntRef(5),
-// 			Metro:     pulumi.StringRef("sv"),
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Metro:     pulumi.String("sv"),
+//				Vxlan:     pulumi.Int(5),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.LookupVlan(ctx, &GetVlanArgs{
+//				ProjectId: pulumi.StringRef(local.Project_id),
+//				Vxlan:     pulumi.IntRef(5),
+//				Metro:     pulumi.StringRef("sv"),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 func LookupVlan(ctx *pulumi.Context, args *LookupVlanArgs, opts ...pulumi.InvokeOption) (*LookupVlanResult, error) {
 	var rv LookupVlanResult

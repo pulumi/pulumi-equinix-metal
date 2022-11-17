@@ -21,41 +21,44 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		projectId := "52000fb2-ee46-4673-93a8-de2c2bdba33c"
-// 		connId := "73f12f29-3e19-43a0-8e90-ae81580db1e0"
-// 		testConnection, err := equinix - metal.LookupConnection(ctx, &GetConnectionArgs{
-// 			ConnectionId: connId,
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
-// 			ProjectId: pulumi.String(projectId),
-// 			Metro:     pulumi.String(testConnection.Metro),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewVirtualCircuit(ctx, "testVirtualCircuit", &equinix-metal.VirtualCircuitArgs{
-// 			ConnectionId: pulumi.String(connId),
-// 			ProjectId:    pulumi.String(projectId),
-// 			PortId:       pulumi.String(testConnection.Ports[0].Id),
-// 			VlanId:       testVlan.ID(),
-// 			NniVlan:      pulumi.Int(1056),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			projectId := "52000fb2-ee46-4673-93a8-de2c2bdba33c"
+//			connId := "73f12f29-3e19-43a0-8e90-ae81580db1e0"
+//			testConnection, err := equinix - metal.LookupConnection(ctx, &GetConnectionArgs{
+//				ConnectionId: connId,
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
+//				ProjectId: pulumi.String(projectId),
+//				Metro:     pulumi.String(testConnection.Metro),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewVirtualCircuit(ctx, "testVirtualCircuit", &equinix-metal.VirtualCircuitArgs{
+//				ConnectionId: pulumi.String(connId),
+//				ProjectId:    pulumi.String(projectId),
+//				PortId:       pulumi.String(testConnection.Ports[0].Id),
+//				VlanId:       testVlan.ID(),
+//				NniVlan:      pulumi.Int(1056),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type VirtualCircuit struct {
 	pulumi.CustomResourceState
@@ -256,7 +259,7 @@ func (i *VirtualCircuit) ToVirtualCircuitOutputWithContext(ctx context.Context) 
 // VirtualCircuitArrayInput is an input type that accepts VirtualCircuitArray and VirtualCircuitArrayOutput values.
 // You can construct a concrete instance of `VirtualCircuitArrayInput` via:
 //
-//          VirtualCircuitArray{ VirtualCircuitArgs{...} }
+//	VirtualCircuitArray{ VirtualCircuitArgs{...} }
 type VirtualCircuitArrayInput interface {
 	pulumi.Input
 
@@ -281,7 +284,7 @@ func (i VirtualCircuitArray) ToVirtualCircuitArrayOutputWithContext(ctx context.
 // VirtualCircuitMapInput is an input type that accepts VirtualCircuitMap and VirtualCircuitMapOutput values.
 // You can construct a concrete instance of `VirtualCircuitMapInput` via:
 //
-//          VirtualCircuitMap{ "key": VirtualCircuitArgs{...} }
+//	VirtualCircuitMap{ "key": VirtualCircuitArgs{...} }
 type VirtualCircuitMapInput interface {
 	pulumi.Input
 

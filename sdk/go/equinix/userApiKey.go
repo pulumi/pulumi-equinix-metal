@@ -17,22 +17,25 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewUserApiKey(ctx, "test", &equinix-metal.UserApiKeyArgs{
-// 			Description: pulumi.String("Read-only user key"),
-// 			ReadOnly:    pulumi.Bool(true),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewUserApiKey(ctx, "test", &equinix-metal.UserApiKeyArgs{
+//				Description: pulumi.String("Read-only user key"),
+//				ReadOnly:    pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type UserApiKey struct {
 	pulumi.CustomResourceState
@@ -153,7 +156,7 @@ func (i *UserApiKey) ToUserApiKeyOutputWithContext(ctx context.Context) UserApiK
 // UserApiKeyArrayInput is an input type that accepts UserApiKeyArray and UserApiKeyArrayOutput values.
 // You can construct a concrete instance of `UserApiKeyArrayInput` via:
 //
-//          UserApiKeyArray{ UserApiKeyArgs{...} }
+//	UserApiKeyArray{ UserApiKeyArgs{...} }
 type UserApiKeyArrayInput interface {
 	pulumi.Input
 
@@ -178,7 +181,7 @@ func (i UserApiKeyArray) ToUserApiKeyArrayOutputWithContext(ctx context.Context)
 // UserApiKeyMapInput is an input type that accepts UserApiKeyMap and UserApiKeyMapOutput values.
 // You can construct a concrete instance of `UserApiKeyMapInput` via:
 //
-//          UserApiKeyMap{ "key": UserApiKeyArgs{...} }
+//	UserApiKeyMap{ "key": UserApiKeyArgs{...} }
 type UserApiKeyMapInput interface {
 	pulumi.Input
 

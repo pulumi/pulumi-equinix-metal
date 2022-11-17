@@ -17,10 +17,12 @@ import (
 //
 // ## Import
 //
-// This resource can also be imported using existing device ID
+// # This resource can also be imported using existing device ID
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/deviceNetworkType:DeviceNetworkType metal_device_network_type {existing device_id}
+//
+//	$ pulumi import equinix-metal:index/deviceNetworkType:DeviceNetworkType metal_device_network_type {existing device_id}
+//
 // ```
 type DeviceNetworkType struct {
 	pulumi.CustomResourceState
@@ -124,7 +126,7 @@ func (i *DeviceNetworkType) ToDeviceNetworkTypeOutputWithContext(ctx context.Con
 // DeviceNetworkTypeArrayInput is an input type that accepts DeviceNetworkTypeArray and DeviceNetworkTypeArrayOutput values.
 // You can construct a concrete instance of `DeviceNetworkTypeArrayInput` via:
 //
-//          DeviceNetworkTypeArray{ DeviceNetworkTypeArgs{...} }
+//	DeviceNetworkTypeArray{ DeviceNetworkTypeArgs{...} }
 type DeviceNetworkTypeArrayInput interface {
 	pulumi.Input
 
@@ -149,7 +151,7 @@ func (i DeviceNetworkTypeArray) ToDeviceNetworkTypeArrayOutputWithContext(ctx co
 // DeviceNetworkTypeMapInput is an input type that accepts DeviceNetworkTypeMap and DeviceNetworkTypeMapOutput values.
 // You can construct a concrete instance of `DeviceNetworkTypeMapInput` via:
 //
-//          DeviceNetworkTypeMap{ "key": DeviceNetworkTypeArgs{...} }
+//	DeviceNetworkTypeMap{ "key": DeviceNetworkTypeArgs{...} }
 type DeviceNetworkTypeMapInput interface {
 	pulumi.Input
 

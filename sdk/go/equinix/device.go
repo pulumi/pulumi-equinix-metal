@@ -15,68 +15,76 @@ import (
 // modify, and delete devices.
 //
 // > **Note:** All arguments including the `rootPassword` and `userData` will be stored in
-//  the raw state as plain-text.
+//
+//	the raw state as plain-text.
+//
 // [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
 //
 // ## Example Usage
 //
-// Create a device and add it to coolProject
+// # Create a device and add it to coolProject
 //
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
-// 			Hostname:        pulumi.String("tf.coreos2"),
-// 			Plan:            pulumi.String("c3.small.x86"),
-// 			Metro:           pulumi.String("sv"),
-// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
-// 			BillingCycle:    pulumi.String("hourly"),
-// 			ProjectId:       pulumi.Any(local.Project_id),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
+//				Hostname:        pulumi.String("tf.coreos2"),
+//				Plan:            pulumi.String("c3.small.x86"),
+//				Metro:           pulumi.String("sv"),
+//				OperatingSystem: pulumi.String("ubuntu_20_04"),
+//				BillingCycle:    pulumi.String("hourly"),
+//				ProjectId:       pulumi.Any(local.Project_id),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
-// Same as above, but boot via iPXE initially, using the Ignition Provider for provisioning
+// # Same as above, but boot via iPXE initially, using the Ignition Provider for provisioning
 //
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewDevice(ctx, "pxe1", &equinix-metal.DeviceArgs{
-// 			Hostname:        pulumi.String("tf.coreos2-pxe"),
-// 			Plan:            pulumi.String("c3.small.x86"),
-// 			Metro:           pulumi.String("sv"),
-// 			OperatingSystem: pulumi.String("custom_ipxe"),
-// 			BillingCycle:    pulumi.String("hourly"),
-// 			ProjectId:       pulumi.Any(local.Project_id),
-// 			IpxeScriptUrl:   pulumi.String("https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe"),
-// 			AlwaysPxe:       pulumi.Bool(false),
-// 			UserData:        pulumi.Any(data.Ignition_config.Example.Rendered),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewDevice(ctx, "pxe1", &equinix-metal.DeviceArgs{
+//				Hostname:        pulumi.String("tf.coreos2-pxe"),
+//				Plan:            pulumi.String("c3.small.x86"),
+//				Metro:           pulumi.String("sv"),
+//				OperatingSystem: pulumi.String("custom_ipxe"),
+//				BillingCycle:    pulumi.String("hourly"),
+//				ProjectId:       pulumi.Any(local.Project_id),
+//				IpxeScriptUrl:   pulumi.String("https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe"),
+//				AlwaysPxe:       pulumi.Bool(false),
+//				UserData:        pulumi.Any(data.Ignition_config.Example.Rendered),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
@@ -85,35 +93,38 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
-// 			Hostname: pulumi.String("tf.coreos2"),
-// 			Plan:     pulumi.String("c3.small.x86"),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ny5"),
-// 			},
-// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
-// 			BillingCycle:    pulumi.String("hourly"),
-// 			ProjectId:       pulumi.Any(local.Project_id),
-// 			IpAddresses: DeviceIpAddressArray{
-// 				&DeviceIpAddressArgs{
-// 					Type: pulumi.String("private_ipv4"),
-// 					Cidr: pulumi.Int(30),
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
+//				Hostname: pulumi.String("tf.coreos2"),
+//				Plan:     pulumi.String("c3.small.x86"),
+//				Facilities: pulumi.StringArray{
+//					pulumi.String("ny5"),
+//				},
+//				OperatingSystem: pulumi.String("ubuntu_20_04"),
+//				BillingCycle:    pulumi.String("hourly"),
+//				ProjectId:       pulumi.Any(local.Project_id),
+//				IpAddresses: DeviceIpAddressArray{
+//					&DeviceIpAddressArgs{
+//						Type: pulumi.String("private_ipv4"),
+//						Cidr: pulumi.Int(30),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // Deploy device on next-available reserved hardware and do custom partitioning.
@@ -122,41 +133,46 @@ import (
 // package main
 //
 // import (
-// 	"fmt"
 //
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"fmt"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
-// 			Hostname: pulumi.String("tftest"),
-// 			Plan:     pulumi.String("c3.small.x86"),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("ny5"),
-// 			},
-// 			OperatingSystem:       pulumi.String("ubuntu_20_04"),
-// 			BillingCycle:          pulumi.String("hourly"),
-// 			ProjectId:             pulumi.Any(local.Project_id),
-// 			HardwareReservationId: pulumi.String("next-available"),
-// 			Storage:               pulumi.String(fmt.Sprintf("%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v", "{\n", "  \"disks\": [\n", "    {\n", "      \"device\": \"/dev/sda\",\n", "      \"wipeTable\": true,\n", "      \"partitions\": [\n", "        {\n", "          \"label\": \"BIOS\",\n", "          \"number\": 1,\n", "          \"size\": \"4096\"\n", "        },\n", "        {\n", "          \"label\": \"SWAP\",\n", "          \"number\": 2,\n", "          \"size\": \"3993600\"\n", "        },\n", "        {\n", "          \"label\": \"ROOT\",\n", "          \"number\": 3,\n", "          \"size\": \"0\"\n", "        }\n", "      ]\n", "    }\n", "  ],\n", "  \"filesystems\": [\n", "    {\n", "      \"mount\": {\n", "        \"device\": \"/dev/sda3\",\n", "        \"format\": \"ext4\",\n", "        \"point\": \"/\",\n", "        \"create\": {\n", "          \"options\": [\n", "            \"-L\",\n", "            \"ROOT\"\n", "          ]\n", "        }\n", "      }\n", "    },\n", "    {\n", "      \"mount\": {\n", "        \"device\": \"/dev/sda2\",\n", "        \"format\": \"swap\",\n", "        \"point\": \"none\",\n", "        \"create\": {\n", "          \"options\": [\n", "            \"-L\",\n", "            \"SWAP\"\n", "          ]\n", "        }\n", "      }\n", "    }\n", "  ]\n", "}\n")),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
+//				Hostname: pulumi.String("tftest"),
+//				Plan:     pulumi.String("c3.small.x86"),
+//				Facilities: pulumi.StringArray{
+//					pulumi.String("ny5"),
+//				},
+//				OperatingSystem:       pulumi.String("ubuntu_20_04"),
+//				BillingCycle:          pulumi.String("hourly"),
+//				ProjectId:             pulumi.Any(local.Project_id),
+//				HardwareReservationId: pulumi.String("next-available"),
+//				Storage:               pulumi.String(fmt.Sprintf("%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v", "{\n", "  \"disks\": [\n", "    {\n", "      \"device\": \"/dev/sda\",\n", "      \"wipeTable\": true,\n", "      \"partitions\": [\n", "        {\n", "          \"label\": \"BIOS\",\n", "          \"number\": 1,\n", "          \"size\": \"4096\"\n", "        },\n", "        {\n", "          \"label\": \"SWAP\",\n", "          \"number\": 2,\n", "          \"size\": \"3993600\"\n", "        },\n", "        {\n", "          \"label\": \"ROOT\",\n", "          \"number\": 3,\n", "          \"size\": \"0\"\n", "        }\n", "      ]\n", "    }\n", "  ],\n", "  \"filesystems\": [\n", "    {\n", "      \"mount\": {\n", "        \"device\": \"/dev/sda3\",\n", "        \"format\": \"ext4\",\n", "        \"point\": \"/\",\n", "        \"create\": {\n", "          \"options\": [\n", "            \"-L\",\n", "            \"ROOT\"\n", "          ]\n", "        }\n", "      }\n", "    },\n", "    {\n", "      \"mount\": {\n", "        \"device\": \"/dev/sda2\",\n", "        \"format\": \"swap\",\n", "        \"point\": \"none\",\n", "        \"create\": {\n", "          \"options\": [\n", "            \"-L\",\n", "            \"SWAP\"\n", "          ]\n", "        }\n", "      }\n", "    }\n", "  ]\n", "}\n")),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ## Import
 //
-// This resource can be imported using an existing device ID
+// # This resource can be imported using an existing device ID
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+//
+//	$ pulumi import equinix-metal:index/device:Device metal_device {existing_device_id}
+//
 // ```
 type Device struct {
 	pulumi.CustomResourceState
@@ -566,7 +582,7 @@ func (i *Device) ToDeviceOutputWithContext(ctx context.Context) DeviceOutput {
 // DeviceArrayInput is an input type that accepts DeviceArray and DeviceArrayOutput values.
 // You can construct a concrete instance of `DeviceArrayInput` via:
 //
-//          DeviceArray{ DeviceArgs{...} }
+//	DeviceArray{ DeviceArgs{...} }
 type DeviceArrayInput interface {
 	pulumi.Input
 
@@ -591,7 +607,7 @@ func (i DeviceArray) ToDeviceArrayOutputWithContext(ctx context.Context) DeviceA
 // DeviceMapInput is an input type that accepts DeviceMap and DeviceMapOutput values.
 // You can construct a concrete instance of `DeviceMapInput` via:
 //
-//          DeviceMap{ "key": DeviceArgs{...} }
+//	DeviceMap{ "key": DeviceArgs{...} }
 type DeviceMapInput interface {
 	pulumi.Input
 

@@ -18,29 +18,34 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := equinix - metal.NewOrganization(ctx, "tfOrganization1", &equinix-metal.OrganizationArgs{
-// 			Description: pulumi.String("quux"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := equinix - metal.NewOrganization(ctx, "tfOrganization1", &equinix-metal.OrganizationArgs{
+//				Description: pulumi.String("quux"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ## Import
 //
-// This resource can be imported using an existing organization ID
+// # This resource can be imported using an existing organization ID
 //
 // ```sh
-//  $ pulumi import equinix-metal:index/organization:Organization metal_organization {existing_organization_id}
+//
+//	$ pulumi import equinix-metal:index/organization:Organization metal_organization {existing_organization_id}
+//
 // ```
 type Organization struct {
 	pulumi.CustomResourceState
@@ -174,7 +179,7 @@ func (i *Organization) ToOrganizationOutputWithContext(ctx context.Context) Orga
 // OrganizationArrayInput is an input type that accepts OrganizationArray and OrganizationArrayOutput values.
 // You can construct a concrete instance of `OrganizationArrayInput` via:
 //
-//          OrganizationArray{ OrganizationArgs{...} }
+//	OrganizationArray{ OrganizationArgs{...} }
 type OrganizationArrayInput interface {
 	pulumi.Input
 
@@ -199,7 +204,7 @@ func (i OrganizationArray) ToOrganizationArrayOutputWithContext(ctx context.Cont
 // OrganizationMapInput is an input type that accepts OrganizationMap and OrganizationMapOutput values.
 // You can construct a concrete instance of `OrganizationMapInput` via:
 //
-//          OrganizationMap{ "key": OrganizationArgs{...} }
+//	OrganizationMap{ "key": OrganizationArgs{...} }
 type OrganizationMapInput interface {
 	pulumi.Input
 

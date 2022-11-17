@@ -13,7 +13,9 @@ import (
 // Provides an Equinix Metal device datasource.
 //
 // > **Note:** All arguments including the `rootPassword` and `userData` will be stored in
-//  the raw state as plain-text.
+//
+//	the raw state as plain-text.
+//
 // [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
 //
 // ## Example Usage
@@ -22,45 +24,51 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		test, err := equinix - metal.LookupDevice(ctx, &GetDeviceArgs{
-// 			ProjectId: pulumi.StringRef(local.Project_id),
-// 			Hostname:  pulumi.StringRef("mydevice"),
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("id", test.Id)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			test, err := equinix - metal.LookupDevice(ctx, &GetDeviceArgs{
+//				ProjectId: pulumi.StringRef(local.Project_id),
+//				Hostname:  pulumi.StringRef("mydevice"),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("id", test.Id)
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		test, err := equinix - metal.LookupDevice(ctx, nil, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("ipv4", test.AccessPublicIpv4)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			test, err := equinix - metal.LookupDevice(ctx, nil, nil)
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("ipv4", test.AccessPublicIpv4)
+//			return nil
+//		})
+//	}
+//
 // ```
 func LookupDevice(ctx *pulumi.Context, args *LookupDeviceArgs, opts ...pulumi.InvokeOption) (*LookupDeviceResult, error) {
 	var rv LookupDeviceResult
@@ -241,11 +249,11 @@ func (o LookupDeviceResultOutput) NetworkType() pulumi.StringOutput {
 }
 
 // The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
-// * Public IPv4 at `metal_device.name.network.0`
-// * IPv6 at `metal_device.name.network.1`
-// * Private IPv4 at `metal_device.name.network.2`
-//   Elastic addresses then stack by type - an assigned public IPv4 will go after the management public IPv4 (to index 1), and will then shift the indices of the IPv6 and private IPv4. Assigned private IPv4 will go after the management private IPv4 (to the end of the network list).
-//   The fields of the network attributes are:
+//   - Public IPv4 at `metal_device.name.network.0`
+//   - IPv6 at `metal_device.name.network.1`
+//   - Private IPv4 at `metal_device.name.network.2`
+//     Elastic addresses then stack by type - an assigned public IPv4 will go after the management public IPv4 (to index 1), and will then shift the indices of the IPv6 and private IPv4. Assigned private IPv4 will go after the management private IPv4 (to the end of the network list).
+//     The fields of the network attributes are:
 func (o LookupDeviceResultOutput) Networks() GetDeviceNetworkArrayOutput {
 	return o.ApplyT(func(v LookupDeviceResult) []GetDeviceNetwork { return v.Networks }).(GetDeviceNetworkArrayOutput)
 }

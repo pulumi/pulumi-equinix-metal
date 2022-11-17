@@ -179,7 +179,7 @@ func (i *IpAttachment) ToIpAttachmentOutputWithContext(ctx context.Context) IpAt
 // IpAttachmentArrayInput is an input type that accepts IpAttachmentArray and IpAttachmentArrayOutput values.
 // You can construct a concrete instance of `IpAttachmentArrayInput` via:
 //
-//          IpAttachmentArray{ IpAttachmentArgs{...} }
+//	IpAttachmentArray{ IpAttachmentArgs{...} }
 type IpAttachmentArrayInput interface {
 	pulumi.Input
 
@@ -204,7 +204,7 @@ func (i IpAttachmentArray) ToIpAttachmentArrayOutputWithContext(ctx context.Cont
 // IpAttachmentMapInput is an input type that accepts IpAttachmentMap and IpAttachmentMapOutput values.
 // You can construct a concrete instance of `IpAttachmentMapInput` via:
 //
-//          IpAttachmentMap{ "key": IpAttachmentArgs{...} }
+//	IpAttachmentMap{ "key": IpAttachmentArgs{...} }
 type IpAttachmentMapInput interface {
 	pulumi.Input
 

@@ -20,34 +20,37 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		projectId := "<UUID_of_your_project>"
-// 		testDevice, err := equinix - metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
-// 			Hostname: pulumi.String("tfacc-test-device-port"),
-// 			Plan:     pulumi.String("c3.medium.x86"),
-// 			Facilities: pulumi.StringArray{
-// 				pulumi.String("sv15"),
-// 			},
-// 			OperatingSystem: pulumi.String("ubuntu_20_04"),
-// 			BillingCycle:    pulumi.String("hourly"),
-// 			ProjectId:       pulumi.String(projectId),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_ = equinix - metal.LookupPortOutput(ctx, GetPortOutputArgs{
-// 			DeviceId: testDevice.ID(),
-// 			Name:     pulumi.String("eth0"),
-// 		}, nil)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			projectId := "<UUID_of_your_project>"
+//			testDevice, err := equinix - metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
+//				Hostname: pulumi.String("tfacc-test-device-port"),
+//				Plan:     pulumi.String("c3.medium.x86"),
+//				Facilities: pulumi.StringArray{
+//					pulumi.String("sv15"),
+//				},
+//				OperatingSystem: pulumi.String("ubuntu_20_04"),
+//				BillingCycle:    pulumi.String("hourly"),
+//				ProjectId:       pulumi.String(projectId),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_ = equinix - metal.LookupPortOutput(ctx, GetPortOutputArgs{
+//				DeviceId: testDevice.ID(),
+//				Name:     pulumi.String("eth0"),
+//			}, nil)
+//			return nil
+//		})
+//	}
+//
 // ```
 func LookupPort(ctx *pulumi.Context, args *LookupPortArgs, opts ...pulumi.InvokeOption) (*LookupPortResult, error) {
 	var rv LookupPortResult

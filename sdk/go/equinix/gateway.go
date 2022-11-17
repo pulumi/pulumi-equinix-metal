@@ -19,70 +19,76 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
-// 			Description: pulumi.String("test VLAN in SV"),
-// 			Metro:       pulumi.String("sv"),
-// 			ProjectId:   pulumi.Any(local.Project_id),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
-// 			ProjectId:             pulumi.Any(local.Project_id),
-// 			VlanId:                testVlan.ID(),
-// 			PrivateIpv4SubnetSize: pulumi.Int(8),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
+//				Description: pulumi.String("test VLAN in SV"),
+//				Metro:       pulumi.String("sv"),
+//				ProjectId:   pulumi.Any(local.Project_id),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
+//				ProjectId:             pulumi.Any(local.Project_id),
+//				VlanId:                testVlan.ID(),
+//				PrivateIpv4SubnetSize: pulumi.Int(8),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
-// 			Description: pulumi.String("test VLAN in SV"),
-// 			Metro:       pulumi.String("sv"),
-// 			ProjectId:   pulumi.Any(local.Project_id),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		testReservedIpBlock, err := equinix - metal.NewReservedIpBlock(ctx, "testReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
-// 			ProjectId: pulumi.Any(local.Project_id),
-// 			Metro:     pulumi.String("sv"),
-// 			Quantity:  pulumi.Int(2),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = equinix - metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
-// 			ProjectId:       pulumi.Any(local.Project_id),
-// 			VlanId:          testVlan.ID(),
-// 			IpReservationId: testReservedIpBlock.ID(),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
+//				Description: pulumi.String("test VLAN in SV"),
+//				Metro:       pulumi.String("sv"),
+//				ProjectId:   pulumi.Any(local.Project_id),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			testReservedIpBlock, err := equinix - metal.NewReservedIpBlock(ctx, "testReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
+//				ProjectId: pulumi.Any(local.Project_id),
+//				Metro:     pulumi.String("sv"),
+//				Quantity:  pulumi.Int(2),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = equinix - metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
+//				ProjectId:       pulumi.Any(local.Project_id),
+//				VlanId:          testVlan.ID(),
+//				IpReservationId: testReservedIpBlock.ID(),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type Gateway struct {
 	pulumi.CustomResourceState
@@ -212,7 +218,7 @@ func (i *Gateway) ToGatewayOutputWithContext(ctx context.Context) GatewayOutput 
 // GatewayArrayInput is an input type that accepts GatewayArray and GatewayArrayOutput values.
 // You can construct a concrete instance of `GatewayArrayInput` via:
 //
-//          GatewayArray{ GatewayArgs{...} }
+//	GatewayArray{ GatewayArgs{...} }
 type GatewayArrayInput interface {
 	pulumi.Input
 
@@ -237,7 +243,7 @@ func (i GatewayArray) ToGatewayArrayOutputWithContext(ctx context.Context) Gatew
 // GatewayMapInput is an input type that accepts GatewayMap and GatewayMapOutput values.
 // You can construct a concrete instance of `GatewayMapInput` via:
 //
-//          GatewayMap{ "key": GatewayArgs{...} }
+//	GatewayMap{ "key": GatewayArgs{...} }
 type GatewayMapInput interface {
 	pulumi.Input
 

@@ -22,24 +22,27 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		projectId := "<UUID_of_your_project>"
-// 		test, err := equinix - metal.GetIpBlockRanges(ctx, &GetIpBlockRangesArgs{
-// 			ProjectId: projectId,
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("out", test)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			projectId := "<UUID_of_your_project>"
+//			test, err := equinix - metal.GetIpBlockRanges(ctx, &GetIpBlockRangesArgs{
+//				ProjectId: projectId,
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("out", test)
+//			return nil
+//		})
+//	}
+//
 // ```
 func GetIpBlockRanges(ctx *pulumi.Context, args *GetIpBlockRangesArgs, opts ...pulumi.InvokeOption) (*GetIpBlockRangesResult, error) {
 	var rv GetIpBlockRangesResult

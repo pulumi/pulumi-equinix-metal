@@ -18,23 +18,26 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-// 	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		test, err := equinix - metal.LookupOrganization(ctx, &GetOrganizationArgs{
-// 			OrganizationId: pulumi.StringRef(local.Org_id),
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("projectsInTheOrg", test.ProjectIds)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			test, err := equinix - metal.LookupOrganization(ctx, &GetOrganizationArgs{
+//				OrganizationId: pulumi.StringRef(local.Org_id),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("projectsInTheOrg", test.ProjectIds)
+//			return nil
+//		})
+//	}
+//
 // ```
 func LookupOrganization(ctx *pulumi.Context, args *LookupOrganizationArgs, opts ...pulumi.InvokeOption) (*LookupOrganizationResult, error) {
 	var rv LookupOrganizationResult

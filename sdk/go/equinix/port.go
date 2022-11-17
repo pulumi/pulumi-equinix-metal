@@ -208,7 +208,7 @@ func (i *Port) ToPortOutputWithContext(ctx context.Context) PortOutput {
 // PortArrayInput is an input type that accepts PortArray and PortArrayOutput values.
 // You can construct a concrete instance of `PortArrayInput` via:
 //
-//          PortArray{ PortArgs{...} }
+//	PortArray{ PortArgs{...} }
 type PortArrayInput interface {
 	pulumi.Input
 
@@ -233,7 +233,7 @@ func (i PortArray) ToPortArrayOutputWithContext(ctx context.Context) PortArrayOu
 // PortMapInput is an input type that accepts PortMap and PortMapOutput values.
 // You can construct a concrete instance of `PortMapInput` via:
 //
-//          PortMap{ "key": PortArgs{...} }
+//	PortMap{ "key": PortArgs{...} }
 type PortMapInput interface {
 	pulumi.Input
 
