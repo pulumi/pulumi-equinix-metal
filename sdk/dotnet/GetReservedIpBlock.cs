@@ -15,17 +15,17 @@ namespace Pulumi.EquinixMetal
         /// Use this data source to find IP address blocks in Equinix Metal. You can use IP address or a block ID for lookup.
         /// </summary>
         public static Task<GetReservedIpBlockResult> InvokeAsync(GetReservedIpBlockArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to find IP address blocks in Equinix Metal. You can use IP address or a block ID for lookup.
         /// </summary>
         public static Output<GetReservedIpBlockResult> Invoke(GetReservedIpBlockInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetReservedIpBlockResult>("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", args ?? new GetReservedIpBlockInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetReservedIpBlockArgs : Pulumi.InvokeArgs
+    public sealed class GetReservedIpBlockArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// UUID of the IP address block to look up
@@ -48,9 +48,10 @@ namespace Pulumi.EquinixMetal
         public GetReservedIpBlockArgs()
         {
         }
+        public static new GetReservedIpBlockArgs Empty => new GetReservedIpBlockArgs();
     }
 
-    public sealed class GetReservedIpBlockInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetReservedIpBlockInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// UUID of the IP address block to look up
@@ -73,6 +74,7 @@ namespace Pulumi.EquinixMetal
         public GetReservedIpBlockInvokeArgs()
         {
         }
+        public static new GetReservedIpBlockInvokeArgs Empty => new GetReservedIpBlockInvokeArgs();
     }
 
 

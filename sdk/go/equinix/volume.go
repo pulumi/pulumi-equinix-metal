@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Resource `Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
@@ -49,6 +51,7 @@ func NewVolume(ctx *pulumi.Context,
 	if args.Size == nil {
 		return nil, errors.New("invalid value for required argument 'Size'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Volume
 	err := ctx.RegisterResource("equinix-metal:index/volume:Volume", name, args, &resource, opts...)
 	if err != nil {
@@ -152,6 +155,12 @@ func (i *Volume) ToVolumeOutputWithContext(ctx context.Context) VolumeOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeOutput)
 }
 
+func (i *Volume) ToOutput(ctx context.Context) pulumix.Output[*Volume] {
+	return pulumix.Output[*Volume]{
+		OutputState: i.ToVolumeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeArrayInput is an input type that accepts VolumeArray and VolumeArrayOutput values.
 // You can construct a concrete instance of `VolumeArrayInput` via:
 //
@@ -175,6 +184,12 @@ func (i VolumeArray) ToVolumeArrayOutput() VolumeArrayOutput {
 
 func (i VolumeArray) ToVolumeArrayOutputWithContext(ctx context.Context) VolumeArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeArrayOutput)
+}
+
+func (i VolumeArray) ToOutput(ctx context.Context) pulumix.Output[[]*Volume] {
+	return pulumix.Output[[]*Volume]{
+		OutputState: i.ToVolumeArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // VolumeMapInput is an input type that accepts VolumeMap and VolumeMapOutput values.
@@ -202,6 +217,12 @@ func (i VolumeMap) ToVolumeMapOutputWithContext(ctx context.Context) VolumeMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeMapOutput)
 }
 
+func (i VolumeMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Volume] {
+	return pulumix.Output[map[string]*Volume]{
+		OutputState: i.ToVolumeMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type VolumeOutput struct{ *pulumi.OutputState }
 
 func (VolumeOutput) ElementType() reflect.Type {
@@ -216,6 +237,64 @@ func (o VolumeOutput) ToVolumeOutputWithContext(ctx context.Context) VolumeOutpu
 	return o
 }
 
+func (o VolumeOutput) ToOutput(ctx context.Context) pulumix.Output[*Volume] {
+	return pulumix.Output[*Volume]{
+		OutputState: o.OutputState,
+	}
+}
+
+func (o VolumeOutput) Attachments() VolumeAttachmentTypeArrayOutput {
+	return o.ApplyT(func(v *Volume) VolumeAttachmentTypeArrayOutput { return v.Attachments }).(VolumeAttachmentTypeArrayOutput)
+}
+
+func (o VolumeOutput) BillingCycle() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.BillingCycle }).(pulumi.StringOutput)
+}
+
+func (o VolumeOutput) Created() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.Created }).(pulumi.StringOutput)
+}
+
+func (o VolumeOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+func (o VolumeOutput) Facility() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.Facility }).(pulumi.StringOutput)
+}
+
+func (o VolumeOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Volume) pulumi.BoolPtrOutput { return v.Locked }).(pulumi.BoolPtrOutput)
+}
+
+func (o VolumeOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o VolumeOutput) Plan() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.Plan }).(pulumi.StringOutput)
+}
+
+func (o VolumeOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+func (o VolumeOutput) Size() pulumi.IntOutput {
+	return o.ApplyT(func(v *Volume) pulumi.IntOutput { return v.Size }).(pulumi.IntOutput)
+}
+
+func (o VolumeOutput) SnapshotPolicies() VolumeSnapshotPolicyArrayOutput {
+	return o.ApplyT(func(v *Volume) VolumeSnapshotPolicyArrayOutput { return v.SnapshotPolicies }).(VolumeSnapshotPolicyArrayOutput)
+}
+
+func (o VolumeOutput) State() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.State }).(pulumi.StringOutput)
+}
+
+func (o VolumeOutput) Updated() pulumi.StringOutput {
+	return o.ApplyT(func(v *Volume) pulumi.StringOutput { return v.Updated }).(pulumi.StringOutput)
+}
+
 type VolumeArrayOutput struct{ *pulumi.OutputState }
 
 func (VolumeArrayOutput) ElementType() reflect.Type {
@@ -228,6 +307,12 @@ func (o VolumeArrayOutput) ToVolumeArrayOutput() VolumeArrayOutput {
 
 func (o VolumeArrayOutput) ToVolumeArrayOutputWithContext(ctx context.Context) VolumeArrayOutput {
 	return o
+}
+
+func (o VolumeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Volume] {
+	return pulumix.Output[[]*Volume]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeArrayOutput) Index(i pulumi.IntInput) VolumeOutput {
@@ -248,6 +333,12 @@ func (o VolumeMapOutput) ToVolumeMapOutput() VolumeMapOutput {
 
 func (o VolumeMapOutput) ToVolumeMapOutputWithContext(ctx context.Context) VolumeMapOutput {
 	return o
+}
+
+func (o VolumeMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Volume] {
+	return pulumix.Output[map[string]*Volume]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeMapOutput) MapIndex(k pulumi.StringInput) VolumeOutput {

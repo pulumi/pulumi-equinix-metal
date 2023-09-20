@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class SpotMarketRequestInstanceParametersGetArgs : Pulumi.ResourceArgs
+    public sealed class SpotMarketRequestInstanceParametersGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("alwaysPxe")]
         public Input<bool>? AlwaysPxe { get; set; }
@@ -38,9 +38,6 @@ namespace Pulumi.EquinixMetal.Inputs
         [Input("ipxeScriptUrl")]
         public Input<string>? IpxeScriptUrl { get; set; }
 
-        /// <summary>
-        /// Blocks deletion of the SpotMarketRequest device until the lock is disabled
-        /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
@@ -83,5 +80,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public SpotMarketRequestInstanceParametersGetArgs()
         {
         }
+        public static new SpotMarketRequestInstanceParametersGetArgs Empty => new SpotMarketRequestInstanceParametersGetArgs();
     }
 }

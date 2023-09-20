@@ -7,11 +7,14 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides an Equinix Metal facility datasource.
 func GetFacility(ctx *pulumi.Context, args *GetFacilityArgs, opts ...pulumi.InvokeOption) (*GetFacilityResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetFacilityResult
 	err := ctx.Invoke("equinix-metal:index/getFacility:getFacility", args, &rv, opts...)
 	if err != nil {
@@ -27,6 +30,8 @@ type GetFacilityArgs struct {
 	// The facility code
 	Code string `pulumi:"code"`
 	// Set of feature strings that the facility must have
+	//
+	// Facilities can be looked up by `code`.
 	FeaturesRequireds []string `pulumi:"featuresRequireds"`
 }
 
@@ -66,6 +71,8 @@ type GetFacilityOutputArgs struct {
 	// The facility code
 	Code pulumi.StringInput `pulumi:"code"`
 	// Set of feature strings that the facility must have
+	//
+	// Facilities can be looked up by `code`.
 	FeaturesRequireds pulumi.StringArrayInput `pulumi:"featuresRequireds"`
 }
 
@@ -86,6 +93,12 @@ func (o GetFacilityResultOutput) ToGetFacilityResultOutput() GetFacilityResultOu
 
 func (o GetFacilityResultOutput) ToGetFacilityResultOutputWithContext(ctx context.Context) GetFacilityResultOutput {
 	return o
+}
+
+func (o GetFacilityResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetFacilityResult] {
+	return pulumix.Output[GetFacilityResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // (Optional) Ensure that queried facility has capacity for specified number of given plans

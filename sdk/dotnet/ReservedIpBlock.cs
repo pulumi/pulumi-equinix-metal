@@ -28,89 +28,90 @@ namespace Pulumi.EquinixMetal
     /// Allocate reserved IP blocks:
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility for myproject
+    ///     var twoElasticAddresses = new EquinixMetal.ReservedIpBlock("twoElasticAddresses", new()
     ///     {
-    ///         // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility for myproject
-    ///         var twoElasticAddresses = new EquinixMetal.ReservedIpBlock("twoElasticAddresses", new EquinixMetal.ReservedIpBlockArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             Facility = "sv15",
-    ///             Quantity = 2,
-    ///         });
-    ///         // Allocate 1 floating IP in Sillicon Valley (sv) metro
-    ///         var testReservedIpBlock = new EquinixMetal.ReservedIpBlock("testReservedIpBlock", new EquinixMetal.ReservedIpBlockArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             Type = "public_ipv4",
-    ///             Metro = "sv",
-    ///             Quantity = 1,
-    ///         });
-    ///         // Allocate 1 global floating IP, which can be assigned to device in any facility
-    ///         var testIndex_reservedIpBlockReservedIpBlock = new EquinixMetal.ReservedIpBlock("testIndex/reservedIpBlockReservedIpBlock", new EquinixMetal.ReservedIpBlockArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             Type = "global_ipv4",
-    ///             Quantity = 1,
-    ///         });
-    ///     }
+    ///         ProjectId = local.Project_id,
+    ///         Facility = "sv15",
+    ///         Quantity = 2,
+    ///     });
     /// 
-    /// }
+    ///     // Allocate 1 floating IP in Sillicon Valley (sv) metro
+    ///     var testReservedIpBlock = new EquinixMetal.ReservedIpBlock("testReservedIpBlock", new()
+    ///     {
+    ///         ProjectId = local.Project_id,
+    ///         Type = "public_ipv4",
+    ///         Metro = "sv",
+    ///         Quantity = 1,
+    ///     });
+    /// 
+    ///     // Allocate 1 global floating IP, which can be assigned to device in any facility
+    ///     var testIndex_reservedIpBlockReservedIpBlock = new EquinixMetal.ReservedIpBlock("testIndex/reservedIpBlockReservedIpBlock", new()
+    ///     {
+    ///         ProjectId = local.Project_id,
+    ///         Type = "global_ipv4",
+    ///         Quantity = 1,
+    ///     });
+    /// 
+    /// });
     /// ```
     /// 
     /// Allocate a block and run a device with public IPv4 from the block
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility
+    ///     var example = new EquinixMetal.ReservedIpBlock("example", new()
     ///     {
-    ///         // Allocate /31 block of max 2 public IPv4 addresses in Silicon Valley (sv15) facility
-    ///         var example = new EquinixMetal.ReservedIpBlock("example", new EquinixMetal.ReservedIpBlockArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             Facility = "sv15",
-    ///             Quantity = 2,
-    ///         });
-    ///         // Run a device with both public IPv4 from the block assigned
-    ///         var nodes = new EquinixMetal.Device("nodes", new EquinixMetal.DeviceArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             Facilities = 
-    ///             {
-    ///                 "sv15",
-    ///             },
-    ///             Plan = "c3.small.x86",
-    ///             OperatingSystem = "ubuntu_20_04",
-    ///             Hostname = "test",
-    ///             BillingCycle = "hourly",
-    ///             IpAddresses = 
-    ///             {
-    ///                 new EquinixMetal.Inputs.DeviceIpAddressArgs
-    ///                 {
-    ///                     Type = "public_ipv4",
-    ///                     Cidr = 31,
-    ///                     ReservationIds = 
-    ///                     {
-    ///                         example.Id,
-    ///                     },
-    ///                 },
-    ///                 new EquinixMetal.Inputs.DeviceIpAddressArgs
-    ///                 {
-    ///                     Type = "private_ipv4",
-    ///                 },
-    ///             },
-    ///         });
-    ///     }
+    ///         ProjectId = local.Project_id,
+    ///         Facility = "sv15",
+    ///         Quantity = 2,
+    ///     });
     /// 
-    /// }
+    ///     // Run a device with both public IPv4 from the block assigned
+    ///     var nodes = new EquinixMetal.Device("nodes", new()
+    ///     {
+    ///         ProjectId = local.Project_id,
+    ///         Facilities = new[]
+    ///         {
+    ///             "sv15",
+    ///         },
+    ///         Plan = "c3.small.x86",
+    ///         OperatingSystem = "ubuntu_20_04",
+    ///         Hostname = "test",
+    ///         BillingCycle = "hourly",
+    ///         IpAddresses = new[]
+    ///         {
+    ///             new EquinixMetal.Inputs.DeviceIpAddressArgs
+    ///             {
+    ///                 Type = "public_ipv4",
+    ///                 Cidr = 31,
+    ///                 ReservationIds = new[]
+    ///                 {
+    ///                     example.Id,
+    ///                 },
+    ///             },
+    ///             new EquinixMetal.Inputs.DeviceIpAddressArgs
+    ///             {
+    ///                 Type = "private_ipv4",
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -122,7 +123,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/reservedIpBlock:ReservedIpBlock")]
-    public partial class ReservedIpBlock : Pulumi.CustomResource
+    public partial class ReservedIpBlock : global::Pulumi.CustomResource
     {
         [Output("address")]
         public Output<string> Address { get; private set; } = null!;
@@ -264,7 +265,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class ReservedIpBlockArgs : Pulumi.ResourceArgs
+    public sealed class ReservedIpBlockArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Arbitrary description
@@ -317,9 +318,10 @@ namespace Pulumi.EquinixMetal
         public ReservedIpBlockArgs()
         {
         }
+        public static new ReservedIpBlockArgs Empty => new ReservedIpBlockArgs();
     }
 
-    public sealed class ReservedIpBlockState : Pulumi.ResourceArgs
+    public sealed class ReservedIpBlockState : global::Pulumi.ResourceArgs
     {
         [Input("address")]
         public Input<string>? Address { get; set; }
@@ -426,5 +428,6 @@ namespace Pulumi.EquinixMetal
         public ReservedIpBlockState()
         {
         }
+        public static new ReservedIpBlockState Empty => new ReservedIpBlockState();
     }
 }

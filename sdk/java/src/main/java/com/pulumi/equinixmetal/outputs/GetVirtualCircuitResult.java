@@ -30,7 +30,6 @@ public final class GetVirtualCircuitResult {
     private Integer nniVnid;
     /**
      * @return ID of project to which the VC belongs
-     * * `vnid`, `nni_vlan`, `nni_nvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      */
     private String projectId;
@@ -45,6 +44,10 @@ public final class GetVirtualCircuitResult {
      */
     private List<String> tags;
     private String virtualCircuitId;
+    /**
+     * @return , `nni_vlan`, `nni_nvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
+     * 
+     */
     private Integer vnid;
 
     private GetVirtualCircuitResult() {}
@@ -77,7 +80,6 @@ public final class GetVirtualCircuitResult {
     }
     /**
      * @return ID of project to which the VC belongs
-     * * `vnid`, `nni_vlan`, `nni_nvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      */
     public String projectId() {
@@ -100,6 +102,10 @@ public final class GetVirtualCircuitResult {
     public String virtualCircuitId() {
         return this.virtualCircuitId;
     }
+    /**
+     * @return , `nni_vlan`, `nni_nvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
+     * 
+     */
     public Integer vnid() {
         return this.vnid;
     }

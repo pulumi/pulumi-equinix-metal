@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class DevicePortGetArgs : Pulumi.ResourceArgs
+    public sealed class DevicePortGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Whether this port is part of a bond in bonded network setup
@@ -45,5 +45,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public DevicePortGetArgs()
         {
         }
+        public static new DevicePortGetArgs Empty => new DevicePortGetArgs();
     }
 }

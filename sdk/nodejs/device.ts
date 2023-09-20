@@ -2,7 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
+import * as enums from "./types/enums";
 import * as utilities from "./utilities";
 
 /**
@@ -251,8 +253,7 @@ export class Device extends pulumi.CustomResource {
      */
     public readonly metro!: pulumi.Output<string | undefined>;
     /**
-     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      *
      * @deprecated You should handle Network Type with the new metal_device_network_type resource.
      */
@@ -324,6 +325,8 @@ export class Device extends pulumi.CustomResource {
     public readonly userData!: pulumi.Output<string | undefined>;
     /**
      * Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+     *
+     * The `ipAddress` block has 3 fields:
      */
     public readonly waitForReservationDeprovision!: pulumi.Output<boolean | undefined>;
 
@@ -388,7 +391,7 @@ export class Device extends pulumi.CustomResource {
             }
             resourceInputs["alwaysPxe"] = args ? args.alwaysPxe : undefined;
             resourceInputs["billingCycle"] = args ? args.billingCycle : undefined;
-            resourceInputs["customData"] = args ? args.customData : undefined;
+            resourceInputs["customData"] = args?.customData ? pulumi.secret(args.customData) : undefined;
             resourceInputs["description"] = args ? args.description : undefined;
             resourceInputs["facilities"] = args ? args.facilities : undefined;
             resourceInputs["forceDetachVolumes"] = args ? args.forceDetachVolumes : undefined;
@@ -405,7 +408,7 @@ export class Device extends pulumi.CustomResource {
             resourceInputs["storage"] = args ? args.storage : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["terminationTime"] = args ? args.terminationTime : undefined;
-            resourceInputs["userData"] = args ? args.userData : undefined;
+            resourceInputs["userData"] = args?.userData ? pulumi.secret(args.userData) : undefined;
             resourceInputs["waitForReservationDeprovision"] = args ? args.waitForReservationDeprovision : undefined;
             resourceInputs["accessPrivateIpv4"] = undefined /*out*/;
             resourceInputs["accessPublicIpv4"] = undefined /*out*/;
@@ -423,6 +426,8 @@ export class Device extends pulumi.CustomResource {
             resourceInputs["updated"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["customData", "rootPassword", "userData"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Device.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -505,8 +510,7 @@ export interface DeviceState {
      */
     metro?: pulumi.Input<string>;
     /**
-     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      *
      * @deprecated You should handle Network Type with the new metal_device_network_type resource.
      */
@@ -578,6 +582,8 @@ export interface DeviceState {
     userData?: pulumi.Input<string>;
     /**
      * Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+     *
+     * The `ipAddress` block has 3 fields:
      */
     waitForReservationDeprovision?: pulumi.Input<boolean>;
 }
@@ -669,6 +675,8 @@ export interface DeviceArgs {
     userData?: pulumi.Input<string>;
     /**
      * Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+     *
+     * The `ipAddress` block has 3 fields:
      */
     waitForReservationDeprovision?: pulumi.Input<boolean>;
 }

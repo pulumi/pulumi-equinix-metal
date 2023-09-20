@@ -15,28 +15,27 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var test = new EquinixMetal.Connection("test", new()
     ///     {
-    ///         var test = new EquinixMetal.Connection("test", new EquinixMetal.ConnectionArgs
-    ///         {
-    ///             OrganizationId = local.My_organization_id,
-    ///             ProjectId = local.My_project_id,
-    ///             Metro = "sv",
-    ///             Redundancy = "redundant",
-    ///             Type = "shared",
-    ///         });
-    ///     }
+    ///         OrganizationId = local.My_organization_id,
+    ///         ProjectId = local.My_project_id,
+    ///         Metro = "sv",
+    ///         Redundancy = "redundant",
+    ///         Type = "shared",
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/connection:Connection")]
-    public partial class Connection : Pulumi.CustomResource
+    public partial class Connection : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Description for the connection resource
@@ -166,7 +165,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class ConnectionArgs : Pulumi.ResourceArgs
+    public sealed class ConnectionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Description for the connection resource
@@ -237,9 +236,10 @@ namespace Pulumi.EquinixMetal
         public ConnectionArgs()
         {
         }
+        public static new ConnectionArgs Empty => new ConnectionArgs();
     }
 
-    public sealed class ConnectionState : Pulumi.ResourceArgs
+    public sealed class ConnectionState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Description for the connection resource
@@ -340,5 +340,6 @@ namespace Pulumi.EquinixMetal
         public ConnectionState()
         {
         }
+        public static new ConnectionState Empty => new ConnectionState();
     }
 }

@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class DeviceIpAddressGetArgs : Pulumi.ResourceArgs
+    public sealed class DeviceIpAddressGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// CIDR suffix for IP address block to be assigned, i.e. amount of addresses.
@@ -23,6 +23,12 @@ namespace Pulumi.EquinixMetal.Inputs
 
         /// <summary>
         /// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
+        /// 
+        /// You can supply one `ip_address` block per IP address type. If you use the `ip_address` you must always pass a block for `private_ipv4`.
+        /// 
+        /// To learn more about using the reserved IP addresses for new devices, see the examples in the equinix-metal.ReservedIpBlock documentation.
+        /// 
+        /// The `reinstall` block has 3 fields:
         /// </summary>
         public InputList<string> ReservationIds
         {
@@ -39,5 +45,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public DeviceIpAddressGetArgs()
         {
         }
+        public static new DeviceIpAddressGetArgs Empty => new DeviceIpAddressGetArgs();
     }
 }

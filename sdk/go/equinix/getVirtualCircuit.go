@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
@@ -19,32 +21,30 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleConnection, err := equinix - metal.LookupConnection(ctx, &GetConnectionArgs{
-//				ConnectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			_, err = equinix - metal.LookupVirtualCircuit(ctx, &GetVirtualCircuitArgs{
-//				VirtualCircuitId: exampleConnection.Ports[1].VirtualCircuitIds[0],
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// exampleConnection, err := equinix-metal.LookupConnection(ctx, &equinix.LookupConnectionArgs{
+// ConnectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.LookupVirtualCircuit(ctx, &equinix.LookupVirtualCircuitArgs{
+// VirtualCircuitId: exampleConnection.Ports[1].VirtualCircuitIds[0],
+// }, nil);
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 func LookupVirtualCircuit(ctx *pulumi.Context, args *LookupVirtualCircuitArgs, opts ...pulumi.InvokeOption) (*LookupVirtualCircuitResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupVirtualCircuitResult
 	err := ctx.Invoke("equinix-metal:index/getVirtualCircuit:getVirtualCircuit", args, &rv, opts...)
 	if err != nil {
@@ -70,14 +70,14 @@ type LookupVirtualCircuitResult struct {
 	NniVlan int    `pulumi:"nniVlan"`
 	NniVnid int    `pulumi:"nniVnid"`
 	// ID of project to which the VC belongs
-	// * `vnid`, `nniVlan`, `nniNvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
 	ProjectId string `pulumi:"projectId"`
 	// Status of the virtal circuit
 	Status string `pulumi:"status"`
 	// Tags for the Virtual Circuit resource
 	Tags             []string `pulumi:"tags"`
 	VirtualCircuitId string   `pulumi:"virtualCircuitId"`
-	Vnid             int      `pulumi:"vnid"`
+	// , `nniVlan`, `nniNvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
+	Vnid int `pulumi:"vnid"`
 }
 
 func LookupVirtualCircuitOutput(ctx *pulumi.Context, args LookupVirtualCircuitOutputArgs, opts ...pulumi.InvokeOption) LookupVirtualCircuitResultOutput {
@@ -118,6 +118,12 @@ func (o LookupVirtualCircuitResultOutput) ToLookupVirtualCircuitResultOutputWith
 	return o
 }
 
+func (o LookupVirtualCircuitResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupVirtualCircuitResult] {
+	return pulumix.Output[LookupVirtualCircuitResult]{
+		OutputState: o.OutputState,
+	}
+}
+
 // Description for the Virtual Circuit resource
 func (o LookupVirtualCircuitResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupVirtualCircuitResult) string { return v.Description }).(pulumi.StringOutput)
@@ -142,7 +148,6 @@ func (o LookupVirtualCircuitResultOutput) NniVnid() pulumi.IntOutput {
 }
 
 // ID of project to which the VC belongs
-// * `vnid`, `nniVlan`, `nniNvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
 func (o LookupVirtualCircuitResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupVirtualCircuitResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
@@ -161,6 +166,7 @@ func (o LookupVirtualCircuitResultOutput) VirtualCircuitId() pulumi.StringOutput
 	return o.ApplyT(func(v LookupVirtualCircuitResult) string { return v.VirtualCircuitId }).(pulumi.StringOutput)
 }
 
+// , `nniVlan`, `nniNvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
 func (o LookupVirtualCircuitResultOutput) Vnid() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupVirtualCircuitResult) int { return v.Vnid }).(pulumi.IntOutput)
 }

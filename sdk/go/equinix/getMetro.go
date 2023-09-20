@@ -7,11 +7,14 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides an Equinix Metal metro datasource.
 func GetMetro(ctx *pulumi.Context, args *GetMetroArgs, opts ...pulumi.InvokeOption) (*GetMetroResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetMetroResult
 	err := ctx.Invoke("equinix-metal:index/getMetro:getMetro", args, &rv, opts...)
 	if err != nil {
@@ -25,6 +28,8 @@ type GetMetroArgs struct {
 	// (Optional) Ensure that queried metro has capacity for specified number of given plans
 	Capacities []GetMetroCapacity `pulumi:"capacities"`
 	// The metro code
+	//
+	// Metros can be looked up by `code`.
 	Code string `pulumi:"code"`
 }
 
@@ -60,6 +65,8 @@ type GetMetroOutputArgs struct {
 	// (Optional) Ensure that queried metro has capacity for specified number of given plans
 	Capacities GetMetroCapacityArrayInput `pulumi:"capacities"`
 	// The metro code
+	//
+	// Metros can be looked up by `code`.
 	Code pulumi.StringInput `pulumi:"code"`
 }
 
@@ -80,6 +87,12 @@ func (o GetMetroResultOutput) ToGetMetroResultOutput() GetMetroResultOutput {
 
 func (o GetMetroResultOutput) ToGetMetroResultOutputWithContext(ctx context.Context) GetMetroResultOutput {
 	return o
+}
+
+func (o GetMetroResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetMetroResult] {
+	return pulumix.Output[GetMetroResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // (Optional) Ensure that queried metro has capacity for specified number of given plans

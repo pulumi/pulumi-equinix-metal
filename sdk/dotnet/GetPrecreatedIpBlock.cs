@@ -16,18 +16,18 @@ namespace Pulumi.EquinixMetal
         /// You can then use the cidrsubnet TF builtin function to derive subnets.
         /// </summary>
         public static Task<GetPrecreatedIpBlockResult> InvokeAsync(GetPrecreatedIpBlockArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to get CIDR expression for precreated IPv6 and IPv4 blocks in Equinix Metal.
         /// You can then use the cidrsubnet TF builtin function to derive subnets.
         /// </summary>
         public static Output<GetPrecreatedIpBlockResult> Invoke(GetPrecreatedIpBlockInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetPrecreatedIpBlockResult>("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args ?? new GetPrecreatedIpBlockInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetPrecreatedIpBlockArgs : Pulumi.InvokeArgs
+    public sealed class GetPrecreatedIpBlockArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// 4 or 6, depending on which block you are looking for.
@@ -68,9 +68,10 @@ namespace Pulumi.EquinixMetal
         public GetPrecreatedIpBlockArgs()
         {
         }
+        public static new GetPrecreatedIpBlockArgs Empty => new GetPrecreatedIpBlockArgs();
     }
 
-    public sealed class GetPrecreatedIpBlockInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetPrecreatedIpBlockInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// 4 or 6, depending on which block you are looking for.
@@ -111,6 +112,7 @@ namespace Pulumi.EquinixMetal
         public GetPrecreatedIpBlockInvokeArgs()
         {
         }
+        public static new GetPrecreatedIpBlockInvokeArgs Empty => new GetPrecreatedIpBlockInvokeArgs();
     }
 
 

@@ -17,12 +17,16 @@ public final class GetDevicePlainArgs extends com.pulumi.resources.InvokeArgs {
     /**
      * Device ID
      * 
+     * User can lookup devices either by `device_id` or `project_id` and `hostname`.
+     * 
      */
     @Import(name="deviceId")
     private @Nullable String deviceId;
 
     /**
      * @return Device ID
+     * 
+     * User can lookup devices either by `device_id` or `project_id` and `hostname`.
      * 
      */
     public Optional<String> deviceId() {
@@ -87,6 +91,8 @@ public final class GetDevicePlainArgs extends com.pulumi.resources.InvokeArgs {
 
         /**
          * @param deviceId Device ID
+         * 
+         * User can lookup devices either by `device_id` or `project_id` and `hostname`.
          * 
          * @return builder
          * 

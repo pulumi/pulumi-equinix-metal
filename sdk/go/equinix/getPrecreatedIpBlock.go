@@ -7,12 +7,15 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this data source to get CIDR expression for precreated IPv6 and IPv4 blocks in Equinix Metal.
 // You can then use the cidrsubnet TF builtin function to derive subnets.
 func GetPrecreatedIpBlock(ctx *pulumi.Context, args *GetPrecreatedIpBlockArgs, opts ...pulumi.InvokeOption) (*GetPrecreatedIpBlockResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetPrecreatedIpBlockResult
 	err := ctx.Invoke("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", args, &rv, opts...)
 	if err != nil {
@@ -106,6 +109,12 @@ func (o GetPrecreatedIpBlockResultOutput) ToGetPrecreatedIpBlockResultOutput() G
 
 func (o GetPrecreatedIpBlockResultOutput) ToGetPrecreatedIpBlockResultOutputWithContext(ctx context.Context) GetPrecreatedIpBlockResultOutput {
 	return o
+}
+
+func (o GetPrecreatedIpBlockResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetPrecreatedIpBlockResult] {
+	return pulumix.Output[GetPrecreatedIpBlockResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetPrecreatedIpBlockResultOutput) Address() pulumi.StringOutput {

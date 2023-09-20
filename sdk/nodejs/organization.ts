@@ -11,12 +11,10 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as metal from "@pulumi/metal";
+ * import * as equinix_metal from "@pulumi/equinix-metal";
  *
  * // Create a new Project
- * const tfOrganization1 = new metal.Organization("tf_organization_1", {
- *     description: "quux",
- * });
+ * const tfOrganization1 = new equinix_metal.Organization("tfOrganization1", {description: "quux"});
  * ```
  *
  * ## Import

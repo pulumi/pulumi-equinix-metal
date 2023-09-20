@@ -13,7 +13,7 @@ namespace Pulumi.EquinixMetal
     /// Resource `equinix-metal.Volume` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/volume:Volume")]
-    public partial class Volume : Pulumi.CustomResource
+    public partial class Volume : global::Pulumi.CustomResource
     {
         [Output("attachments")]
         public Output<ImmutableArray<Outputs.VolumeAttachment>> Attachments { get; private set; } = null!;
@@ -98,7 +98,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class VolumeArgs : Pulumi.ResourceArgs
+    public sealed class VolumeArgs : global::Pulumi.ResourceArgs
     {
         [Input("billingCycle")]
         public InputUnion<string, Pulumi.EquinixMetal.BillingCycle>? BillingCycle { get; set; }
@@ -132,9 +132,10 @@ namespace Pulumi.EquinixMetal
         public VolumeArgs()
         {
         }
+        public static new VolumeArgs Empty => new VolumeArgs();
     }
 
-    public sealed class VolumeState : Pulumi.ResourceArgs
+    public sealed class VolumeState : global::Pulumi.ResourceArgs
     {
         [Input("attachments")]
         private InputList<Inputs.VolumeAttachmentGetArgs>? _attachments;
@@ -188,5 +189,6 @@ namespace Pulumi.EquinixMetal
         public VolumeState()
         {
         }
+        public static new VolumeState Empty => new VolumeState();
     }
 }

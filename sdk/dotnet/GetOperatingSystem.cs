@@ -19,40 +19,40 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var example = EquinixMetal.GetOperatingSystem.Invoke(new()
         ///     {
-        ///         var example = Output.Create(EquinixMetal.GetOperatingSystem.InvokeAsync(new EquinixMetal.GetOperatingSystemArgs
-        ///         {
-        ///             Distro = "ubuntu",
-        ///             Version = "20.04",
-        ///             ProvisionableOn = "c3.medium.x86",
-        ///         }));
-        ///         var server = new EquinixMetal.Device("server", new EquinixMetal.DeviceArgs
-        ///         {
-        ///             Hostname = "tf.ubuntu",
-        ///             Plan = "c3.medium.x86",
-        ///             Facilities = 
-        ///             {
-        ///                 "ny5",
-        ///             },
-        ///             OperatingSystem = example.Apply(example =&gt; example.Id).Apply(System.Enum.Parse&lt;EquinixMetal.Index/OperatingSystem.OperatingSystem&gt;),
-        ///             BillingCycle = "hourly",
-        ///             ProjectId = local.Project_id,
-        ///         });
-        ///     }
+        ///         Distro = "ubuntu",
+        ///         Version = "20.04",
+        ///         ProvisionableOn = "c3.medium.x86",
+        ///     });
         /// 
-        /// }
+        ///     var server = new EquinixMetal.Device("server", new()
+        ///     {
+        ///         Hostname = "tf.ubuntu",
+        ///         Plan = "c3.medium.x86",
+        ///         Facilities = new[]
+        ///         {
+        ///             "ny5",
+        ///         },
+        ///         OperatingSystem = example.Apply(getOperatingSystemResult =&gt; getOperatingSystemResult.Id).Apply(System.Enum.Parse&lt;EquinixMetal.Index/OperatingSystem.OperatingSystem&gt;),
+        ///         BillingCycle = "hourly",
+        ///         ProjectId = local.Project_id,
+        ///     });
+        /// 
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetOperatingSystemResult> InvokeAsync(GetOperatingSystemArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to get Equinix Metal Operating System image.
@@ -62,44 +62,44 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var example = EquinixMetal.GetOperatingSystem.Invoke(new()
         ///     {
-        ///         var example = Output.Create(EquinixMetal.GetOperatingSystem.InvokeAsync(new EquinixMetal.GetOperatingSystemArgs
-        ///         {
-        ///             Distro = "ubuntu",
-        ///             Version = "20.04",
-        ///             ProvisionableOn = "c3.medium.x86",
-        ///         }));
-        ///         var server = new EquinixMetal.Device("server", new EquinixMetal.DeviceArgs
-        ///         {
-        ///             Hostname = "tf.ubuntu",
-        ///             Plan = "c3.medium.x86",
-        ///             Facilities = 
-        ///             {
-        ///                 "ny5",
-        ///             },
-        ///             OperatingSystem = example.Apply(example =&gt; example.Id).Apply(System.Enum.Parse&lt;EquinixMetal.Index/OperatingSystem.OperatingSystem&gt;),
-        ///             BillingCycle = "hourly",
-        ///             ProjectId = local.Project_id,
-        ///         });
-        ///     }
+        ///         Distro = "ubuntu",
+        ///         Version = "20.04",
+        ///         ProvisionableOn = "c3.medium.x86",
+        ///     });
         /// 
-        /// }
+        ///     var server = new EquinixMetal.Device("server", new()
+        ///     {
+        ///         Hostname = "tf.ubuntu",
+        ///         Plan = "c3.medium.x86",
+        ///         Facilities = new[]
+        ///         {
+        ///             "ny5",
+        ///         },
+        ///         OperatingSystem = example.Apply(getOperatingSystemResult =&gt; getOperatingSystemResult.Id).Apply(System.Enum.Parse&lt;EquinixMetal.Index/OperatingSystem.OperatingSystem&gt;),
+        ///         BillingCycle = "hourly",
+        ///         ProjectId = local.Project_id,
+        ///     });
+        /// 
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetOperatingSystemResult> Invoke(GetOperatingSystemInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetOperatingSystemResult>("equinix-metal:index/getOperatingSystem:getOperatingSystem", args ?? new GetOperatingSystemInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetOperatingSystemArgs : Pulumi.InvokeArgs
+    public sealed class GetOperatingSystemArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Name of the OS distribution.
@@ -128,9 +128,10 @@ namespace Pulumi.EquinixMetal
         public GetOperatingSystemArgs()
         {
         }
+        public static new GetOperatingSystemArgs Empty => new GetOperatingSystemArgs();
     }
 
-    public sealed class GetOperatingSystemInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetOperatingSystemInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Name of the OS distribution.
@@ -159,6 +160,7 @@ namespace Pulumi.EquinixMetal
         public GetOperatingSystemInvokeArgs()
         {
         }
+        public static new GetOperatingSystemInvokeArgs Empty => new GetOperatingSystemInvokeArgs();
     }
 
 

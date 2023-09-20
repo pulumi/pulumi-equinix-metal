@@ -33,7 +33,7 @@ public class DeviceNetworkType extends com.pulumi.resources.CustomResource {
      * The ID of the device on which the network type should be set.
      * 
      */
-    @Export(name="deviceId", type=String.class, parameters={})
+    @Export(name="deviceId", refs={String.class}, tree="[0]")
     private Output<String> deviceId;
 
     /**
@@ -47,7 +47,7 @@ public class DeviceNetworkType extends com.pulumi.resources.CustomResource {
      * Network type to set. Must be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output<String> type;
 
     /**

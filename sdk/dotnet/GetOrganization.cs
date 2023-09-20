@@ -19,29 +19,29 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var test = EquinixMetal.GetOrganization.Invoke(new()
         ///     {
-        ///         var test = Output.Create(EquinixMetal.GetOrganization.InvokeAsync(new EquinixMetal.GetOrganizationArgs
-        ///         {
-        ///             OrganizationId = local.Org_id,
-        ///         }));
-        ///         this.ProjectsInTheOrg = test.Apply(test =&gt; test.ProjectIds);
-        ///     }
+        ///         OrganizationId = local.Org_id,
+        ///     });
         /// 
-        ///     [Output("projectsInTheOrg")]
-        ///     public Output&lt;string&gt; ProjectsInTheOrg { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["projectsInTheOrg"] = test.Apply(getOrganizationResult =&gt; getOrganizationResult.ProjectIds),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetOrganizationResult> InvokeAsync(GetOrganizationArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetOrganizationResult>("equinix-metal:index/getOrganization:getOrganization", args ?? new GetOrganizationArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetOrganizationResult>("equinix-metal:index/getOrganization:getOrganization", args ?? new GetOrganizationArgs(), options.WithDefaults());
 
         /// <summary>
         /// Provides an Equinix Metal organization datasource.
@@ -51,33 +51,33 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var test = EquinixMetal.GetOrganization.Invoke(new()
         ///     {
-        ///         var test = Output.Create(EquinixMetal.GetOrganization.InvokeAsync(new EquinixMetal.GetOrganizationArgs
-        ///         {
-        ///             OrganizationId = local.Org_id,
-        ///         }));
-        ///         this.ProjectsInTheOrg = test.Apply(test =&gt; test.ProjectIds);
-        ///     }
+        ///         OrganizationId = local.Org_id,
+        ///     });
         /// 
-        ///     [Output("projectsInTheOrg")]
-        ///     public Output&lt;string&gt; ProjectsInTheOrg { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["projectsInTheOrg"] = test.Apply(getOrganizationResult =&gt; getOrganizationResult.ProjectIds),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetOrganizationResult> Invoke(GetOrganizationInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetOrganizationResult>("equinix-metal:index/getOrganization:getOrganization", args ?? new GetOrganizationInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetOrganizationResult>("equinix-metal:index/getOrganization:getOrganization", args ?? new GetOrganizationInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetOrganizationArgs : Pulumi.InvokeArgs
+    public sealed class GetOrganizationArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The organization name
@@ -87,6 +87,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// The UUID of the organization resource
+        /// 
+        /// Exactly one of `name` or `organization_id` must be given.
         /// </summary>
         [Input("organizationId")]
         public string? OrganizationId { get; set; }
@@ -94,9 +96,10 @@ namespace Pulumi.EquinixMetal
         public GetOrganizationArgs()
         {
         }
+        public static new GetOrganizationArgs Empty => new GetOrganizationArgs();
     }
 
-    public sealed class GetOrganizationInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetOrganizationInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The organization name
@@ -106,6 +109,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// The UUID of the organization resource
+        /// 
+        /// Exactly one of `name` or `organization_id` must be given.
         /// </summary>
         [Input("organizationId")]
         public Input<string>? OrganizationId { get; set; }
@@ -113,6 +118,7 @@ namespace Pulumi.EquinixMetal
         public GetOrganizationInvokeArgs()
         {
         }
+        public static new GetOrganizationInvokeArgs Empty => new GetOrganizationInvokeArgs();
     }
 
 

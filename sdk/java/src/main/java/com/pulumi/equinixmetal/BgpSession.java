@@ -29,7 +29,7 @@ public class BgpSession extends com.pulumi.resources.CustomResource {
      * `ipv4` or `ipv6`
      * 
      */
-    @Export(name="addressFamily", type=String.class, parameters={})
+    @Export(name="addressFamily", refs={String.class}, tree="[0]")
     private Output<String> addressFamily;
 
     /**
@@ -43,7 +43,7 @@ public class BgpSession extends com.pulumi.resources.CustomResource {
      * Boolean flag to set the default route policy. False by default.
      * 
      */
-    @Export(name="defaultRoute", type=Boolean.class, parameters={})
+    @Export(name="defaultRoute", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> defaultRoute;
 
     /**
@@ -57,7 +57,7 @@ public class BgpSession extends com.pulumi.resources.CustomResource {
      * ID of device
      * 
      */
-    @Export(name="deviceId", type=String.class, parameters={})
+    @Export(name="deviceId", refs={String.class}, tree="[0]")
     private Output<String> deviceId;
 
     /**
@@ -68,14 +68,14 @@ public class BgpSession extends com.pulumi.resources.CustomResource {
         return this.deviceId;
     }
     /**
-     * Status of the session - up or down
+     * Status of the session - `up` or `down`
      * 
      */
-    @Export(name="status", type=String.class, parameters={})
+    @Export(name="status", refs={String.class}, tree="[0]")
     private Output<String> status;
 
     /**
-     * @return Status of the session - up or down
+     * @return Status of the session - `up` or `down`
      * 
      */
     public Output<String> status() {

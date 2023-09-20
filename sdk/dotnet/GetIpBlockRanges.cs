@@ -23,30 +23,31 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
-        ///     {
-        ///         var projectId = "&lt;UUID_of_your_project&gt;";
-        ///         var test = Output.Create(EquinixMetal.GetIpBlockRanges.InvokeAsync(new EquinixMetal.GetIpBlockRangesArgs
-        ///         {
-        ///             ProjectId = projectId,
-        ///         }));
-        ///         this.Out = test;
-        ///     }
+        ///     var projectId = "&lt;UUID_of_your_project&gt;";
         /// 
-        ///     [Output("out")]
-        ///     public Output&lt;string&gt; Out { get; set; }
-        /// }
+        ///     var test = EquinixMetal.GetIpBlockRanges.Invoke(new()
+        ///     {
+        ///         ProjectId = projectId,
+        ///     });
+        /// 
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["out"] = test,
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetIpBlockRangesResult> InvokeAsync(GetIpBlockRangesArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
@@ -60,34 +61,35 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
-        ///     {
-        ///         var projectId = "&lt;UUID_of_your_project&gt;";
-        ///         var test = Output.Create(EquinixMetal.GetIpBlockRanges.InvokeAsync(new EquinixMetal.GetIpBlockRangesArgs
-        ///         {
-        ///             ProjectId = projectId,
-        ///         }));
-        ///         this.Out = test;
-        ///     }
+        ///     var projectId = "&lt;UUID_of_your_project&gt;";
         /// 
-        ///     [Output("out")]
-        ///     public Output&lt;string&gt; Out { get; set; }
-        /// }
+        ///     var test = EquinixMetal.GetIpBlockRanges.Invoke(new()
+        ///     {
+        ///         ProjectId = projectId,
+        ///     });
+        /// 
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["out"] = test,
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetIpBlockRangesResult> Invoke(GetIpBlockRangesInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetIpBlockRangesResult>("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args ?? new GetIpBlockRangesInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetIpBlockRangesArgs : Pulumi.InvokeArgs
+    public sealed class GetIpBlockRangesArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
@@ -110,9 +112,10 @@ namespace Pulumi.EquinixMetal
         public GetIpBlockRangesArgs()
         {
         }
+        public static new GetIpBlockRangesArgs Empty => new GetIpBlockRangesArgs();
     }
 
-    public sealed class GetIpBlockRangesInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetIpBlockRangesInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Facility code filtering the IP blocks. Global IPv4 blcoks will be listed anyway. If you omit this and metro, all the block from the project will be listed.
@@ -135,6 +138,7 @@ namespace Pulumi.EquinixMetal
         public GetIpBlockRangesInvokeArgs()
         {
         }
+        public static new GetIpBlockRangesInvokeArgs Empty => new GetIpBlockRangesInvokeArgs();
     }
 
 

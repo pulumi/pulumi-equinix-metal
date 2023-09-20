@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides an Equinix Metal device datasource.
@@ -25,26 +27,23 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			test, err := equinix - metal.LookupDevice(ctx, &GetDeviceArgs{
-//				ProjectId: pulumi.StringRef(local.Project_id),
-//				Hostname:  pulumi.StringRef("mydevice"),
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			ctx.Export("id", test.Id)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// test, err := equinix-metal.LookupDevice(ctx, &equinix.LookupDeviceArgs{
+// ProjectId: pulumi.StringRef(local.Project_id),
+// Hostname: pulumi.StringRef("mydevice"),
+// }, nil);
+// if err != nil {
+// return err
+// }
+// ctx.Export("id", test.Id)
+// return nil
+// })
+// }
 // ```
 //
 // ```go
@@ -52,25 +51,23 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			test, err := equinix - metal.LookupDevice(ctx, nil, nil)
-//			if err != nil {
-//				return err
-//			}
-//			ctx.Export("ipv4", test.AccessPublicIpv4)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// test, err := equinix-metal.LookupDevice(ctx, nil, nil);
+// if err != nil {
+// return err
+// }
+// ctx.Export("ipv4", test.AccessPublicIpv4)
+// return nil
+// })
+// }
 // ```
 func LookupDevice(ctx *pulumi.Context, args *LookupDeviceArgs, opts ...pulumi.InvokeOption) (*LookupDeviceResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupDeviceResult
 	err := ctx.Invoke("equinix-metal:index/getDevice:getDevice", args, &rv, opts...)
 	if err != nil {
@@ -82,6 +79,8 @@ func LookupDevice(ctx *pulumi.Context, args *LookupDeviceArgs, opts ...pulumi.In
 // A collection of arguments for invoking getDevice.
 type LookupDeviceArgs struct {
 	// Device ID
+	//
+	// User can lookup devices either by `deviceId` or `projectId` and `hostname`.
 	DeviceId *string `pulumi:"deviceId"`
 	// The device name
 	Hostname *string `pulumi:"hostname"`
@@ -156,6 +155,8 @@ func LookupDeviceOutput(ctx *pulumi.Context, args LookupDeviceOutputArgs, opts .
 // A collection of arguments for invoking getDevice.
 type LookupDeviceOutputArgs struct {
 	// Device ID
+	//
+	// User can lookup devices either by `deviceId` or `projectId` and `hostname`.
 	DeviceId pulumi.StringPtrInput `pulumi:"deviceId"`
 	// The device name
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
@@ -180,6 +181,12 @@ func (o LookupDeviceResultOutput) ToLookupDeviceResultOutput() LookupDeviceResul
 
 func (o LookupDeviceResultOutput) ToLookupDeviceResultOutputWithContext(ctx context.Context) LookupDeviceResultOutput {
 	return o
+}
+
+func (o LookupDeviceResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupDeviceResult] {
+	return pulumix.Output[LookupDeviceResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The ipv4 private IP assigned to the device

@@ -23,7 +23,6 @@ namespace Pulumi.EquinixMetal.Outputs
         public readonly int? Cidr;
         /// <summary>
         /// IP version - "4" or "6"
-        /// * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
         /// </summary>
         public readonly int? Family;
         /// <summary>

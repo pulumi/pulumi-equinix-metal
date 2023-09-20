@@ -19,30 +19,30 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var exampleConnection = EquinixMetal.GetConnection.Invoke(new()
         ///     {
-        ///         var exampleConnection = Output.Create(EquinixMetal.GetConnection.InvokeAsync(new EquinixMetal.GetConnectionArgs
-        ///         {
-        ///             ConnectionId = "4347e805-eb46-4699-9eb9-5c116e6a017d",
-        ///         }));
-        ///         var exampleVc = exampleConnection.Apply(exampleConnection =&gt; Output.Create(EquinixMetal.GetVirtualCircuit.InvokeAsync(new EquinixMetal.GetVirtualCircuitArgs
-        ///         {
-        ///             VirtualCircuitId = exampleConnection.Ports?[1]?.VirtualCircuitIds?[0],
-        ///         })));
-        ///     }
+        ///         ConnectionId = "4347e805-eb46-4699-9eb9-5c116e6a017d",
+        ///     });
         /// 
-        /// }
+        ///     var exampleVc = EquinixMetal.GetVirtualCircuit.Invoke(new()
+        ///     {
+        ///         VirtualCircuitId = exampleConnection.Apply(getConnectionResult =&gt; getConnectionResult.Ports[1]?.VirtualCircuitIds[0]),
+        ///     });
+        /// 
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetVirtualCircuitResult> InvokeAsync(GetVirtualCircuitArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetVirtualCircuitResult>("equinix-metal:index/getVirtualCircuit:getVirtualCircuit", args ?? new GetVirtualCircuitArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetVirtualCircuitResult>("equinix-metal:index/getVirtualCircuit:getVirtualCircuit", args ?? new GetVirtualCircuitArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
@@ -52,34 +52,34 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var exampleConnection = EquinixMetal.GetConnection.Invoke(new()
         ///     {
-        ///         var exampleConnection = Output.Create(EquinixMetal.GetConnection.InvokeAsync(new EquinixMetal.GetConnectionArgs
-        ///         {
-        ///             ConnectionId = "4347e805-eb46-4699-9eb9-5c116e6a017d",
-        ///         }));
-        ///         var exampleVc = exampleConnection.Apply(exampleConnection =&gt; Output.Create(EquinixMetal.GetVirtualCircuit.InvokeAsync(new EquinixMetal.GetVirtualCircuitArgs
-        ///         {
-        ///             VirtualCircuitId = exampleConnection.Ports?[1]?.VirtualCircuitIds?[0],
-        ///         })));
-        ///     }
+        ///         ConnectionId = "4347e805-eb46-4699-9eb9-5c116e6a017d",
+        ///     });
         /// 
-        /// }
+        ///     var exampleVc = EquinixMetal.GetVirtualCircuit.Invoke(new()
+        ///     {
+        ///         VirtualCircuitId = exampleConnection.Apply(getConnectionResult =&gt; getConnectionResult.Ports[1]?.VirtualCircuitIds[0]),
+        ///     });
+        /// 
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetVirtualCircuitResult> Invoke(GetVirtualCircuitInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetVirtualCircuitResult>("equinix-metal:index/getVirtualCircuit:getVirtualCircuit", args ?? new GetVirtualCircuitInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetVirtualCircuitResult>("equinix-metal:index/getVirtualCircuit:getVirtualCircuit", args ?? new GetVirtualCircuitInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetVirtualCircuitArgs : Pulumi.InvokeArgs
+    public sealed class GetVirtualCircuitArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// ID of the virtual circuit resource
@@ -90,9 +90,10 @@ namespace Pulumi.EquinixMetal
         public GetVirtualCircuitArgs()
         {
         }
+        public static new GetVirtualCircuitArgs Empty => new GetVirtualCircuitArgs();
     }
 
-    public sealed class GetVirtualCircuitInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetVirtualCircuitInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// ID of the virtual circuit resource
@@ -103,6 +104,7 @@ namespace Pulumi.EquinixMetal
         public GetVirtualCircuitInvokeArgs()
         {
         }
+        public static new GetVirtualCircuitInvokeArgs Empty => new GetVirtualCircuitInvokeArgs();
     }
 
 
@@ -125,7 +127,6 @@ namespace Pulumi.EquinixMetal
         public readonly int NniVnid;
         /// <summary>
         /// ID of project to which the VC belongs
-        /// * `vnid`, `nni_vlan`, `nni_nvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
         /// </summary>
         public readonly string ProjectId;
         /// <summary>
@@ -137,6 +138,9 @@ namespace Pulumi.EquinixMetal
         /// </summary>
         public readonly ImmutableArray<string> Tags;
         public readonly string VirtualCircuitId;
+        /// <summary>
+        /// , `nni_vlan`, `nni_nvid` - VLAN parameters, see the [documentation for Equinix Fabric](https://metal.equinix.com/developers/docs/networking/fabric/)
+        /// </summary>
         public readonly int Vnid;
 
         [OutputConstructor]

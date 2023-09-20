@@ -17,7 +17,7 @@ namespace Pulumi.EquinixMetal
         /// You can look up hardware reservation by its ID or by ID of device which occupies it.
         /// </summary>
         public static Task<GetHardwareReservationResult> InvokeAsync(GetHardwareReservationArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to retrieve a [hardware reservation resource from Equinix Metal](https://metal.equinix.com/developers/docs/deploy/reserved/).
@@ -25,11 +25,11 @@ namespace Pulumi.EquinixMetal
         /// You can look up hardware reservation by its ID or by ID of device which occupies it.
         /// </summary>
         public static Output<GetHardwareReservationResult> Invoke(GetHardwareReservationInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetHardwareReservationResult>("equinix-metal:index/getHardwareReservation:getHardwareReservation", args ?? new GetHardwareReservationInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetHardwareReservationArgs : Pulumi.InvokeArgs
+    public sealed class GetHardwareReservationArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// UUID of device occupying the reservation
@@ -46,9 +46,10 @@ namespace Pulumi.EquinixMetal
         public GetHardwareReservationArgs()
         {
         }
+        public static new GetHardwareReservationArgs Empty => new GetHardwareReservationArgs();
     }
 
-    public sealed class GetHardwareReservationInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetHardwareReservationInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// UUID of device occupying the reservation
@@ -65,6 +66,7 @@ namespace Pulumi.EquinixMetal
         public GetHardwareReservationInvokeArgs()
         {
         }
+        public static new GetHardwareReservationInvokeArgs Empty => new GetHardwareReservationInvokeArgs();
     }
 
 

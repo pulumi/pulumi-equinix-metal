@@ -25,7 +25,6 @@ public final class DeviceNetwork {
     private @Nullable Integer cidr;
     /**
      * @return IP version - &#34;4&#34; or &#34;6&#34;
-     * * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      */
     private @Nullable Integer family;
@@ -57,7 +56,6 @@ public final class DeviceNetwork {
     }
     /**
      * @return IP version - &#34;4&#34; or &#34;6&#34;
-     * * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      */
     public Optional<Integer> family() {

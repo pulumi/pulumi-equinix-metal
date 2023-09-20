@@ -27,7 +27,7 @@ import * as utilities from "./utilities";
  * const testVirtualCircuit = new equinix_metal.VirtualCircuit("testVirtualCircuit", {
  *     connectionId: connId,
  *     projectId: projectId,
- *     portId: testConnection.then(testConnection => testConnection.ports?[0]?.id),
+ *     portId: testConnection.then(testConnection => testConnection.ports?.[0]?.id),
  *     vlanId: testVlan.id,
  *     nniVlan: 1056,
  * });
@@ -95,7 +95,6 @@ export class VirtualCircuit extends pulumi.CustomResource {
     public readonly speed!: pulumi.Output<string>;
     /**
      * Status of the virtal circuit
-     * * `vnid`
      */
     public /*out*/ readonly status!: pulumi.Output<string>;
     /**
@@ -206,7 +205,6 @@ export interface VirtualCircuitState {
     speed?: pulumi.Input<string>;
     /**
      * Status of the virtal circuit
-     * * `vnid`
      */
     status?: pulumi.Input<string>;
     /**

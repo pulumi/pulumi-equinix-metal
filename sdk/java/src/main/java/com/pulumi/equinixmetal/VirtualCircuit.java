@@ -21,6 +21,57 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * 
+ * Pick an existing Project and Connection, create a VLAN and use `equinix-metal.VirtualCircuit` to associate it with a Primary Port of the Connection.
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+ * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+ * import com.pulumi.equinixmetal.Vlan;
+ * import com.pulumi.equinixmetal.VlanArgs;
+ * import com.pulumi.equinixmetal.VirtualCircuit;
+ * import com.pulumi.equinixmetal.VirtualCircuitArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var projectId = &#34;52000fb2-ee46-4673-93a8-de2c2bdba33c&#34;;
+ * 
+ *         final var connId = &#34;73f12f29-3e19-43a0-8e90-ae81580db1e0&#34;;
+ * 
+ *         final var testConnection = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+ *             .connectionId(connId)
+ *             .build());
+ * 
+ *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+ *             .projectId(projectId)
+ *             .metro(testConnection.applyValue(getConnectionResult -&gt; getConnectionResult.metro()))
+ *             .build());
+ * 
+ *         var testVirtualCircuit = new VirtualCircuit(&#34;testVirtualCircuit&#34;, VirtualCircuitArgs.builder()        
+ *             .connectionId(connId)
+ *             .projectId(projectId)
+ *             .portId(testConnection.applyValue(getConnectionResult -&gt; getConnectionResult.ports()[0].id()))
+ *             .vlanId(testVlan.id())
+ *             .nniVlan(1056)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="equinix-metal:index/virtualCircuit:VirtualCircuit")
 public class VirtualCircuit extends com.pulumi.resources.CustomResource {
@@ -28,7 +79,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * UUID of Connection where the VC is scoped to
      * 
      */
-    @Export(name="connectionId", type=String.class, parameters={})
+    @Export(name="connectionId", refs={String.class}, tree="[0]")
     private Output<String> connectionId;
 
     /**
@@ -42,7 +93,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * Description for the Virtual Circuit resource
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     /**
@@ -56,7 +107,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * Name of the Virtual Circuit resource
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -70,7 +121,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * Equinix Metal network-to-network VLAN ID
      * 
      */
-    @Export(name="nniVlan", type=Integer.class, parameters={})
+    @Export(name="nniVlan", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> nniVlan;
 
     /**
@@ -84,7 +135,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * Nni VLAN ID parameter, see https://metal.equinix.com/developers/docs/networking/fabric/
      * 
      */
-    @Export(name="nniVnid", type=Integer.class, parameters={})
+    @Export(name="nniVnid", refs={Integer.class}, tree="[0]")
     private Output<Integer> nniVnid;
 
     /**
@@ -98,7 +149,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * UUID of the Connection Port where the VC is scoped to
      * 
      */
-    @Export(name="portId", type=String.class, parameters={})
+    @Export(name="portId", refs={String.class}, tree="[0]")
     private Output<String> portId;
 
     /**
@@ -112,7 +163,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * UUID of the Project where the VC is scoped to
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     /**
@@ -126,7 +177,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * Speed of the Virtual Circuit resource
      * 
      */
-    @Export(name="speed", type=String.class, parameters={})
+    @Export(name="speed", refs={String.class}, tree="[0]")
     private Output<String> speed;
 
     /**
@@ -138,15 +189,13 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
     }
     /**
      * Status of the virtal circuit
-     * * `vnid`
      * 
      */
-    @Export(name="status", type=String.class, parameters={})
+    @Export(name="status", refs={String.class}, tree="[0]")
     private Output<String> status;
 
     /**
      * @return Status of the virtal circuit
-     * * `vnid`
      * 
      */
     public Output<String> status() {
@@ -156,7 +205,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * Tags for the Virtual Circuit resource
      * 
      */
-    @Export(name="tags", type=List.class, parameters={String.class})
+    @Export(name="tags", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> tags;
 
     /**
@@ -170,7 +219,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * UUID of the VLAN to associate
      * 
      */
-    @Export(name="vlanId", type=String.class, parameters={})
+    @Export(name="vlanId", refs={String.class}, tree="[0]")
     private Output<String> vlanId;
 
     /**
@@ -184,7 +233,7 @@ public class VirtualCircuit extends com.pulumi.resources.CustomResource {
      * VNID VLAN parameter, see https://metal.equinix.com/developers/docs/networking/fabric/
      * 
      */
-    @Export(name="vnid", type=Integer.class, parameters={})
+    @Export(name="vnid", refs={Integer.class}, tree="[0]")
     private Output<Integer> vnid;
 
     /**

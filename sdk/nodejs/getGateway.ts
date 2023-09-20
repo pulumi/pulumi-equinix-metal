@@ -25,11 +25,8 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getGateway(args: GetGatewayArgs, opts?: pulumi.InvokeOptions): Promise<GetGatewayResult> {
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("equinix-metal:index/getGateway:getGateway", {
         "gatewayId": args.gatewayId,
     }, opts);
@@ -75,9 +72,28 @@ export interface GetGatewayResult {
      */
     readonly vlanId: string;
 }
-
+/**
+ * Use this datasource to retrieve Metal Gateway resources in Equinix Metal.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as equinix_metal from "@pulumi/equinix-metal";
+ *
+ * // Create Metal Gateway for a VLAN with a private IPv4 block with 8 IP addresses
+ * const testVlan = new equinix_metal.Vlan("testVlan", {
+ *     description: "test VLAN in SV",
+ *     metro: "sv",
+ *     projectId: local.project_id,
+ * });
+ * const testGateway = equinix_metal.getGateway({
+ *     gatewayId: local.gateway_id,
+ * });
+ * ```
+ */
 export function getGatewayOutput(args: GetGatewayOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetGatewayResult> {
-    return pulumi.output(args).apply(a => getGateway(a, opts))
+    return pulumi.output(args).apply((a: any) => getGateway(a, opts))
 }
 
 /**

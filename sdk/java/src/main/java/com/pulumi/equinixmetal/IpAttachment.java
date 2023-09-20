@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="equinix-metal:index/ipAttachment:IpAttachment")
 public class IpAttachment extends com.pulumi.resources.CustomResource {
-    @Export(name="address", type=String.class, parameters={})
+    @Export(name="address", refs={String.class}, tree="[0]")
     private Output<String> address;
 
     public Output<String> address() {
@@ -40,7 +40,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * Address family as integer (4 or 6)
      * 
      */
-    @Export(name="addressFamily", type=Integer.class, parameters={})
+    @Export(name="addressFamily", refs={Integer.class}, tree="[0]")
     private Output<Integer> addressFamily;
 
     /**
@@ -54,7 +54,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * length of CIDR prefix of the subnet as integer
      * 
      */
-    @Export(name="cidr", type=Integer.class, parameters={})
+    @Export(name="cidr", refs={Integer.class}, tree="[0]")
     private Output<Integer> cidr;
 
     /**
@@ -69,7 +69,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * project and facility as the device
      * 
      */
-    @Export(name="cidrNotation", type=String.class, parameters={})
+    @Export(name="cidrNotation", refs={String.class}, tree="[0]")
     private Output<String> cidrNotation;
 
     /**
@@ -84,7 +84,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * ID of device to which to assign the subnet
      * 
      */
-    @Export(name="deviceId", type=String.class, parameters={})
+    @Export(name="deviceId", refs={String.class}, tree="[0]")
     private Output<String> deviceId;
 
     /**
@@ -98,7 +98,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * IP address of gateway for the subnet
      * 
      */
-    @Export(name="gateway", type=String.class, parameters={})
+    @Export(name="gateway", refs={String.class}, tree="[0]")
     private Output<String> gateway;
 
     /**
@@ -112,7 +112,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * Flag indicating whether IP block is global, i.e. assignable in any location
      * 
      */
-    @Export(name="global", type=Boolean.class, parameters={})
+    @Export(name="global", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> global;
 
     /**
@@ -122,13 +122,13 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
     public Output<Boolean> global() {
         return this.global;
     }
-    @Export(name="manageable", type=Boolean.class, parameters={})
+    @Export(name="manageable", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> manageable;
 
     public Output<Boolean> manageable() {
         return this.manageable;
     }
-    @Export(name="management", type=Boolean.class, parameters={})
+    @Export(name="management", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> management;
 
     public Output<Boolean> management() {
@@ -138,7 +138,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * Subnet mask in decimal notation, e.g. &#34;255.255.255.0&#34;
      * 
      */
-    @Export(name="netmask", type=String.class, parameters={})
+    @Export(name="netmask", refs={String.class}, tree="[0]")
     private Output<String> netmask;
 
     /**
@@ -152,7 +152,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * Subnet network address
      * 
      */
-    @Export(name="network", type=String.class, parameters={})
+    @Export(name="network", refs={String.class}, tree="[0]")
     private Output<String> network;
 
     /**
@@ -166,7 +166,7 @@ public class IpAttachment extends com.pulumi.resources.CustomResource {
      * boolean flag whether subnet is reachable from the Internet
      * 
      */
-    @Export(name="public", type=Boolean.class, parameters={})
+    @Export(name="public", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> public_;
 
     /**

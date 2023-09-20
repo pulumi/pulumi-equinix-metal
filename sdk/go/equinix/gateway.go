@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this resource to create Metal Gateway resources in Equinix Metal.
@@ -20,33 +22,31 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
-//				Description: pulumi.String("test VLAN in SV"),
-//				Metro:       pulumi.String("sv"),
-//				ProjectId:   pulumi.Any(local.Project_id),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = equinix - metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
-//				ProjectId:             pulumi.Any(local.Project_id),
-//				VlanId:                testVlan.ID(),
-//				PrivateIpv4SubnetSize: pulumi.Int(8),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// testVlan, err := equinix-metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
+// Description: pulumi.String("test VLAN in SV"),
+// Metro: pulumi.String("sv"),
+// ProjectId: pulumi.Any(local.Project_id),
+// })
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
+// ProjectId: pulumi.Any(local.Project_id),
+// VlanId: testVlan.ID(),
+// PrivateIpv4SubnetSize: pulumi.Int(8),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // ```go
@@ -54,41 +54,39 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			testVlan, err := equinix - metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
-//				Description: pulumi.String("test VLAN in SV"),
-//				Metro:       pulumi.String("sv"),
-//				ProjectId:   pulumi.Any(local.Project_id),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			testReservedIpBlock, err := equinix - metal.NewReservedIpBlock(ctx, "testReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
-//				ProjectId: pulumi.Any(local.Project_id),
-//				Metro:     pulumi.String("sv"),
-//				Quantity:  pulumi.Int(2),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = equinix - metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
-//				ProjectId:       pulumi.Any(local.Project_id),
-//				VlanId:          testVlan.ID(),
-//				IpReservationId: testReservedIpBlock.ID(),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// testVlan, err := equinix-metal.NewVlan(ctx, "testVlan", &equinix-metal.VlanArgs{
+// Description: pulumi.String("test VLAN in SV"),
+// Metro: pulumi.String("sv"),
+// ProjectId: pulumi.Any(local.Project_id),
+// })
+// if err != nil {
+// return err
+// }
+// testReservedIpBlock, err := equinix-metal.NewReservedIpBlock(ctx, "testReservedIpBlock", &equinix-metal.ReservedIpBlockArgs{
+// ProjectId: pulumi.Any(local.Project_id),
+// Metro: pulumi.String("sv"),
+// Quantity: pulumi.Int(2),
+// })
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.NewGateway(ctx, "testGateway", &equinix-metal.GatewayArgs{
+// ProjectId: pulumi.Any(local.Project_id),
+// VlanId: testVlan.ID(),
+// IpReservationId: testReservedIpBlock.ID(),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 type Gateway struct {
 	pulumi.CustomResourceState
@@ -118,6 +116,7 @@ func NewGateway(ctx *pulumi.Context,
 	if args.VlanId == nil {
 		return nil, errors.New("invalid value for required argument 'VlanId'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Gateway
 	err := ctx.RegisterResource("equinix-metal:index/gateway:Gateway", name, args, &resource, opts...)
 	if err != nil {
@@ -215,6 +214,12 @@ func (i *Gateway) ToGatewayOutputWithContext(ctx context.Context) GatewayOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(GatewayOutput)
 }
 
+func (i *Gateway) ToOutput(ctx context.Context) pulumix.Output[*Gateway] {
+	return pulumix.Output[*Gateway]{
+		OutputState: i.ToGatewayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GatewayArrayInput is an input type that accepts GatewayArray and GatewayArrayOutput values.
 // You can construct a concrete instance of `GatewayArrayInput` via:
 //
@@ -238,6 +243,12 @@ func (i GatewayArray) ToGatewayArrayOutput() GatewayArrayOutput {
 
 func (i GatewayArray) ToGatewayArrayOutputWithContext(ctx context.Context) GatewayArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(GatewayArrayOutput)
+}
+
+func (i GatewayArray) ToOutput(ctx context.Context) pulumix.Output[[]*Gateway] {
+	return pulumix.Output[[]*Gateway]{
+		OutputState: i.ToGatewayArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // GatewayMapInput is an input type that accepts GatewayMap and GatewayMapOutput values.
@@ -265,6 +276,12 @@ func (i GatewayMap) ToGatewayMapOutputWithContext(ctx context.Context) GatewayMa
 	return pulumi.ToOutputWithContext(ctx, i).(GatewayMapOutput)
 }
 
+func (i GatewayMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Gateway] {
+	return pulumix.Output[map[string]*Gateway]{
+		OutputState: i.ToGatewayMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GatewayOutput struct{ *pulumi.OutputState }
 
 func (GatewayOutput) ElementType() reflect.Type {
@@ -279,6 +296,37 @@ func (o GatewayOutput) ToGatewayOutputWithContext(ctx context.Context) GatewayOu
 	return o
 }
 
+func (o GatewayOutput) ToOutput(ctx context.Context) pulumix.Output[*Gateway] {
+	return pulumix.Output[*Gateway]{
+		OutputState: o.OutputState,
+	}
+}
+
+// UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `privateIpv4SubnetSize`
+func (o GatewayOutput) IpReservationId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Gateway) pulumi.StringPtrOutput { return v.IpReservationId }).(pulumi.StringPtrOutput)
+}
+
+// Size of the private IPv4 subnet to create for this metal gateway, must be one of (8, 16, 32, 64, 128), conflicts with `ipReservationId`
+func (o GatewayOutput) PrivateIpv4SubnetSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Gateway) pulumi.IntPtrOutput { return v.PrivateIpv4SubnetSize }).(pulumi.IntPtrOutput)
+}
+
+// UUID of the project where the gateway is scoped to
+func (o GatewayOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Gateway) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Status of the gateway resource
+func (o GatewayOutput) State() pulumi.StringOutput {
+	return o.ApplyT(func(v *Gateway) pulumi.StringOutput { return v.State }).(pulumi.StringOutput)
+}
+
+// UUID of the VLAN where the gateway is scoped to
+func (o GatewayOutput) VlanId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Gateway) pulumi.StringOutput { return v.VlanId }).(pulumi.StringOutput)
+}
+
 type GatewayArrayOutput struct{ *pulumi.OutputState }
 
 func (GatewayArrayOutput) ElementType() reflect.Type {
@@ -291,6 +339,12 @@ func (o GatewayArrayOutput) ToGatewayArrayOutput() GatewayArrayOutput {
 
 func (o GatewayArrayOutput) ToGatewayArrayOutputWithContext(ctx context.Context) GatewayArrayOutput {
 	return o
+}
+
+func (o GatewayArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Gateway] {
+	return pulumix.Output[[]*Gateway]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GatewayArrayOutput) Index(i pulumi.IntInput) GatewayOutput {
@@ -311,6 +365,12 @@ func (o GatewayMapOutput) ToGatewayMapOutput() GatewayMapOutput {
 
 func (o GatewayMapOutput) ToGatewayMapOutputWithContext(ctx context.Context) GatewayMapOutput {
 	return o
+}
+
+func (o GatewayMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Gateway] {
+	return pulumix.Output[map[string]*Gateway]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GatewayMapOutput) MapIndex(k pulumi.StringInput) GatewayOutput {

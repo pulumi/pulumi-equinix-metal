@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class VolumeSnapshotPolicyGetArgs : Pulumi.ResourceArgs
+    public sealed class VolumeSnapshotPolicyGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("snapshotCount", required: true)]
         public Input<int> SnapshotCount { get; set; } = null!;
@@ -21,5 +21,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public VolumeSnapshotPolicyGetArgs()
         {
         }
+        public static new VolumeSnapshotPolicyGetArgs Empty => new VolumeSnapshotPolicyGetArgs();
     }
 }

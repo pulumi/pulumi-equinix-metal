@@ -21,6 +21,38 @@ import javax.annotation.Nullable;
  * Use this resource to request of create an Interconnection from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Connection;
+ * import com.pulumi.equinixmetal.ConnectionArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var test = new Connection(&#34;test&#34;, ConnectionArgs.builder()        
+ *             .organizationId(local.my_organization_id())
+ *             .projectId(local.my_project_id())
+ *             .metro(&#34;sv&#34;)
+ *             .redundancy(&#34;redundant&#34;)
+ *             .type(&#34;shared&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="equinix-metal:index/connection:Connection")
@@ -29,7 +61,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Description for the connection resource
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     /**
@@ -43,7 +75,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Facility where the connection will be created
      * 
      */
-    @Export(name="facility", type=String.class, parameters={})
+    @Export(name="facility", refs={String.class}, tree="[0]")
     private Output<String> facility;
 
     /**
@@ -57,7 +89,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Metro where the connection will be created
      * 
      */
-    @Export(name="metro", type=String.class, parameters={})
+    @Export(name="metro", refs={String.class}, tree="[0]")
     private Output<String> metro;
 
     /**
@@ -71,7 +103,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Mode for connections in IBX facilities with the dedicated type - standard or tunnel
      * 
      */
-    @Export(name="mode", type=String.class, parameters={})
+    @Export(name="mode", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> mode;
 
     /**
@@ -85,7 +117,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Name of the connection resource
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -99,7 +131,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * ID of the organization responsible for the connection
      * 
      */
-    @Export(name="organizationId", type=String.class, parameters={})
+    @Export(name="organizationId", refs={String.class}, tree="[0]")
     private Output<String> organizationId;
 
     /**
@@ -113,7 +145,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * List of connection ports - primary (`ports[0]`) and secondary (`ports[1]`). Schema of port is described in documentation of the equinix-metal.Connection datasource.
      * 
      */
-    @Export(name="ports", type=List.class, parameters={ConnectionPort.class})
+    @Export(name="ports", refs={List.class,ConnectionPort.class}, tree="[0,1]")
     private Output<List<ConnectionPort>> ports;
 
     /**
@@ -127,7 +159,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * ID of the project where the connection is scoped to, must be set for shared connection
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> projectId;
 
     /**
@@ -141,7 +173,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Connection redundancy - redundant or primary
      * 
      */
-    @Export(name="redundancy", type=String.class, parameters={})
+    @Export(name="redundancy", refs={String.class}, tree="[0]")
     private Output<String> redundancy;
 
     /**
@@ -155,7 +187,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Port speed in bits per second
      * 
      */
-    @Export(name="speed", type=Integer.class, parameters={})
+    @Export(name="speed", refs={Integer.class}, tree="[0]")
     private Output<Integer> speed;
 
     /**
@@ -169,7 +201,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Status of the connection resource
      * 
      */
-    @Export(name="status", type=String.class, parameters={})
+    @Export(name="status", refs={String.class}, tree="[0]")
     private Output<String> status;
 
     /**
@@ -183,7 +215,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * String list of tags
      * 
      */
-    @Export(name="tags", type=List.class, parameters={String.class})
+    @Export(name="tags", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> tags;
 
     /**
@@ -197,7 +229,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Fabric Token from the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
      * 
      */
-    @Export(name="token", type=String.class, parameters={})
+    @Export(name="token", refs={String.class}, tree="[0]")
     private Output<String> token;
 
     /**
@@ -211,7 +243,7 @@ public class Connection extends com.pulumi.resources.CustomResource {
      * Connection type - dedicated or shared
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output<String> type;
 
     /**

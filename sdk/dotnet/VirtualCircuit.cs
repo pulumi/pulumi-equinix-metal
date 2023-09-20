@@ -17,39 +17,42 @@ namespace Pulumi.EquinixMetal
     /// Pick an existing Project and Connection, create a VLAN and use `equinix-metal.VirtualCircuit` to associate it with a Primary Port of the Connection.
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
-    ///     {
-    ///         var projectId = "52000fb2-ee46-4673-93a8-de2c2bdba33c";
-    ///         var connId = "73f12f29-3e19-43a0-8e90-ae81580db1e0";
-    ///         var testConnection = Output.Create(EquinixMetal.GetConnection.InvokeAsync(new EquinixMetal.GetConnectionArgs
-    ///         {
-    ///             ConnectionId = connId,
-    ///         }));
-    ///         var testVlan = new EquinixMetal.Vlan("testVlan", new EquinixMetal.VlanArgs
-    ///         {
-    ///             ProjectId = projectId,
-    ///             Metro = testConnection.Apply(testConnection =&gt; testConnection.Metro),
-    ///         });
-    ///         var testVirtualCircuit = new EquinixMetal.VirtualCircuit("testVirtualCircuit", new EquinixMetal.VirtualCircuitArgs
-    ///         {
-    ///             ConnectionId = connId,
-    ///             ProjectId = projectId,
-    ///             PortId = testConnection.Apply(testConnection =&gt; testConnection.Ports?[0]?.Id),
-    ///             VlanId = testVlan.Id,
-    ///             NniVlan = 1056,
-    ///         });
-    ///     }
+    ///     var projectId = "52000fb2-ee46-4673-93a8-de2c2bdba33c";
     /// 
-    /// }
+    ///     var connId = "73f12f29-3e19-43a0-8e90-ae81580db1e0";
+    /// 
+    ///     var testConnection = EquinixMetal.GetConnection.Invoke(new()
+    ///     {
+    ///         ConnectionId = connId,
+    ///     });
+    /// 
+    ///     var testVlan = new EquinixMetal.Vlan("testVlan", new()
+    ///     {
+    ///         ProjectId = projectId,
+    ///         Metro = testConnection.Apply(getConnectionResult =&gt; getConnectionResult.Metro),
+    ///     });
+    /// 
+    ///     var testVirtualCircuit = new EquinixMetal.VirtualCircuit("testVirtualCircuit", new()
+    ///     {
+    ///         ConnectionId = connId,
+    ///         ProjectId = projectId,
+    ///         PortId = testConnection.Apply(getConnectionResult =&gt; getConnectionResult.Ports[0]?.Id),
+    ///         VlanId = testVlan.Id,
+    ///         NniVlan = 1056,
+    ///     });
+    /// 
+    /// });
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/virtualCircuit:VirtualCircuit")]
-    public partial class VirtualCircuit : Pulumi.CustomResource
+    public partial class VirtualCircuit : global::Pulumi.CustomResource
     {
         /// <summary>
         /// UUID of Connection where the VC is scoped to
@@ -101,7 +104,6 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Status of the virtal circuit
-        /// * `vnid`
         /// </summary>
         [Output("status")]
         public Output<string> Status { get; private set; } = null!;
@@ -168,7 +170,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class VirtualCircuitArgs : Pulumi.ResourceArgs
+    public sealed class VirtualCircuitArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// UUID of Connection where the VC is scoped to
@@ -233,9 +235,10 @@ namespace Pulumi.EquinixMetal
         public VirtualCircuitArgs()
         {
         }
+        public static new VirtualCircuitArgs Empty => new VirtualCircuitArgs();
     }
 
-    public sealed class VirtualCircuitState : Pulumi.ResourceArgs
+    public sealed class VirtualCircuitState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// UUID of Connection where the VC is scoped to
@@ -287,7 +290,6 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Status of the virtal circuit
-        /// * `vnid`
         /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
@@ -319,5 +321,6 @@ namespace Pulumi.EquinixMetal
         public VirtualCircuitState()
         {
         }
+        public static new VirtualCircuitState Empty => new VirtualCircuitState();
     }
 }

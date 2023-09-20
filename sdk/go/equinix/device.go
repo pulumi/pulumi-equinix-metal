@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides an Equinix Metal device resource. This can be used to create,
@@ -29,28 +31,26 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
-//				Hostname:        pulumi.String("tf.coreos2"),
-//				Plan:            pulumi.String("c3.small.x86"),
-//				Metro:           pulumi.String("sv"),
-//				OperatingSystem: pulumi.String("ubuntu_20_04"),
-//				BillingCycle:    pulumi.String("hourly"),
-//				ProjectId:       pulumi.Any(local.Project_id),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("tf.coreos2"),
+// Plan: pulumi.String("c3.small.x86"),
+// Metro: pulumi.String("sv"),
+// OperatingSystem: pulumi.String("ubuntu_20_04"),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectId: pulumi.Any(local.Project_id),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // # Same as above, but boot via iPXE initially, using the Ignition Provider for provisioning
@@ -60,31 +60,29 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewDevice(ctx, "pxe1", &equinix-metal.DeviceArgs{
-//				Hostname:        pulumi.String("tf.coreos2-pxe"),
-//				Plan:            pulumi.String("c3.small.x86"),
-//				Metro:           pulumi.String("sv"),
-//				OperatingSystem: pulumi.String("custom_ipxe"),
-//				BillingCycle:    pulumi.String("hourly"),
-//				ProjectId:       pulumi.Any(local.Project_id),
-//				IpxeScriptUrl:   pulumi.String("https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe"),
-//				AlwaysPxe:       pulumi.Bool(false),
-//				UserData:        pulumi.Any(data.Ignition_config.Example.Rendered),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewDevice(ctx, "pxe1", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("tf.coreos2-pxe"),
+// Plan: pulumi.String("c3.small.x86"),
+// Metro: pulumi.String("sv"),
+// OperatingSystem: pulumi.String("custom_ipxe"),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectId: pulumi.Any(local.Project_id),
+// IpxeScriptUrl: pulumi.String("https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe"),
+// AlwaysPxe: pulumi.Bool(false),
+// UserData: pulumi.Any(data.Ignition_config.Example.Rendered),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
@@ -94,37 +92,34 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
-//				Hostname: pulumi.String("tf.coreos2"),
-//				Plan:     pulumi.String("c3.small.x86"),
-//				Facilities: pulumi.StringArray{
-//					pulumi.String("ny5"),
-//				},
-//				OperatingSystem: pulumi.String("ubuntu_20_04"),
-//				BillingCycle:    pulumi.String("hourly"),
-//				ProjectId:       pulumi.Any(local.Project_id),
-//				IpAddresses: DeviceIpAddressArray{
-//					&DeviceIpAddressArgs{
-//						Type: pulumi.String("private_ipv4"),
-//						Cidr: pulumi.Int(30),
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("tf.coreos2"),
+// Plan: pulumi.String("c3.small.x86"),
+// Facilities: pulumi.StringArray{
+// pulumi.String("ny5"),
+// },
+// OperatingSystem: pulumi.String("ubuntu_20_04"),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectId: pulumi.Any(local.Project_id),
+// IpAddresses: equinix.DeviceIpAddressArray{
+// &equinix.DeviceIpAddressArgs{
+// Type: pulumi.String("private_ipv4"),
+// Cidr: pulumi.Int(30),
+// },
+// },
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // Deploy device on next-available reserved hardware and do custom partitioning.
@@ -134,35 +129,85 @@ import (
 //
 // import (
 //
-//	"fmt"
-//
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("tftest"),
+// Plan: pulumi.String("c3.small.x86"),
+// Facilities: pulumi.StringArray{
+// pulumi.String("ny5"),
+// },
+// OperatingSystem: pulumi.String("ubuntu_20_04"),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectId: pulumi.Any(local.Project_id),
+// HardwareReservationId: pulumi.String("next-available"),
 //
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewDevice(ctx, "web1", &equinix-metal.DeviceArgs{
-//				Hostname: pulumi.String("tftest"),
-//				Plan:     pulumi.String("c3.small.x86"),
-//				Facilities: pulumi.StringArray{
-//					pulumi.String("ny5"),
-//				},
-//				OperatingSystem:       pulumi.String("ubuntu_20_04"),
-//				BillingCycle:          pulumi.String("hourly"),
-//				ProjectId:             pulumi.Any(local.Project_id),
-//				HardwareReservationId: pulumi.String("next-available"),
-//				Storage:               pulumi.String(fmt.Sprintf("%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v%v", "{\n", "  \"disks\": [\n", "    {\n", "      \"device\": \"/dev/sda\",\n", "      \"wipeTable\": true,\n", "      \"partitions\": [\n", "        {\n", "          \"label\": \"BIOS\",\n", "          \"number\": 1,\n", "          \"size\": \"4096\"\n", "        },\n", "        {\n", "          \"label\": \"SWAP\",\n", "          \"number\": 2,\n", "          \"size\": \"3993600\"\n", "        },\n", "        {\n", "          \"label\": \"ROOT\",\n", "          \"number\": 3,\n", "          \"size\": \"0\"\n", "        }\n", "      ]\n", "    }\n", "  ],\n", "  \"filesystems\": [\n", "    {\n", "      \"mount\": {\n", "        \"device\": \"/dev/sda3\",\n", "        \"format\": \"ext4\",\n", "        \"point\": \"/\",\n", "        \"create\": {\n", "          \"options\": [\n", "            \"-L\",\n", "            \"ROOT\"\n", "          ]\n", "        }\n", "      }\n", "    },\n", "    {\n", "      \"mount\": {\n", "        \"device\": \"/dev/sda2\",\n", "        \"format\": \"swap\",\n", "        \"point\": \"none\",\n", "        \"create\": {\n", "          \"options\": [\n", "            \"-L\",\n", "            \"SWAP\"\n", "          ]\n", "        }\n", "      }\n", "    }\n", "  ]\n", "}\n")),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
+//	Storage: pulumi.String(`{
+//	  "disks": [
+//	    {
+//	      "device": "/dev/sda",
+//	      "wipeTable": true,
+//	      "partitions": [
+//	        {
+//	          "label": "BIOS",
+//	          "number": 1,
+//	          "size": "4096"
+//	        },
+//	        {
+//	          "label": "SWAP",
+//	          "number": 2,
+//	          "size": "3993600"
+//	        },
+//	        {
+//	          "label": "ROOT",
+//	          "number": 3,
+//	          "size": "0"
+//	        }
+//	      ]
+//	    }
+//	  ],
+//	  "filesystems": [
+//	    {
+//	      "mount": {
+//	        "device": "/dev/sda3",
+//	        "format": "ext4",
+//	        "point": "/",
+//	        "create": {
+//	          "options": [
+//	            "-L",
+//	            "ROOT"
+//	          ]
+//	        }
+//	      }
+//	    },
+//	    {
+//	      "mount": {
+//	        "device": "/dev/sda2",
+//	        "format": "swap",
+//	        "point": "none",
+//	        "create": {
+//	          "options": [
+//	            "-L",
+//	            "SWAP"
+//	          ]
+//	        }
+//	      }
+//	    }
+//	  ]
 //	}
 //
+// `),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // ## Import
@@ -214,8 +259,7 @@ type Device struct {
 	Locked pulumi.BoolOutput `pulumi:"locked"`
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro pulumi.StringPtrOutput `pulumi:"metro"`
-	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-	// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
 	//
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType pulumi.StringOutput `pulumi:"networkType"`
@@ -255,6 +299,8 @@ type Device struct {
 	// A string of the desired User Data for the device.
 	UserData pulumi.StringPtrOutput `pulumi:"userData"`
 	// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+	//
+	// The `ipAddress` block has 3 fields:
 	WaitForReservationDeprovision pulumi.BoolPtrOutput `pulumi:"waitForReservationDeprovision"`
 }
 
@@ -274,6 +320,19 @@ func NewDevice(ctx *pulumi.Context,
 	if args.ProjectId == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectId'")
 	}
+	if args.CustomData != nil {
+		args.CustomData = pulumi.ToSecret(args.CustomData).(pulumi.StringPtrInput)
+	}
+	if args.UserData != nil {
+		args.UserData = pulumi.ToSecret(args.UserData).(pulumi.StringPtrInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"customData",
+		"rootPassword",
+		"userData",
+	})
+	opts = append(opts, secrets)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Device
 	err := ctx.RegisterResource("equinix-metal:index/device:Device", name, args, &resource, opts...)
 	if err != nil {
@@ -333,8 +392,7 @@ type deviceState struct {
 	Locked *bool `pulumi:"locked"`
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro *string `pulumi:"metro"`
-	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-	// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
 	//
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType *string `pulumi:"networkType"`
@@ -374,6 +432,8 @@ type deviceState struct {
 	// A string of the desired User Data for the device.
 	UserData *string `pulumi:"userData"`
 	// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+	//
+	// The `ipAddress` block has 3 fields:
 	WaitForReservationDeprovision *bool `pulumi:"waitForReservationDeprovision"`
 }
 
@@ -415,8 +475,7 @@ type DeviceState struct {
 	Locked pulumi.BoolPtrInput
 	// Metro area for the new device. Conflicts with `facilities`.
 	Metro pulumi.StringPtrInput
-	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-	// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+	// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
 	//
 	// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
 	NetworkType pulumi.StringPtrInput
@@ -456,6 +515,8 @@ type DeviceState struct {
 	// A string of the desired User Data for the device.
 	UserData pulumi.StringPtrInput
 	// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+	//
+	// The `ipAddress` block has 3 fields:
 	WaitForReservationDeprovision pulumi.BoolPtrInput
 }
 
@@ -506,6 +567,8 @@ type deviceArgs struct {
 	// A string of the desired User Data for the device.
 	UserData *string `pulumi:"userData"`
 	// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+	//
+	// The `ipAddress` block has 3 fields:
 	WaitForReservationDeprovision *bool `pulumi:"waitForReservationDeprovision"`
 }
 
@@ -553,6 +616,8 @@ type DeviceArgs struct {
 	// A string of the desired User Data for the device.
 	UserData pulumi.StringPtrInput
 	// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+	//
+	// The `ipAddress` block has 3 fields:
 	WaitForReservationDeprovision pulumi.BoolPtrInput
 }
 
@@ -577,6 +642,12 @@ func (i *Device) ToDeviceOutput() DeviceOutput {
 
 func (i *Device) ToDeviceOutputWithContext(ctx context.Context) DeviceOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceOutput)
+}
+
+func (i *Device) ToOutput(ctx context.Context) pulumix.Output[*Device] {
+	return pulumix.Output[*Device]{
+		OutputState: i.ToDeviceOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DeviceArrayInput is an input type that accepts DeviceArray and DeviceArrayOutput values.
@@ -604,6 +675,12 @@ func (i DeviceArray) ToDeviceArrayOutputWithContext(ctx context.Context) DeviceA
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceArrayOutput)
 }
 
+func (i DeviceArray) ToOutput(ctx context.Context) pulumix.Output[[]*Device] {
+	return pulumix.Output[[]*Device]{
+		OutputState: i.ToDeviceArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DeviceMapInput is an input type that accepts DeviceMap and DeviceMapOutput values.
 // You can construct a concrete instance of `DeviceMapInput` via:
 //
@@ -629,6 +706,12 @@ func (i DeviceMap) ToDeviceMapOutputWithContext(ctx context.Context) DeviceMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceMapOutput)
 }
 
+func (i DeviceMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Device] {
+	return pulumix.Output[map[string]*Device]{
+		OutputState: i.ToDeviceMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DeviceOutput struct{ *pulumi.OutputState }
 
 func (DeviceOutput) ElementType() reflect.Type {
@@ -643,6 +726,197 @@ func (o DeviceOutput) ToDeviceOutputWithContext(ctx context.Context) DeviceOutpu
 	return o
 }
 
+func (o DeviceOutput) ToOutput(ctx context.Context) pulumix.Output[*Device] {
+	return pulumix.Output[*Device]{
+		OutputState: o.OutputState,
+	}
+}
+
+// The ipv4 private IP assigned to the device
+func (o DeviceOutput) AccessPrivateIpv4() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.AccessPrivateIpv4 }).(pulumi.StringOutput)
+}
+
+// The ipv4 maintenance IP assigned to the device
+func (o DeviceOutput) AccessPublicIpv4() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.AccessPublicIpv4 }).(pulumi.StringOutput)
+}
+
+// The ipv6 maintenance IP assigned to the device
+func (o DeviceOutput) AccessPublicIpv6() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.AccessPublicIpv6 }).(pulumi.StringOutput)
+}
+
+// If true, a device with OS `customIpxe` will continue to boot via iPXE on reboots.
+func (o DeviceOutput) AlwaysPxe() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.BoolPtrOutput { return v.AlwaysPxe }).(pulumi.BoolPtrOutput)
+}
+
+// monthly or hourly
+func (o DeviceOutput) BillingCycle() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.BillingCycle }).(pulumi.StringOutput)
+}
+
+// The timestamp for when the device was created
+func (o DeviceOutput) Created() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Created }).(pulumi.StringOutput)
+}
+
+// A string of the desired Custom Data for the device.
+func (o DeviceOutput) CustomData() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.CustomData }).(pulumi.StringPtrOutput)
+}
+
+// The facility where the device is deployed.
+func (o DeviceOutput) DeployedFacility() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.DeployedFacility }).(pulumi.StringOutput)
+}
+
+// ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
+func (o DeviceOutput) DeployedHardwareReservationId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.DeployedHardwareReservationId }).(pulumi.StringOutput)
+}
+
+// The device description.
+func (o DeviceOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
+func (o DeviceOutput) Facilities() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringArrayOutput { return v.Facilities }).(pulumi.StringArrayOutput)
+}
+
+// Delete device even if it has volumes attached. Only applies for destroy action.
+func (o DeviceOutput) ForceDetachVolumes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.BoolPtrOutput { return v.ForceDetachVolumes }).(pulumi.BoolPtrOutput)
+}
+
+// The UUID of the hardware reservation where you want this device deployed, or next-available if you want to pick your
+// next available reservation automatically
+func (o DeviceOutput) HardwareReservationId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.HardwareReservationId }).(pulumi.StringPtrOutput)
+}
+
+// The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
+func (o DeviceOutput) Hostname() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Hostname }).(pulumi.StringOutput)
+}
+
+// A list of IP address types for the device (structure is documented below).
+func (o DeviceOutput) IpAddresses() DeviceIpAddressArrayOutput {
+	return o.ApplyT(func(v *Device) DeviceIpAddressArrayOutput { return v.IpAddresses }).(DeviceIpAddressArrayOutput)
+}
+
+// URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
+func (o DeviceOutput) IpxeScriptUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.IpxeScriptUrl }).(pulumi.StringPtrOutput)
+}
+
+// Whether the device is locked
+func (o DeviceOutput) Locked() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Device) pulumi.BoolOutput { return v.Locked }).(pulumi.BoolOutput)
+}
+
+// Metro area for the new device. Conflicts with `facilities`.
+func (o DeviceOutput) Metro() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.Metro }).(pulumi.StringPtrOutput)
+}
+
+// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
+//
+// Deprecated: You should handle Network Type with the new metal_device_network_type resource.
+func (o DeviceOutput) NetworkType() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.NetworkType }).(pulumi.StringOutput)
+}
+
+// The device's private and public IP (v4 and v6) network details. When a device is run without any special network configuration, it will have 3 networks:
+//   - Public IPv4 at `metal_device.name.network.0`
+//   - IPv6 at `metal_device.name.network.1`
+//   - Private IPv4 at `metal_device.name.network.2`
+//     Elastic addresses then stack by type - an assigned public IPv4 will go after the management public IPv4 (to index 1), and will then shift the indices of the IPv6 and private IPv4. Assigned private IPv4 will go after the management private IPv4 (to the end of the network list).
+//     The fields of the network attributes are:
+func (o DeviceOutput) Networks() DeviceNetworkArrayOutput {
+	return o.ApplyT(func(v *Device) DeviceNetworkArrayOutput { return v.Networks }).(DeviceNetworkArrayOutput)
+}
+
+// The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
+func (o DeviceOutput) OperatingSystem() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.OperatingSystem }).(pulumi.StringOutput)
+}
+
+// The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
+func (o DeviceOutput) Plan() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Plan }).(pulumi.StringOutput)
+}
+
+// Ports assigned to the device
+func (o DeviceOutput) Ports() DevicePortArrayOutput {
+	return o.ApplyT(func(v *Device) DevicePortArrayOutput { return v.Ports }).(DevicePortArrayOutput)
+}
+
+// The ID of the project in which to create the device
+func (o DeviceOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the ProjectSshKey resource.
+func (o DeviceOutput) ProjectSshKeyIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringArrayOutput { return v.ProjectSshKeyIds }).(pulumi.StringArrayOutput)
+}
+
+// Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
+func (o DeviceOutput) Reinstall() DeviceReinstallPtrOutput {
+	return o.ApplyT(func(v *Device) DeviceReinstallPtrOutput { return v.Reinstall }).(DeviceReinstallPtrOutput)
+}
+
+// Root password to the server (disabled after 24 hours)
+func (o DeviceOutput) RootPassword() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.RootPassword }).(pulumi.StringOutput)
+}
+
+// List of IDs of SSH keys deployed in the device, can be both user and project SSH keys
+func (o DeviceOutput) SshKeyIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringArrayOutput { return v.SshKeyIds }).(pulumi.StringArrayOutput)
+}
+
+// The status of the device
+func (o DeviceOutput) State() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.State }).(pulumi.StringOutput)
+}
+
+// JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. "4G" or "8M" (for gigabytes and megabytes).
+func (o DeviceOutput) Storage() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.Storage }).(pulumi.StringPtrOutput)
+}
+
+// Tags attached to the device
+func (o DeviceOutput) Tags() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don't supply timezone info, timestamp is assumed to be in UTC.
+func (o DeviceOutput) TerminationTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.TerminationTime }).(pulumi.StringPtrOutput)
+}
+
+// The timestamp for the last time the device was updated
+func (o DeviceOutput) Updated() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Updated }).(pulumi.StringOutput)
+}
+
+// A string of the desired User Data for the device.
+func (o DeviceOutput) UserData() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringPtrOutput { return v.UserData }).(pulumi.StringPtrOutput)
+}
+
+// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+//
+// The `ipAddress` block has 3 fields:
+func (o DeviceOutput) WaitForReservationDeprovision() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.BoolPtrOutput { return v.WaitForReservationDeprovision }).(pulumi.BoolPtrOutput)
+}
+
 type DeviceArrayOutput struct{ *pulumi.OutputState }
 
 func (DeviceArrayOutput) ElementType() reflect.Type {
@@ -655,6 +929,12 @@ func (o DeviceArrayOutput) ToDeviceArrayOutput() DeviceArrayOutput {
 
 func (o DeviceArrayOutput) ToDeviceArrayOutputWithContext(ctx context.Context) DeviceArrayOutput {
 	return o
+}
+
+func (o DeviceArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Device] {
+	return pulumix.Output[[]*Device]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DeviceArrayOutput) Index(i pulumi.IntInput) DeviceOutput {
@@ -675,6 +955,12 @@ func (o DeviceMapOutput) ToDeviceMapOutput() DeviceMapOutput {
 
 func (o DeviceMapOutput) ToDeviceMapOutputWithContext(ctx context.Context) DeviceMapOutput {
 	return o
+}
+
+func (o DeviceMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Device] {
+	return pulumix.Output[map[string]*Device]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DeviceMapOutput) MapIndex(k pulumi.StringInput) DeviceOutput {

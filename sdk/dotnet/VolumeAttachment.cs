@@ -13,7 +13,7 @@ namespace Pulumi.EquinixMetal
     /// Resource `equinix-metal.VolumeAttachment` was removed in version 3.0.0, and the API support was deprecated on June 1st 2021. See https://metal.equinix.com/developers/docs/storage/elastic-block-storage/#elastic-block-storage for more details.
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/volumeAttachment:VolumeAttachment")]
-    public partial class VolumeAttachment : Pulumi.CustomResource
+    public partial class VolumeAttachment : global::Pulumi.CustomResource
     {
         [Output("deviceId")]
         public Output<string> DeviceId { get; private set; } = null!;
@@ -65,7 +65,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class VolumeAttachmentArgs : Pulumi.ResourceArgs
+    public sealed class VolumeAttachmentArgs : global::Pulumi.ResourceArgs
     {
         [Input("deviceId", required: true)]
         public Input<string> DeviceId { get; set; } = null!;
@@ -76,9 +76,10 @@ namespace Pulumi.EquinixMetal
         public VolumeAttachmentArgs()
         {
         }
+        public static new VolumeAttachmentArgs Empty => new VolumeAttachmentArgs();
     }
 
-    public sealed class VolumeAttachmentState : Pulumi.ResourceArgs
+    public sealed class VolumeAttachmentState : global::Pulumi.ResourceArgs
     {
         [Input("deviceId")]
         public Input<string>? DeviceId { get; set; }
@@ -89,5 +90,6 @@ namespace Pulumi.EquinixMetal
         public VolumeAttachmentState()
         {
         }
+        public static new VolumeAttachmentState Empty => new VolumeAttachmentState();
     }
 }

@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ## Example Usage
@@ -18,24 +20,22 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewUserApiKey(ctx, "test", &equinix-metal.UserApiKeyArgs{
-//				Description: pulumi.String("Read-only user key"),
-//				ReadOnly:    pulumi.Bool(true),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewUserApiKey(ctx, "test", &equinix-metal.UserApiKeyArgs{
+// Description: pulumi.String("Read-only user key"),
+// ReadOnly: pulumi.Bool(true),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 type UserApiKey struct {
 	pulumi.CustomResourceState
@@ -64,6 +64,11 @@ func NewUserApiKey(ctx *pulumi.Context,
 	if args.ReadOnly == nil {
 		return nil, errors.New("invalid value for required argument 'ReadOnly'")
 	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"token",
+	})
+	opts = append(opts, secrets)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource UserApiKey
 	err := ctx.RegisterResource("equinix-metal:index/userApiKey:UserApiKey", name, args, &resource, opts...)
 	if err != nil {
@@ -153,6 +158,12 @@ func (i *UserApiKey) ToUserApiKeyOutputWithContext(ctx context.Context) UserApiK
 	return pulumi.ToOutputWithContext(ctx, i).(UserApiKeyOutput)
 }
 
+func (i *UserApiKey) ToOutput(ctx context.Context) pulumix.Output[*UserApiKey] {
+	return pulumix.Output[*UserApiKey]{
+		OutputState: i.ToUserApiKeyOutputWithContext(ctx).OutputState,
+	}
+}
+
 // UserApiKeyArrayInput is an input type that accepts UserApiKeyArray and UserApiKeyArrayOutput values.
 // You can construct a concrete instance of `UserApiKeyArrayInput` via:
 //
@@ -176,6 +187,12 @@ func (i UserApiKeyArray) ToUserApiKeyArrayOutput() UserApiKeyArrayOutput {
 
 func (i UserApiKeyArray) ToUserApiKeyArrayOutputWithContext(ctx context.Context) UserApiKeyArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(UserApiKeyArrayOutput)
+}
+
+func (i UserApiKeyArray) ToOutput(ctx context.Context) pulumix.Output[[]*UserApiKey] {
+	return pulumix.Output[[]*UserApiKey]{
+		OutputState: i.ToUserApiKeyArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // UserApiKeyMapInput is an input type that accepts UserApiKeyMap and UserApiKeyMapOutput values.
@@ -203,6 +220,12 @@ func (i UserApiKeyMap) ToUserApiKeyMapOutputWithContext(ctx context.Context) Use
 	return pulumi.ToOutputWithContext(ctx, i).(UserApiKeyMapOutput)
 }
 
+func (i UserApiKeyMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*UserApiKey] {
+	return pulumix.Output[map[string]*UserApiKey]{
+		OutputState: i.ToUserApiKeyMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type UserApiKeyOutput struct{ *pulumi.OutputState }
 
 func (UserApiKeyOutput) ElementType() reflect.Type {
@@ -217,6 +240,33 @@ func (o UserApiKeyOutput) ToUserApiKeyOutputWithContext(ctx context.Context) Use
 	return o
 }
 
+func (o UserApiKeyOutput) ToOutput(ctx context.Context) pulumix.Output[*UserApiKey] {
+	return pulumix.Output[*UserApiKey]{
+		OutputState: o.OutputState,
+	}
+}
+
+// Description string for the User API Key resource
+// * `read-only` - Flag indicating whether the API key shoud be read-only
+func (o UserApiKeyOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *UserApiKey) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
+}
+
+// Flag indicating whether the API key shoud be read-only
+func (o UserApiKeyOutput) ReadOnly() pulumi.BoolOutput {
+	return o.ApplyT(func(v *UserApiKey) pulumi.BoolOutput { return v.ReadOnly }).(pulumi.BoolOutput)
+}
+
+// API token which can be used in Equinix Metal API clients
+func (o UserApiKeyOutput) Token() pulumi.StringOutput {
+	return o.ApplyT(func(v *UserApiKey) pulumi.StringOutput { return v.Token }).(pulumi.StringOutput)
+}
+
+// UUID of the owner of the API key
+func (o UserApiKeyOutput) UserId() pulumi.StringOutput {
+	return o.ApplyT(func(v *UserApiKey) pulumi.StringOutput { return v.UserId }).(pulumi.StringOutput)
+}
+
 type UserApiKeyArrayOutput struct{ *pulumi.OutputState }
 
 func (UserApiKeyArrayOutput) ElementType() reflect.Type {
@@ -229,6 +279,12 @@ func (o UserApiKeyArrayOutput) ToUserApiKeyArrayOutput() UserApiKeyArrayOutput {
 
 func (o UserApiKeyArrayOutput) ToUserApiKeyArrayOutputWithContext(ctx context.Context) UserApiKeyArrayOutput {
 	return o
+}
+
+func (o UserApiKeyArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*UserApiKey] {
+	return pulumix.Output[[]*UserApiKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o UserApiKeyArrayOutput) Index(i pulumi.IntInput) UserApiKeyOutput {
@@ -249,6 +305,12 @@ func (o UserApiKeyMapOutput) ToUserApiKeyMapOutput() UserApiKeyMapOutput {
 
 func (o UserApiKeyMapOutput) ToUserApiKeyMapOutputWithContext(ctx context.Context) UserApiKeyMapOutput {
 	return o
+}
+
+func (o UserApiKeyMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*UserApiKey] {
+	return pulumix.Output[map[string]*UserApiKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o UserApiKeyMapOutput) MapIndex(k pulumi.StringInput) UserApiKeyOutput {

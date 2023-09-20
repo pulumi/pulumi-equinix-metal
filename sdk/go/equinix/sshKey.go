@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides a resource to manage User SSH keys on your Equinix Metal user account. If you create a new device in a project, all the keys of the project's collaborators will be injected to the device.
@@ -22,49 +24,47 @@ import (
 //
 // import (
 //
-//	"io/ioutil"
+//	"os"
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func readFileOrPanic(path string) pulumi.StringPtrInput {
-//		data, err := ioutil.ReadFile(path)
-//		if err != nil {
-//			panic(err.Error())
-//		}
-//		return pulumi.String(string(data))
-//	}
+//					data, err := os.ReadFile(path)
+//					if err != nil {
+//						panic(err.Error())
+//					}
+//					return pulumi.String(string(data))
+//				}
 //
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewSshKey(ctx, "key1", &equinix-metal.SshKeyArgs{
-//				PublicKey: readFileOrPanic("/home/terraform/.ssh/id_rsa.pub"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = equinix - metal.NewDevice(ctx, "test", &equinix-metal.DeviceArgs{
-//				Hostname: pulumi.String("test-device"),
-//				Plan:     pulumi.String("c3.small.x86"),
-//				Facilities: pulumi.StringArray{
-//					pulumi.String("sjc1"),
-//				},
-//				OperatingSystem: pulumi.String("ubuntu_20_04"),
-//				BillingCycle:    pulumi.String("hourly"),
-//				ProjectId:       pulumi.Any(local.Project_id),
-//			}, pulumi.DependsOn([]pulumi.Resource{
-//				pulumi.Resource("metal_ssh_key.key1"),
-//			}))
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewSshKey(ctx, "key1", &equinix-metal.SshKeyArgs{
+// PublicKey: readFileOrPanic("/home/terraform/.ssh/id_rsa.pub"),
+// })
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.NewDevice(ctx, "test", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("test-device"),
+// Plan: pulumi.String("c3.small.x86"),
+// Facilities: pulumi.StringArray{
+// pulumi.String("sjc1"),
+// },
+// OperatingSystem: pulumi.String("ubuntu_20_04"),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectId: pulumi.Any(local.Project_id),
+// }, pulumi.DependsOn([]pulumi.Resource{
+// pulumi.Resource("metal_ssh_key.key1"),
+// }))
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // ## Import
@@ -104,6 +104,7 @@ func NewSshKey(ctx *pulumi.Context,
 	if args.PublicKey == nil {
 		return nil, errors.New("invalid value for required argument 'PublicKey'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource SshKey
 	err := ctx.RegisterResource("equinix-metal:index/sshKey:SshKey", name, args, &resource, opts...)
 	if err != nil {
@@ -201,6 +202,12 @@ func (i *SshKey) ToSshKeyOutputWithContext(ctx context.Context) SshKeyOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SshKeyOutput)
 }
 
+func (i *SshKey) ToOutput(ctx context.Context) pulumix.Output[*SshKey] {
+	return pulumix.Output[*SshKey]{
+		OutputState: i.ToSshKeyOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SshKeyArrayInput is an input type that accepts SshKeyArray and SshKeyArrayOutput values.
 // You can construct a concrete instance of `SshKeyArrayInput` via:
 //
@@ -224,6 +231,12 @@ func (i SshKeyArray) ToSshKeyArrayOutput() SshKeyArrayOutput {
 
 func (i SshKeyArray) ToSshKeyArrayOutputWithContext(ctx context.Context) SshKeyArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SshKeyArrayOutput)
+}
+
+func (i SshKeyArray) ToOutput(ctx context.Context) pulumix.Output[[]*SshKey] {
+	return pulumix.Output[[]*SshKey]{
+		OutputState: i.ToSshKeyArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // SshKeyMapInput is an input type that accepts SshKeyMap and SshKeyMapOutput values.
@@ -251,6 +264,12 @@ func (i SshKeyMap) ToSshKeyMapOutputWithContext(ctx context.Context) SshKeyMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(SshKeyMapOutput)
 }
 
+func (i SshKeyMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SshKey] {
+	return pulumix.Output[map[string]*SshKey]{
+		OutputState: i.ToSshKeyMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type SshKeyOutput struct{ *pulumi.OutputState }
 
 func (SshKeyOutput) ElementType() reflect.Type {
@@ -265,6 +284,43 @@ func (o SshKeyOutput) ToSshKeyOutputWithContext(ctx context.Context) SshKeyOutpu
 	return o
 }
 
+func (o SshKeyOutput) ToOutput(ctx context.Context) pulumix.Output[*SshKey] {
+	return pulumix.Output[*SshKey]{
+		OutputState: o.OutputState,
+	}
+}
+
+// The timestamp for when the SSH key was created
+func (o SshKeyOutput) Created() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKey) pulumi.StringOutput { return v.Created }).(pulumi.StringOutput)
+}
+
+// The fingerprint of the SSH key
+func (o SshKeyOutput) Fingerprint() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKey) pulumi.StringOutput { return v.Fingerprint }).(pulumi.StringOutput)
+}
+
+// The name of the SSH key for identification
+func (o SshKeyOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKey) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The UUID of the Equinix Metal API User who owns this key
+func (o SshKeyOutput) OwnerId() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKey) pulumi.StringOutput { return v.OwnerId }).(pulumi.StringOutput)
+}
+
+// The public key. If this is a file, it
+// can be read using the file interpolation function
+func (o SshKeyOutput) PublicKey() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKey) pulumi.StringOutput { return v.PublicKey }).(pulumi.StringOutput)
+}
+
+// The timestamp for the last time the SSH key was updated
+func (o SshKeyOutput) Updated() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKey) pulumi.StringOutput { return v.Updated }).(pulumi.StringOutput)
+}
+
 type SshKeyArrayOutput struct{ *pulumi.OutputState }
 
 func (SshKeyArrayOutput) ElementType() reflect.Type {
@@ -277,6 +333,12 @@ func (o SshKeyArrayOutput) ToSshKeyArrayOutput() SshKeyArrayOutput {
 
 func (o SshKeyArrayOutput) ToSshKeyArrayOutputWithContext(ctx context.Context) SshKeyArrayOutput {
 	return o
+}
+
+func (o SshKeyArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SshKey] {
+	return pulumix.Output[[]*SshKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SshKeyArrayOutput) Index(i pulumi.IntInput) SshKeyOutput {
@@ -297,6 +359,12 @@ func (o SshKeyMapOutput) ToSshKeyMapOutput() SshKeyMapOutput {
 
 func (o SshKeyMapOutput) ToSshKeyMapOutputWithContext(ctx context.Context) SshKeyMapOutput {
 	return o
+}
+
+func (o SshKeyMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SshKey] {
+	return pulumix.Output[map[string]*SshKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SshKeyMapOutput) MapIndex(k pulumi.StringInput) SshKeyOutput {

@@ -50,12 +50,16 @@ public final class GetFacilityArgs extends com.pulumi.resources.InvokeArgs {
     /**
      * Set of feature strings that the facility must have
      * 
+     * Facilities can be looked up by `code`.
+     * 
      */
     @Import(name="featuresRequireds")
     private @Nullable Output<List<String>> featuresRequireds;
 
     /**
      * @return Set of feature strings that the facility must have
+     * 
+     * Facilities can be looked up by `code`.
      * 
      */
     public Optional<Output<List<String>>> featuresRequireds() {
@@ -143,6 +147,8 @@ public final class GetFacilityArgs extends com.pulumi.resources.InvokeArgs {
         /**
          * @param featuresRequireds Set of feature strings that the facility must have
          * 
+         * Facilities can be looked up by `code`.
+         * 
          * @return builder
          * 
          */
@@ -154,6 +160,8 @@ public final class GetFacilityArgs extends com.pulumi.resources.InvokeArgs {
         /**
          * @param featuresRequireds Set of feature strings that the facility must have
          * 
+         * Facilities can be looked up by `code`.
+         * 
          * @return builder
          * 
          */
@@ -163,6 +171,8 @@ public final class GetFacilityArgs extends com.pulumi.resources.InvokeArgs {
 
         /**
          * @param featuresRequireds Set of feature strings that the facility must have
+         * 
+         * Facilities can be looked up by `code`.
          * 
          * @return builder
          * 

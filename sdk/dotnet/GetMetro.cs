@@ -15,17 +15,17 @@ namespace Pulumi.EquinixMetal
         /// Provides an Equinix Metal metro datasource.
         /// </summary>
         public static Task<GetMetroResult> InvokeAsync(GetMetroArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroArgs(), options.WithDefaults());
 
         /// <summary>
         /// Provides an Equinix Metal metro datasource.
         /// </summary>
         public static Output<GetMetroResult> Invoke(GetMetroInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetMetroResult>("equinix-metal:index/getMetro:getMetro", args ?? new GetMetroInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetMetroArgs : Pulumi.InvokeArgs
+    public sealed class GetMetroArgs : global::Pulumi.InvokeArgs
     {
         [Input("capacities")]
         private List<Inputs.GetMetroCapacityArgs>? _capacities;
@@ -41,6 +41,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// The metro code
+        /// 
+        /// Metros can be looked up by `code`.
         /// </summary>
         [Input("code", required: true)]
         public string Code { get; set; } = null!;
@@ -48,9 +50,10 @@ namespace Pulumi.EquinixMetal
         public GetMetroArgs()
         {
         }
+        public static new GetMetroArgs Empty => new GetMetroArgs();
     }
 
-    public sealed class GetMetroInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetMetroInvokeArgs : global::Pulumi.InvokeArgs
     {
         [Input("capacities")]
         private InputList<Inputs.GetMetroCapacityInputArgs>? _capacities;
@@ -66,6 +69,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// The metro code
+        /// 
+        /// Metros can be looked up by `code`.
         /// </summary>
         [Input("code", required: true)]
         public Input<string> Code { get; set; } = null!;
@@ -73,6 +78,7 @@ namespace Pulumi.EquinixMetal
         public GetMetroInvokeArgs()
         {
         }
+        public static new GetMetroInvokeArgs Empty => new GetMetroInvokeArgs();
     }
 
 

@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides an Equinix Metal Virtual Network datasource. VLANs data sources can be
@@ -22,29 +24,26 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			foovlan, err := equinix - metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
-//				ProjectId: pulumi.Any(local.Project_id),
-//				Metro:     pulumi.String("sv"),
-//				Vxlan:     pulumi.Int(5),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_ = equinix - metal.LookupVlanOutput(ctx, GetVlanOutputArgs{
-//				VlanId: foovlan.ID(),
-//			}, nil)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// foovlan, err := equinix-metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
+// ProjectId: pulumi.Any(local.Project_id),
+// Metro: pulumi.String("sv"),
+// Vxlan: pulumi.Int(5),
+// })
+// if err != nil {
+// return err
+// }
+// _ = equinix-metal.LookupVlanOutput(ctx, equinix.GetVlanOutputArgs{
+// VlanId: foovlan.ID(),
+// }, nil);
+// return nil
+// })
+// }
 // ```
 //
 // # Fetch a vlan by project ID, vxlan and metro
@@ -54,36 +53,34 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
-//				ProjectId: pulumi.Any(local.Project_id),
-//				Metro:     pulumi.String("sv"),
-//				Vxlan:     pulumi.Int(5),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = equinix - metal.LookupVlan(ctx, &GetVlanArgs{
-//				ProjectId: pulumi.StringRef(local.Project_id),
-//				Vxlan:     pulumi.IntRef(5),
-//				Metro:     pulumi.StringRef("sv"),
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewVlan(ctx, "foovlan", &equinix-metal.VlanArgs{
+// ProjectId: pulumi.Any(local.Project_id),
+// Metro: pulumi.String("sv"),
+// Vxlan: pulumi.Int(5),
+// })
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.LookupVlan(ctx, &equinix.LookupVlanArgs{
+// ProjectId: pulumi.StringRef(local.Project_id),
+// Vxlan: pulumi.IntRef(5),
+// Metro: pulumi.StringRef("sv"),
+// }, nil);
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 func LookupVlan(ctx *pulumi.Context, args *LookupVlanArgs, opts ...pulumi.InvokeOption) (*LookupVlanResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupVlanResult
 	err := ctx.Invoke("equinix-metal:index/getVlan:getVlan", args, &rv, opts...)
 	if err != nil {
@@ -165,6 +162,12 @@ func (o LookupVlanResultOutput) ToLookupVlanResultOutput() LookupVlanResultOutpu
 
 func (o LookupVlanResultOutput) ToLookupVlanResultOutputWithContext(ctx context.Context) LookupVlanResultOutput {
 	return o
+}
+
+func (o LookupVlanResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupVlanResult] {
+	return pulumix.Output[LookupVlanResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // List of device ID to which this VLAN is assigned

@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this data source to read ports of existing devices. You can read port by either its UUID, or by a device UUID and port name.
@@ -21,38 +23,36 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			projectId := "<UUID_of_your_project>"
-//			testDevice, err := equinix - metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
-//				Hostname: pulumi.String("tfacc-test-device-port"),
-//				Plan:     pulumi.String("c3.medium.x86"),
-//				Facilities: pulumi.StringArray{
-//					pulumi.String("sv15"),
-//				},
-//				OperatingSystem: pulumi.String("ubuntu_20_04"),
-//				BillingCycle:    pulumi.String("hourly"),
-//				ProjectId:       pulumi.String(projectId),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_ = equinix - metal.LookupPortOutput(ctx, GetPortOutputArgs{
-//				DeviceId: testDevice.ID(),
-//				Name:     pulumi.String("eth0"),
-//			}, nil)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// projectId := "<UUID_of_your_project>";
+// testDevice, err := equinix-metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("tfacc-test-device-port"),
+// Plan: pulumi.String("c3.medium.x86"),
+// Facilities: pulumi.StringArray{
+// pulumi.String("sv15"),
+// },
+// OperatingSystem: pulumi.String("ubuntu_20_04"),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectId: pulumi.String(projectId),
+// })
+// if err != nil {
+// return err
+// }
+// _ = equinix-metal.LookupPortOutput(ctx, equinix.GetPortOutputArgs{
+// DeviceId: testDevice.ID(),
+// Name: pulumi.String("eth0"),
+// }, nil);
+// return nil
+// })
+// }
 // ```
 func LookupPort(ctx *pulumi.Context, args *LookupPortArgs, opts ...pulumi.InvokeOption) (*LookupPortResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupPortResult
 	err := ctx.Invoke("equinix-metal:index/getPort:getPort", args, &rv, opts...)
 	if err != nil {
@@ -137,6 +137,12 @@ func (o LookupPortResultOutput) ToLookupPortResultOutput() LookupPortResultOutpu
 
 func (o LookupPortResultOutput) ToLookupPortResultOutputWithContext(ctx context.Context) LookupPortResultOutput {
 	return o
+}
+
+func (o LookupPortResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupPortResult] {
+	return pulumix.Output[LookupPortResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // UUID of the bond port"

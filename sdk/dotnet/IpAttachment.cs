@@ -22,7 +22,7 @@ namespace Pulumi.EquinixMetal
     /// Device and reserved block must be in the same facility.
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/ipAttachment:IpAttachment")]
-    public partial class IpAttachment : Pulumi.CustomResource
+    public partial class IpAttachment : global::Pulumi.CustomResource
     {
         [Output("address")]
         public Output<string> Address { get; private set; } = null!;
@@ -132,7 +132,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class IpAttachmentArgs : Pulumi.ResourceArgs
+    public sealed class IpAttachmentArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// CIDR notation of subnet from block reserved in the same
@@ -150,9 +150,10 @@ namespace Pulumi.EquinixMetal
         public IpAttachmentArgs()
         {
         }
+        public static new IpAttachmentArgs Empty => new IpAttachmentArgs();
     }
 
-    public sealed class IpAttachmentState : Pulumi.ResourceArgs
+    public sealed class IpAttachmentState : global::Pulumi.ResourceArgs
     {
         [Input("address")]
         public Input<string>? Address { get; set; }
@@ -221,5 +222,6 @@ namespace Pulumi.EquinixMetal
         public IpAttachmentState()
         {
         }
+        public static new IpAttachmentState Empty => new IpAttachmentState();
     }
 }

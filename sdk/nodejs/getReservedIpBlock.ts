@@ -9,11 +9,8 @@ import * as utilities from "./utilities";
  */
 export function getReservedIpBlock(args?: GetReservedIpBlockArgs, opts?: pulumi.InvokeOptions): Promise<GetReservedIpBlockResult> {
     args = args || {};
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("equinix-metal:index/getReservedIpBlock:getReservedIpBlock", {
         "id": args.id,
         "ipAddress": args.ipAddress,
@@ -62,9 +59,11 @@ export interface GetReservedIpBlockResult {
     readonly quantity: number;
     readonly type: string;
 }
-
+/**
+ * Use this data source to find IP address blocks in Equinix Metal. You can use IP address or a block ID for lookup.
+ */
 export function getReservedIpBlockOutput(args?: GetReservedIpBlockOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetReservedIpBlockResult> {
-    return pulumi.output(args).apply(a => getReservedIpBlock(a, opts))
+    return pulumi.output(args).apply((a: any) => getReservedIpBlock(a, opts))
 }
 
 /**

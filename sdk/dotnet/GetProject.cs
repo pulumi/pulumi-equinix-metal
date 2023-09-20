@@ -19,29 +19,29 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var tfProject1 = EquinixMetal.GetProject.Invoke(new()
         ///     {
-        ///         var tfProject1 = Output.Create(EquinixMetal.GetProject.InvokeAsync(new EquinixMetal.GetProjectArgs
-        ///         {
-        ///             Name = "Terraform Fun",
-        ///         }));
-        ///         this.UsersOfTerraformFun = tfProject1.Apply(tfProject1 =&gt; tfProject1.UserIds);
-        ///     }
+        ///         Name = "Terraform Fun",
+        ///     });
         /// 
-        ///     [Output("usersOfTerraformFun")]
-        ///     public Output&lt;string&gt; UsersOfTerraformFun { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["usersOfTerraformFun"] = tfProject1.Apply(getProjectResult =&gt; getProjectResult.UserIds),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetProjectResult> InvokeAsync(GetProjectArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("equinix-metal:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("equinix-metal:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this datasource to retrieve attributes of the Project API resource.
@@ -51,33 +51,33 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var tfProject1 = EquinixMetal.GetProject.Invoke(new()
         ///     {
-        ///         var tfProject1 = Output.Create(EquinixMetal.GetProject.InvokeAsync(new EquinixMetal.GetProjectArgs
-        ///         {
-        ///             Name = "Terraform Fun",
-        ///         }));
-        ///         this.UsersOfTerraformFun = tfProject1.Apply(tfProject1 =&gt; tfProject1.UserIds);
-        ///     }
+        ///         Name = "Terraform Fun",
+        ///     });
         /// 
-        ///     [Output("usersOfTerraformFun")]
-        ///     public Output&lt;string&gt; UsersOfTerraformFun { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["usersOfTerraformFun"] = tfProject1.Apply(getProjectResult =&gt; getProjectResult.UserIds),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetProjectResult> Invoke(GetProjectInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetProjectResult>("equinix-metal:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetProjectResult>("equinix-metal:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetProjectArgs : Pulumi.InvokeArgs
+    public sealed class GetProjectArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name which is used to look up the project
@@ -94,9 +94,10 @@ namespace Pulumi.EquinixMetal
         public GetProjectArgs()
         {
         }
+        public static new GetProjectArgs Empty => new GetProjectArgs();
     }
 
-    public sealed class GetProjectInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetProjectInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name which is used to look up the project
@@ -113,6 +114,7 @@ namespace Pulumi.EquinixMetal
         public GetProjectInvokeArgs()
         {
         }
+        public static new GetProjectInvokeArgs Empty => new GetProjectInvokeArgs();
     }
 
 

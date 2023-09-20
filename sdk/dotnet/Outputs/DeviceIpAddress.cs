@@ -19,6 +19,12 @@ namespace Pulumi.EquinixMetal.Outputs
         public readonly int? Cidr;
         /// <summary>
         /// List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
+        /// 
+        /// You can supply one `ip_address` block per IP address type. If you use the `ip_address` you must always pass a block for `private_ipv4`.
+        /// 
+        /// To learn more about using the reserved IP addresses for new devices, see the examples in the equinix-metal.ReservedIpBlock documentation.
+        /// 
+        /// The `reinstall` block has 3 fields:
         /// </summary>
         public readonly ImmutableArray<string> ReservationIds;
         /// <summary>

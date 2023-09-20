@@ -75,6 +75,34 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a connection resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetConnectionResult> getConnection(GetConnectionArgs args) {
@@ -84,6 +112,34 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a connection resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetConnectionResult> getConnectionPlain(GetConnectionPlainArgs args) {
@@ -93,6 +149,34 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a connection resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetConnectionResult> getConnection(GetConnectionArgs args, InvokeOptions options) {
@@ -102,6 +186,34 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a connection resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetConnectionResult> getConnectionPlain(GetConnectionPlainArgs args, InvokeOptions options) {
@@ -115,6 +227,63 @@ public final class EquinixmetalFunctions {
      * [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice(GetDeviceArgs.builder()
+     *             .projectId(local.project_id())
+     *             .hostname(&#34;mydevice&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;id&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.id()));
+     *     }
+     * }
+     * ```
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice();
+     * 
+     *         ctx.export(&#34;ipv4&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.accessPublicIpv4()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetDeviceResult> getDevice() {
@@ -128,6 +297,63 @@ public final class EquinixmetalFunctions {
      * [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice(GetDeviceArgs.builder()
+     *             .projectId(local.project_id())
+     *             .hostname(&#34;mydevice&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;id&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.id()));
+     *     }
+     * }
+     * ```
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice();
+     * 
+     *         ctx.export(&#34;ipv4&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.accessPublicIpv4()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetDeviceResult> getDevicePlain() {
@@ -141,6 +367,63 @@ public final class EquinixmetalFunctions {
      * [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice(GetDeviceArgs.builder()
+     *             .projectId(local.project_id())
+     *             .hostname(&#34;mydevice&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;id&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.id()));
+     *     }
+     * }
+     * ```
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice();
+     * 
+     *         ctx.export(&#34;ipv4&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.accessPublicIpv4()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetDeviceResult> getDevice(GetDeviceArgs args) {
@@ -154,6 +437,63 @@ public final class EquinixmetalFunctions {
      * [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice(GetDeviceArgs.builder()
+     *             .projectId(local.project_id())
+     *             .hostname(&#34;mydevice&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;id&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.id()));
+     *     }
+     * }
+     * ```
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice();
+     * 
+     *         ctx.export(&#34;ipv4&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.accessPublicIpv4()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetDeviceResult> getDevicePlain(GetDevicePlainArgs args) {
@@ -167,6 +507,63 @@ public final class EquinixmetalFunctions {
      * [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice(GetDeviceArgs.builder()
+     *             .projectId(local.project_id())
+     *             .hostname(&#34;mydevice&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;id&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.id()));
+     *     }
+     * }
+     * ```
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice();
+     * 
+     *         ctx.export(&#34;ipv4&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.accessPublicIpv4()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetDeviceResult> getDevice(GetDeviceArgs args, InvokeOptions options) {
@@ -180,6 +577,63 @@ public final class EquinixmetalFunctions {
      * [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice(GetDeviceArgs.builder()
+     *             .projectId(local.project_id())
+     *             .hostname(&#34;mydevice&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;id&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.id()));
+     *     }
+     * }
+     * ```
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDevice();
+     * 
+     *         ctx.export(&#34;ipv4&#34;, test.applyValue(getDeviceResult -&gt; getDeviceResult.accessPublicIpv4()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetDeviceResult> getDevicePlain(GetDevicePlainArgs args, InvokeOptions options) {
@@ -193,6 +647,35 @@ public final class EquinixmetalFunctions {
      * To learn more about using BGP in Equinix Metal, see the equinix-metal.BgpSession resource documentation.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceBgpNeighborsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDeviceBgpNeighbors(GetDeviceBgpNeighborsArgs.builder()
+     *             .deviceId(&#34;4c641195-25e5-4c3c-b2b7-4cd7a42c7b40&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;bgpNeighborsListing&#34;, test.applyValue(getDeviceBgpNeighborsResult -&gt; getDeviceBgpNeighborsResult.bgpNeighbors()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetDeviceBgpNeighborsResult> getDeviceBgpNeighbors(GetDeviceBgpNeighborsArgs args) {
@@ -206,6 +689,35 @@ public final class EquinixmetalFunctions {
      * To learn more about using BGP in Equinix Metal, see the equinix-metal.BgpSession resource documentation.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceBgpNeighborsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDeviceBgpNeighbors(GetDeviceBgpNeighborsArgs.builder()
+     *             .deviceId(&#34;4c641195-25e5-4c3c-b2b7-4cd7a42c7b40&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;bgpNeighborsListing&#34;, test.applyValue(getDeviceBgpNeighborsResult -&gt; getDeviceBgpNeighborsResult.bgpNeighbors()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetDeviceBgpNeighborsResult> getDeviceBgpNeighborsPlain(GetDeviceBgpNeighborsPlainArgs args) {
@@ -219,6 +731,35 @@ public final class EquinixmetalFunctions {
      * To learn more about using BGP in Equinix Metal, see the equinix-metal.BgpSession resource documentation.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceBgpNeighborsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDeviceBgpNeighbors(GetDeviceBgpNeighborsArgs.builder()
+     *             .deviceId(&#34;4c641195-25e5-4c3c-b2b7-4cd7a42c7b40&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;bgpNeighborsListing&#34;, test.applyValue(getDeviceBgpNeighborsResult -&gt; getDeviceBgpNeighborsResult.bgpNeighbors()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetDeviceBgpNeighborsResult> getDeviceBgpNeighbors(GetDeviceBgpNeighborsArgs args, InvokeOptions options) {
@@ -232,6 +773,35 @@ public final class EquinixmetalFunctions {
      * To learn more about using BGP in Equinix Metal, see the equinix-metal.BgpSession resource documentation.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetDeviceBgpNeighborsArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getDeviceBgpNeighbors(GetDeviceBgpNeighborsArgs.builder()
+     *             .deviceId(&#34;4c641195-25e5-4c3c-b2b7-4cd7a42c7b40&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;bgpNeighborsListing&#34;, test.applyValue(getDeviceBgpNeighborsResult -&gt; getDeviceBgpNeighborsResult.bgpNeighbors()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetDeviceBgpNeighborsResult> getDeviceBgpNeighborsPlain(GetDeviceBgpNeighborsPlainArgs args, InvokeOptions options) {
@@ -269,6 +839,42 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve Metal Gateway resources in Equinix Metal.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetGatewayArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+     *             .description(&#34;test VLAN in SV&#34;)
+     *             .metro(&#34;sv&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *         final var testGateway = Equinix-metalFunctions.getGateway(GetGatewayArgs.builder()
+     *             .gatewayId(local.gateway_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetGatewayResult> getGateway(GetGatewayArgs args) {
@@ -278,6 +884,42 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve Metal Gateway resources in Equinix Metal.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetGatewayArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+     *             .description(&#34;test VLAN in SV&#34;)
+     *             .metro(&#34;sv&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *         final var testGateway = Equinix-metalFunctions.getGateway(GetGatewayArgs.builder()
+     *             .gatewayId(local.gateway_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetGatewayResult> getGatewayPlain(GetGatewayPlainArgs args) {
@@ -287,6 +929,42 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve Metal Gateway resources in Equinix Metal.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetGatewayArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+     *             .description(&#34;test VLAN in SV&#34;)
+     *             .metro(&#34;sv&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *         final var testGateway = Equinix-metalFunctions.getGateway(GetGatewayArgs.builder()
+     *             .gatewayId(local.gateway_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetGatewayResult> getGateway(GetGatewayArgs args, InvokeOptions options) {
@@ -296,6 +974,42 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve Metal Gateway resources in Equinix Metal.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetGatewayArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+     *             .description(&#34;test VLAN in SV&#34;)
+     *             .metro(&#34;sv&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *         final var testGateway = Equinix-metalFunctions.getGateway(GetGatewayArgs.builder()
+     *             .gatewayId(local.gateway_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetGatewayResult> getGatewayPlain(GetGatewayPlainArgs args, InvokeOptions options) {
@@ -363,6 +1077,37 @@ public final class EquinixmetalFunctions {
      * The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`&lt;network&gt;/&lt;mask&gt;`) of respective blocks from the project.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetIpBlockRangesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         final var test = Equinix-metalFunctions.getIpBlockRanges(GetIpBlockRangesArgs.builder()
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         ctx.export(&#34;out&#34;, test.applyValue(getIpBlockRangesResult -&gt; getIpBlockRangesResult));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetIpBlockRangesResult> getIpBlockRanges(GetIpBlockRangesArgs args) {
@@ -376,6 +1121,37 @@ public final class EquinixmetalFunctions {
      * The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`&lt;network&gt;/&lt;mask&gt;`) of respective blocks from the project.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetIpBlockRangesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         final var test = Equinix-metalFunctions.getIpBlockRanges(GetIpBlockRangesArgs.builder()
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         ctx.export(&#34;out&#34;, test.applyValue(getIpBlockRangesResult -&gt; getIpBlockRangesResult));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetIpBlockRangesResult> getIpBlockRangesPlain(GetIpBlockRangesPlainArgs args) {
@@ -389,6 +1165,37 @@ public final class EquinixmetalFunctions {
      * The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`&lt;network&gt;/&lt;mask&gt;`) of respective blocks from the project.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetIpBlockRangesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         final var test = Equinix-metalFunctions.getIpBlockRanges(GetIpBlockRangesArgs.builder()
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         ctx.export(&#34;out&#34;, test.applyValue(getIpBlockRangesResult -&gt; getIpBlockRangesResult));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetIpBlockRangesResult> getIpBlockRanges(GetIpBlockRangesArgs args, InvokeOptions options) {
@@ -402,6 +1209,37 @@ public final class EquinixmetalFunctions {
      * The datasource has 4 list attributes: `global_ipv4`, `public_ipv4`, `private_ipv4` and `ipv6`, each listing CIDR notation (`&lt;network&gt;/&lt;mask&gt;`) of respective blocks from the project.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetIpBlockRangesArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         final var test = Equinix-metalFunctions.getIpBlockRanges(GetIpBlockRangesArgs.builder()
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         ctx.export(&#34;out&#34;, test.applyValue(getIpBlockRangesResult -&gt; getIpBlockRangesResult));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetIpBlockRangesResult> getIpBlockRangesPlain(GetIpBlockRangesPlainArgs args, InvokeOptions options) {
@@ -439,6 +1277,47 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Operating System image.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOperatingSystemArgs;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getOperatingSystem(GetOperatingSystemArgs.builder()
+     *             .distro(&#34;ubuntu&#34;)
+     *             .version(&#34;20.04&#34;)
+     *             .provisionableOn(&#34;c3.medium.x86&#34;)
+     *             .build());
+     * 
+     *         var server = new Device(&#34;server&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tf.ubuntu&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;ny5&#34;)
+     *             .operatingSystem(example.applyValue(getOperatingSystemResult -&gt; getOperatingSystemResult.id()))
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetOperatingSystemResult> getOperatingSystem() {
@@ -448,6 +1327,47 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Operating System image.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOperatingSystemArgs;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getOperatingSystem(GetOperatingSystemArgs.builder()
+     *             .distro(&#34;ubuntu&#34;)
+     *             .version(&#34;20.04&#34;)
+     *             .provisionableOn(&#34;c3.medium.x86&#34;)
+     *             .build());
+     * 
+     *         var server = new Device(&#34;server&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tf.ubuntu&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;ny5&#34;)
+     *             .operatingSystem(example.applyValue(getOperatingSystemResult -&gt; getOperatingSystemResult.id()))
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetOperatingSystemResult> getOperatingSystemPlain() {
@@ -457,6 +1377,47 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Operating System image.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOperatingSystemArgs;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getOperatingSystem(GetOperatingSystemArgs.builder()
+     *             .distro(&#34;ubuntu&#34;)
+     *             .version(&#34;20.04&#34;)
+     *             .provisionableOn(&#34;c3.medium.x86&#34;)
+     *             .build());
+     * 
+     *         var server = new Device(&#34;server&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tf.ubuntu&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;ny5&#34;)
+     *             .operatingSystem(example.applyValue(getOperatingSystemResult -&gt; getOperatingSystemResult.id()))
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetOperatingSystemResult> getOperatingSystem(GetOperatingSystemArgs args) {
@@ -466,6 +1427,47 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Operating System image.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOperatingSystemArgs;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getOperatingSystem(GetOperatingSystemArgs.builder()
+     *             .distro(&#34;ubuntu&#34;)
+     *             .version(&#34;20.04&#34;)
+     *             .provisionableOn(&#34;c3.medium.x86&#34;)
+     *             .build());
+     * 
+     *         var server = new Device(&#34;server&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tf.ubuntu&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;ny5&#34;)
+     *             .operatingSystem(example.applyValue(getOperatingSystemResult -&gt; getOperatingSystemResult.id()))
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetOperatingSystemResult> getOperatingSystemPlain(GetOperatingSystemPlainArgs args) {
@@ -475,6 +1477,47 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Operating System image.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOperatingSystemArgs;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getOperatingSystem(GetOperatingSystemArgs.builder()
+     *             .distro(&#34;ubuntu&#34;)
+     *             .version(&#34;20.04&#34;)
+     *             .provisionableOn(&#34;c3.medium.x86&#34;)
+     *             .build());
+     * 
+     *         var server = new Device(&#34;server&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tf.ubuntu&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;ny5&#34;)
+     *             .operatingSystem(example.applyValue(getOperatingSystemResult -&gt; getOperatingSystemResult.id()))
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetOperatingSystemResult> getOperatingSystem(GetOperatingSystemArgs args, InvokeOptions options) {
@@ -484,6 +1527,47 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Operating System image.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOperatingSystemArgs;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getOperatingSystem(GetOperatingSystemArgs.builder()
+     *             .distro(&#34;ubuntu&#34;)
+     *             .version(&#34;20.04&#34;)
+     *             .provisionableOn(&#34;c3.medium.x86&#34;)
+     *             .build());
+     * 
+     *         var server = new Device(&#34;server&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tf.ubuntu&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;ny5&#34;)
+     *             .operatingSystem(example.applyValue(getOperatingSystemResult -&gt; getOperatingSystemResult.id()))
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetOperatingSystemResult> getOperatingSystemPlain(GetOperatingSystemPlainArgs args, InvokeOptions options) {
@@ -493,6 +1577,35 @@ public final class EquinixmetalFunctions {
      * Provides an Equinix Metal organization datasource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOrganizationArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getOrganization(GetOrganizationArgs.builder()
+     *             .organizationId(local.org_id())
+     *             .build());
+     * 
+     *         ctx.export(&#34;projectsInTheOrg&#34;, test.applyValue(getOrganizationResult -&gt; getOrganizationResult.projectIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetOrganizationResult> getOrganization() {
@@ -502,6 +1615,35 @@ public final class EquinixmetalFunctions {
      * Provides an Equinix Metal organization datasource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOrganizationArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getOrganization(GetOrganizationArgs.builder()
+     *             .organizationId(local.org_id())
+     *             .build());
+     * 
+     *         ctx.export(&#34;projectsInTheOrg&#34;, test.applyValue(getOrganizationResult -&gt; getOrganizationResult.projectIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetOrganizationResult> getOrganizationPlain() {
@@ -511,6 +1653,35 @@ public final class EquinixmetalFunctions {
      * Provides an Equinix Metal organization datasource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOrganizationArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getOrganization(GetOrganizationArgs.builder()
+     *             .organizationId(local.org_id())
+     *             .build());
+     * 
+     *         ctx.export(&#34;projectsInTheOrg&#34;, test.applyValue(getOrganizationResult -&gt; getOrganizationResult.projectIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetOrganizationResult> getOrganization(GetOrganizationArgs args) {
@@ -520,6 +1691,35 @@ public final class EquinixmetalFunctions {
      * Provides an Equinix Metal organization datasource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOrganizationArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getOrganization(GetOrganizationArgs.builder()
+     *             .organizationId(local.org_id())
+     *             .build());
+     * 
+     *         ctx.export(&#34;projectsInTheOrg&#34;, test.applyValue(getOrganizationResult -&gt; getOrganizationResult.projectIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetOrganizationResult> getOrganizationPlain(GetOrganizationPlainArgs args) {
@@ -529,6 +1729,35 @@ public final class EquinixmetalFunctions {
      * Provides an Equinix Metal organization datasource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOrganizationArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getOrganization(GetOrganizationArgs.builder()
+     *             .organizationId(local.org_id())
+     *             .build());
+     * 
+     *         ctx.export(&#34;projectsInTheOrg&#34;, test.applyValue(getOrganizationResult -&gt; getOrganizationResult.projectIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetOrganizationResult> getOrganization(GetOrganizationArgs args, InvokeOptions options) {
@@ -538,6 +1767,35 @@ public final class EquinixmetalFunctions {
      * Provides an Equinix Metal organization datasource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetOrganizationArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var test = Equinix-metalFunctions.getOrganization(GetOrganizationArgs.builder()
+     *             .organizationId(local.org_id())
+     *             .build());
+     * 
+     *         ctx.export(&#34;projectsInTheOrg&#34;, test.applyValue(getOrganizationResult -&gt; getOrganizationResult.projectIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetOrganizationResult> getOrganizationPlain(GetOrganizationPlainArgs args, InvokeOptions options) {
@@ -548,6 +1806,50 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Create a device and read it&#39;s eth0 port to the datasource.
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetPortArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tfacc-test-device-port&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;sv15&#34;)
+     *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         final var testPort = Equinix-metalFunctions.getPort(GetPortArgs.builder()
+     *             .deviceId(testDevice.id())
+     *             .name(&#34;eth0&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetPortResult> getPort() {
         return getPort(GetPortArgs.Empty, InvokeOptions.Empty);
@@ -556,6 +1858,50 @@ public final class EquinixmetalFunctions {
      * Use this data source to read ports of existing devices. You can read port by either its UUID, or by a device UUID and port name.
      * 
      * ## Example Usage
+     * 
+     * Create a device and read it&#39;s eth0 port to the datasource.
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetPortArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tfacc-test-device-port&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;sv15&#34;)
+     *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         final var testPort = Equinix-metalFunctions.getPort(GetPortArgs.builder()
+     *             .deviceId(testDevice.id())
+     *             .name(&#34;eth0&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetPortResult> getPortPlain() {
@@ -566,6 +1912,50 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Create a device and read it&#39;s eth0 port to the datasource.
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetPortArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tfacc-test-device-port&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;sv15&#34;)
+     *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         final var testPort = Equinix-metalFunctions.getPort(GetPortArgs.builder()
+     *             .deviceId(testDevice.id())
+     *             .name(&#34;eth0&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetPortResult> getPort(GetPortArgs args) {
         return getPort(args, InvokeOptions.Empty);
@@ -574,6 +1964,50 @@ public final class EquinixmetalFunctions {
      * Use this data source to read ports of existing devices. You can read port by either its UUID, or by a device UUID and port name.
      * 
      * ## Example Usage
+     * 
+     * Create a device and read it&#39;s eth0 port to the datasource.
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetPortArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tfacc-test-device-port&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;sv15&#34;)
+     *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         final var testPort = Equinix-metalFunctions.getPort(GetPortArgs.builder()
+     *             .deviceId(testDevice.id())
+     *             .name(&#34;eth0&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetPortResult> getPortPlain(GetPortPlainArgs args) {
@@ -584,6 +2018,50 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Create a device and read it&#39;s eth0 port to the datasource.
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetPortArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tfacc-test-device-port&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;sv15&#34;)
+     *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         final var testPort = Equinix-metalFunctions.getPort(GetPortArgs.builder()
+     *             .deviceId(testDevice.id())
+     *             .name(&#34;eth0&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetPortResult> getPort(GetPortArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("equinix-metal:index/getPort:getPort", TypeShape.of(GetPortResult.class), args, Utilities.withVersion(options));
@@ -592,6 +2070,50 @@ public final class EquinixmetalFunctions {
      * Use this data source to read ports of existing devices. You can read port by either its UUID, or by a device UUID and port name.
      * 
      * ## Example Usage
+     * 
+     * Create a device and read it&#39;s eth0 port to the datasource.
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Device;
+     * import com.pulumi.equinixmetal.DeviceArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetPortArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+     * 
+     *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+     *             .hostname(&#34;tfacc-test-device-port&#34;)
+     *             .plan(&#34;c3.medium.x86&#34;)
+     *             .facilities(&#34;sv15&#34;)
+     *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+     *             .billingCycle(&#34;hourly&#34;)
+     *             .projectId(projectId)
+     *             .build());
+     * 
+     *         final var testPort = Equinix-metalFunctions.getPort(GetPortArgs.builder()
+     *             .deviceId(testDevice.id())
+     *             .name(&#34;eth0&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetPortResult> getPortPlain(GetPortPlainArgs args, InvokeOptions options) {
@@ -633,6 +2155,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of the Project API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var tfProject1 = Equinix-metalFunctions.getProject(GetProjectArgs.builder()
+     *             .name(&#34;Terraform Fun&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;usersOfTerraformFun&#34;, tfProject1.applyValue(getProjectResult -&gt; getProjectResult.userIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProjectResult> getProject() {
@@ -642,6 +2193,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of the Project API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var tfProject1 = Equinix-metalFunctions.getProject(GetProjectArgs.builder()
+     *             .name(&#34;Terraform Fun&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;usersOfTerraformFun&#34;, tfProject1.applyValue(getProjectResult -&gt; getProjectResult.userIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProjectResult> getProjectPlain() {
@@ -651,6 +2231,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of the Project API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var tfProject1 = Equinix-metalFunctions.getProject(GetProjectArgs.builder()
+     *             .name(&#34;Terraform Fun&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;usersOfTerraformFun&#34;, tfProject1.applyValue(getProjectResult -&gt; getProjectResult.userIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProjectResult> getProject(GetProjectArgs args) {
@@ -660,6 +2269,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of the Project API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var tfProject1 = Equinix-metalFunctions.getProject(GetProjectArgs.builder()
+     *             .name(&#34;Terraform Fun&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;usersOfTerraformFun&#34;, tfProject1.applyValue(getProjectResult -&gt; getProjectResult.userIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProjectResult> getProjectPlain(GetProjectPlainArgs args) {
@@ -669,6 +2307,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of the Project API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var tfProject1 = Equinix-metalFunctions.getProject(GetProjectArgs.builder()
+     *             .name(&#34;Terraform Fun&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;usersOfTerraformFun&#34;, tfProject1.applyValue(getProjectResult -&gt; getProjectResult.userIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProjectResult> getProject(GetProjectArgs args, InvokeOptions options) {
@@ -678,6 +2345,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of the Project API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var tfProject1 = Equinix-metalFunctions.getProject(GetProjectArgs.builder()
+     *             .name(&#34;Terraform Fun&#34;)
+     *             .build());
+     * 
+     *         ctx.export(&#34;usersOfTerraformFun&#34;, tfProject1.applyValue(getProjectResult -&gt; getProjectResult.userIds()));
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProjectResult> getProjectPlain(GetProjectPlainArgs args, InvokeOptions options) {
@@ -687,6 +2383,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of a Project SSH Key API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectSshKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var myKey = Equinix-metalFunctions.getProjectSshKey(GetProjectSshKeyArgs.builder()
+     *             .search(&#34;username@hostname&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProjectSshKeyResult> getProjectSshKey(GetProjectSshKeyArgs args) {
@@ -696,6 +2421,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of a Project SSH Key API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectSshKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var myKey = Equinix-metalFunctions.getProjectSshKey(GetProjectSshKeyArgs.builder()
+     *             .search(&#34;username@hostname&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProjectSshKeyResult> getProjectSshKeyPlain(GetProjectSshKeyPlainArgs args) {
@@ -705,6 +2459,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of a Project SSH Key API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectSshKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var myKey = Equinix-metalFunctions.getProjectSshKey(GetProjectSshKeyArgs.builder()
+     *             .search(&#34;username@hostname&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProjectSshKeyResult> getProjectSshKey(GetProjectSshKeyArgs args, InvokeOptions options) {
@@ -714,6 +2497,35 @@ public final class EquinixmetalFunctions {
      * Use this datasource to retrieve attributes of a Project SSH Key API resource.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetProjectSshKeyArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var myKey = Equinix-metalFunctions.getProjectSshKey(GetProjectSshKeyArgs.builder()
+     *             .search(&#34;username@hostname&#34;)
+     *             .projectId(local.project_id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProjectSshKeyResult> getProjectSshKeyPlain(GetProjectSshKeyPlainArgs args, InvokeOptions options) {
@@ -766,6 +2578,68 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Lookup by facility:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .facility(&#34;ny5&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Lookup by metro:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .metro(&#34;sv&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetSpotMarketPriceResult> getSpotMarketPrice(GetSpotMarketPriceArgs args) {
         return getSpotMarketPrice(args, InvokeOptions.Empty);
@@ -774,6 +2648,68 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Spot Market Price for a plan.
      * 
      * ## Example Usage
+     * 
+     * Lookup by facility:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .facility(&#34;ny5&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Lookup by metro:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .metro(&#34;sv&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetSpotMarketPriceResult> getSpotMarketPricePlain(GetSpotMarketPricePlainArgs args) {
@@ -784,6 +2720,68 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Lookup by facility:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .facility(&#34;ny5&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Lookup by metro:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .metro(&#34;sv&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetSpotMarketPriceResult> getSpotMarketPrice(GetSpotMarketPriceArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", TypeShape.of(GetSpotMarketPriceResult.class), args, Utilities.withVersion(options));
@@ -792,6 +2790,68 @@ public final class EquinixmetalFunctions {
      * Use this data source to get Equinix Metal Spot Market Price for a plan.
      * 
      * ## Example Usage
+     * 
+     * Lookup by facility:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .facility(&#34;ny5&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Lookup by metro:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetSpotMarketPriceArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var example = Equinix-metalFunctions.getSpotMarketPrice(GetSpotMarketPriceArgs.builder()
+     *             .metro(&#34;sv&#34;)
+     *             .plan(&#34;c3.small.x86&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetSpotMarketPriceResult> getSpotMarketPricePlain(GetSpotMarketPricePlainArgs args, InvokeOptions options) {
@@ -813,6 +2873,39 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import com.pulumi.equinixmetal.inputs.GetVirtualCircuitArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var exampleConnection = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *         final var exampleVc = Equinix-metalFunctions.getVirtualCircuit(GetVirtualCircuitArgs.builder()
+     *             .virtualCircuitId(exampleConnection.applyValue(getConnectionResult -&gt; getConnectionResult.ports()[1].virtualCircuitIds()[0]))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetVirtualCircuitResult> getVirtualCircuit(GetVirtualCircuitArgs args) {
@@ -822,6 +2915,39 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import com.pulumi.equinixmetal.inputs.GetVirtualCircuitArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var exampleConnection = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *         final var exampleVc = Equinix-metalFunctions.getVirtualCircuit(GetVirtualCircuitArgs.builder()
+     *             .virtualCircuitId(exampleConnection.applyValue(getConnectionResult -&gt; getConnectionResult.ports()[1].virtualCircuitIds()[0]))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetVirtualCircuitResult> getVirtualCircuitPlain(GetVirtualCircuitPlainArgs args) {
@@ -831,6 +2957,39 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import com.pulumi.equinixmetal.inputs.GetVirtualCircuitArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var exampleConnection = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *         final var exampleVc = Equinix-metalFunctions.getVirtualCircuit(GetVirtualCircuitArgs.builder()
+     *             .virtualCircuitId(exampleConnection.applyValue(getConnectionResult -&gt; getConnectionResult.ports()[1].virtualCircuitIds()[0]))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetVirtualCircuitResult> getVirtualCircuit(GetVirtualCircuitArgs args, InvokeOptions options) {
@@ -840,6 +2999,39 @@ public final class EquinixmetalFunctions {
      * Use this data source to retrieve a virtual circuit resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetConnectionArgs;
+     * import com.pulumi.equinixmetal.inputs.GetVirtualCircuitArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var exampleConnection = Equinix-metalFunctions.getConnection(GetConnectionArgs.builder()
+     *             .connectionId(&#34;4347e805-eb46-4699-9eb9-5c116e6a017d&#34;)
+     *             .build());
+     * 
+     *         final var exampleVc = Equinix-metalFunctions.getVirtualCircuit(GetVirtualCircuitArgs.builder()
+     *             .virtualCircuitId(exampleConnection.applyValue(getConnectionResult -&gt; getConnectionResult.ports()[1].virtualCircuitIds()[0]))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetVirtualCircuitResult> getVirtualCircuitPlain(GetVirtualCircuitPlainArgs args, InvokeOptions options) {
@@ -851,6 +3043,84 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Fetch a vlan by ID:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .vlanId(foovlan.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Fetch a vlan by project ID, vxlan and metro
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .projectId(local.project_id())
+     *             .vxlan(5)
+     *             .metro(&#34;sv&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetVlanResult> getVlan() {
         return getVlan(GetVlanArgs.Empty, InvokeOptions.Empty);
@@ -860,6 +3130,84 @@ public final class EquinixmetalFunctions {
      * searched by VLAN UUID, or project UUID and vxlan number.
      * 
      * ## Example Usage
+     * 
+     * Fetch a vlan by ID:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .vlanId(foovlan.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Fetch a vlan by project ID, vxlan and metro
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .projectId(local.project_id())
+     *             .vxlan(5)
+     *             .metro(&#34;sv&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetVlanResult> getVlanPlain() {
@@ -871,6 +3219,84 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Fetch a vlan by ID:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .vlanId(foovlan.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Fetch a vlan by project ID, vxlan and metro
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .projectId(local.project_id())
+     *             .vxlan(5)
+     *             .metro(&#34;sv&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetVlanResult> getVlan(GetVlanArgs args) {
         return getVlan(args, InvokeOptions.Empty);
@@ -880,6 +3306,84 @@ public final class EquinixmetalFunctions {
      * searched by VLAN UUID, or project UUID and vxlan number.
      * 
      * ## Example Usage
+     * 
+     * Fetch a vlan by ID:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .vlanId(foovlan.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Fetch a vlan by project ID, vxlan and metro
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .projectId(local.project_id())
+     *             .vxlan(5)
+     *             .metro(&#34;sv&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetVlanResult> getVlanPlain(GetVlanPlainArgs args) {
@@ -891,6 +3395,84 @@ public final class EquinixmetalFunctions {
      * 
      * ## Example Usage
      * 
+     * Fetch a vlan by ID:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .vlanId(foovlan.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Fetch a vlan by project ID, vxlan and metro
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .projectId(local.project_id())
+     *             .vxlan(5)
+     *             .metro(&#34;sv&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetVlanResult> getVlan(GetVlanArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("equinix-metal:index/getVlan:getVlan", TypeShape.of(GetVlanResult.class), args, Utilities.withVersion(options));
@@ -900,6 +3482,84 @@ public final class EquinixmetalFunctions {
      * searched by VLAN UUID, or project UUID and vxlan number.
      * 
      * ## Example Usage
+     * 
+     * Fetch a vlan by ID:
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .vlanId(foovlan.id())
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
+     * Fetch a vlan by project ID, vxlan and metro
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.equinixmetal.Vlan;
+     * import com.pulumi.equinixmetal.VlanArgs;
+     * import com.pulumi.equinixmetal.EquinixmetalFunctions;
+     * import com.pulumi.equinixmetal.inputs.GetVlanArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         var foovlan = new Vlan(&#34;foovlan&#34;, VlanArgs.builder()        
+     *             .projectId(local.project_id())
+     *             .metro(&#34;sv&#34;)
+     *             .vxlan(5)
+     *             .build());
+     * 
+     *         final var dsvlan = Equinix-metalFunctions.getVlan(GetVlanArgs.builder()
+     *             .projectId(local.project_id())
+     *             .vxlan(5)
+     *             .metro(&#34;sv&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetVlanResult> getVlanPlain(GetVlanPlainArgs args, InvokeOptions options) {

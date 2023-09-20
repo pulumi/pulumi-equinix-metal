@@ -16,7 +16,7 @@ namespace Pulumi.EquinixMetal
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
     [EquinixMetalResourceType("pulumi:providers:equinix-metal")]
-    public partial class Provider : Pulumi.ProviderResource
+    public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
         /// The API auth key for API operations.
@@ -50,7 +50,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class ProviderArgs : Pulumi.ResourceArgs
+    public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The API auth key for API operations.
@@ -67,5 +67,6 @@ namespace Pulumi.EquinixMetal
         public ProviderArgs()
         {
         }
+        public static new ProviderArgs Empty => new ProviderArgs();
     }
 }

@@ -20,31 +20,31 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Create a new VLAN in facility "sv15"
+    ///     var vlan1Vlan = new EquinixMetal.Vlan("vlan1Vlan", new()
     ///     {
-    ///         // Create a new VLAN in facility "sv15"
-    ///         var vlan1Vlan = new EquinixMetal.Vlan("vlan1Vlan", new EquinixMetal.VlanArgs
-    ///         {
-    ///             Description = "VLAN in New Jersey",
-    ///             Facility = "sv15",
-    ///             ProjectId = local.Project_id,
-    ///         });
-    ///         // Create a new VLAN in metro "esv"
-    ///         var vlan1Index_vlanVlan = new EquinixMetal.Vlan("vlan1Index/vlanVlan", new EquinixMetal.VlanArgs
-    ///         {
-    ///             Description = "VLAN in New Jersey",
-    ///             Metro = "sv",
-    ///             ProjectId = local.Project_id,
-    ///             Vxlan = 1040,
-    ///         });
-    ///     }
+    ///         Description = "VLAN in New Jersey",
+    ///         Facility = "sv15",
+    ///         ProjectId = local.Project_id,
+    ///     });
     /// 
-    /// }
+    ///     // Create a new VLAN in metro "esv"
+    ///     var vlan1Index_vlanVlan = new EquinixMetal.Vlan("vlan1Index/vlanVlan", new()
+    ///     {
+    ///         Description = "VLAN in New Jersey",
+    ///         Metro = "sv",
+    ///         ProjectId = local.Project_id,
+    ///         Vxlan = 1040,
+    ///     });
+    /// 
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -56,7 +56,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/vlan:Vlan")]
-    public partial class Vlan : Pulumi.CustomResource
+    public partial class Vlan : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Description string
@@ -129,7 +129,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class VlanArgs : Pulumi.ResourceArgs
+    public sealed class VlanArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Description string
@@ -161,9 +161,10 @@ namespace Pulumi.EquinixMetal
         public VlanArgs()
         {
         }
+        public static new VlanArgs Empty => new VlanArgs();
     }
 
-    public sealed class VlanState : Pulumi.ResourceArgs
+    public sealed class VlanState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Description string
@@ -195,5 +196,6 @@ namespace Pulumi.EquinixMetal
         public VlanState()
         {
         }
+        public static new VlanState Empty => new VlanState();
     }
 }

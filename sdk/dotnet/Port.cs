@@ -15,7 +15,7 @@ namespace Pulumi.EquinixMetal
     /// See the Network Types Guide for examples of this resource.
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/port:Port")]
-    public partial class Port : Pulumi.CustomResource
+    public partial class Port : global::Pulumi.CustomResource
     {
         /// <summary>
         /// UUID of the bond port
@@ -145,7 +145,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class PortArgs : Pulumi.ResourceArgs
+    public sealed class PortArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Whether the port should be bonded
@@ -204,9 +204,10 @@ namespace Pulumi.EquinixMetal
         public PortArgs()
         {
         }
+        public static new PortArgs Empty => new PortArgs();
     }
 
-    public sealed class PortState : Pulumi.ResourceArgs
+    public sealed class PortState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// UUID of the bond port
@@ -307,5 +308,6 @@ namespace Pulumi.EquinixMetal
         public PortState()
         {
         }
+        public static new PortState Empty => new PortState();
     }
 }

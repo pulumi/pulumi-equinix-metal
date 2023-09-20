@@ -7,11 +7,53 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this data source to get Equinix Metal Operating System image.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// example, err := equinix-metal.GetOperatingSystem(ctx, &equinix.GetOperatingSystemArgs{
+// Distro: pulumi.StringRef("ubuntu"),
+// Version: pulumi.StringRef("20.04"),
+// ProvisionableOn: pulumi.StringRef("c3.medium.x86"),
+// }, nil);
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.NewDevice(ctx, "server", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("tf.ubuntu"),
+// Plan: pulumi.String("c3.medium.x86"),
+// Facilities: pulumi.StringArray{
+// pulumi.String("ny5"),
+// },
+// OperatingSystem: example.Id.ApplyT(func(x *string) equinix-metal.OperatingSystem { return equinix-metal.OperatingSystem(*x) }).(equinix-metal.OperatingSystemOutput),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectId: pulumi.Any(local.Project_id),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
+// ```
 func GetOperatingSystem(ctx *pulumi.Context, args *GetOperatingSystemArgs, opts ...pulumi.InvokeOption) (*GetOperatingSystemResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetOperatingSystemResult
 	err := ctx.Invoke("equinix-metal:index/getOperatingSystem:getOperatingSystem", args, &rv, opts...)
 	if err != nil {
@@ -86,6 +128,12 @@ func (o GetOperatingSystemResultOutput) ToGetOperatingSystemResultOutput() GetOp
 
 func (o GetOperatingSystemResultOutput) ToGetOperatingSystemResultOutputWithContext(ctx context.Context) GetOperatingSystemResultOutput {
 	return o
+}
+
+func (o GetOperatingSystemResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetOperatingSystemResult] {
+	return pulumix.Output[GetOperatingSystemResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetOperatingSystemResultOutput) Distro() pulumi.StringPtrOutput {

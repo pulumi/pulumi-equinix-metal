@@ -24,6 +24,43 @@ import javax.annotation.Nullable;
  * * &lt;https://metal.equinix.com/developers/docs/networking/layer2-configs/&gt;
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Vlan;
+ * import com.pulumi.equinixmetal.VlanArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var vlan1Vlan = new Vlan(&#34;vlan1Vlan&#34;, VlanArgs.builder()        
+ *             .description(&#34;VLAN in New Jersey&#34;)
+ *             .facility(&#34;sv15&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var vlan1Index_vlanVlan = new Vlan(&#34;vlan1Index/vlanVlan&#34;, VlanArgs.builder()        
+ *             .description(&#34;VLAN in New Jersey&#34;)
+ *             .metro(&#34;sv&#34;)
+ *             .projectId(local.project_id())
+ *             .vxlan(1040)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  * ## Import
  * 
@@ -40,7 +77,7 @@ public class Vlan extends com.pulumi.resources.CustomResource {
      * Description string
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     /**
@@ -54,7 +91,7 @@ public class Vlan extends com.pulumi.resources.CustomResource {
      * Facility where to create the VLAN
      * 
      */
-    @Export(name="facility", type=String.class, parameters={})
+    @Export(name="facility", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> facility;
 
     /**
@@ -64,7 +101,7 @@ public class Vlan extends com.pulumi.resources.CustomResource {
     public Output<Optional<String>> facility() {
         return Codegen.optional(this.facility);
     }
-    @Export(name="metro", type=String.class, parameters={})
+    @Export(name="metro", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> metro;
 
     public Output<Optional<String>> metro() {
@@ -74,7 +111,7 @@ public class Vlan extends com.pulumi.resources.CustomResource {
      * ID of parent project
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     /**
@@ -88,7 +125,7 @@ public class Vlan extends com.pulumi.resources.CustomResource {
      * VLAN ID, must be unique in metro
      * 
      */
-    @Export(name="vxlan", type=Integer.class, parameters={})
+    @Export(name="vxlan", refs={Integer.class}, tree="[0]")
     private Output<Integer> vxlan;
 
     /**

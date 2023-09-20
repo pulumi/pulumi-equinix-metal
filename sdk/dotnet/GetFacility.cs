@@ -15,17 +15,17 @@ namespace Pulumi.EquinixMetal
         /// Provides an Equinix Metal facility datasource.
         /// </summary>
         public static Task<GetFacilityResult> InvokeAsync(GetFacilityArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityArgs(), options.WithDefaults());
 
         /// <summary>
         /// Provides an Equinix Metal facility datasource.
         /// </summary>
         public static Output<GetFacilityResult> Invoke(GetFacilityInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetFacilityResult>("equinix-metal:index/getFacility:getFacility", args ?? new GetFacilityInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetFacilityArgs : Pulumi.InvokeArgs
+    public sealed class GetFacilityArgs : global::Pulumi.InvokeArgs
     {
         [Input("capacities")]
         private List<Inputs.GetFacilityCapacityArgs>? _capacities;
@@ -50,6 +50,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Set of feature strings that the facility must have
+        /// 
+        /// Facilities can be looked up by `code`.
         /// </summary>
         public List<string> FeaturesRequireds
         {
@@ -60,9 +62,10 @@ namespace Pulumi.EquinixMetal
         public GetFacilityArgs()
         {
         }
+        public static new GetFacilityArgs Empty => new GetFacilityArgs();
     }
 
-    public sealed class GetFacilityInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetFacilityInvokeArgs : global::Pulumi.InvokeArgs
     {
         [Input("capacities")]
         private InputList<Inputs.GetFacilityCapacityInputArgs>? _capacities;
@@ -87,6 +90,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Set of feature strings that the facility must have
+        /// 
+        /// Facilities can be looked up by `code`.
         /// </summary>
         public InputList<string> FeaturesRequireds
         {
@@ -97,6 +102,7 @@ namespace Pulumi.EquinixMetal
         public GetFacilityInvokeArgs()
         {
         }
+        public static new GetFacilityInvokeArgs Empty => new GetFacilityInvokeArgs();
     }
 
 

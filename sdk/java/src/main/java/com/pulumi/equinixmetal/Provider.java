@@ -25,7 +25,7 @@ public class Provider extends com.pulumi.resources.ProviderResource {
      * The API auth key for API operations.
      * 
      */
-    @Export(name="authToken", type=String.class, parameters={})
+    @Export(name="authToken", refs={String.class}, tree="[0]")
     private Output<String> authToken;
 
     /**

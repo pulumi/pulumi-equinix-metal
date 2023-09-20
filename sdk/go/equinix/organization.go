@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides a resource to manage organization resource in Equinix Metal.
@@ -19,23 +21,21 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewOrganization(ctx, "tfOrganization1", &equinix-metal.OrganizationArgs{
-//				Description: pulumi.String("quux"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewOrganization(ctx, "tfOrganization1", &equinix-metal.OrganizationArgs{
+// Description: pulumi.String("quux"),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // ## Import
@@ -71,6 +71,7 @@ func NewOrganization(ctx *pulumi.Context,
 		args = &OrganizationArgs{}
 	}
 
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Organization
 	err := ctx.RegisterResource("equinix-metal:index/organization:Organization", name, args, &resource, opts...)
 	if err != nil {
@@ -176,6 +177,12 @@ func (i *Organization) ToOrganizationOutputWithContext(ctx context.Context) Orga
 	return pulumi.ToOutputWithContext(ctx, i).(OrganizationOutput)
 }
 
+func (i *Organization) ToOutput(ctx context.Context) pulumix.Output[*Organization] {
+	return pulumix.Output[*Organization]{
+		OutputState: i.ToOrganizationOutputWithContext(ctx).OutputState,
+	}
+}
+
 // OrganizationArrayInput is an input type that accepts OrganizationArray and OrganizationArrayOutput values.
 // You can construct a concrete instance of `OrganizationArrayInput` via:
 //
@@ -199,6 +206,12 @@ func (i OrganizationArray) ToOrganizationArrayOutput() OrganizationArrayOutput {
 
 func (i OrganizationArray) ToOrganizationArrayOutputWithContext(ctx context.Context) OrganizationArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(OrganizationArrayOutput)
+}
+
+func (i OrganizationArray) ToOutput(ctx context.Context) pulumix.Output[[]*Organization] {
+	return pulumix.Output[[]*Organization]{
+		OutputState: i.ToOrganizationArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // OrganizationMapInput is an input type that accepts OrganizationMap and OrganizationMapOutput values.
@@ -226,6 +239,12 @@ func (i OrganizationMap) ToOrganizationMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(OrganizationMapOutput)
 }
 
+func (i OrganizationMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Organization] {
+	return pulumix.Output[map[string]*Organization]{
+		OutputState: i.ToOrganizationMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type OrganizationOutput struct{ *pulumi.OutputState }
 
 func (OrganizationOutput) ElementType() reflect.Type {
@@ -240,6 +259,45 @@ func (o OrganizationOutput) ToOrganizationOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o OrganizationOutput) ToOutput(ctx context.Context) pulumix.Output[*Organization] {
+	return pulumix.Output[*Organization]{
+		OutputState: o.OutputState,
+	}
+}
+
+func (o OrganizationOutput) Created() pulumi.StringOutput {
+	return o.ApplyT(func(v *Organization) pulumi.StringOutput { return v.Created }).(pulumi.StringOutput)
+}
+
+// Description string
+func (o OrganizationOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Organization) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Logo URL
+func (o OrganizationOutput) Logo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Organization) pulumi.StringPtrOutput { return v.Logo }).(pulumi.StringPtrOutput)
+}
+
+// The name of the Organization
+func (o OrganizationOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Organization) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Twitter handle
+func (o OrganizationOutput) Twitter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Organization) pulumi.StringPtrOutput { return v.Twitter }).(pulumi.StringPtrOutput)
+}
+
+func (o OrganizationOutput) Updated() pulumi.StringOutput {
+	return o.ApplyT(func(v *Organization) pulumi.StringOutput { return v.Updated }).(pulumi.StringOutput)
+}
+
+// Website link
+func (o OrganizationOutput) Website() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Organization) pulumi.StringPtrOutput { return v.Website }).(pulumi.StringPtrOutput)
+}
+
 type OrganizationArrayOutput struct{ *pulumi.OutputState }
 
 func (OrganizationArrayOutput) ElementType() reflect.Type {
@@ -252,6 +310,12 @@ func (o OrganizationArrayOutput) ToOrganizationArrayOutput() OrganizationArrayOu
 
 func (o OrganizationArrayOutput) ToOrganizationArrayOutputWithContext(ctx context.Context) OrganizationArrayOutput {
 	return o
+}
+
+func (o OrganizationArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Organization] {
+	return pulumix.Output[[]*Organization]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o OrganizationArrayOutput) Index(i pulumi.IntInput) OrganizationOutput {
@@ -272,6 +336,12 @@ func (o OrganizationMapOutput) ToOrganizationMapOutput() OrganizationMapOutput {
 
 func (o OrganizationMapOutput) ToOrganizationMapOutputWithContext(ctx context.Context) OrganizationMapOutput {
 	return o
+}
+
+func (o OrganizationMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Organization] {
+	return pulumix.Output[map[string]*Organization]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o OrganizationMapOutput) MapIndex(k pulumi.StringInput) OrganizationOutput {

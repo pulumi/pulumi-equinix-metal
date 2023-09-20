@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class GetMetroCapacityInputArgs : Pulumi.ResourceArgs
+    public sealed class GetMetroCapacityInputArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// device plan to check
@@ -27,5 +27,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public GetMetroCapacityInputArgs()
         {
         }
+        public static new GetMetroCapacityInputArgs Empty => new GetMetroCapacityInputArgs();
     }
 }

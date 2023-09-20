@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this data source to get Equinix Metal Spot Market Price for a plan.
@@ -21,25 +23,22 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.GetSpotMarketPrice(ctx, &GetSpotMarketPriceArgs{
-//				Facility: pulumi.StringRef("ny5"),
-//				Plan:     "c3.small.x86",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.GetSpotMarketPrice(ctx, &equinix.GetSpotMarketPriceArgs{
+// Facility: pulumi.StringRef("ny5"),
+// Plan: "c3.small.x86",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // Lookup by metro:
@@ -49,27 +48,25 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.GetSpotMarketPrice(ctx, &GetSpotMarketPriceArgs{
-//				Metro: pulumi.StringRef("sv"),
-//				Plan:  "c3.small.x86",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.GetSpotMarketPrice(ctx, &equinix.GetSpotMarketPriceArgs{
+// Metro: pulumi.StringRef("sv"),
+// Plan: "c3.small.x86",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 func GetSpotMarketPrice(ctx *pulumi.Context, args *GetSpotMarketPriceArgs, opts ...pulumi.InvokeOption) (*GetSpotMarketPriceResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetSpotMarketPriceResult
 	err := ctx.Invoke("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", args, &rv, opts...)
 	if err != nil {
@@ -139,6 +136,12 @@ func (o GetSpotMarketPriceResultOutput) ToGetSpotMarketPriceResultOutput() GetSp
 
 func (o GetSpotMarketPriceResultOutput) ToGetSpotMarketPriceResultOutputWithContext(ctx context.Context) GetSpotMarketPriceResultOutput {
 	return o
+}
+
+func (o GetSpotMarketPriceResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSpotMarketPriceResult] {
+	return pulumix.Output[GetSpotMarketPriceResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetSpotMarketPriceResultOutput) Facility() pulumi.StringPtrOutput {

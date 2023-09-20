@@ -17,6 +17,73 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
+ * Provides an Equinix Metal project resource to allow you manage devices
+ * in your projects.
+ * 
+ * &gt; Keep in mind that Equinix Metal invoicing is per project, so creating many `equinix-metal.Project` resources will affect the rendered invoice. If you want to keep your Equinix Metal bill simple and easy to review, please re-use your existing projects.
+ * 
+ * ## Example Usage
+ * ### Create a new project
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Project;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var tfProject1 = new Project(&#34;tfProject1&#34;);
+ * 
+ *     }
+ * }
+ * ```
+ * ### Example with BGP config
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Project;
+ * import com.pulumi.equinixmetal.ProjectArgs;
+ * import com.pulumi.equinixmetal.inputs.ProjectBgpConfigArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var tfProject1 = new Project(&#34;tfProject1&#34;, ProjectArgs.builder()        
+ *             .bgpConfig(ProjectBgpConfigArgs.builder()
+ *                 .asn(65000)
+ *                 .deploymentType(&#34;local&#34;)
+ *                 .md5(&#34;C179c28c41a85b&#34;)
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
  * This resource can be imported using an existing project ID
@@ -32,7 +99,7 @@ public class Project extends com.pulumi.resources.CustomResource {
      * Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
      * 
      */
-    @Export(name="backendTransfer", type=Boolean.class, parameters={})
+    @Export(name="backendTransfer", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> backendTransfer;
 
     /**
@@ -45,12 +112,16 @@ public class Project extends com.pulumi.resources.CustomResource {
     /**
      * Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
      * 
+     * Once you set the BGP config in a project, it can&#39;t be removed (due to a limitation in the Equinix Metal API). It can be updated.
+     * 
      */
-    @Export(name="bgpConfig", type=ProjectBgpConfig.class, parameters={})
+    @Export(name="bgpConfig", refs={ProjectBgpConfig.class}, tree="[0]")
     private Output</* @Nullable */ ProjectBgpConfig> bgpConfig;
 
     /**
      * @return Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+     * 
+     * Once you set the BGP config in a project, it can&#39;t be removed (due to a limitation in the Equinix Metal API). It can be updated.
      * 
      */
     public Output<Optional<ProjectBgpConfig>> bgpConfig() {
@@ -60,7 +131,7 @@ public class Project extends com.pulumi.resources.CustomResource {
      * The timestamp for when the project was created
      * 
      */
-    @Export(name="created", type=String.class, parameters={})
+    @Export(name="created", refs={String.class}, tree="[0]")
     private Output<String> created;
 
     /**
@@ -74,7 +145,7 @@ public class Project extends com.pulumi.resources.CustomResource {
      * The name of the project
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -88,7 +159,7 @@ public class Project extends com.pulumi.resources.CustomResource {
      * The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
      * 
      */
-    @Export(name="organizationId", type=String.class, parameters={})
+    @Export(name="organizationId", refs={String.class}, tree="[0]")
     private Output<String> organizationId;
 
     /**
@@ -102,7 +173,7 @@ public class Project extends com.pulumi.resources.CustomResource {
      * The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
      * 
      */
-    @Export(name="paymentMethodId", type=String.class, parameters={})
+    @Export(name="paymentMethodId", refs={String.class}, tree="[0]")
     private Output<String> paymentMethodId;
 
     /**
@@ -116,7 +187,7 @@ public class Project extends com.pulumi.resources.CustomResource {
      * The timestamp for the last time the project was updated
      * 
      */
-    @Export(name="updated", type=String.class, parameters={})
+    @Export(name="updated", refs={String.class}, tree="[0]")
     private Output<String> updated;
 
     /**

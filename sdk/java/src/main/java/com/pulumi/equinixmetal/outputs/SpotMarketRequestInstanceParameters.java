@@ -20,10 +20,6 @@ public final class SpotMarketRequestInstanceParameters {
     private @Nullable List<String> features;
     private String hostname;
     private @Nullable String ipxeScriptUrl;
-    /**
-     * @return Blocks deletion of the SpotMarketRequest device until the lock is disabled
-     * 
-     */
     private @Nullable Boolean locked;
     private String operatingSystem;
     private String plan;
@@ -55,10 +51,6 @@ public final class SpotMarketRequestInstanceParameters {
     public Optional<String> ipxeScriptUrl() {
         return Optional.ofNullable(this.ipxeScriptUrl);
     }
-    /**
-     * @return Blocks deletion of the SpotMarketRequest device until the lock is disabled
-     * 
-     */
     public Optional<Boolean> locked() {
         return Optional.ofNullable(this.locked);
     }
