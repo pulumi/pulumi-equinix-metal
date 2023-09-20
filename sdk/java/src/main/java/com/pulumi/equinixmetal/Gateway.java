@@ -19,6 +19,90 @@ import javax.annotation.Nullable;
  * Use this resource to create Metal Gateway resources in Equinix Metal.
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Vlan;
+ * import com.pulumi.equinixmetal.VlanArgs;
+ * import com.pulumi.equinixmetal.Gateway;
+ * import com.pulumi.equinixmetal.GatewayArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+ *             .description(&#34;test VLAN in SV&#34;)
+ *             .metro(&#34;sv&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var testGateway = new Gateway(&#34;testGateway&#34;, GatewayArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .vlanId(testVlan.id())
+ *             .privateIpv4SubnetSize(8)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Vlan;
+ * import com.pulumi.equinixmetal.VlanArgs;
+ * import com.pulumi.equinixmetal.ReservedIpBlock;
+ * import com.pulumi.equinixmetal.ReservedIpBlockArgs;
+ * import com.pulumi.equinixmetal.Gateway;
+ * import com.pulumi.equinixmetal.GatewayArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+ *             .description(&#34;test VLAN in SV&#34;)
+ *             .metro(&#34;sv&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var testReservedIpBlock = new ReservedIpBlock(&#34;testReservedIpBlock&#34;, ReservedIpBlockArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .metro(&#34;sv&#34;)
+ *             .quantity(2)
+ *             .build());
+ * 
+ *         var testGateway = new Gateway(&#34;testGateway&#34;, GatewayArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .vlanId(testVlan.id())
+ *             .ipReservationId(testReservedIpBlock.id())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="equinix-metal:index/gateway:Gateway")
@@ -27,7 +111,7 @@ public class Gateway extends com.pulumi.resources.CustomResource {
      * UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `private_ipv4_subnet_size`
      * 
      */
-    @Export(name="ipReservationId", type=String.class, parameters={})
+    @Export(name="ipReservationId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipReservationId;
 
     /**
@@ -41,7 +125,7 @@ public class Gateway extends com.pulumi.resources.CustomResource {
      * Size of the private IPv4 subnet to create for this metal gateway, must be one of (8, 16, 32, 64, 128), conflicts with `ip_reservation_id`
      * 
      */
-    @Export(name="privateIpv4SubnetSize", type=Integer.class, parameters={})
+    @Export(name="privateIpv4SubnetSize", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> privateIpv4SubnetSize;
 
     /**
@@ -55,7 +139,7 @@ public class Gateway extends com.pulumi.resources.CustomResource {
      * UUID of the project where the gateway is scoped to
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     /**
@@ -69,7 +153,7 @@ public class Gateway extends com.pulumi.resources.CustomResource {
      * Status of the gateway resource
      * 
      */
-    @Export(name="state", type=String.class, parameters={})
+    @Export(name="state", refs={String.class}, tree="[0]")
     private Output<String> state;
 
     /**
@@ -83,7 +167,7 @@ public class Gateway extends com.pulumi.resources.CustomResource {
      * UUID of the VLAN where the gateway is scoped to
      * 
      */
-    @Export(name="vlanId", type=String.class, parameters={})
+    @Export(name="vlanId", refs={String.class}, tree="[0]")
     private Output<String> vlanId;
 
     /**

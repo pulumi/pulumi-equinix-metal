@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides a resource to allow users to manage Virtual Networks in their projects.
@@ -25,34 +27,32 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewVlan(ctx, "vlan1Vlan", &equinix-metal.VlanArgs{
-//				Description: pulumi.String("VLAN in New Jersey"),
-//				Facility:    pulumi.String("sv15"),
-//				ProjectId:   pulumi.Any(local.Project_id),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = equinix - metal.NewVlan(ctx, "vlan1Index/vlanVlan", &equinix-metal.VlanArgs{
-//				Description: pulumi.String("VLAN in New Jersey"),
-//				Metro:       pulumi.String("sv"),
-//				ProjectId:   pulumi.Any(local.Project_id),
-//				Vxlan:       pulumi.Int(1040),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewVlan(ctx, "vlan1Vlan", &equinix-metal.VlanArgs{
+// Description: pulumi.String("VLAN in New Jersey"),
+// Facility: pulumi.String("sv15"),
+// ProjectId: pulumi.Any(local.Project_id),
+// })
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.NewVlan(ctx, "vlan1Index/vlanVlan", &equinix-metal.VlanArgs{
+// Description: pulumi.String("VLAN in New Jersey"),
+// Metro: pulumi.String("sv"),
+// ProjectId: pulumi.Any(local.Project_id),
+// Vxlan: pulumi.Int(1040),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // ## Import
@@ -88,6 +88,7 @@ func NewVlan(ctx *pulumi.Context,
 	if args.ProjectId == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectId'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Vlan
 	err := ctx.RegisterResource("equinix-metal:index/vlan:Vlan", name, args, &resource, opts...)
 	if err != nil {
@@ -185,6 +186,12 @@ func (i *Vlan) ToVlanOutputWithContext(ctx context.Context) VlanOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VlanOutput)
 }
 
+func (i *Vlan) ToOutput(ctx context.Context) pulumix.Output[*Vlan] {
+	return pulumix.Output[*Vlan]{
+		OutputState: i.ToVlanOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VlanArrayInput is an input type that accepts VlanArray and VlanArrayOutput values.
 // You can construct a concrete instance of `VlanArrayInput` via:
 //
@@ -208,6 +215,12 @@ func (i VlanArray) ToVlanArrayOutput() VlanArrayOutput {
 
 func (i VlanArray) ToVlanArrayOutputWithContext(ctx context.Context) VlanArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VlanArrayOutput)
+}
+
+func (i VlanArray) ToOutput(ctx context.Context) pulumix.Output[[]*Vlan] {
+	return pulumix.Output[[]*Vlan]{
+		OutputState: i.ToVlanArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // VlanMapInput is an input type that accepts VlanMap and VlanMapOutput values.
@@ -235,6 +248,12 @@ func (i VlanMap) ToVlanMapOutputWithContext(ctx context.Context) VlanMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VlanMapOutput)
 }
 
+func (i VlanMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Vlan] {
+	return pulumix.Output[map[string]*Vlan]{
+		OutputState: i.ToVlanMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type VlanOutput struct{ *pulumi.OutputState }
 
 func (VlanOutput) ElementType() reflect.Type {
@@ -249,6 +268,36 @@ func (o VlanOutput) ToVlanOutputWithContext(ctx context.Context) VlanOutput {
 	return o
 }
 
+func (o VlanOutput) ToOutput(ctx context.Context) pulumix.Output[*Vlan] {
+	return pulumix.Output[*Vlan]{
+		OutputState: o.OutputState,
+	}
+}
+
+// Description string
+func (o VlanOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Vlan) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Facility where to create the VLAN
+func (o VlanOutput) Facility() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Vlan) pulumi.StringPtrOutput { return v.Facility }).(pulumi.StringPtrOutput)
+}
+
+func (o VlanOutput) Metro() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Vlan) pulumi.StringPtrOutput { return v.Metro }).(pulumi.StringPtrOutput)
+}
+
+// ID of parent project
+func (o VlanOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Vlan) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// VLAN ID, must be unique in metro
+func (o VlanOutput) Vxlan() pulumi.IntOutput {
+	return o.ApplyT(func(v *Vlan) pulumi.IntOutput { return v.Vxlan }).(pulumi.IntOutput)
+}
+
 type VlanArrayOutput struct{ *pulumi.OutputState }
 
 func (VlanArrayOutput) ElementType() reflect.Type {
@@ -261,6 +310,12 @@ func (o VlanArrayOutput) ToVlanArrayOutput() VlanArrayOutput {
 
 func (o VlanArrayOutput) ToVlanArrayOutputWithContext(ctx context.Context) VlanArrayOutput {
 	return o
+}
+
+func (o VlanArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Vlan] {
+	return pulumix.Output[[]*Vlan]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VlanArrayOutput) Index(i pulumi.IntInput) VlanOutput {
@@ -281,6 +336,12 @@ func (o VlanMapOutput) ToVlanMapOutput() VlanMapOutput {
 
 func (o VlanMapOutput) ToVlanMapOutputWithContext(ctx context.Context) VlanMapOutput {
 	return o
+}
+
+func (o VlanMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Vlan] {
+	return pulumix.Output[map[string]*Vlan]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VlanMapOutput) MapIndex(k pulumi.StringInput) VlanOutput {

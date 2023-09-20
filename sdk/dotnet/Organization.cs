@@ -15,21 +15,20 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Create a new Project
+    ///     var tfOrganization1 = new EquinixMetal.Organization("tfOrganization1", new()
     ///     {
-    ///         // Create a new Project
-    ///         var tfOrganization1 = new EquinixMetal.Organization("tfOrganization1", new EquinixMetal.OrganizationArgs
-    ///         {
-    ///             Description = "quux",
-    ///         });
-    ///     }
+    ///         Description = "quux",
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -41,7 +40,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/organization:Organization")]
-    public partial class Organization : Pulumi.CustomResource
+    public partial class Organization : global::Pulumi.CustomResource
     {
         [Output("created")]
         public Output<string> Created { get; private set; } = null!;
@@ -123,7 +122,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class OrganizationArgs : Pulumi.ResourceArgs
+    public sealed class OrganizationArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Description string
@@ -158,9 +157,10 @@ namespace Pulumi.EquinixMetal
         public OrganizationArgs()
         {
         }
+        public static new OrganizationArgs Empty => new OrganizationArgs();
     }
 
-    public sealed class OrganizationState : Pulumi.ResourceArgs
+    public sealed class OrganizationState : global::Pulumi.ResourceArgs
     {
         [Input("created")]
         public Input<string>? Created { get; set; }
@@ -201,5 +201,6 @@ namespace Pulumi.EquinixMetal
         public OrganizationState()
         {
         }
+        public static new OrganizationState Empty => new OrganizationState();
     }
 }

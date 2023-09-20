@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this data source to retrieve a connection resource from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
@@ -19,26 +21,24 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.LookupConnection(ctx, &GetConnectionArgs{
-//				ConnectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.LookupConnection(ctx, &equinix.LookupConnectionArgs{
+// ConnectionId: "4347e805-eb46-4699-9eb9-5c116e6a017d",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 func LookupConnection(ctx *pulumi.Context, args *LookupConnectionArgs, opts ...pulumi.InvokeOption) (*LookupConnectionResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupConnectionResult
 	err := ctx.Invoke("equinix-metal:index/getConnection:getConnection", args, &rv, opts...)
 	if err != nil {
@@ -124,6 +124,12 @@ func (o LookupConnectionResultOutput) ToLookupConnectionResultOutput() LookupCon
 
 func (o LookupConnectionResultOutput) ToLookupConnectionResultOutputWithContext(ctx context.Context) LookupConnectionResultOutput {
 	return o
+}
+
+func (o LookupConnectionResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupConnectionResult] {
+	return pulumix.Output[LookupConnectionResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o LookupConnectionResultOutput) ConnectionId() pulumi.StringOutput {

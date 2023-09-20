@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides an Equinix Metal Spot Market Request resource to allow you to
@@ -21,36 +23,33 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewSpotMarketRequest(ctx, "req", &equinix-metal.SpotMarketRequestArgs{
-//				ProjectId:   pulumi.Any(local.Project_id),
-//				MaxBidPrice: pulumi.Float64(0.03),
-//				Facilities: pulumi.StringArray{
-//					pulumi.String("ny5"),
-//				},
-//				DevicesMin: pulumi.Int(1),
-//				DevicesMax: pulumi.Int(1),
-//				InstanceParameters: &SpotMarketRequestInstanceParametersArgs{
-//					Hostname:        pulumi.String("testspot"),
-//					BillingCycle:    pulumi.String("hourly"),
-//					OperatingSystem: pulumi.String("ubuntu_20_04"),
-//					Plan:            pulumi.String("c3.small.x86"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewSpotMarketRequest(ctx, "req", &equinix-metal.SpotMarketRequestArgs{
+// ProjectId: pulumi.Any(local.Project_id),
+// MaxBidPrice: pulumi.Float64(0.03),
+// Facilities: pulumi.StringArray{
+// pulumi.String("ny5"),
+// },
+// DevicesMin: pulumi.Int(1),
+// DevicesMax: pulumi.Int(1),
+// InstanceParameters: &equinix.SpotMarketRequestInstanceParametersArgs{
+// Hostname: pulumi.String("testspot"),
+// BillingCycle: pulumi.String("hourly"),
+// OperatingSystem: pulumi.String("ubuntu_20_04"),
+// Plan: pulumi.String("c3.small.x86"),
+// },
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 //
 // ## Import
@@ -72,21 +71,6 @@ type SpotMarketRequest struct {
 	// Facility IDs where devices should be created
 	Facilities pulumi.StringArrayOutput `pulumi:"facilities"`
 	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
-	// * `billingCycle`
-	// * `plan`
-	// * `operatingSystem`
-	// * `hostname`
-	// * `termintationTime`
-	// * `alwaysPxe`
-	// * `description`
-	// * `features`
-	// * `locked`
-	// * `projectSshKeys`
-	// * `userSshKeys`
-	// * `userdata`
-	// * `customdata`
-	// * `ipxeScriptUrl`
-	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParametersOutput `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64Output `pulumi:"maxBidPrice"`
@@ -120,6 +104,7 @@ func NewSpotMarketRequest(ctx *pulumi.Context,
 	if args.ProjectId == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectId'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource SpotMarketRequest
 	err := ctx.RegisterResource("equinix-metal:index/spotMarketRequest:SpotMarketRequest", name, args, &resource, opts...)
 	if err != nil {
@@ -149,21 +134,6 @@ type spotMarketRequestState struct {
 	// Facility IDs where devices should be created
 	Facilities []string `pulumi:"facilities"`
 	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
-	// * `billingCycle`
-	// * `plan`
-	// * `operatingSystem`
-	// * `hostname`
-	// * `termintationTime`
-	// * `alwaysPxe`
-	// * `description`
-	// * `features`
-	// * `locked`
-	// * `projectSshKeys`
-	// * `userSshKeys`
-	// * `userdata`
-	// * `customdata`
-	// * `ipxeScriptUrl`
-	// * `tags`
 	InstanceParameters *SpotMarketRequestInstanceParameters `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice *float64 `pulumi:"maxBidPrice"`
@@ -183,21 +153,6 @@ type SpotMarketRequestState struct {
 	// Facility IDs where devices should be created
 	Facilities pulumi.StringArrayInput
 	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
-	// * `billingCycle`
-	// * `plan`
-	// * `operatingSystem`
-	// * `hostname`
-	// * `termintationTime`
-	// * `alwaysPxe`
-	// * `description`
-	// * `features`
-	// * `locked`
-	// * `projectSshKeys`
-	// * `userSshKeys`
-	// * `userdata`
-	// * `customdata`
-	// * `ipxeScriptUrl`
-	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParametersPtrInput
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64PtrInput
@@ -221,21 +176,6 @@ type spotMarketRequestArgs struct {
 	// Facility IDs where devices should be created
 	Facilities []string `pulumi:"facilities"`
 	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
-	// * `billingCycle`
-	// * `plan`
-	// * `operatingSystem`
-	// * `hostname`
-	// * `termintationTime`
-	// * `alwaysPxe`
-	// * `description`
-	// * `features`
-	// * `locked`
-	// * `projectSshKeys`
-	// * `userSshKeys`
-	// * `userdata`
-	// * `customdata`
-	// * `ipxeScriptUrl`
-	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParameters `pulumi:"instanceParameters"`
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice float64 `pulumi:"maxBidPrice"`
@@ -256,21 +196,6 @@ type SpotMarketRequestArgs struct {
 	// Facility IDs where devices should be created
 	Facilities pulumi.StringArrayInput
 	// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
-	// * `billingCycle`
-	// * `plan`
-	// * `operatingSystem`
-	// * `hostname`
-	// * `termintationTime`
-	// * `alwaysPxe`
-	// * `description`
-	// * `features`
-	// * `locked`
-	// * `projectSshKeys`
-	// * `userSshKeys`
-	// * `userdata`
-	// * `customdata`
-	// * `ipxeScriptUrl`
-	// * `tags`
 	InstanceParameters SpotMarketRequestInstanceParametersInput
 	// Maximum price user is willing to pay per hour per device
 	MaxBidPrice pulumi.Float64Input
@@ -305,6 +230,12 @@ func (i *SpotMarketRequest) ToSpotMarketRequestOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestOutput)
 }
 
+func (i *SpotMarketRequest) ToOutput(ctx context.Context) pulumix.Output[*SpotMarketRequest] {
+	return pulumix.Output[*SpotMarketRequest]{
+		OutputState: i.ToSpotMarketRequestOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SpotMarketRequestArrayInput is an input type that accepts SpotMarketRequestArray and SpotMarketRequestArrayOutput values.
 // You can construct a concrete instance of `SpotMarketRequestArrayInput` via:
 //
@@ -328,6 +259,12 @@ func (i SpotMarketRequestArray) ToSpotMarketRequestArrayOutput() SpotMarketReque
 
 func (i SpotMarketRequestArray) ToSpotMarketRequestArrayOutputWithContext(ctx context.Context) SpotMarketRequestArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestArrayOutput)
+}
+
+func (i SpotMarketRequestArray) ToOutput(ctx context.Context) pulumix.Output[[]*SpotMarketRequest] {
+	return pulumix.Output[[]*SpotMarketRequest]{
+		OutputState: i.ToSpotMarketRequestArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // SpotMarketRequestMapInput is an input type that accepts SpotMarketRequestMap and SpotMarketRequestMapOutput values.
@@ -355,6 +292,12 @@ func (i SpotMarketRequestMap) ToSpotMarketRequestMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(SpotMarketRequestMapOutput)
 }
 
+func (i SpotMarketRequestMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SpotMarketRequest] {
+	return pulumix.Output[map[string]*SpotMarketRequest]{
+		OutputState: i.ToSpotMarketRequestMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type SpotMarketRequestOutput struct{ *pulumi.OutputState }
 
 func (SpotMarketRequestOutput) ElementType() reflect.Type {
@@ -369,6 +312,52 @@ func (o SpotMarketRequestOutput) ToSpotMarketRequestOutputWithContext(ctx contex
 	return o
 }
 
+func (o SpotMarketRequestOutput) ToOutput(ctx context.Context) pulumix.Output[*SpotMarketRequest] {
+	return pulumix.Output[*SpotMarketRequest]{
+		OutputState: o.OutputState,
+	}
+}
+
+// Maximum number devices to be created
+func (o SpotMarketRequestOutput) DevicesMax() pulumi.IntOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) pulumi.IntOutput { return v.DevicesMax }).(pulumi.IntOutput)
+}
+
+// Miniumum number devices to be created
+func (o SpotMarketRequestOutput) DevicesMin() pulumi.IntOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) pulumi.IntOutput { return v.DevicesMin }).(pulumi.IntOutput)
+}
+
+// Facility IDs where devices should be created
+func (o SpotMarketRequestOutput) Facilities() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) pulumi.StringArrayOutput { return v.Facilities }).(pulumi.StringArrayOutput)
+}
+
+// Parameters for devices provisioned from this request. You can find the parameter description from the Device doc.
+func (o SpotMarketRequestOutput) InstanceParameters() SpotMarketRequestInstanceParametersOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) SpotMarketRequestInstanceParametersOutput { return v.InstanceParameters }).(SpotMarketRequestInstanceParametersOutput)
+}
+
+// Maximum price user is willing to pay per hour per device
+func (o SpotMarketRequestOutput) MaxBidPrice() pulumi.Float64Output {
+	return o.ApplyT(func(v *SpotMarketRequest) pulumi.Float64Output { return v.MaxBidPrice }).(pulumi.Float64Output)
+}
+
+// Metro where devices should be created
+func (o SpotMarketRequestOutput) Metro() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) pulumi.StringPtrOutput { return v.Metro }).(pulumi.StringPtrOutput)
+}
+
+// Project ID
+func (o SpotMarketRequestOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
+func (o SpotMarketRequestOutput) WaitForDevices() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SpotMarketRequest) pulumi.BoolPtrOutput { return v.WaitForDevices }).(pulumi.BoolPtrOutput)
+}
+
 type SpotMarketRequestArrayOutput struct{ *pulumi.OutputState }
 
 func (SpotMarketRequestArrayOutput) ElementType() reflect.Type {
@@ -381,6 +370,12 @@ func (o SpotMarketRequestArrayOutput) ToSpotMarketRequestArrayOutput() SpotMarke
 
 func (o SpotMarketRequestArrayOutput) ToSpotMarketRequestArrayOutputWithContext(ctx context.Context) SpotMarketRequestArrayOutput {
 	return o
+}
+
+func (o SpotMarketRequestArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SpotMarketRequest] {
+	return pulumix.Output[[]*SpotMarketRequest]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SpotMarketRequestArrayOutput) Index(i pulumi.IntInput) SpotMarketRequestOutput {
@@ -401,6 +396,12 @@ func (o SpotMarketRequestMapOutput) ToSpotMarketRequestMapOutput() SpotMarketReq
 
 func (o SpotMarketRequestMapOutput) ToSpotMarketRequestMapOutputWithContext(ctx context.Context) SpotMarketRequestMapOutput {
 	return o
+}
+
+func (o SpotMarketRequestMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SpotMarketRequest] {
+	return pulumix.Output[map[string]*SpotMarketRequest]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SpotMarketRequestMapOutput) MapIndex(k pulumi.StringInput) SpotMarketRequestOutput {

@@ -17,7 +17,7 @@ namespace Pulumi.EquinixMetal
     /// BGP session must be linked to a device running [BIRD](https://bird.network.cz) or other BGP routing daemon which will control route advertisements via the session to Equinix Metal's upstream routers.
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/bgpSession:BgpSession")]
-    public partial class BgpSession : Pulumi.CustomResource
+    public partial class BgpSession : global::Pulumi.CustomResource
     {
         /// <summary>
         /// `ipv4` or `ipv6`
@@ -38,7 +38,7 @@ namespace Pulumi.EquinixMetal
         public Output<string> DeviceId { get; private set; } = null!;
 
         /// <summary>
-        /// Status of the session - up or down
+        /// Status of the session - `up` or `down`
         /// </summary>
         [Output("status")]
         public Output<string> Status { get; private set; } = null!;
@@ -87,7 +87,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class BgpSessionArgs : Pulumi.ResourceArgs
+    public sealed class BgpSessionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `ipv4` or `ipv6`
@@ -110,9 +110,10 @@ namespace Pulumi.EquinixMetal
         public BgpSessionArgs()
         {
         }
+        public static new BgpSessionArgs Empty => new BgpSessionArgs();
     }
 
-    public sealed class BgpSessionState : Pulumi.ResourceArgs
+    public sealed class BgpSessionState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `ipv4` or `ipv6`
@@ -133,7 +134,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? DeviceId { get; set; }
 
         /// <summary>
-        /// Status of the session - up or down
+        /// Status of the session - `up` or `down`
         /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
@@ -141,5 +142,6 @@ namespace Pulumi.EquinixMetal
         public BgpSessionState()
         {
         }
+        public static new BgpSessionState Empty => new BgpSessionState();
     }
 }

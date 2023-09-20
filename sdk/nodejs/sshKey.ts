@@ -14,7 +14,7 @@ import * as utilities from "./utilities";
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as equinix_metal from "@pulumi/equinix-metal";
- * import * from "fs";
+ * import * as fs from "fs";
  *
  * // Create a new SSH key
  * const key1 = new equinix_metal.SshKey("key1", {publicKey: fs.readFileSync("/home/terraform/.ssh/id_rsa.pub")});

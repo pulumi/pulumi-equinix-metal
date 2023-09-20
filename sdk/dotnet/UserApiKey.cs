@@ -13,25 +13,24 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var test = new EquinixMetal.UserApiKey("test", new()
     ///     {
-    ///         var test = new EquinixMetal.UserApiKey("test", new EquinixMetal.UserApiKeyArgs
-    ///         {
-    ///             Description = "Read-only user key",
-    ///             ReadOnly = true,
-    ///         });
-    ///     }
+    ///         Description = "Read-only user key",
+    ///         ReadOnly = true,
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/userApiKey:UserApiKey")]
-    public partial class UserApiKey : Pulumi.CustomResource
+    public partial class UserApiKey : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Description string for the User API Key resource
@@ -81,6 +80,10 @@ namespace Pulumi.EquinixMetal
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                AdditionalSecretOutputs =
+                {
+                    "token",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -102,7 +105,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class UserApiKeyArgs : Pulumi.ResourceArgs
+    public sealed class UserApiKeyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Description string for the User API Key resource
@@ -120,9 +123,10 @@ namespace Pulumi.EquinixMetal
         public UserApiKeyArgs()
         {
         }
+        public static new UserApiKeyArgs Empty => new UserApiKeyArgs();
     }
 
-    public sealed class UserApiKeyState : Pulumi.ResourceArgs
+    public sealed class UserApiKeyState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Description string for the User API Key resource
@@ -137,11 +141,21 @@ namespace Pulumi.EquinixMetal
         [Input("readOnly")]
         public Input<bool>? ReadOnly { get; set; }
 
+        [Input("token")]
+        private Input<string>? _token;
+
         /// <summary>
         /// API token which can be used in Equinix Metal API clients
         /// </summary>
-        [Input("token")]
-        public Input<string>? Token { get; set; }
+        public Input<string>? Token
+        {
+            get => _token;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _token = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// UUID of the owner of the API key
@@ -152,5 +166,6 @@ namespace Pulumi.EquinixMetal
         public UserApiKeyState()
         {
         }
+        public static new UserApiKeyState Empty => new UserApiKeyState();
     }
 }

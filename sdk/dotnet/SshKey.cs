@@ -17,42 +17,42 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using System.IO;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Create a new SSH key
+    ///     var key1 = new EquinixMetal.SshKey("key1", new()
     ///     {
-    ///         // Create a new SSH key
-    ///         var key1 = new EquinixMetal.SshKey("key1", new EquinixMetal.SshKeyArgs
-    ///         {
-    ///             PublicKey = File.ReadAllText("/home/terraform/.ssh/id_rsa.pub"),
-    ///         });
-    ///         // Create new device with "key1" included. The device resource "depends_on" the
-    ///         // key, in order to make sure the key is created before the device.
-    ///         var test = new EquinixMetal.Device("test", new EquinixMetal.DeviceArgs
-    ///         {
-    ///             Hostname = "test-device",
-    ///             Plan = "c3.small.x86",
-    ///             Facilities = 
-    ///             {
-    ///                 "sjc1",
-    ///             },
-    ///             OperatingSystem = "ubuntu_20_04",
-    ///             BillingCycle = "hourly",
-    ///             ProjectId = local.Project_id,
-    ///         }, new CustomResourceOptions
-    ///         {
-    ///             DependsOn = 
-    ///             {
-    ///                 "metal_ssh_key.key1",
-    ///             },
-    ///         });
-    ///     }
+    ///         PublicKey = File.ReadAllText("/home/terraform/.ssh/id_rsa.pub"),
+    ///     });
     /// 
-    /// }
+    ///     // Create new device with "key1" included. The device resource "depends_on" the
+    ///     // key, in order to make sure the key is created before the device.
+    ///     var test = new EquinixMetal.Device("test", new()
+    ///     {
+    ///         Hostname = "test-device",
+    ///         Plan = "c3.small.x86",
+    ///         Facilities = new[]
+    ///         {
+    ///             "sjc1",
+    ///         },
+    ///         OperatingSystem = "ubuntu_20_04",
+    ///         BillingCycle = "hourly",
+    ///         ProjectId = local.Project_id,
+    ///     }, new CustomResourceOptions
+    ///     {
+    ///         DependsOn = new[]
+    ///         {
+    ///             "metal_ssh_key.key1",
+    ///         },
+    ///     });
+    /// 
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -64,7 +64,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/sshKey:SshKey")]
-    public partial class SshKey : Pulumi.CustomResource
+    public partial class SshKey : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The timestamp for when the SSH key was created
@@ -147,7 +147,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class SshKeyArgs : Pulumi.ResourceArgs
+    public sealed class SshKeyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the SSH key for identification
@@ -165,9 +165,10 @@ namespace Pulumi.EquinixMetal
         public SshKeyArgs()
         {
         }
+        public static new SshKeyArgs Empty => new SshKeyArgs();
     }
 
-    public sealed class SshKeyState : Pulumi.ResourceArgs
+    public sealed class SshKeyState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The timestamp for when the SSH key was created
@@ -209,5 +210,6 @@ namespace Pulumi.EquinixMetal
         public SshKeyState()
         {
         }
+        public static new SshKeyState Empty => new SshKeyState();
     }
 }

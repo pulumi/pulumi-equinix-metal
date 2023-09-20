@@ -9,11 +9,8 @@ import * as utilities from "./utilities";
  * You can then use the cidrsubnet TF builtin function to derive subnets.
  */
 export function getPrecreatedIpBlock(args: GetPrecreatedIpBlockArgs, opts?: pulumi.InvokeOptions): Promise<GetPrecreatedIpBlockResult> {
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("equinix-metal:index/getPrecreatedIpBlock:getPrecreatedIpBlock", {
         "addressFamily": args.addressFamily,
         "facility": args.facility,
@@ -82,9 +79,12 @@ export interface GetPrecreatedIpBlockResult {
     readonly quantity: number;
     readonly type: string;
 }
-
+/**
+ * Use this data source to get CIDR expression for precreated IPv6 and IPv4 blocks in Equinix Metal.
+ * You can then use the cidrsubnet TF builtin function to derive subnets.
+ */
 export function getPrecreatedIpBlockOutput(args: GetPrecreatedIpBlockOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetPrecreatedIpBlockResult> {
-    return pulumi.output(args).apply(a => getPrecreatedIpBlock(a, opts))
+    return pulumi.output(args).apply((a: any) => getPrecreatedIpBlock(a, opts))
 }
 
 /**

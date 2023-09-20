@@ -18,6 +18,49 @@ import javax.annotation.Nullable;
  * Project SSH keys will only be populated onto servers that belong to that project, in contrast to User SSH Keys.
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.ProjectSshKey;
+ * import com.pulumi.equinixmetal.ProjectSshKeyArgs;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var projectId = &#34;&lt;UUID_of_your_project&gt;&#34;;
+ * 
+ *         var testProjectSshKey = new ProjectSshKey(&#34;testProjectSshKey&#34;, ProjectSshKeyArgs.builder()        
+ *             .publicKey(&#34;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM/unxJeFqxsTJcu6mhqsMHSaVlpu+Jj/P+44zrm6X/MAoHSX3X9oLgujEjjZ74yLfdfe0bJrbL2YgJzNaEkIQQ1VPMHB5EhTKUBGnzlPP0hHTnxsjAm9qDHgUPgvgFDQSAMzdJRJ0Cexo16Ph9VxCoLh3dxiE7s2gaM2FdVg7P8aSxKypsxAhYV3D0AwqzoOyT6WWhBoQ0xZ85XevOTnJCpImSemEGs6nVGEsWcEc1d1YvdxFjAK4SdsKUMkj4Dsy/leKsdi/DEAf356vbMT1UHsXXvy5TlHu/Pa6qF53v32Enz+nhKy7/8W2Yt2yWx8HnQcT2rug9lvCXagJO6oauqRTO77C4QZn13ZLMZgLT66S/tNh2EX0gi6vmIs5dth8uF+K6nxIyKJXbcA4ASg7F1OJrHKFZdTc5v1cPeq6PcbqGgc+8SrPYQmzvQqLoMBuxyos2hUkYOmw3aeWJj9nFa8Wu5WaN89mUeOqSkU4S5cgUzWUOmKey56B/j/s1sVys9rMhZapVs0wL4L9GBBM48N5jAQZnnpo85A8KsZq5ME22bTLqnxsDXqDYZvS7PSI6Dxi7eleOFE/NYYDkrgDLHTQri8ucDMVeVWHgoMY2bPXdn7KKy5jW5jKsf8EPARXg77A4gRYmgKrcwIKqJEUPqyxJBe0CPoGTqgXPRsUiQ== tomk@hp2&#34;)
+ *             .projectId(projectId)
+ *             .build());
+ * 
+ *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;test&#34;)
+ *             .plan(&#34;c3.medium.x86&#34;)
+ *             .facilities(&#34;ny5&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectSshKeyIds(testProjectSshKey.id())
+ *             .projectId(projectId)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="equinix-metal:index/projectSshKey:ProjectSshKey")
@@ -26,7 +69,7 @@ public class ProjectSshKey extends com.pulumi.resources.CustomResource {
      * The timestamp for when the SSH key was created
      * 
      */
-    @Export(name="created", type=String.class, parameters={})
+    @Export(name="created", refs={String.class}, tree="[0]")
     private Output<String> created;
 
     /**
@@ -40,7 +83,7 @@ public class ProjectSshKey extends com.pulumi.resources.CustomResource {
      * The fingerprint of the SSH key
      * 
      */
-    @Export(name="fingerprint", type=String.class, parameters={})
+    @Export(name="fingerprint", refs={String.class}, tree="[0]")
     private Output<String> fingerprint;
 
     /**
@@ -54,7 +97,7 @@ public class ProjectSshKey extends com.pulumi.resources.CustomResource {
      * The name of the SSH key for identification
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -68,7 +111,7 @@ public class ProjectSshKey extends com.pulumi.resources.CustomResource {
      * The ID of parent project (same as project_id)
      * 
      */
-    @Export(name="ownerId", type=String.class, parameters={})
+    @Export(name="ownerId", refs={String.class}, tree="[0]")
     private Output<String> ownerId;
 
     /**
@@ -82,7 +125,7 @@ public class ProjectSshKey extends com.pulumi.resources.CustomResource {
      * The ID of parent project
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     /**
@@ -96,7 +139,7 @@ public class ProjectSshKey extends com.pulumi.resources.CustomResource {
      * The public key. If this is a file, it can be read using the file interpolation function
      * 
      */
-    @Export(name="publicKey", type=String.class, parameters={})
+    @Export(name="publicKey", refs={String.class}, tree="[0]")
     private Output<String> publicKey;
 
     /**
@@ -110,7 +153,7 @@ public class ProjectSshKey extends com.pulumi.resources.CustomResource {
      * The timestamp for the last time the SSH key was updated
      * 
      */
-    @Export(name="updated", type=String.class, parameters={})
+    @Export(name="updated", refs={String.class}, tree="[0]")
     private Output<String> updated;
 
     /**

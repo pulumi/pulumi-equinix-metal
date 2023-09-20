@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides a resource to attach elastic IP subnets to devices.
@@ -61,6 +63,7 @@ func NewIpAttachment(ctx *pulumi.Context,
 	if args.DeviceId == nil {
 		return nil, errors.New("invalid value for required argument 'DeviceId'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource IpAttachment
 	err := ctx.RegisterResource("equinix-metal:index/ipAttachment:IpAttachment", name, args, &resource, opts...)
 	if err != nil {
@@ -176,6 +179,12 @@ func (i *IpAttachment) ToIpAttachmentOutputWithContext(ctx context.Context) IpAt
 	return pulumi.ToOutputWithContext(ctx, i).(IpAttachmentOutput)
 }
 
+func (i *IpAttachment) ToOutput(ctx context.Context) pulumix.Output[*IpAttachment] {
+	return pulumix.Output[*IpAttachment]{
+		OutputState: i.ToIpAttachmentOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IpAttachmentArrayInput is an input type that accepts IpAttachmentArray and IpAttachmentArrayOutput values.
 // You can construct a concrete instance of `IpAttachmentArrayInput` via:
 //
@@ -199,6 +208,12 @@ func (i IpAttachmentArray) ToIpAttachmentArrayOutput() IpAttachmentArrayOutput {
 
 func (i IpAttachmentArray) ToIpAttachmentArrayOutputWithContext(ctx context.Context) IpAttachmentArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IpAttachmentArrayOutput)
+}
+
+func (i IpAttachmentArray) ToOutput(ctx context.Context) pulumix.Output[[]*IpAttachment] {
+	return pulumix.Output[[]*IpAttachment]{
+		OutputState: i.ToIpAttachmentArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // IpAttachmentMapInput is an input type that accepts IpAttachmentMap and IpAttachmentMapOutput values.
@@ -226,6 +241,12 @@ func (i IpAttachmentMap) ToIpAttachmentMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IpAttachmentMapOutput)
 }
 
+func (i IpAttachmentMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*IpAttachment] {
+	return pulumix.Output[map[string]*IpAttachment]{
+		OutputState: i.ToIpAttachmentMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type IpAttachmentOutput struct{ *pulumi.OutputState }
 
 func (IpAttachmentOutput) ElementType() reflect.Type {
@@ -240,6 +261,70 @@ func (o IpAttachmentOutput) ToIpAttachmentOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o IpAttachmentOutput) ToOutput(ctx context.Context) pulumix.Output[*IpAttachment] {
+	return pulumix.Output[*IpAttachment]{
+		OutputState: o.OutputState,
+	}
+}
+
+func (o IpAttachmentOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.StringOutput { return v.Address }).(pulumi.StringOutput)
+}
+
+// Address family as integer (4 or 6)
+func (o IpAttachmentOutput) AddressFamily() pulumi.IntOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.IntOutput { return v.AddressFamily }).(pulumi.IntOutput)
+}
+
+// length of CIDR prefix of the subnet as integer
+func (o IpAttachmentOutput) Cidr() pulumi.IntOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.IntOutput { return v.Cidr }).(pulumi.IntOutput)
+}
+
+// CIDR notation of subnet from block reserved in the same
+// project and facility as the device
+func (o IpAttachmentOutput) CidrNotation() pulumi.StringOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.StringOutput { return v.CidrNotation }).(pulumi.StringOutput)
+}
+
+// ID of device to which to assign the subnet
+func (o IpAttachmentOutput) DeviceId() pulumi.StringOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.StringOutput { return v.DeviceId }).(pulumi.StringOutput)
+}
+
+// IP address of gateway for the subnet
+func (o IpAttachmentOutput) Gateway() pulumi.StringOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.StringOutput { return v.Gateway }).(pulumi.StringOutput)
+}
+
+// Flag indicating whether IP block is global, i.e. assignable in any location
+func (o IpAttachmentOutput) Global() pulumi.BoolOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.BoolOutput { return v.Global }).(pulumi.BoolOutput)
+}
+
+func (o IpAttachmentOutput) Manageable() pulumi.BoolOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.BoolOutput { return v.Manageable }).(pulumi.BoolOutput)
+}
+
+func (o IpAttachmentOutput) Management() pulumi.BoolOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.BoolOutput { return v.Management }).(pulumi.BoolOutput)
+}
+
+// Subnet mask in decimal notation, e.g. "255.255.255.0"
+func (o IpAttachmentOutput) Netmask() pulumi.StringOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.StringOutput { return v.Netmask }).(pulumi.StringOutput)
+}
+
+// Subnet network address
+func (o IpAttachmentOutput) Network() pulumi.StringOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.StringOutput { return v.Network }).(pulumi.StringOutput)
+}
+
+// boolean flag whether subnet is reachable from the Internet
+func (o IpAttachmentOutput) Public() pulumi.BoolOutput {
+	return o.ApplyT(func(v *IpAttachment) pulumi.BoolOutput { return v.Public }).(pulumi.BoolOutput)
+}
+
 type IpAttachmentArrayOutput struct{ *pulumi.OutputState }
 
 func (IpAttachmentArrayOutput) ElementType() reflect.Type {
@@ -252,6 +337,12 @@ func (o IpAttachmentArrayOutput) ToIpAttachmentArrayOutput() IpAttachmentArrayOu
 
 func (o IpAttachmentArrayOutput) ToIpAttachmentArrayOutputWithContext(ctx context.Context) IpAttachmentArrayOutput {
 	return o
+}
+
+func (o IpAttachmentArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*IpAttachment] {
+	return pulumix.Output[[]*IpAttachment]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IpAttachmentArrayOutput) Index(i pulumi.IntInput) IpAttachmentOutput {
@@ -272,6 +363,12 @@ func (o IpAttachmentMapOutput) ToIpAttachmentMapOutput() IpAttachmentMapOutput {
 
 func (o IpAttachmentMapOutput) ToIpAttachmentMapOutputWithContext(ctx context.Context) IpAttachmentMapOutput {
 	return o
+}
+
+func (o IpAttachmentMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*IpAttachment] {
+	return pulumix.Output[map[string]*IpAttachment]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IpAttachmentMapOutput) MapIndex(k pulumi.StringInput) IpAttachmentOutput {

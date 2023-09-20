@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ## Example Usage
@@ -60,6 +62,7 @@ func NewPort(ctx *pulumi.Context,
 	if args.PortId == nil {
 		return nil, errors.New("invalid value for required argument 'PortId'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Port
 	err := ctx.RegisterResource("equinix-metal:index/port:Port", name, args, &resource, opts...)
 	if err != nil {
@@ -205,6 +208,12 @@ func (i *Port) ToPortOutputWithContext(ctx context.Context) PortOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PortOutput)
 }
 
+func (i *Port) ToOutput(ctx context.Context) pulumix.Output[*Port] {
+	return pulumix.Output[*Port]{
+		OutputState: i.ToPortOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PortArrayInput is an input type that accepts PortArray and PortArrayOutput values.
 // You can construct a concrete instance of `PortArrayInput` via:
 //
@@ -228,6 +237,12 @@ func (i PortArray) ToPortArrayOutput() PortArrayOutput {
 
 func (i PortArray) ToPortArrayOutputWithContext(ctx context.Context) PortArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PortArrayOutput)
+}
+
+func (i PortArray) ToOutput(ctx context.Context) pulumix.Output[[]*Port] {
+	return pulumix.Output[[]*Port]{
+		OutputState: i.ToPortArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PortMapInput is an input type that accepts PortMap and PortMapOutput values.
@@ -255,6 +270,12 @@ func (i PortMap) ToPortMapOutputWithContext(ctx context.Context) PortMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PortMapOutput)
 }
 
+func (i PortMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Port] {
+	return pulumix.Output[map[string]*Port]{
+		OutputState: i.ToPortMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PortOutput struct{ *pulumi.OutputState }
 
 func (PortOutput) ElementType() reflect.Type {
@@ -269,6 +290,82 @@ func (o PortOutput) ToPortOutputWithContext(ctx context.Context) PortOutput {
 	return o
 }
 
+func (o PortOutput) ToOutput(ctx context.Context) pulumix.Output[*Port] {
+	return pulumix.Output[*Port]{
+		OutputState: o.OutputState,
+	}
+}
+
+// UUID of the bond port
+func (o PortOutput) BondId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringOutput { return v.BondId }).(pulumi.StringOutput)
+}
+
+// Name of the bond port
+func (o PortOutput) BondName() pulumi.StringOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringOutput { return v.BondName }).(pulumi.StringOutput)
+}
+
+// Whether the port should be bonded
+func (o PortOutput) Bonded() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Port) pulumi.BoolOutput { return v.Bonded }).(pulumi.BoolOutput)
+}
+
+// Flag indicating whether the port can be removed from a bond
+func (o PortOutput) DisbondSupported() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Port) pulumi.BoolOutput { return v.DisbondSupported }).(pulumi.BoolOutput)
+}
+
+// Whether to put the port to Layer 2 mode, valid only for bond ports
+func (o PortOutput) Layer2() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Port) pulumi.BoolPtrOutput { return v.Layer2 }).(pulumi.BoolPtrOutput)
+}
+
+// MAC address of the port
+func (o PortOutput) Mac() pulumi.StringOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringOutput { return v.Mac }).(pulumi.StringOutput)
+}
+
+// Name of the port, e.g. `bond0` or `eth0`
+func (o PortOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// UUID of a VLAN to assign as a native VLAN. It must be one of attached VLANs (from `vlanIds` parameter), valid only for physical (non-bond) ports
+func (o PortOutput) NativeVlanId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringPtrOutput { return v.NativeVlanId }).(pulumi.StringPtrOutput)
+}
+
+// One of layer2-bonded, layer2-individual, layer3, hybrid and hybrid-bonded. This attribute is only set on bond ports.
+func (o PortOutput) NetworkType() pulumi.StringOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringOutput { return v.NetworkType }).(pulumi.StringOutput)
+}
+
+// ID of the port to read
+func (o PortOutput) PortId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringOutput { return v.PortId }).(pulumi.StringOutput)
+}
+
+// Behavioral setting to reset the port to default settings. For a bond port it means layer3 without vlans attached, eth ports will be bonded without native vlan and vlans attached
+func (o PortOutput) ResetOnDelete() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Port) pulumi.BoolPtrOutput { return v.ResetOnDelete }).(pulumi.BoolPtrOutput)
+}
+
+// Type is either "NetworkBondPort" for bond ports or "NetworkPort" for bondable ethernet ports
+func (o PortOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
+}
+
+// List of VLAN UUIDs to attach to the port, valid only for L2 and Hybrid ports
+func (o PortOutput) VlanIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Port) pulumi.StringArrayOutput { return v.VlanIds }).(pulumi.StringArrayOutput)
+}
+
+// List of VXLAN IDs to attach to the port, valid only for L2 and Hybrid ports
+func (o PortOutput) VxlanIds() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *Port) pulumi.IntArrayOutput { return v.VxlanIds }).(pulumi.IntArrayOutput)
+}
+
 type PortArrayOutput struct{ *pulumi.OutputState }
 
 func (PortArrayOutput) ElementType() reflect.Type {
@@ -281,6 +378,12 @@ func (o PortArrayOutput) ToPortArrayOutput() PortArrayOutput {
 
 func (o PortArrayOutput) ToPortArrayOutputWithContext(ctx context.Context) PortArrayOutput {
 	return o
+}
+
+func (o PortArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Port] {
+	return pulumix.Output[[]*Port]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PortArrayOutput) Index(i pulumi.IntInput) PortOutput {
@@ -301,6 +404,12 @@ func (o PortMapOutput) ToPortMapOutput() PortMapOutput {
 
 func (o PortMapOutput) ToPortMapOutputWithContext(ctx context.Context) PortMapOutput {
 	return o
+}
+
+func (o PortMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Port] {
+	return pulumix.Output[map[string]*Port]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PortMapOutput) MapIndex(k pulumi.StringInput) PortOutput {

@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class VolumeAttachmentArgs : Pulumi.ResourceArgs
+    public sealed class VolumeAttachmentArgs : global::Pulumi.ResourceArgs
     {
         [Input("href")]
         public Input<string>? Href { get; set; }
@@ -18,5 +18,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public VolumeAttachmentArgs()
         {
         }
+        public static new VolumeAttachmentArgs Empty => new VolumeAttachmentArgs();
     }
 }

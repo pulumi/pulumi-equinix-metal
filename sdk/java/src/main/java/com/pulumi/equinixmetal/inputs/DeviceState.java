@@ -300,8 +300,7 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      * @deprecated
      * You should handle Network Type with the new metal_device_network_type resource.
@@ -312,8 +311,7 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<Either<String,NetworkType>> networkType;
 
     /**
-     * @return Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     * @return Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      * @deprecated
      * You should handle Network Type with the new metal_device_network_type resource.
@@ -562,12 +560,16 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
     /**
      * Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
      * 
+     * The `ip_address` block has 3 fields:
+     * 
      */
     @Import(name="waitForReservationDeprovision")
     private @Nullable Output<Boolean> waitForReservationDeprovision;
 
     /**
      * @return Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+     * 
+     * The `ip_address` block has 3 fields:
      * 
      */
     public Optional<Output<Boolean>> waitForReservationDeprovision() {
@@ -1053,8 +1055,7 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-         * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
          * 
          * @return builder
          * 
@@ -1069,8 +1070,7 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-         * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
          * 
          * @return builder
          * 
@@ -1084,8 +1084,7 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-         * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
          * 
          * @return builder
          * 
@@ -1099,8 +1098,7 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-         * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+         * @param networkType Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
          * 
          * @return builder
          * 
@@ -1536,6 +1534,8 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
         /**
          * @param waitForReservationDeprovision Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
          * 
+         * The `ip_address` block has 3 fields:
+         * 
          * @return builder
          * 
          */
@@ -1546,6 +1546,8 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param waitForReservationDeprovision Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+         * 
+         * The `ip_address` block has 3 fields:
          * 
          * @return builder
          * 

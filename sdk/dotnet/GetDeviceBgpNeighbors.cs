@@ -23,29 +23,29 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var test = EquinixMetal.GetDeviceBgpNeighbors.Invoke(new()
         ///     {
-        ///         var test = Output.Create(EquinixMetal.GetDeviceBgpNeighbors.InvokeAsync(new EquinixMetal.GetDeviceBgpNeighborsArgs
-        ///         {
-        ///             DeviceId = "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
-        ///         }));
-        ///         this.BgpNeighborsListing = test.Apply(test =&gt; test.BgpNeighbors);
-        ///     }
+        ///         DeviceId = "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
+        ///     });
         /// 
-        ///     [Output("bgpNeighborsListing")]
-        ///     public Output&lt;string&gt; BgpNeighborsListing { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["bgpNeighborsListing"] = test.Apply(getDeviceBgpNeighborsResult =&gt; getDeviceBgpNeighborsResult.BgpNeighbors),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetDeviceBgpNeighborsResult> InvokeAsync(GetDeviceBgpNeighborsArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetDeviceBgpNeighborsResult>("equinix-metal:index/getDeviceBgpNeighbors:getDeviceBgpNeighbors", args ?? new GetDeviceBgpNeighborsArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetDeviceBgpNeighborsResult>("equinix-metal:index/getDeviceBgpNeighbors:getDeviceBgpNeighbors", args ?? new GetDeviceBgpNeighborsArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this datasource to retrieve list of BGP neighbors of a device in the Equinix Metal host.
@@ -59,33 +59,33 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var test = EquinixMetal.GetDeviceBgpNeighbors.Invoke(new()
         ///     {
-        ///         var test = Output.Create(EquinixMetal.GetDeviceBgpNeighbors.InvokeAsync(new EquinixMetal.GetDeviceBgpNeighborsArgs
-        ///         {
-        ///             DeviceId = "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
-        ///         }));
-        ///         this.BgpNeighborsListing = test.Apply(test =&gt; test.BgpNeighbors);
-        ///     }
+        ///         DeviceId = "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
+        ///     });
         /// 
-        ///     [Output("bgpNeighborsListing")]
-        ///     public Output&lt;string&gt; BgpNeighborsListing { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["bgpNeighborsListing"] = test.Apply(getDeviceBgpNeighborsResult =&gt; getDeviceBgpNeighborsResult.BgpNeighbors),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetDeviceBgpNeighborsResult> Invoke(GetDeviceBgpNeighborsInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetDeviceBgpNeighborsResult>("equinix-metal:index/getDeviceBgpNeighbors:getDeviceBgpNeighbors", args ?? new GetDeviceBgpNeighborsInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetDeviceBgpNeighborsResult>("equinix-metal:index/getDeviceBgpNeighbors:getDeviceBgpNeighbors", args ?? new GetDeviceBgpNeighborsInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetDeviceBgpNeighborsArgs : Pulumi.InvokeArgs
+    public sealed class GetDeviceBgpNeighborsArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// UUID of BGP-enabled device whose neighbors to list
@@ -96,9 +96,10 @@ namespace Pulumi.EquinixMetal
         public GetDeviceBgpNeighborsArgs()
         {
         }
+        public static new GetDeviceBgpNeighborsArgs Empty => new GetDeviceBgpNeighborsArgs();
     }
 
-    public sealed class GetDeviceBgpNeighborsInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetDeviceBgpNeighborsInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// UUID of BGP-enabled device whose neighbors to list
@@ -109,6 +110,7 @@ namespace Pulumi.EquinixMetal
         public GetDeviceBgpNeighborsInvokeArgs()
         {
         }
+        public static new GetDeviceBgpNeighborsInvokeArgs Empty => new GetDeviceBgpNeighborsInvokeArgs();
     }
 
 

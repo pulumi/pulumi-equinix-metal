@@ -19,6 +19,48 @@ import javax.annotation.Nullable;
  * The link between User SSH key and device is implicit. If you want to make sure that a key will be copied to a device, you must ensure that the device resource `depends_on` the key resource.
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.SshKey;
+ * import com.pulumi.equinixmetal.SshKeyArgs;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import com.pulumi.resources.CustomResourceOptions;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var key1 = new SshKey(&#34;key1&#34;, SshKeyArgs.builder()        
+ *             .publicKey(Files.readString(Paths.get(&#34;/home/terraform/.ssh/id_rsa.pub&#34;)))
+ *             .build());
+ * 
+ *         var test = new Device(&#34;test&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;test-device&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .facilities(&#34;sjc1&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectId(local.project_id())
+ *             .build(), CustomResourceOptions.builder()
+ *                 .dependsOn(&#34;metal_ssh_key.key1&#34;)
+ *                 .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  * ## Import
  * 
@@ -35,7 +77,7 @@ public class SshKey extends com.pulumi.resources.CustomResource {
      * The timestamp for when the SSH key was created
      * 
      */
-    @Export(name="created", type=String.class, parameters={})
+    @Export(name="created", refs={String.class}, tree="[0]")
     private Output<String> created;
 
     /**
@@ -49,7 +91,7 @@ public class SshKey extends com.pulumi.resources.CustomResource {
      * The fingerprint of the SSH key
      * 
      */
-    @Export(name="fingerprint", type=String.class, parameters={})
+    @Export(name="fingerprint", refs={String.class}, tree="[0]")
     private Output<String> fingerprint;
 
     /**
@@ -63,7 +105,7 @@ public class SshKey extends com.pulumi.resources.CustomResource {
      * The name of the SSH key for identification
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -77,7 +119,7 @@ public class SshKey extends com.pulumi.resources.CustomResource {
      * The UUID of the Equinix Metal API User who owns this key
      * 
      */
-    @Export(name="ownerId", type=String.class, parameters={})
+    @Export(name="ownerId", refs={String.class}, tree="[0]")
     private Output<String> ownerId;
 
     /**
@@ -92,7 +134,7 @@ public class SshKey extends com.pulumi.resources.CustomResource {
      * can be read using the file interpolation function
      * 
      */
-    @Export(name="publicKey", type=String.class, parameters={})
+    @Export(name="publicKey", refs={String.class}, tree="[0]")
     private Output<String> publicKey;
 
     /**
@@ -107,7 +149,7 @@ public class SshKey extends com.pulumi.resources.CustomResource {
      * The timestamp for the last time the SSH key was updated
      * 
      */
-    @Export(name="updated", type=String.class, parameters={})
+    @Export(name="updated", refs={String.class}, tree="[0]")
     private Output<String> updated;
 
     /**

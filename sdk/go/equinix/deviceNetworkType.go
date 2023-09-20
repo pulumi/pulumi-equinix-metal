@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ## Example Usage
@@ -46,6 +48,7 @@ func NewDeviceNetworkType(ctx *pulumi.Context,
 	if args.Type == nil {
 		return nil, errors.New("invalid value for required argument 'Type'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource DeviceNetworkType
 	err := ctx.RegisterResource("equinix-metal:index/deviceNetworkType:DeviceNetworkType", name, args, &resource, opts...)
 	if err != nil {
@@ -123,6 +126,12 @@ func (i *DeviceNetworkType) ToDeviceNetworkTypeOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceNetworkTypeOutput)
 }
 
+func (i *DeviceNetworkType) ToOutput(ctx context.Context) pulumix.Output[*DeviceNetworkType] {
+	return pulumix.Output[*DeviceNetworkType]{
+		OutputState: i.ToDeviceNetworkTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DeviceNetworkTypeArrayInput is an input type that accepts DeviceNetworkTypeArray and DeviceNetworkTypeArrayOutput values.
 // You can construct a concrete instance of `DeviceNetworkTypeArrayInput` via:
 //
@@ -146,6 +155,12 @@ func (i DeviceNetworkTypeArray) ToDeviceNetworkTypeArrayOutput() DeviceNetworkTy
 
 func (i DeviceNetworkTypeArray) ToDeviceNetworkTypeArrayOutputWithContext(ctx context.Context) DeviceNetworkTypeArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceNetworkTypeArrayOutput)
+}
+
+func (i DeviceNetworkTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]*DeviceNetworkType] {
+	return pulumix.Output[[]*DeviceNetworkType]{
+		OutputState: i.ToDeviceNetworkTypeArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DeviceNetworkTypeMapInput is an input type that accepts DeviceNetworkTypeMap and DeviceNetworkTypeMapOutput values.
@@ -173,6 +188,12 @@ func (i DeviceNetworkTypeMap) ToDeviceNetworkTypeMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceNetworkTypeMapOutput)
 }
 
+func (i DeviceNetworkTypeMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DeviceNetworkType] {
+	return pulumix.Output[map[string]*DeviceNetworkType]{
+		OutputState: i.ToDeviceNetworkTypeMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DeviceNetworkTypeOutput struct{ *pulumi.OutputState }
 
 func (DeviceNetworkTypeOutput) ElementType() reflect.Type {
@@ -187,6 +208,22 @@ func (o DeviceNetworkTypeOutput) ToDeviceNetworkTypeOutputWithContext(ctx contex
 	return o
 }
 
+func (o DeviceNetworkTypeOutput) ToOutput(ctx context.Context) pulumix.Output[*DeviceNetworkType] {
+	return pulumix.Output[*DeviceNetworkType]{
+		OutputState: o.OutputState,
+	}
+}
+
+// The ID of the device on which the network type should be set.
+func (o DeviceNetworkTypeOutput) DeviceId() pulumi.StringOutput {
+	return o.ApplyT(func(v *DeviceNetworkType) pulumi.StringOutput { return v.DeviceId }).(pulumi.StringOutput)
+}
+
+// Network type to set. Must be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
+func (o DeviceNetworkTypeOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *DeviceNetworkType) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
+}
+
 type DeviceNetworkTypeArrayOutput struct{ *pulumi.OutputState }
 
 func (DeviceNetworkTypeArrayOutput) ElementType() reflect.Type {
@@ -199,6 +236,12 @@ func (o DeviceNetworkTypeArrayOutput) ToDeviceNetworkTypeArrayOutput() DeviceNet
 
 func (o DeviceNetworkTypeArrayOutput) ToDeviceNetworkTypeArrayOutputWithContext(ctx context.Context) DeviceNetworkTypeArrayOutput {
 	return o
+}
+
+func (o DeviceNetworkTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DeviceNetworkType] {
+	return pulumix.Output[[]*DeviceNetworkType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DeviceNetworkTypeArrayOutput) Index(i pulumi.IntInput) DeviceNetworkTypeOutput {
@@ -219,6 +262,12 @@ func (o DeviceNetworkTypeMapOutput) ToDeviceNetworkTypeMapOutput() DeviceNetwork
 
 func (o DeviceNetworkTypeMapOutput) ToDeviceNetworkTypeMapOutputWithContext(ctx context.Context) DeviceNetworkTypeMapOutput {
 	return o
+}
+
+func (o DeviceNetworkTypeMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DeviceNetworkType] {
+	return pulumix.Output[map[string]*DeviceNetworkType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DeviceNetworkTypeMapOutput) MapIndex(k pulumi.StringInput) DeviceNetworkTypeOutput {

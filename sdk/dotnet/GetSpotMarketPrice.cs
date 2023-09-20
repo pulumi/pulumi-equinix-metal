@@ -21,47 +21,45 @@ namespace Pulumi.EquinixMetal
         /// Lookup by facility:
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var example = EquinixMetal.GetSpotMarketPrice.Invoke(new()
         ///     {
-        ///         var example = Output.Create(EquinixMetal.GetSpotMarketPrice.InvokeAsync(new EquinixMetal.GetSpotMarketPriceArgs
-        ///         {
-        ///             Facility = "ny5",
-        ///             Plan = "c3.small.x86",
-        ///         }));
-        ///     }
+        ///         Facility = "ny5",
+        ///         Plan = "c3.small.x86",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// 
         /// Lookup by metro:
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var example = EquinixMetal.GetSpotMarketPrice.Invoke(new()
         ///     {
-        ///         var example = Output.Create(EquinixMetal.GetSpotMarketPrice.InvokeAsync(new EquinixMetal.GetSpotMarketPriceArgs
-        ///         {
-        ///             Metro = "sv",
-        ///             Plan = "c3.small.x86",
-        ///         }));
-        ///     }
+        ///         Metro = "sv",
+        ///         Plan = "c3.small.x86",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetSpotMarketPriceResult> InvokeAsync(GetSpotMarketPriceArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetSpotMarketPriceResult>("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", args ?? new GetSpotMarketPriceArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetSpotMarketPriceResult>("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", args ?? new GetSpotMarketPriceArgs(), options.WithDefaults());
 
         /// <summary>
         /// Use this data source to get Equinix Metal Spot Market Price for a plan.
@@ -73,51 +71,49 @@ namespace Pulumi.EquinixMetal
         /// Lookup by facility:
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var example = EquinixMetal.GetSpotMarketPrice.Invoke(new()
         ///     {
-        ///         var example = Output.Create(EquinixMetal.GetSpotMarketPrice.InvokeAsync(new EquinixMetal.GetSpotMarketPriceArgs
-        ///         {
-        ///             Facility = "ny5",
-        ///             Plan = "c3.small.x86",
-        ///         }));
-        ///     }
+        ///         Facility = "ny5",
+        ///         Plan = "c3.small.x86",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// 
         /// Lookup by metro:
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var example = EquinixMetal.GetSpotMarketPrice.Invoke(new()
         ///     {
-        ///         var example = Output.Create(EquinixMetal.GetSpotMarketPrice.InvokeAsync(new EquinixMetal.GetSpotMarketPriceArgs
-        ///         {
-        ///             Metro = "sv",
-        ///             Plan = "c3.small.x86",
-        ///         }));
-        ///     }
+        ///         Metro = "sv",
+        ///         Plan = "c3.small.x86",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetSpotMarketPriceResult> Invoke(GetSpotMarketPriceInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetSpotMarketPriceResult>("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", args ?? new GetSpotMarketPriceInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetSpotMarketPriceResult>("equinix-metal:index/getSpotMarketPrice:getSpotMarketPrice", args ?? new GetSpotMarketPriceInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetSpotMarketPriceArgs : Pulumi.InvokeArgs
+    public sealed class GetSpotMarketPriceArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Name of the facility.
@@ -140,9 +136,10 @@ namespace Pulumi.EquinixMetal
         public GetSpotMarketPriceArgs()
         {
         }
+        public static new GetSpotMarketPriceArgs Empty => new GetSpotMarketPriceArgs();
     }
 
-    public sealed class GetSpotMarketPriceInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetSpotMarketPriceInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Name of the facility.
@@ -165,6 +162,7 @@ namespace Pulumi.EquinixMetal
         public GetSpotMarketPriceInvokeArgs()
         {
         }
+        public static new GetSpotMarketPriceInvokeArgs Empty => new GetSpotMarketPriceInvokeArgs();
     }
 
 

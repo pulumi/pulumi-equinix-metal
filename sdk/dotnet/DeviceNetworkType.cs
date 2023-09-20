@@ -23,7 +23,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/deviceNetworkType:DeviceNetworkType")]
-    public partial class DeviceNetworkType : Pulumi.CustomResource
+    public partial class DeviceNetworkType : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The ID of the device on which the network type should be set.
@@ -81,7 +81,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class DeviceNetworkTypeArgs : Pulumi.ResourceArgs
+    public sealed class DeviceNetworkTypeArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The ID of the device on which the network type should be set.
@@ -98,9 +98,10 @@ namespace Pulumi.EquinixMetal
         public DeviceNetworkTypeArgs()
         {
         }
+        public static new DeviceNetworkTypeArgs Empty => new DeviceNetworkTypeArgs();
     }
 
-    public sealed class DeviceNetworkTypeState : Pulumi.ResourceArgs
+    public sealed class DeviceNetworkTypeState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The ID of the device on which the network type should be set.
@@ -117,5 +118,6 @@ namespace Pulumi.EquinixMetal
         public DeviceNetworkTypeState()
         {
         }
+        public static new DeviceNetworkTypeState Empty => new DeviceNetworkTypeState();
     }
 }

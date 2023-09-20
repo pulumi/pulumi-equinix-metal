@@ -35,12 +35,16 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
     /**
      * Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
      * 
+     * Once you set the BGP config in a project, it can&#39;t be removed (due to a limitation in the Equinix Metal API). It can be updated.
+     * 
      */
     @Import(name="bgpConfig")
     private @Nullable Output<ProjectBgpConfigArgs> bgpConfig;
 
     /**
      * @return Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+     * 
+     * Once you set the BGP config in a project, it can&#39;t be removed (due to a limitation in the Equinix Metal API). It can be updated.
      * 
      */
     public Optional<Output<ProjectBgpConfigArgs>> bgpConfig() {
@@ -176,6 +180,8 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
         /**
          * @param bgpConfig Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
          * 
+         * Once you set the BGP config in a project, it can&#39;t be removed (due to a limitation in the Equinix Metal API). It can be updated.
+         * 
          * @return builder
          * 
          */
@@ -186,6 +192,8 @@ public final class ProjectState extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param bgpConfig Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+         * 
+         * Once you set the BGP config in a project, it can&#39;t be removed (due to a limitation in the Equinix Metal API). It can be updated.
          * 
          * @return builder
          * 

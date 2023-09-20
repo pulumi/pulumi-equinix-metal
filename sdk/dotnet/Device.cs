@@ -22,112 +22,109 @@ namespace Pulumi.EquinixMetal
     /// Create a device and add it to cool_project
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var web1 = new EquinixMetal.Device("web1", new()
     ///     {
-    ///         var web1 = new EquinixMetal.Device("web1", new EquinixMetal.DeviceArgs
-    ///         {
-    ///             Hostname = "tf.coreos2",
-    ///             Plan = "c3.small.x86",
-    ///             Metro = "sv",
-    ///             OperatingSystem = "ubuntu_20_04",
-    ///             BillingCycle = "hourly",
-    ///             ProjectId = local.Project_id,
-    ///         });
-    ///     }
+    ///         Hostname = "tf.coreos2",
+    ///         Plan = "c3.small.x86",
+    ///         Metro = "sv",
+    ///         OperatingSystem = "ubuntu_20_04",
+    ///         BillingCycle = "hourly",
+    ///         ProjectId = local.Project_id,
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// Same as above, but boot via iPXE initially, using the Ignition Provider for provisioning
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var pxe1 = new EquinixMetal.Device("pxe1", new()
     ///     {
-    ///         var pxe1 = new EquinixMetal.Device("pxe1", new EquinixMetal.DeviceArgs
-    ///         {
-    ///             Hostname = "tf.coreos2-pxe",
-    ///             Plan = "c3.small.x86",
-    ///             Metro = "sv",
-    ///             OperatingSystem = "custom_ipxe",
-    ///             BillingCycle = "hourly",
-    ///             ProjectId = local.Project_id,
-    ///             IpxeScriptUrl = "https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe",
-    ///             AlwaysPxe = false,
-    ///             UserData = data.Ignition_config.Example.Rendered,
-    ///         });
-    ///     }
+    ///         Hostname = "tf.coreos2-pxe",
+    ///         Plan = "c3.small.x86",
+    ///         Metro = "sv",
+    ///         OperatingSystem = "custom_ipxe",
+    ///         BillingCycle = "hourly",
+    ///         ProjectId = local.Project_id,
+    ///         IpxeScriptUrl = "https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe",
+    ///         AlwaysPxe = false,
+    ///         UserData = data.Ignition_config.Example.Rendered,
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var web1 = new EquinixMetal.Device("web1", new()
     ///     {
-    ///         var web1 = new EquinixMetal.Device("web1", new EquinixMetal.DeviceArgs
+    ///         Hostname = "tf.coreos2",
+    ///         Plan = "c3.small.x86",
+    ///         Facilities = new[]
     ///         {
-    ///             Hostname = "tf.coreos2",
-    ///             Plan = "c3.small.x86",
-    ///             Facilities = 
+    ///             "ny5",
+    ///         },
+    ///         OperatingSystem = "ubuntu_20_04",
+    ///         BillingCycle = "hourly",
+    ///         ProjectId = local.Project_id,
+    ///         IpAddresses = new[]
+    ///         {
+    ///             new EquinixMetal.Inputs.DeviceIpAddressArgs
     ///             {
-    ///                 "ny5",
+    ///                 Type = "private_ipv4",
+    ///                 Cidr = 30,
     ///             },
-    ///             OperatingSystem = "ubuntu_20_04",
-    ///             BillingCycle = "hourly",
-    ///             ProjectId = local.Project_id,
-    ///             IpAddresses = 
-    ///             {
-    ///                 new EquinixMetal.Inputs.DeviceIpAddressArgs
-    ///                 {
-    ///                     Type = "private_ipv4",
-    ///                     Cidr = 30,
-    ///                 },
-    ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// Deploy device on next-available reserved hardware and do custom partitioning.
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var web1 = new EquinixMetal.Device("web1", new()
     ///     {
-    ///         var web1 = new EquinixMetal.Device("web1", new EquinixMetal.DeviceArgs
+    ///         Hostname = "tftest",
+    ///         Plan = "c3.small.x86",
+    ///         Facilities = new[]
     ///         {
-    ///             Hostname = "tftest",
-    ///             Plan = "c3.small.x86",
-    ///             Facilities = 
-    ///             {
-    ///                 "ny5",
-    ///             },
-    ///             OperatingSystem = "ubuntu_20_04",
-    ///             BillingCycle = "hourly",
-    ///             ProjectId = local.Project_id,
-    ///             HardwareReservationId = "next-available",
-    ///             Storage = @"{
+    ///             "ny5",
+    ///         },
+    ///         OperatingSystem = "ubuntu_20_04",
+    ///         BillingCycle = "hourly",
+    ///         ProjectId = local.Project_id,
+    ///         HardwareReservationId = "next-available",
+    ///         Storage = @"{
     ///   ""disks"": [
     ///     {
     ///       ""device"": ""/dev/sda"",
@@ -181,10 +178,9 @@ namespace Pulumi.EquinixMetal
     ///   ]
     /// }
     /// ",
-    ///         });
-    ///     }
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -196,7 +192,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/device:Device")]
-    public partial class Device : Pulumi.CustomResource
+    public partial class Device : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The ipv4 private IP assigned to the device
@@ -308,8 +304,7 @@ namespace Pulumi.EquinixMetal
         public Output<string?> Metro { get; private set; } = null!;
 
         /// <summary>
-        /// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-        /// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+        /// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
         /// </summary>
         [Output("networkType")]
         public Output<string> NetworkType { get; private set; } = null!;
@@ -411,6 +406,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+        /// 
+        /// The `ip_address` block has 3 fields:
         /// </summary>
         [Output("waitForReservationDeprovision")]
         public Output<bool?> WaitForReservationDeprovision { get; private set; } = null!;
@@ -438,6 +435,12 @@ namespace Pulumi.EquinixMetal
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                AdditionalSecretOutputs =
+                {
+                    "customData",
+                    "rootPassword",
+                    "userData",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -459,7 +462,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class DeviceArgs : Pulumi.ResourceArgs
+    public sealed class DeviceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
@@ -473,11 +476,21 @@ namespace Pulumi.EquinixMetal
         [Input("billingCycle")]
         public InputUnion<string, Pulumi.EquinixMetal.BillingCycle>? BillingCycle { get; set; }
 
+        [Input("customData")]
+        private Input<string>? _customData;
+
         /// <summary>
         /// A string of the desired Custom Data for the device.
         /// </summary>
-        [Input("customData")]
-        public Input<string>? CustomData { get; set; }
+        public Input<string>? CustomData
+        {
+            get => _customData;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _customData = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// The device description.
@@ -600,14 +613,26 @@ namespace Pulumi.EquinixMetal
         [Input("terminationTime")]
         public Input<string>? TerminationTime { get; set; }
 
+        [Input("userData")]
+        private Input<string>? _userData;
+
         /// <summary>
         /// A string of the desired User Data for the device.
         /// </summary>
-        [Input("userData")]
-        public Input<string>? UserData { get; set; }
+        public Input<string>? UserData
+        {
+            get => _userData;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _userData = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+        /// 
+        /// The `ip_address` block has 3 fields:
         /// </summary>
         [Input("waitForReservationDeprovision")]
         public Input<bool>? WaitForReservationDeprovision { get; set; }
@@ -615,9 +640,10 @@ namespace Pulumi.EquinixMetal
         public DeviceArgs()
         {
         }
+        public static new DeviceArgs Empty => new DeviceArgs();
     }
 
-    public sealed class DeviceState : Pulumi.ResourceArgs
+    public sealed class DeviceState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The ipv4 private IP assigned to the device
@@ -655,11 +681,21 @@ namespace Pulumi.EquinixMetal
         [Input("created")]
         public Input<string>? Created { get; set; }
 
+        [Input("customData")]
+        private Input<string>? _customData;
+
         /// <summary>
         /// A string of the desired Custom Data for the device.
         /// </summary>
-        [Input("customData")]
-        public Input<string>? CustomData { get; set; }
+        public Input<string>? CustomData
+        {
+            get => _customData;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _customData = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// The facility where the device is deployed.
@@ -741,8 +777,7 @@ namespace Pulumi.EquinixMetal
         public Input<string>? Metro { get; set; }
 
         /// <summary>
-        /// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-        /// Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+        /// Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
         /// </summary>
         [Input("networkType")]
         public InputUnion<string, Pulumi.EquinixMetal.NetworkType>? NetworkType { get; set; }
@@ -812,11 +847,21 @@ namespace Pulumi.EquinixMetal
         [Input("reinstall")]
         public Input<Inputs.DeviceReinstallGetArgs>? Reinstall { get; set; }
 
+        [Input("rootPassword")]
+        private Input<string>? _rootPassword;
+
         /// <summary>
         /// Root password to the server (disabled after 24 hours)
         /// </summary>
-        [Input("rootPassword")]
-        public Input<string>? RootPassword { get; set; }
+        public Input<string>? RootPassword
+        {
+            get => _rootPassword;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _rootPassword = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         [Input("sshKeyIds")]
         private InputList<string>? _sshKeyIds;
@@ -866,14 +911,26 @@ namespace Pulumi.EquinixMetal
         [Input("updated")]
         public Input<string>? Updated { get; set; }
 
+        [Input("userData")]
+        private Input<string>? _userData;
+
         /// <summary>
         /// A string of the desired User Data for the device.
         /// </summary>
-        [Input("userData")]
-        public Input<string>? UserData { get; set; }
+        public Input<string>? UserData
+        {
+            get => _userData;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _userData = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+        /// 
+        /// The `ip_address` block has 3 fields:
         /// </summary>
         [Input("waitForReservationDeprovision")]
         public Input<bool>? WaitForReservationDeprovision { get; set; }
@@ -881,5 +938,6 @@ namespace Pulumi.EquinixMetal
         public DeviceState()
         {
         }
+        public static new DeviceState Empty => new DeviceState();
     }
 }

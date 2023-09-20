@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ## Example Usage
@@ -18,25 +20,23 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewProjectApiKey(ctx, "test", &equinix-metal.ProjectApiKeyArgs{
-//				ProjectId:   pulumi.Any(local.Existing_project_id),
-//				Description: pulumi.String("Read-only key scoped to a projct"),
-//				ReadOnly:    pulumi.Bool(true),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewProjectApiKey(ctx, "test", &equinix-metal.ProjectApiKeyArgs{
+// ProjectId: pulumi.Any(local.Existing_project_id),
+// Description: pulumi.String("Read-only key scoped to a projct"),
+// ReadOnly: pulumi.Bool(true),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 type ProjectApiKey struct {
 	pulumi.CustomResourceState
@@ -68,6 +68,11 @@ func NewProjectApiKey(ctx *pulumi.Context,
 	if args.ReadOnly == nil {
 		return nil, errors.New("invalid value for required argument 'ReadOnly'")
 	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"token",
+	})
+	opts = append(opts, secrets)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ProjectApiKey
 	err := ctx.RegisterResource("equinix-metal:index/projectApiKey:ProjectApiKey", name, args, &resource, opts...)
 	if err != nil {
@@ -161,6 +166,12 @@ func (i *ProjectApiKey) ToProjectApiKeyOutputWithContext(ctx context.Context) Pr
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectApiKeyOutput)
 }
 
+func (i *ProjectApiKey) ToOutput(ctx context.Context) pulumix.Output[*ProjectApiKey] {
+	return pulumix.Output[*ProjectApiKey]{
+		OutputState: i.ToProjectApiKeyOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ProjectApiKeyArrayInput is an input type that accepts ProjectApiKeyArray and ProjectApiKeyArrayOutput values.
 // You can construct a concrete instance of `ProjectApiKeyArrayInput` via:
 //
@@ -184,6 +195,12 @@ func (i ProjectApiKeyArray) ToProjectApiKeyArrayOutput() ProjectApiKeyArrayOutpu
 
 func (i ProjectApiKeyArray) ToProjectApiKeyArrayOutputWithContext(ctx context.Context) ProjectApiKeyArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectApiKeyArrayOutput)
+}
+
+func (i ProjectApiKeyArray) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectApiKey] {
+	return pulumix.Output[[]*ProjectApiKey]{
+		OutputState: i.ToProjectApiKeyArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ProjectApiKeyMapInput is an input type that accepts ProjectApiKeyMap and ProjectApiKeyMapOutput values.
@@ -211,6 +228,12 @@ func (i ProjectApiKeyMap) ToProjectApiKeyMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectApiKeyMapOutput)
 }
 
+func (i ProjectApiKeyMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectApiKey] {
+	return pulumix.Output[map[string]*ProjectApiKey]{
+		OutputState: i.ToProjectApiKeyMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectApiKeyOutput struct{ *pulumi.OutputState }
 
 func (ProjectApiKeyOutput) ElementType() reflect.Type {
@@ -225,6 +248,33 @@ func (o ProjectApiKeyOutput) ToProjectApiKeyOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o ProjectApiKeyOutput) ToOutput(ctx context.Context) pulumix.Output[*ProjectApiKey] {
+	return pulumix.Output[*ProjectApiKey]{
+		OutputState: o.OutputState,
+	}
+}
+
+// Description string for the Project API Key resource
+// * `read-only` - Flag indicating whether the API key shoud be read-only
+func (o ProjectApiKeyOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectApiKey) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
+}
+
+// UUID of the project where the API key is scoped to
+func (o ProjectApiKeyOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectApiKey) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Flag indicating whether the API key shoud be read-only
+func (o ProjectApiKeyOutput) ReadOnly() pulumi.BoolOutput {
+	return o.ApplyT(func(v *ProjectApiKey) pulumi.BoolOutput { return v.ReadOnly }).(pulumi.BoolOutput)
+}
+
+// API token which can be used in Equinix Metal API clients
+func (o ProjectApiKeyOutput) Token() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectApiKey) pulumi.StringOutput { return v.Token }).(pulumi.StringOutput)
+}
+
 type ProjectApiKeyArrayOutput struct{ *pulumi.OutputState }
 
 func (ProjectApiKeyArrayOutput) ElementType() reflect.Type {
@@ -237,6 +287,12 @@ func (o ProjectApiKeyArrayOutput) ToProjectApiKeyArrayOutput() ProjectApiKeyArra
 
 func (o ProjectApiKeyArrayOutput) ToProjectApiKeyArrayOutputWithContext(ctx context.Context) ProjectApiKeyArrayOutput {
 	return o
+}
+
+func (o ProjectApiKeyArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectApiKey] {
+	return pulumix.Output[[]*ProjectApiKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectApiKeyArrayOutput) Index(i pulumi.IntInput) ProjectApiKeyOutput {
@@ -257,6 +313,12 @@ func (o ProjectApiKeyMapOutput) ToProjectApiKeyMapOutput() ProjectApiKeyMapOutpu
 
 func (o ProjectApiKeyMapOutput) ToProjectApiKeyMapOutputWithContext(ctx context.Context) ProjectApiKeyMapOutput {
 	return o
+}
+
+func (o ProjectApiKeyMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectApiKey] {
+	return pulumix.Output[map[string]*ProjectApiKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectApiKeyMapOutput) MapIndex(k pulumi.StringInput) ProjectApiKeyOutput {

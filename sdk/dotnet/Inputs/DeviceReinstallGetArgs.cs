@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class DeviceReinstallGetArgs : Pulumi.ResourceArgs
+    public sealed class DeviceReinstallGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Whether the OS disk should be filled with `00h` bytes before reinstall. Defaults to `false`.
@@ -33,5 +33,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public DeviceReinstallGetArgs()
         {
         }
+        public static new DeviceReinstallGetArgs Empty => new DeviceReinstallGetArgs();
     }
 }

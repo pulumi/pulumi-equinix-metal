@@ -33,6 +33,104 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * 
+ * Allocate reserved IP blocks:
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.ReservedIpBlock;
+ * import com.pulumi.equinixmetal.ReservedIpBlockArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var twoElasticAddresses = new ReservedIpBlock(&#34;twoElasticAddresses&#34;, ReservedIpBlockArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .facility(&#34;sv15&#34;)
+ *             .quantity(2)
+ *             .build());
+ * 
+ *         var testReservedIpBlock = new ReservedIpBlock(&#34;testReservedIpBlock&#34;, ReservedIpBlockArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .type(&#34;public_ipv4&#34;)
+ *             .metro(&#34;sv&#34;)
+ *             .quantity(1)
+ *             .build());
+ * 
+ *         var testIndex_reservedIpBlockReservedIpBlock = new ReservedIpBlock(&#34;testIndex/reservedIpBlockReservedIpBlock&#34;, ReservedIpBlockArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .type(&#34;global_ipv4&#34;)
+ *             .quantity(1)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
+ * Allocate a block and run a device with public IPv4 from the block
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.ReservedIpBlock;
+ * import com.pulumi.equinixmetal.ReservedIpBlockArgs;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import com.pulumi.equinixmetal.inputs.DeviceIpAddressArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var example = new ReservedIpBlock(&#34;example&#34;, ReservedIpBlockArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .facility(&#34;sv15&#34;)
+ *             .quantity(2)
+ *             .build());
+ * 
+ *         var nodes = new Device(&#34;nodes&#34;, DeviceArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .facilities(&#34;sv15&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .hostname(&#34;test&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .ipAddresses(            
+ *                 DeviceIpAddressArgs.builder()
+ *                     .type(&#34;public_ipv4&#34;)
+ *                     .cidr(31)
+ *                     .reservationIds(example.id())
+ *                     .build(),
+ *                 DeviceIpAddressArgs.builder()
+ *                     .type(&#34;private_ipv4&#34;)
+ *                     .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
  * This resource can be imported using an existing IP reservation ID
@@ -44,7 +142,7 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="equinix-metal:index/reservedIpBlock:ReservedIpBlock")
 public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
-    @Export(name="address", type=String.class, parameters={})
+    @Export(name="address", refs={String.class}, tree="[0]")
     private Output<String> address;
 
     public Output<String> address() {
@@ -54,7 +152,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Address family as integer (4 or 6)
      * 
      */
-    @Export(name="addressFamily", type=Integer.class, parameters={})
+    @Export(name="addressFamily", refs={Integer.class}, tree="[0]")
     private Output<Integer> addressFamily;
 
     /**
@@ -68,7 +166,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * length of CIDR prefix of the block as integer
      * 
      */
-    @Export(name="cidr", type=Integer.class, parameters={})
+    @Export(name="cidr", refs={Integer.class}, tree="[0]")
     private Output<Integer> cidr;
 
     /**
@@ -82,7 +180,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Address and mask in CIDR notation, e.g. &#34;147.229.15.30/31&#34;
      * 
      */
-    @Export(name="cidrNotation", type=String.class, parameters={})
+    @Export(name="cidrNotation", refs={String.class}, tree="[0]")
     private Output<String> cidrNotation;
 
     /**
@@ -96,7 +194,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Arbitrary description
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     /**
@@ -110,7 +208,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Facility where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `metro`
      * 
      */
-    @Export(name="facility", type=String.class, parameters={})
+    @Export(name="facility", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> facility;
 
     /**
@@ -120,7 +218,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
     public Output<Optional<String>> facility() {
         return Codegen.optional(this.facility);
     }
-    @Export(name="gateway", type=String.class, parameters={})
+    @Export(name="gateway", refs={String.class}, tree="[0]")
     private Output<String> gateway;
 
     public Output<String> gateway() {
@@ -130,7 +228,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * boolean flag whether addresses from a block are global (i.e. can be assigned in any facility)
      * 
      */
-    @Export(name="global", type=Boolean.class, parameters={})
+    @Export(name="global", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> global;
 
     /**
@@ -140,13 +238,13 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
     public Output<Boolean> global() {
         return this.global;
     }
-    @Export(name="manageable", type=Boolean.class, parameters={})
+    @Export(name="manageable", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> manageable;
 
     public Output<Boolean> manageable() {
         return this.manageable;
     }
-    @Export(name="management", type=Boolean.class, parameters={})
+    @Export(name="management", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> management;
 
     public Output<Boolean> management() {
@@ -156,7 +254,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Metro where to allocate the public IP address block, makes sense only for type==public_ipv4, must be empty for type==global_ipv4, conflicts with `facility`
      * 
      */
-    @Export(name="metro", type=String.class, parameters={})
+    @Export(name="metro", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> metro;
 
     /**
@@ -170,7 +268,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Mask in decimal notation, e.g. &#34;255.255.255.0&#34;
      * 
      */
-    @Export(name="netmask", type=String.class, parameters={})
+    @Export(name="netmask", refs={String.class}, tree="[0]")
     private Output<String> netmask;
 
     /**
@@ -184,7 +282,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Network IP address portion of the block specification
      * 
      */
-    @Export(name="network", type=String.class, parameters={})
+    @Export(name="network", refs={String.class}, tree="[0]")
     private Output<String> network;
 
     /**
@@ -198,7 +296,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * The metal project ID where to allocate the address block
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     /**
@@ -212,7 +310,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * boolean flag whether addresses from a block are public
      * 
      */
-    @Export(name="public", type=Boolean.class, parameters={})
+    @Export(name="public", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> public_;
 
     /**
@@ -226,7 +324,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * The number of allocated /32 addresses, a power of 2
      * 
      */
-    @Export(name="quantity", type=Integer.class, parameters={})
+    @Export(name="quantity", refs={Integer.class}, tree="[0]")
     private Output<Integer> quantity;
 
     /**
@@ -240,7 +338,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * String list of tags
      * 
      */
-    @Export(name="tags", type=List.class, parameters={String.class})
+    @Export(name="tags", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> tags;
 
     /**
@@ -254,7 +352,7 @@ public class ReservedIpBlock extends com.pulumi.resources.CustomResource {
      * Either &#34;global_ipv4&#34; or &#34;public_ipv4&#34;, defaults to &#34;public_ipv4&#34; for backward compatibility
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> type;
 
     /**

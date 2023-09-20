@@ -2,7 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "./types";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
+import * as enums from "./types/enums";
 import * as utilities from "./utilities";
 
 /**
@@ -81,21 +83,6 @@ export class SpotMarketRequest extends pulumi.CustomResource {
     public readonly facilities!: pulumi.Output<string[]>;
     /**
      * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-     * * `billingCycle`
-     * * `plan`
-     * * `operatingSystem`
-     * * `hostname`
-     * * `termintationTime`
-     * * `alwaysPxe`
-     * * `description`
-     * * `features`
-     * * `locked`
-     * * `projectSshKeys`
-     * * `userSshKeys`
-     * * `userdata`
-     * * `customdata`
-     * * `ipxeScriptUrl`
-     * * `tags`
      */
     public readonly instanceParameters!: pulumi.Output<outputs.SpotMarketRequestInstanceParameters>;
     /**
@@ -185,21 +172,6 @@ export interface SpotMarketRequestState {
     facilities?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-     * * `billingCycle`
-     * * `plan`
-     * * `operatingSystem`
-     * * `hostname`
-     * * `termintationTime`
-     * * `alwaysPxe`
-     * * `description`
-     * * `features`
-     * * `locked`
-     * * `projectSshKeys`
-     * * `userSshKeys`
-     * * `userdata`
-     * * `customdata`
-     * * `ipxeScriptUrl`
-     * * `tags`
      */
     instanceParameters?: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
     /**
@@ -238,21 +210,6 @@ export interface SpotMarketRequestArgs {
     facilities?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-     * * `billingCycle`
-     * * `plan`
-     * * `operatingSystem`
-     * * `hostname`
-     * * `termintationTime`
-     * * `alwaysPxe`
-     * * `description`
-     * * `features`
-     * * `locked`
-     * * `projectSshKeys`
-     * * `userSshKeys`
-     * * `userdata`
-     * * `customdata`
-     * * `ipxeScriptUrl`
-     * * `tags`
      */
     instanceParameters: pulumi.Input<inputs.SpotMarketRequestInstanceParameters>;
     /**

@@ -67,21 +67,6 @@ public final class SpotMarketRequestArgs extends com.pulumi.resources.ResourceAr
 
     /**
      * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-     * * `billing_cycle`
-     * * `plan`
-     * * `operating_system`
-     * * `hostname`
-     * * `termintation_time`
-     * * `always_pxe`
-     * * `description`
-     * * `features`
-     * * `locked`
-     * * `project_ssh_keys`
-     * * `user_ssh_keys`
-     * * `userdata`
-     * * `customdata`
-     * * `ipxe_script_url`
-     * * `tags`
      * 
      */
     @Import(name="instanceParameters", required=true)
@@ -89,21 +74,6 @@ public final class SpotMarketRequestArgs extends com.pulumi.resources.ResourceAr
 
     /**
      * @return Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-     * * `billing_cycle`
-     * * `plan`
-     * * `operating_system`
-     * * `hostname`
-     * * `termintation_time`
-     * * `always_pxe`
-     * * `description`
-     * * `features`
-     * * `locked`
-     * * `project_ssh_keys`
-     * * `user_ssh_keys`
-     * * `userdata`
-     * * `customdata`
-     * * `ipxe_script_url`
-     * * `tags`
      * 
      */
     public Output<SpotMarketRequestInstanceParametersArgs> instanceParameters() {
@@ -276,21 +246,6 @@ public final class SpotMarketRequestArgs extends com.pulumi.resources.ResourceAr
 
         /**
          * @param instanceParameters Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-         * * `billing_cycle`
-         * * `plan`
-         * * `operating_system`
-         * * `hostname`
-         * * `termintation_time`
-         * * `always_pxe`
-         * * `description`
-         * * `features`
-         * * `locked`
-         * * `project_ssh_keys`
-         * * `user_ssh_keys`
-         * * `userdata`
-         * * `customdata`
-         * * `ipxe_script_url`
-         * * `tags`
          * 
          * @return builder
          * 
@@ -302,21 +257,6 @@ public final class SpotMarketRequestArgs extends com.pulumi.resources.ResourceAr
 
         /**
          * @param instanceParameters Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-         * * `billing_cycle`
-         * * `plan`
-         * * `operating_system`
-         * * `hostname`
-         * * `termintation_time`
-         * * `always_pxe`
-         * * `description`
-         * * `features`
-         * * `locked`
-         * * `project_ssh_keys`
-         * * `user_ssh_keys`
-         * * `userdata`
-         * * `customdata`
-         * * `ipxe_script_url`
-         * * `tags`
          * 
          * @return builder
          * 

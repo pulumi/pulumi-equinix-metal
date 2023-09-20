@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides a resource to manage BGP sessions in Equinix Metal Host. Refer to [Equinix Metal BGP documentation](https://metal.equinix.com/developers/docs/networking/local-global-bgp/) for more details.
@@ -25,7 +27,7 @@ type BgpSession struct {
 	DefaultRoute pulumi.BoolPtrOutput `pulumi:"defaultRoute"`
 	// ID of device
 	DeviceId pulumi.StringOutput `pulumi:"deviceId"`
-	// Status of the session - up or down
+	// Status of the session - `up` or `down`
 	Status pulumi.StringOutput `pulumi:"status"`
 }
 
@@ -42,6 +44,7 @@ func NewBgpSession(ctx *pulumi.Context,
 	if args.DeviceId == nil {
 		return nil, errors.New("invalid value for required argument 'DeviceId'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource BgpSession
 	err := ctx.RegisterResource("equinix-metal:index/bgpSession:BgpSession", name, args, &resource, opts...)
 	if err != nil {
@@ -70,7 +73,7 @@ type bgpSessionState struct {
 	DefaultRoute *bool `pulumi:"defaultRoute"`
 	// ID of device
 	DeviceId *string `pulumi:"deviceId"`
-	// Status of the session - up or down
+	// Status of the session - `up` or `down`
 	Status *string `pulumi:"status"`
 }
 
@@ -81,7 +84,7 @@ type BgpSessionState struct {
 	DefaultRoute pulumi.BoolPtrInput
 	// ID of device
 	DeviceId pulumi.StringPtrInput
-	// Status of the session - up or down
+	// Status of the session - `up` or `down`
 	Status pulumi.StringPtrInput
 }
 
@@ -131,6 +134,12 @@ func (i *BgpSession) ToBgpSessionOutputWithContext(ctx context.Context) BgpSessi
 	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionOutput)
 }
 
+func (i *BgpSession) ToOutput(ctx context.Context) pulumix.Output[*BgpSession] {
+	return pulumix.Output[*BgpSession]{
+		OutputState: i.ToBgpSessionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // BgpSessionArrayInput is an input type that accepts BgpSessionArray and BgpSessionArrayOutput values.
 // You can construct a concrete instance of `BgpSessionArrayInput` via:
 //
@@ -154,6 +163,12 @@ func (i BgpSessionArray) ToBgpSessionArrayOutput() BgpSessionArrayOutput {
 
 func (i BgpSessionArray) ToBgpSessionArrayOutputWithContext(ctx context.Context) BgpSessionArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionArrayOutput)
+}
+
+func (i BgpSessionArray) ToOutput(ctx context.Context) pulumix.Output[[]*BgpSession] {
+	return pulumix.Output[[]*BgpSession]{
+		OutputState: i.ToBgpSessionArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // BgpSessionMapInput is an input type that accepts BgpSessionMap and BgpSessionMapOutput values.
@@ -181,6 +196,12 @@ func (i BgpSessionMap) ToBgpSessionMapOutputWithContext(ctx context.Context) Bgp
 	return pulumi.ToOutputWithContext(ctx, i).(BgpSessionMapOutput)
 }
 
+func (i BgpSessionMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*BgpSession] {
+	return pulumix.Output[map[string]*BgpSession]{
+		OutputState: i.ToBgpSessionMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type BgpSessionOutput struct{ *pulumi.OutputState }
 
 func (BgpSessionOutput) ElementType() reflect.Type {
@@ -195,6 +216,32 @@ func (o BgpSessionOutput) ToBgpSessionOutputWithContext(ctx context.Context) Bgp
 	return o
 }
 
+func (o BgpSessionOutput) ToOutput(ctx context.Context) pulumix.Output[*BgpSession] {
+	return pulumix.Output[*BgpSession]{
+		OutputState: o.OutputState,
+	}
+}
+
+// `ipv4` or `ipv6`
+func (o BgpSessionOutput) AddressFamily() pulumi.StringOutput {
+	return o.ApplyT(func(v *BgpSession) pulumi.StringOutput { return v.AddressFamily }).(pulumi.StringOutput)
+}
+
+// Boolean flag to set the default route policy. False by default.
+func (o BgpSessionOutput) DefaultRoute() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *BgpSession) pulumi.BoolPtrOutput { return v.DefaultRoute }).(pulumi.BoolPtrOutput)
+}
+
+// ID of device
+func (o BgpSessionOutput) DeviceId() pulumi.StringOutput {
+	return o.ApplyT(func(v *BgpSession) pulumi.StringOutput { return v.DeviceId }).(pulumi.StringOutput)
+}
+
+// Status of the session - `up` or `down`
+func (o BgpSessionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v *BgpSession) pulumi.StringOutput { return v.Status }).(pulumi.StringOutput)
+}
+
 type BgpSessionArrayOutput struct{ *pulumi.OutputState }
 
 func (BgpSessionArrayOutput) ElementType() reflect.Type {
@@ -207,6 +254,12 @@ func (o BgpSessionArrayOutput) ToBgpSessionArrayOutput() BgpSessionArrayOutput {
 
 func (o BgpSessionArrayOutput) ToBgpSessionArrayOutputWithContext(ctx context.Context) BgpSessionArrayOutput {
 	return o
+}
+
+func (o BgpSessionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*BgpSession] {
+	return pulumix.Output[[]*BgpSession]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o BgpSessionArrayOutput) Index(i pulumi.IntInput) BgpSessionOutput {
@@ -227,6 +280,12 @@ func (o BgpSessionMapOutput) ToBgpSessionMapOutput() BgpSessionMapOutput {
 
 func (o BgpSessionMapOutput) ToBgpSessionMapOutputWithContext(ctx context.Context) BgpSessionMapOutput {
 	return o
+}
+
+func (o BgpSessionMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*BgpSession] {
+	return pulumix.Output[map[string]*BgpSession]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o BgpSessionMapOutput) MapIndex(k pulumi.StringInput) BgpSessionOutput {

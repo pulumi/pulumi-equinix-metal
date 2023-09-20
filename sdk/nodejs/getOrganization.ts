@@ -21,11 +21,8 @@ import * as utilities from "./utilities";
  */
 export function getOrganization(args?: GetOrganizationArgs, opts?: pulumi.InvokeOptions): Promise<GetOrganizationResult> {
     args = args || {};
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("equinix-metal:index/getOrganization:getOrganization", {
         "name": args.name,
         "organizationId": args.organizationId,
@@ -42,6 +39,8 @@ export interface GetOrganizationArgs {
     name?: string;
     /**
      * The UUID of the organization resource
+     *
+     * Exactly one of `name` or `organizationId` must be given.
      */
     organizationId?: string;
 }
@@ -77,9 +76,23 @@ export interface GetOrganizationResult {
      */
     readonly website: string;
 }
-
+/**
+ * Provides an Equinix Metal organization datasource.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as equinix_metal from "@pulumi/equinix-metal";
+ *
+ * const test = equinix_metal.getOrganization({
+ *     organizationId: local.org_id,
+ * });
+ * export const projectsInTheOrg = test.then(test => test.projectIds);
+ * ```
+ */
 export function getOrganizationOutput(args?: GetOrganizationOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetOrganizationResult> {
-    return pulumi.output(args).apply(a => getOrganization(a, opts))
+    return pulumi.output(args).apply((a: any) => getOrganization(a, opts))
 }
 
 /**
@@ -92,6 +105,8 @@ export interface GetOrganizationOutputArgs {
     name?: pulumi.Input<string>;
     /**
      * The UUID of the organization resource
+     *
+     * Exactly one of `name` or `organizationId` must be given.
      */
     organizationId?: pulumi.Input<string>;
 }

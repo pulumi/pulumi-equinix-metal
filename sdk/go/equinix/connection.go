@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this resource to request of create an Interconnection from [Equinix Fabric - software-defined interconnections](https://metal.equinix.com/developers/docs/networking/fabric/)
@@ -20,27 +22,25 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.NewConnection(ctx, "test", &equinix-metal.ConnectionArgs{
-//				OrganizationId: pulumi.Any(local.My_organization_id),
-//				ProjectId:      pulumi.Any(local.My_project_id),
-//				Metro:          pulumi.String("sv"),
-//				Redundancy:     pulumi.String("redundant"),
-//				Type:           pulumi.String("shared"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewConnection(ctx, "test", &equinix-metal.ConnectionArgs{
+// OrganizationId: pulumi.Any(local.My_organization_id),
+// ProjectId: pulumi.Any(local.My_project_id),
+// Metro: pulumi.String("sv"),
+// Redundancy: pulumi.String("redundant"),
+// Type: pulumi.String("shared"),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 type Connection struct {
 	pulumi.CustomResourceState
@@ -91,6 +91,7 @@ func NewConnection(ctx *pulumi.Context,
 	if args.Type == nil {
 		return nil, errors.New("invalid value for required argument 'Type'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Connection
 	err := ctx.RegisterResource("equinix-metal:index/connection:Connection", name, args, &resource, opts...)
 	if err != nil {
@@ -248,6 +249,12 @@ func (i *Connection) ToConnectionOutputWithContext(ctx context.Context) Connecti
 	return pulumi.ToOutputWithContext(ctx, i).(ConnectionOutput)
 }
 
+func (i *Connection) ToOutput(ctx context.Context) pulumix.Output[*Connection] {
+	return pulumix.Output[*Connection]{
+		OutputState: i.ToConnectionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ConnectionArrayInput is an input type that accepts ConnectionArray and ConnectionArrayOutput values.
 // You can construct a concrete instance of `ConnectionArrayInput` via:
 //
@@ -271,6 +278,12 @@ func (i ConnectionArray) ToConnectionArrayOutput() ConnectionArrayOutput {
 
 func (i ConnectionArray) ToConnectionArrayOutputWithContext(ctx context.Context) ConnectionArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ConnectionArrayOutput)
+}
+
+func (i ConnectionArray) ToOutput(ctx context.Context) pulumix.Output[[]*Connection] {
+	return pulumix.Output[[]*Connection]{
+		OutputState: i.ToConnectionArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ConnectionMapInput is an input type that accepts ConnectionMap and ConnectionMapOutput values.
@@ -298,6 +311,12 @@ func (i ConnectionMap) ToConnectionMapOutputWithContext(ctx context.Context) Con
 	return pulumi.ToOutputWithContext(ctx, i).(ConnectionMapOutput)
 }
 
+func (i ConnectionMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Connection] {
+	return pulumix.Output[map[string]*Connection]{
+		OutputState: i.ToConnectionMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ConnectionOutput struct{ *pulumi.OutputState }
 
 func (ConnectionOutput) ElementType() reflect.Type {
@@ -312,6 +331,82 @@ func (o ConnectionOutput) ToConnectionOutputWithContext(ctx context.Context) Con
 	return o
 }
 
+func (o ConnectionOutput) ToOutput(ctx context.Context) pulumix.Output[*Connection] {
+	return pulumix.Output[*Connection]{
+		OutputState: o.OutputState,
+	}
+}
+
+// Description for the connection resource
+func (o ConnectionOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Facility where the connection will be created
+func (o ConnectionOutput) Facility() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Facility }).(pulumi.StringOutput)
+}
+
+// Metro where the connection will be created
+func (o ConnectionOutput) Metro() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Metro }).(pulumi.StringOutput)
+}
+
+// Mode for connections in IBX facilities with the dedicated type - standard or tunnel
+func (o ConnectionOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringPtrOutput { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+// Name of the connection resource
+func (o ConnectionOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// ID of the organization responsible for the connection
+func (o ConnectionOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.OrganizationId }).(pulumi.StringOutput)
+}
+
+// List of connection ports - primary (`ports[0]`) and secondary (`ports[1]`). Schema of port is described in documentation of the Connection datasource.
+func (o ConnectionOutput) Ports() ConnectionPortArrayOutput {
+	return o.ApplyT(func(v *Connection) ConnectionPortArrayOutput { return v.Ports }).(ConnectionPortArrayOutput)
+}
+
+// ID of the project where the connection is scoped to, must be set for shared connection
+func (o ConnectionOutput) ProjectId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringPtrOutput { return v.ProjectId }).(pulumi.StringPtrOutput)
+}
+
+// Connection redundancy - redundant or primary
+func (o ConnectionOutput) Redundancy() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Redundancy }).(pulumi.StringOutput)
+}
+
+// Port speed in bits per second
+func (o ConnectionOutput) Speed() pulumi.IntOutput {
+	return o.ApplyT(func(v *Connection) pulumi.IntOutput { return v.Speed }).(pulumi.IntOutput)
+}
+
+// Status of the connection resource
+func (o ConnectionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Status }).(pulumi.StringOutput)
+}
+
+// String list of tags
+func (o ConnectionOutput) Tags() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// Fabric Token from the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
+func (o ConnectionOutput) Token() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Token }).(pulumi.StringOutput)
+}
+
+// Connection type - dedicated or shared
+func (o ConnectionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
+}
+
 type ConnectionArrayOutput struct{ *pulumi.OutputState }
 
 func (ConnectionArrayOutput) ElementType() reflect.Type {
@@ -324,6 +419,12 @@ func (o ConnectionArrayOutput) ToConnectionArrayOutput() ConnectionArrayOutput {
 
 func (o ConnectionArrayOutput) ToConnectionArrayOutputWithContext(ctx context.Context) ConnectionArrayOutput {
 	return o
+}
+
+func (o ConnectionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Connection] {
+	return pulumix.Output[[]*Connection]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ConnectionArrayOutput) Index(i pulumi.IntInput) ConnectionOutput {
@@ -344,6 +445,12 @@ func (o ConnectionMapOutput) ToConnectionMapOutput() ConnectionMapOutput {
 
 func (o ConnectionMapOutput) ToConnectionMapOutputWithContext(ctx context.Context) ConnectionMapOutput {
 	return o
+}
+
+func (o ConnectionMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Connection] {
+	return pulumix.Output[map[string]*Connection]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ConnectionMapOutput) MapIndex(k pulumi.StringInput) ConnectionOutput {

@@ -29,6 +29,136 @@ import javax.annotation.Nullable;
  * * &lt;https://metal.equinix.com/developers/docs/networking/layer2-configs/&gt;
  * 
  * ## Example Usage
+ * ### Hybrid network type
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Vlan;
+ * import com.pulumi.equinixmetal.VlanArgs;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import com.pulumi.equinixmetal.DeviceNetworkType;
+ * import com.pulumi.equinixmetal.DeviceNetworkTypeArgs;
+ * import com.pulumi.equinixmetal.PortVlanAttachment;
+ * import com.pulumi.equinixmetal.PortVlanAttachmentArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var testVlan = new Vlan(&#34;testVlan&#34;, VlanArgs.builder()        
+ *             .description(&#34;VLAN in New Jersey&#34;)
+ *             .facility(&#34;ny5&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;test&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .facilities(&#34;ny5&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var testDeviceNetworkType = new DeviceNetworkType(&#34;testDeviceNetworkType&#34;, DeviceNetworkTypeArgs.builder()        
+ *             .deviceId(testDevice.id())
+ *             .type(&#34;hybrid&#34;)
+ *             .build());
+ * 
+ *         var testPortVlanAttachment = new PortVlanAttachment(&#34;testPortVlanAttachment&#34;, PortVlanAttachmentArgs.builder()        
+ *             .deviceId(testDeviceNetworkType.id())
+ *             .portName(&#34;eth1&#34;)
+ *             .vlanVnid(testVlan.vxlan())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * ### Layer 2 network
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import com.pulumi.equinixmetal.DeviceNetworkType;
+ * import com.pulumi.equinixmetal.DeviceNetworkTypeArgs;
+ * import com.pulumi.equinixmetal.Vlan;
+ * import com.pulumi.equinixmetal.VlanArgs;
+ * import com.pulumi.equinixmetal.PortVlanAttachment;
+ * import com.pulumi.equinixmetal.PortVlanAttachmentArgs;
+ * import com.pulumi.resources.CustomResourceOptions;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var testDevice = new Device(&#34;testDevice&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;test&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .facilities(&#34;ny5&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var testDeviceNetworkType = new DeviceNetworkType(&#34;testDeviceNetworkType&#34;, DeviceNetworkTypeArgs.builder()        
+ *             .deviceId(testDevice.id())
+ *             .type(&#34;layer2-individual&#34;)
+ *             .build());
+ * 
+ *         var test1Vlan = new Vlan(&#34;test1Vlan&#34;, VlanArgs.builder()        
+ *             .description(&#34;VLAN in New Jersey&#34;)
+ *             .facility(&#34;ny5&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var test2Vlan = new Vlan(&#34;test2Vlan&#34;, VlanArgs.builder()        
+ *             .description(&#34;VLAN in New Jersey&#34;)
+ *             .facility(&#34;ny5&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *         var test1PortVlanAttachment = new PortVlanAttachment(&#34;test1PortVlanAttachment&#34;, PortVlanAttachmentArgs.builder()        
+ *             .deviceId(testDeviceNetworkType.id())
+ *             .vlanVnid(test1Vlan.vxlan())
+ *             .portName(&#34;eth1&#34;)
+ *             .build());
+ * 
+ *         var test2PortVlanAttachment = new PortVlanAttachment(&#34;test2PortVlanAttachment&#34;, PortVlanAttachmentArgs.builder()        
+ *             .deviceId(testDeviceNetworkType.id())
+ *             .vlanVnid(test2Vlan.vxlan())
+ *             .portName(&#34;eth1&#34;)
+ *             .native_(true)
+ *             .build(), CustomResourceOptions.builder()
+ *                 .dependsOn(&#34;metal_port_vlan_attachment.test1&#34;)
+ *                 .build());
+ * 
+ *     }
+ * }
+ * ```
  * ## Attribute Referece
  * 
  * * `id` - UUID of device port used in the assignment
@@ -42,7 +172,7 @@ public class PortVlanAttachment extends com.pulumi.resources.CustomResource {
      * ID of device to be assigned to the VLAN
      * 
      */
-    @Export(name="deviceId", type=String.class, parameters={})
+    @Export(name="deviceId", refs={String.class}, tree="[0]")
     private Output<String> deviceId;
 
     /**
@@ -56,7 +186,7 @@ public class PortVlanAttachment extends com.pulumi.resources.CustomResource {
      * Add port back to the bond when this resource is removed. Default is false.
      * 
      */
-    @Export(name="forceBond", type=Boolean.class, parameters={})
+    @Export(name="forceBond", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> forceBond;
 
     /**
@@ -70,7 +200,7 @@ public class PortVlanAttachment extends com.pulumi.resources.CustomResource {
      * Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `depends_on` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
      * 
      */
-    @Export(name="native", type=Boolean.class, parameters={})
+    @Export(name="native", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> native_;
 
     /**
@@ -84,7 +214,7 @@ public class PortVlanAttachment extends com.pulumi.resources.CustomResource {
      * UUID of device port
      * 
      */
-    @Export(name="portId", type=String.class, parameters={})
+    @Export(name="portId", refs={String.class}, tree="[0]")
     private Output<String> portId;
 
     /**
@@ -98,7 +228,7 @@ public class PortVlanAttachment extends com.pulumi.resources.CustomResource {
      * Name of network port to be assigned to the VLAN
      * 
      */
-    @Export(name="portName", type=String.class, parameters={})
+    @Export(name="portName", refs={String.class}, tree="[0]")
     private Output<String> portName;
 
     /**
@@ -112,7 +242,7 @@ public class PortVlanAttachment extends com.pulumi.resources.CustomResource {
      * UUID of VLAN API resource
      * 
      */
-    @Export(name="vlanId", type=String.class, parameters={})
+    @Export(name="vlanId", refs={String.class}, tree="[0]")
     private Output<String> vlanId;
 
     /**
@@ -126,7 +256,7 @@ public class PortVlanAttachment extends com.pulumi.resources.CustomResource {
      * VXLAN Network Identifier, integer
      * 
      */
-    @Export(name="vlanVnid", type=Integer.class, parameters={})
+    @Export(name="vlanVnid", refs={Integer.class}, tree="[0]")
     private Output<Integer> vlanVnid;
 
     /**

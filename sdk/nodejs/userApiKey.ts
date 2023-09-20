@@ -9,9 +9,9 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as metal from "@pulumi/metal";
+ * import * as equinix_metal from "@pulumi/equinix-metal";
  *
- * const test = new metal.UserApiKey("test", {
+ * const test = new equinix_metal.UserApiKey("test", {
  *     description: "Read-only user key",
  *     readOnly: true,
  * });
@@ -94,6 +94,8 @@ export class UserApiKey extends pulumi.CustomResource {
             resourceInputs["userId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["token"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(UserApiKey.__pulumiType, name, resourceInputs, opts);
     }
 }

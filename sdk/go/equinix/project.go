@@ -7,9 +7,66 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
+// Provides an Equinix Metal project resource to allow you manage devices
+// in your projects.
+//
+// > Keep in mind that Equinix Metal invoicing is per project, so creating many `Project` resources will affect the rendered invoice. If you want to keep your Equinix Metal bill simple and easy to review, please re-use your existing projects.
+//
+// ## Example Usage
+// ### Create a new project
+//
+// ```go
+// package main
+//
+// import (
+//
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewProject(ctx, "tfProject1", nil)
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
+// ```
+// ### Example with BGP config
+//
+// ```go
+// package main
+//
+// import (
+//
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.NewProject(ctx, "tfProject1", &equinix-metal.ProjectArgs{
+// BgpConfig: &equinix.ProjectBgpConfigArgs{
+// Asn: pulumi.Int(65000),
+// DeploymentType: pulumi.String("local"),
+// Md5: pulumi.String("C179c28c41a85b"),
+// },
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
+// ```
+//
 // ## Import
 //
 // # This resource can be imported using an existing project ID
@@ -25,6 +82,8 @@ type Project struct {
 	// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
 	BackendTransfer pulumi.BoolPtrOutput `pulumi:"backendTransfer"`
 	// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+	//
+	// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
 	BgpConfig ProjectBgpConfigPtrOutput `pulumi:"bgpConfig"`
 	// The timestamp for when the project was created
 	Created pulumi.StringOutput `pulumi:"created"`
@@ -45,6 +104,7 @@ func NewProject(ctx *pulumi.Context,
 		args = &ProjectArgs{}
 	}
 
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Project
 	err := ctx.RegisterResource("equinix-metal:index/project:Project", name, args, &resource, opts...)
 	if err != nil {
@@ -70,6 +130,8 @@ type projectState struct {
 	// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
 	BackendTransfer *bool `pulumi:"backendTransfer"`
 	// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+	//
+	// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
 	BgpConfig *ProjectBgpConfig `pulumi:"bgpConfig"`
 	// The timestamp for when the project was created
 	Created *string `pulumi:"created"`
@@ -87,6 +149,8 @@ type ProjectState struct {
 	// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
 	BackendTransfer pulumi.BoolPtrInput
 	// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+	//
+	// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
 	BgpConfig ProjectBgpConfigPtrInput
 	// The timestamp for when the project was created
 	Created pulumi.StringPtrInput
@@ -108,6 +172,8 @@ type projectArgs struct {
 	// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
 	BackendTransfer *bool `pulumi:"backendTransfer"`
 	// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+	//
+	// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
 	BgpConfig *ProjectBgpConfig `pulumi:"bgpConfig"`
 	// The name of the project
 	Name *string `pulumi:"name"`
@@ -122,6 +188,8 @@ type ProjectArgs struct {
 	// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
 	BackendTransfer pulumi.BoolPtrInput
 	// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+	//
+	// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
 	BgpConfig ProjectBgpConfigPtrInput
 	// The name of the project
 	Name pulumi.StringPtrInput
@@ -154,6 +222,12 @@ func (i *Project) ToProjectOutputWithContext(ctx context.Context) ProjectOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectOutput)
 }
 
+func (i *Project) ToOutput(ctx context.Context) pulumix.Output[*Project] {
+	return pulumix.Output[*Project]{
+		OutputState: i.ToProjectOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ProjectArrayInput is an input type that accepts ProjectArray and ProjectArrayOutput values.
 // You can construct a concrete instance of `ProjectArrayInput` via:
 //
@@ -177,6 +251,12 @@ func (i ProjectArray) ToProjectArrayOutput() ProjectArrayOutput {
 
 func (i ProjectArray) ToProjectArrayOutputWithContext(ctx context.Context) ProjectArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectArrayOutput)
+}
+
+func (i ProjectArray) ToOutput(ctx context.Context) pulumix.Output[[]*Project] {
+	return pulumix.Output[[]*Project]{
+		OutputState: i.ToProjectArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ProjectMapInput is an input type that accepts ProjectMap and ProjectMapOutput values.
@@ -204,6 +284,12 @@ func (i ProjectMap) ToProjectMapOutputWithContext(ctx context.Context) ProjectMa
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectMapOutput)
 }
 
+func (i ProjectMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Project] {
+	return pulumix.Output[map[string]*Project]{
+		OutputState: i.ToProjectMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectOutput struct{ *pulumi.OutputState }
 
 func (ProjectOutput) ElementType() reflect.Type {
@@ -218,6 +304,49 @@ func (o ProjectOutput) ToProjectOutputWithContext(ctx context.Context) ProjectOu
 	return o
 }
 
+func (o ProjectOutput) ToOutput(ctx context.Context) pulumix.Output[*Project] {
+	return pulumix.Output[*Project]{
+		OutputState: o.OutputState,
+	}
+}
+
+// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
+func (o ProjectOutput) BackendTransfer() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Project) pulumi.BoolPtrOutput { return v.BackendTransfer }).(pulumi.BoolPtrOutput)
+}
+
+// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+//
+// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
+func (o ProjectOutput) BgpConfig() ProjectBgpConfigPtrOutput {
+	return o.ApplyT(func(v *Project) ProjectBgpConfigPtrOutput { return v.BgpConfig }).(ProjectBgpConfigPtrOutput)
+}
+
+// The timestamp for when the project was created
+func (o ProjectOutput) Created() pulumi.StringOutput {
+	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.Created }).(pulumi.StringOutput)
+}
+
+// The name of the project
+func (o ProjectOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
+func (o ProjectOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.OrganizationId }).(pulumi.StringOutput)
+}
+
+// The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organizationId`, or default).
+func (o ProjectOutput) PaymentMethodId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.PaymentMethodId }).(pulumi.StringOutput)
+}
+
+// The timestamp for the last time the project was updated
+func (o ProjectOutput) Updated() pulumi.StringOutput {
+	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.Updated }).(pulumi.StringOutput)
+}
+
 type ProjectArrayOutput struct{ *pulumi.OutputState }
 
 func (ProjectArrayOutput) ElementType() reflect.Type {
@@ -230,6 +359,12 @@ func (o ProjectArrayOutput) ToProjectArrayOutput() ProjectArrayOutput {
 
 func (o ProjectArrayOutput) ToProjectArrayOutputWithContext(ctx context.Context) ProjectArrayOutput {
 	return o
+}
+
+func (o ProjectArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Project] {
+	return pulumix.Output[[]*Project]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectArrayOutput) Index(i pulumi.IntInput) ProjectOutput {
@@ -250,6 +385,12 @@ func (o ProjectMapOutput) ToProjectMapOutput() ProjectMapOutput {
 
 func (o ProjectMapOutput) ToProjectMapOutputWithContext(ctx context.Context) ProjectMapOutput {
 	return o
+}
+
+func (o ProjectMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Project] {
+	return pulumix.Output[map[string]*Project]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectMapOutput) MapIndex(k pulumi.StringInput) ProjectOutput {

@@ -12,10 +12,40 @@ import com.pulumi.equinixmetal.Utilities;
 import com.pulumi.equinixmetal.inputs.UserApiKeyState;
 import java.lang.Boolean;
 import java.lang.String;
+import java.util.List;
 import javax.annotation.Nullable;
 
 /**
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.UserApiKey;
+ * import com.pulumi.equinixmetal.UserApiKeyArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var test = new UserApiKey(&#34;test&#34;, UserApiKeyArgs.builder()        
+ *             .description(&#34;Read-only user key&#34;)
+ *             .readOnly(true)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="equinix-metal:index/userApiKey:UserApiKey")
@@ -25,7 +55,7 @@ public class UserApiKey extends com.pulumi.resources.CustomResource {
      * * `read-only` - Flag indicating whether the API key shoud be read-only
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output<String> description;
 
     /**
@@ -40,7 +70,7 @@ public class UserApiKey extends com.pulumi.resources.CustomResource {
      * Flag indicating whether the API key shoud be read-only
      * 
      */
-    @Export(name="readOnly", type=Boolean.class, parameters={})
+    @Export(name="readOnly", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> readOnly;
 
     /**
@@ -54,7 +84,7 @@ public class UserApiKey extends com.pulumi.resources.CustomResource {
      * API token which can be used in Equinix Metal API clients
      * 
      */
-    @Export(name="token", type=String.class, parameters={})
+    @Export(name="token", refs={String.class}, tree="[0]")
     private Output<String> token;
 
     /**
@@ -68,7 +98,7 @@ public class UserApiKey extends com.pulumi.resources.CustomResource {
      * UUID of the owner of the API key
      * 
      */
-    @Export(name="userId", type=String.class, parameters={})
+    @Export(name="userId", refs={String.class}, tree="[0]")
     private Output<String> userId;
 
     /**
@@ -111,6 +141,9 @@ public class UserApiKey extends com.pulumi.resources.CustomResource {
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .additionalSecretOutputs(List.of(
+                "token"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

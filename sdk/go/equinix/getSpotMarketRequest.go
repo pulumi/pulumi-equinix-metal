@@ -7,10 +7,13 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 func LookupSpotMarketRequest(ctx *pulumi.Context, args *LookupSpotMarketRequestArgs, opts ...pulumi.InvokeOption) (*LookupSpotMarketRequestResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupSpotMarketRequestResult
 	err := ctx.Invoke("equinix-metal:index/getSpotMarketRequest:getSpotMarketRequest", args, &rv, opts...)
 	if err != nil {
@@ -86,6 +89,12 @@ func (o LookupSpotMarketRequestResultOutput) ToLookupSpotMarketRequestResultOutp
 
 func (o LookupSpotMarketRequestResultOutput) ToLookupSpotMarketRequestResultOutputWithContext(ctx context.Context) LookupSpotMarketRequestResultOutput {
 	return o
+}
+
+func (o LookupSpotMarketRequestResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupSpotMarketRequestResult] {
+	return pulumix.Output[LookupSpotMarketRequestResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // List of IDs of devices spawned by the referenced Spot Market Request

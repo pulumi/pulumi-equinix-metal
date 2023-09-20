@@ -25,79 +25,79 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="equinix-metal:index/volume:Volume")
 public class Volume extends com.pulumi.resources.CustomResource {
-    @Export(name="attachments", type=List.class, parameters={VolumeAttachment.class})
+    @Export(name="attachments", refs={List.class,VolumeAttachment.class}, tree="[0,1]")
     private Output<List<VolumeAttachment>> attachments;
 
     public Output<List<VolumeAttachment>> attachments() {
         return this.attachments;
     }
-    @Export(name="billingCycle", type=String.class, parameters={})
+    @Export(name="billingCycle", refs={String.class}, tree="[0]")
     private Output<String> billingCycle;
 
     public Output<String> billingCycle() {
         return this.billingCycle;
     }
-    @Export(name="created", type=String.class, parameters={})
+    @Export(name="created", refs={String.class}, tree="[0]")
     private Output<String> created;
 
     public Output<String> created() {
         return this.created;
     }
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     public Output<Optional<String>> description() {
         return Codegen.optional(this.description);
     }
-    @Export(name="facility", type=String.class, parameters={})
+    @Export(name="facility", refs={String.class}, tree="[0]")
     private Output<String> facility;
 
     public Output<String> facility() {
         return this.facility;
     }
-    @Export(name="locked", type=Boolean.class, parameters={})
+    @Export(name="locked", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> locked;
 
     public Output<Optional<Boolean>> locked() {
         return Codegen.optional(this.locked);
     }
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     public Output<String> name() {
         return this.name;
     }
-    @Export(name="plan", type=String.class, parameters={})
+    @Export(name="plan", refs={String.class}, tree="[0]")
     private Output<String> plan;
 
     public Output<String> plan() {
         return this.plan;
     }
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     public Output<String> projectId() {
         return this.projectId;
     }
-    @Export(name="size", type=Integer.class, parameters={})
+    @Export(name="size", refs={Integer.class}, tree="[0]")
     private Output<Integer> size;
 
     public Output<Integer> size() {
         return this.size;
     }
-    @Export(name="snapshotPolicies", type=List.class, parameters={VolumeSnapshotPolicy.class})
+    @Export(name="snapshotPolicies", refs={List.class,VolumeSnapshotPolicy.class}, tree="[0,1]")
     private Output</* @Nullable */ List<VolumeSnapshotPolicy>> snapshotPolicies;
 
     public Output<Optional<List<VolumeSnapshotPolicy>>> snapshotPolicies() {
         return Codegen.optional(this.snapshotPolicies);
     }
-    @Export(name="state", type=String.class, parameters={})
+    @Export(name="state", refs={String.class}, tree="[0]")
     private Output<String> state;
 
     public Output<String> state() {
         return this.state;
     }
-    @Export(name="updated", type=String.class, parameters={})
+    @Export(name="updated", refs={String.class}, tree="[0]")
     private Output<String> updated;
 
     public Output<String> updated() {

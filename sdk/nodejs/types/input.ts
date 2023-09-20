@@ -2,7 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs, enums } from "../types";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
+import * as enums from "../types/enums";
 
 export interface ConnectionPort {
     id?: pulumi.Input<string>;
@@ -30,6 +32,12 @@ export interface DeviceIpAddress {
     cidr?: pulumi.Input<number>;
     /**
      * List of UUIDs of IP block reservations from which the public IPv4 address should be taken.
+     *
+     * You can supply one `ipAddress` block per IP address type. If you use the `ipAddress` you must always pass a block for `privateIpv4`.
+     *
+     * To learn more about using the reserved IP addresses for new devices, see the examples in the equinix-metal.ReservedIpBlock documentation.
+     *
+     * The `reinstall` block has 3 fields:
      */
     reservationIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -49,7 +57,6 @@ export interface DeviceNetwork {
     cidr?: pulumi.Input<number>;
     /**
      * IP version - "4" or "6"
-     * * `networkType` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      */
     family?: pulumi.Input<number>;
     /**
@@ -122,17 +129,6 @@ export interface GetFacilityCapacityArgs {
     quantity?: pulumi.Input<number>;
 }
 
-export interface GetMetroCapacityArgs {
-    /**
-     * device plan to check
-     */
-    plan: pulumi.Input<string>;
-    /**
-     * number of device to check
-     */
-    quantity?: pulumi.Input<number>;
-}
-
 export interface GetMetroCapacity {
     /**
      * device plan to check
@@ -142,6 +138,17 @@ export interface GetMetroCapacity {
      * number of device to check
      */
     quantity?: number;
+}
+
+export interface GetMetroCapacityArgs {
+    /**
+     * device plan to check
+     */
+    plan: pulumi.Input<string>;
+    /**
+     * number of device to check
+     */
+    quantity?: pulumi.Input<number>;
 }
 
 export interface ProjectBgpConfig {
@@ -175,9 +182,6 @@ export interface SpotMarketRequestInstanceParameters {
     features?: pulumi.Input<pulumi.Input<string>[]>;
     hostname: pulumi.Input<string>;
     ipxeScriptUrl?: pulumi.Input<string>;
-    /**
-     * Blocks deletion of the SpotMarketRequest device until the lock is disabled
-     */
     locked?: pulumi.Input<boolean>;
     operatingSystem: pulumi.Input<string>;
     plan: pulumi.Input<string>;

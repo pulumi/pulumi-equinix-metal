@@ -19,13 +19,13 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="equinix-metal:index/volumeAttachment:VolumeAttachment")
 public class VolumeAttachment extends com.pulumi.resources.CustomResource {
-    @Export(name="deviceId", type=String.class, parameters={})
+    @Export(name="deviceId", refs={String.class}, tree="[0]")
     private Output<String> deviceId;
 
     public Output<String> deviceId() {
         return this.deviceId;
     }
-    @Export(name="volumeId", type=String.class, parameters={})
+    @Export(name="volumeId", refs={String.class}, tree="[0]")
     private Output<String> volumeId;
 
     public Output<String> volumeId() {

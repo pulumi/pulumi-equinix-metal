@@ -16,35 +16,34 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Create a spot market request
+    ///     var req = new EquinixMetal.SpotMarketRequest("req", new()
     ///     {
-    ///         // Create a spot market request
-    ///         var req = new EquinixMetal.SpotMarketRequest("req", new EquinixMetal.SpotMarketRequestArgs
+    ///         ProjectId = local.Project_id,
+    ///         MaxBidPrice = 0.03,
+    ///         Facilities = new[]
     ///         {
-    ///             ProjectId = local.Project_id,
-    ///             MaxBidPrice = 0.03,
-    ///             Facilities = 
-    ///             {
-    ///                 "ny5",
-    ///             },
-    ///             DevicesMin = 1,
-    ///             DevicesMax = 1,
-    ///             InstanceParameters = new EquinixMetal.Inputs.SpotMarketRequestInstanceParametersArgs
-    ///             {
-    ///                 Hostname = "testspot",
-    ///                 BillingCycle = "hourly",
-    ///                 OperatingSystem = "ubuntu_20_04",
-    ///                 Plan = "c3.small.x86",
-    ///             },
-    ///         });
-    ///     }
+    ///             "ny5",
+    ///         },
+    ///         DevicesMin = 1,
+    ///         DevicesMax = 1,
+    ///         InstanceParameters = new EquinixMetal.Inputs.SpotMarketRequestInstanceParametersArgs
+    ///         {
+    ///             Hostname = "testspot",
+    ///             BillingCycle = "hourly",
+    ///             OperatingSystem = "ubuntu_20_04",
+    ///             Plan = "c3.small.x86",
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -56,7 +55,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/spotMarketRequest:SpotMarketRequest")]
-    public partial class SpotMarketRequest : Pulumi.CustomResource
+    public partial class SpotMarketRequest : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Maximum number devices to be created
@@ -78,21 +77,6 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-        /// * `billing_cycle`
-        /// * `plan`
-        /// * `operating_system`
-        /// * `hostname`
-        /// * `termintation_time`
-        /// * `always_pxe`
-        /// * `description`
-        /// * `features`
-        /// * `locked`
-        /// * `project_ssh_keys`
-        /// * `user_ssh_keys`
-        /// * `userdata`
-        /// * `customdata`
-        /// * `ipxe_script_url`
-        /// * `tags`
         /// </summary>
         [Output("instanceParameters")]
         public Output<Outputs.SpotMarketRequestInstanceParameters> InstanceParameters { get; private set; } = null!;
@@ -165,7 +149,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class SpotMarketRequestArgs : Pulumi.ResourceArgs
+    public sealed class SpotMarketRequestArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Maximum number devices to be created
@@ -193,21 +177,6 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-        /// * `billing_cycle`
-        /// * `plan`
-        /// * `operating_system`
-        /// * `hostname`
-        /// * `termintation_time`
-        /// * `always_pxe`
-        /// * `description`
-        /// * `features`
-        /// * `locked`
-        /// * `project_ssh_keys`
-        /// * `user_ssh_keys`
-        /// * `userdata`
-        /// * `customdata`
-        /// * `ipxe_script_url`
-        /// * `tags`
         /// </summary>
         [Input("instanceParameters", required: true)]
         public Input<Inputs.SpotMarketRequestInstanceParametersArgs> InstanceParameters { get; set; } = null!;
@@ -239,9 +208,10 @@ namespace Pulumi.EquinixMetal
         public SpotMarketRequestArgs()
         {
         }
+        public static new SpotMarketRequestArgs Empty => new SpotMarketRequestArgs();
     }
 
-    public sealed class SpotMarketRequestState : Pulumi.ResourceArgs
+    public sealed class SpotMarketRequestState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Maximum number devices to be created
@@ -269,21 +239,6 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-        /// * `billing_cycle`
-        /// * `plan`
-        /// * `operating_system`
-        /// * `hostname`
-        /// * `termintation_time`
-        /// * `always_pxe`
-        /// * `description`
-        /// * `features`
-        /// * `locked`
-        /// * `project_ssh_keys`
-        /// * `user_ssh_keys`
-        /// * `userdata`
-        /// * `customdata`
-        /// * `ipxe_script_url`
-        /// * `tags`
         /// </summary>
         [Input("instanceParameters")]
         public Input<Inputs.SpotMarketRequestInstanceParametersGetArgs>? InstanceParameters { get; set; }
@@ -315,5 +270,6 @@ namespace Pulumi.EquinixMetal
         public SpotMarketRequestState()
         {
         }
+        public static new SpotMarketRequestState Empty => new SpotMarketRequestState();
     }
 }

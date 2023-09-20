@@ -35,12 +35,16 @@ public final class GetMetroArgs extends com.pulumi.resources.InvokeArgs {
     /**
      * The metro code
      * 
+     * Metros can be looked up by `code`.
+     * 
      */
     @Import(name="code", required=true)
     private Output<String> code;
 
     /**
      * @return The metro code
+     * 
+     * Metros can be looked up by `code`.
      * 
      */
     public Output<String> code() {
@@ -106,6 +110,8 @@ public final class GetMetroArgs extends com.pulumi.resources.InvokeArgs {
         /**
          * @param code The metro code
          * 
+         * Metros can be looked up by `code`.
+         * 
          * @return builder
          * 
          */
@@ -116,6 +122,8 @@ public final class GetMetroArgs extends com.pulumi.resources.InvokeArgs {
 
         /**
          * @param code The metro code
+         * 
+         * Metros can be looked up by `code`.
          * 
          * @return builder
          * 

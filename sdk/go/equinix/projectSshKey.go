@@ -7,8 +7,10 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Provides an Equinix Metal project SSH key resource to manage project-specific SSH keys.
@@ -21,42 +23,39 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			projectId := "<UUID_of_your_project>"
-//			testProjectSshKey, err := equinix - metal.NewProjectSshKey(ctx, "testProjectSshKey", &equinix-metal.ProjectSshKeyArgs{
-//				PublicKey: pulumi.String("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM/unxJeFqxsTJcu6mhqsMHSaVlpu+Jj/P+44zrm6X/MAoHSX3X9oLgujEjjZ74yLfdfe0bJrbL2YgJzNaEkIQQ1VPMHB5EhTKUBGnzlPP0hHTnxsjAm9qDHgUPgvgFDQSAMzdJRJ0Cexo16Ph9VxCoLh3dxiE7s2gaM2FdVg7P8aSxKypsxAhYV3D0AwqzoOyT6WWhBoQ0xZ85XevOTnJCpImSemEGs6nVGEsWcEc1d1YvdxFjAK4SdsKUMkj4Dsy/leKsdi/DEAf356vbMT1UHsXXvy5TlHu/Pa6qF53v32Enz+nhKy7/8W2Yt2yWx8HnQcT2rug9lvCXagJO6oauqRTO77C4QZn13ZLMZgLT66S/tNh2EX0gi6vmIs5dth8uF+K6nxIyKJXbcA4ASg7F1OJrHKFZdTc5v1cPeq6PcbqGgc+8SrPYQmzvQqLoMBuxyos2hUkYOmw3aeWJj9nFa8Wu5WaN89mUeOqSkU4S5cgUzWUOmKey56B/j/s1sVys9rMhZapVs0wL4L9GBBM48N5jAQZnnpo85A8KsZq5ME22bTLqnxsDXqDYZvS7PSI6Dxi7eleOFE/NYYDkrgDLHTQri8ucDMVeVWHgoMY2bPXdn7KKy5jW5jKsf8EPARXg77A4gRYmgKrcwIKqJEUPqyxJBe0CPoGTqgXPRsUiQ== tomk@hp2"),
-//				ProjectId: pulumi.String(projectId),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = equinix - metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
-//				Hostname: pulumi.String("test"),
-//				Plan:     pulumi.String("c3.medium.x86"),
-//				Facilities: pulumi.StringArray{
-//					pulumi.String("ny5"),
-//				},
-//				OperatingSystem: pulumi.String("ubuntu_20_04"),
-//				BillingCycle:    pulumi.String("hourly"),
-//				ProjectSshKeyIds: pulumi.StringArray{
-//					testProjectSshKey.ID(),
-//				},
-//				ProjectId: pulumi.String(projectId),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// projectId := "<UUID_of_your_project>";
+// testProjectSshKey, err := equinix-metal.NewProjectSshKey(ctx, "testProjectSshKey", &equinix-metal.ProjectSshKeyArgs{
+// PublicKey: pulumi.String("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM/unxJeFqxsTJcu6mhqsMHSaVlpu+Jj/P+44zrm6X/MAoHSX3X9oLgujEjjZ74yLfdfe0bJrbL2YgJzNaEkIQQ1VPMHB5EhTKUBGnzlPP0hHTnxsjAm9qDHgUPgvgFDQSAMzdJRJ0Cexo16Ph9VxCoLh3dxiE7s2gaM2FdVg7P8aSxKypsxAhYV3D0AwqzoOyT6WWhBoQ0xZ85XevOTnJCpImSemEGs6nVGEsWcEc1d1YvdxFjAK4SdsKUMkj4Dsy/leKsdi/DEAf356vbMT1UHsXXvy5TlHu/Pa6qF53v32Enz+nhKy7/8W2Yt2yWx8HnQcT2rug9lvCXagJO6oauqRTO77C4QZn13ZLMZgLT66S/tNh2EX0gi6vmIs5dth8uF+K6nxIyKJXbcA4ASg7F1OJrHKFZdTc5v1cPeq6PcbqGgc+8SrPYQmzvQqLoMBuxyos2hUkYOmw3aeWJj9nFa8Wu5WaN89mUeOqSkU4S5cgUzWUOmKey56B/j/s1sVys9rMhZapVs0wL4L9GBBM48N5jAQZnnpo85A8KsZq5ME22bTLqnxsDXqDYZvS7PSI6Dxi7eleOFE/NYYDkrgDLHTQri8ucDMVeVWHgoMY2bPXdn7KKy5jW5jKsf8EPARXg77A4gRYmgKrcwIKqJEUPqyxJBe0CPoGTqgXPRsUiQ== tomk@hp2"),
+// ProjectId: pulumi.String(projectId),
+// })
+// if err != nil {
+// return err
+// }
+// _, err = equinix-metal.NewDevice(ctx, "testDevice", &equinix-metal.DeviceArgs{
+// Hostname: pulumi.String("test"),
+// Plan: pulumi.String("c3.medium.x86"),
+// Facilities: pulumi.StringArray{
+// pulumi.String("ny5"),
+// },
+// OperatingSystem: pulumi.String("ubuntu_20_04"),
+// BillingCycle: pulumi.String("hourly"),
+// ProjectSshKeyIds: pulumi.StringArray{
+// testProjectSshKey.ID(),
+// },
+// ProjectId: pulumi.String(projectId),
+// })
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 type ProjectSshKey struct {
 	pulumi.CustomResourceState
@@ -90,6 +89,7 @@ func NewProjectSshKey(ctx *pulumi.Context,
 	if args.PublicKey == nil {
 		return nil, errors.New("invalid value for required argument 'PublicKey'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ProjectSshKey
 	err := ctx.RegisterResource("equinix-metal:index/projectSshKey:ProjectSshKey", name, args, &resource, opts...)
 	if err != nil {
@@ -191,6 +191,12 @@ func (i *ProjectSshKey) ToProjectSshKeyOutputWithContext(ctx context.Context) Pr
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyOutput)
 }
 
+func (i *ProjectSshKey) ToOutput(ctx context.Context) pulumix.Output[*ProjectSshKey] {
+	return pulumix.Output[*ProjectSshKey]{
+		OutputState: i.ToProjectSshKeyOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ProjectSshKeyArrayInput is an input type that accepts ProjectSshKeyArray and ProjectSshKeyArrayOutput values.
 // You can construct a concrete instance of `ProjectSshKeyArrayInput` via:
 //
@@ -214,6 +220,12 @@ func (i ProjectSshKeyArray) ToProjectSshKeyArrayOutput() ProjectSshKeyArrayOutpu
 
 func (i ProjectSshKeyArray) ToProjectSshKeyArrayOutputWithContext(ctx context.Context) ProjectSshKeyArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyArrayOutput)
+}
+
+func (i ProjectSshKeyArray) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectSshKey] {
+	return pulumix.Output[[]*ProjectSshKey]{
+		OutputState: i.ToProjectSshKeyArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ProjectSshKeyMapInput is an input type that accepts ProjectSshKeyMap and ProjectSshKeyMapOutput values.
@@ -241,6 +253,12 @@ func (i ProjectSshKeyMap) ToProjectSshKeyMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ProjectSshKeyMapOutput)
 }
 
+func (i ProjectSshKeyMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectSshKey] {
+	return pulumix.Output[map[string]*ProjectSshKey]{
+		OutputState: i.ToProjectSshKeyMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProjectSshKeyOutput struct{ *pulumi.OutputState }
 
 func (ProjectSshKeyOutput) ElementType() reflect.Type {
@@ -255,6 +273,47 @@ func (o ProjectSshKeyOutput) ToProjectSshKeyOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o ProjectSshKeyOutput) ToOutput(ctx context.Context) pulumix.Output[*ProjectSshKey] {
+	return pulumix.Output[*ProjectSshKey]{
+		OutputState: o.OutputState,
+	}
+}
+
+// The timestamp for when the SSH key was created
+func (o ProjectSshKeyOutput) Created() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectSshKey) pulumi.StringOutput { return v.Created }).(pulumi.StringOutput)
+}
+
+// The fingerprint of the SSH key
+func (o ProjectSshKeyOutput) Fingerprint() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectSshKey) pulumi.StringOutput { return v.Fingerprint }).(pulumi.StringOutput)
+}
+
+// The name of the SSH key for identification
+func (o ProjectSshKeyOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectSshKey) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The ID of parent project (same as project_id)
+func (o ProjectSshKeyOutput) OwnerId() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectSshKey) pulumi.StringOutput { return v.OwnerId }).(pulumi.StringOutput)
+}
+
+// The ID of parent project
+func (o ProjectSshKeyOutput) ProjectId() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectSshKey) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// The public key. If this is a file, it can be read using the file interpolation function
+func (o ProjectSshKeyOutput) PublicKey() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectSshKey) pulumi.StringOutput { return v.PublicKey }).(pulumi.StringOutput)
+}
+
+// The timestamp for the last time the SSH key was updated
+func (o ProjectSshKeyOutput) Updated() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProjectSshKey) pulumi.StringOutput { return v.Updated }).(pulumi.StringOutput)
+}
+
 type ProjectSshKeyArrayOutput struct{ *pulumi.OutputState }
 
 func (ProjectSshKeyArrayOutput) ElementType() reflect.Type {
@@ -267,6 +326,12 @@ func (o ProjectSshKeyArrayOutput) ToProjectSshKeyArrayOutput() ProjectSshKeyArra
 
 func (o ProjectSshKeyArrayOutput) ToProjectSshKeyArrayOutputWithContext(ctx context.Context) ProjectSshKeyArrayOutput {
 	return o
+}
+
+func (o ProjectSshKeyArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ProjectSshKey] {
+	return pulumix.Output[[]*ProjectSshKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectSshKeyArrayOutput) Index(i pulumi.IntInput) ProjectSshKeyOutput {
@@ -287,6 +352,12 @@ func (o ProjectSshKeyMapOutput) ToProjectSshKeyMapOutput() ProjectSshKeyMapOutpu
 
 func (o ProjectSshKeyMapOutput) ToProjectSshKeyMapOutputWithContext(ctx context.Context) ProjectSshKeyMapOutput {
 	return o
+}
+
+func (o ProjectSshKeyMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ProjectSshKey] {
+	return pulumix.Output[map[string]*ProjectSshKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProjectSshKeyMapOutput) MapIndex(k pulumi.StringInput) ProjectSshKeyOutput {

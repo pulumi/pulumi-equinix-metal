@@ -49,7 +49,6 @@ public final class DeviceNetworkArgs extends com.pulumi.resources.ResourceArgs {
 
     /**
      * IP version - &#34;4&#34; or &#34;6&#34;
-     * * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      */
     @Import(name="family")
@@ -57,7 +56,6 @@ public final class DeviceNetworkArgs extends com.pulumi.resources.ResourceArgs {
 
     /**
      * @return IP version - &#34;4&#34; or &#34;6&#34;
-     * * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      */
     public Optional<Output<Integer>> family() {
@@ -166,7 +164,6 @@ public final class DeviceNetworkArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param family IP version - &#34;4&#34; or &#34;6&#34;
-         * * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
          * 
          * @return builder
          * 
@@ -178,7 +175,6 @@ public final class DeviceNetworkArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param family IP version - &#34;4&#34; or &#34;6&#34;
-         * * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
          * 
          * @return builder
          * 

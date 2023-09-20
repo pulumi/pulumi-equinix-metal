@@ -29,7 +29,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * UUID of the bond port
      * 
      */
-    @Export(name="bondId", type=String.class, parameters={})
+    @Export(name="bondId", refs={String.class}, tree="[0]")
     private Output<String> bondId;
 
     /**
@@ -43,7 +43,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * Name of the bond port
      * 
      */
-    @Export(name="bondName", type=String.class, parameters={})
+    @Export(name="bondName", refs={String.class}, tree="[0]")
     private Output<String> bondName;
 
     /**
@@ -57,7 +57,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * Whether the port should be bonded
      * 
      */
-    @Export(name="bonded", type=Boolean.class, parameters={})
+    @Export(name="bonded", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> bonded;
 
     /**
@@ -71,7 +71,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * Flag indicating whether the port can be removed from a bond
      * 
      */
-    @Export(name="disbondSupported", type=Boolean.class, parameters={})
+    @Export(name="disbondSupported", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> disbondSupported;
 
     /**
@@ -85,7 +85,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * Whether to put the port to Layer 2 mode, valid only for bond ports
      * 
      */
-    @Export(name="layer2", type=Boolean.class, parameters={})
+    @Export(name="layer2", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> layer2;
 
     /**
@@ -99,7 +99,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * MAC address of the port
      * 
      */
-    @Export(name="mac", type=String.class, parameters={})
+    @Export(name="mac", refs={String.class}, tree="[0]")
     private Output<String> mac;
 
     /**
@@ -113,7 +113,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * Name of the port, e.g. `bond0` or `eth0`
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -127,7 +127,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * UUID of a VLAN to assign as a native VLAN. It must be one of attached VLANs (from `vlan_ids` parameter), valid only for physical (non-bond) ports
      * 
      */
-    @Export(name="nativeVlanId", type=String.class, parameters={})
+    @Export(name="nativeVlanId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> nativeVlanId;
 
     /**
@@ -141,7 +141,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * One of layer2-bonded, layer2-individual, layer3, hybrid and hybrid-bonded. This attribute is only set on bond ports.
      * 
      */
-    @Export(name="networkType", type=String.class, parameters={})
+    @Export(name="networkType", refs={String.class}, tree="[0]")
     private Output<String> networkType;
 
     /**
@@ -155,7 +155,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * ID of the port to read
      * 
      */
-    @Export(name="portId", type=String.class, parameters={})
+    @Export(name="portId", refs={String.class}, tree="[0]")
     private Output<String> portId;
 
     /**
@@ -169,7 +169,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * Behavioral setting to reset the port to default settings. For a bond port it means layer3 without vlans attached, eth ports will be bonded without native vlan and vlans attached
      * 
      */
-    @Export(name="resetOnDelete", type=Boolean.class, parameters={})
+    @Export(name="resetOnDelete", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> resetOnDelete;
 
     /**
@@ -183,7 +183,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * Type is either &#34;NetworkBondPort&#34; for bond ports or &#34;NetworkPort&#34; for bondable ethernet ports
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output<String> type;
 
     /**
@@ -197,7 +197,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * List of VLAN UUIDs to attach to the port, valid only for L2 and Hybrid ports
      * 
      */
-    @Export(name="vlanIds", type=List.class, parameters={String.class})
+    @Export(name="vlanIds", refs={List.class,String.class}, tree="[0,1]")
     private Output<List<String>> vlanIds;
 
     /**
@@ -211,7 +211,7 @@ public class Port extends com.pulumi.resources.CustomResource {
      * List of VXLAN IDs to attach to the port, valid only for L2 and Hybrid ports
      * 
      */
-    @Export(name="vxlanIds", type=List.class, parameters={Integer.class})
+    @Export(name="vxlanIds", refs={List.class,Integer.class}, tree="[0,1]")
     private Output<List<Integer>> vxlanIds;
 
     /**

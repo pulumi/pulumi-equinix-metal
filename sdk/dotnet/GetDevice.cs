@@ -23,47 +23,47 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var test = EquinixMetal.GetDevice.Invoke(new()
         ///     {
-        ///         var test = Output.Create(EquinixMetal.GetDevice.InvokeAsync(new EquinixMetal.GetDeviceArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Hostname = "mydevice",
-        ///         }));
-        ///         this.Id = test.Apply(test =&gt; test.Id);
-        ///     }
+        ///         ProjectId = local.Project_id,
+        ///         Hostname = "mydevice",
+        ///     });
         /// 
-        ///     [Output("id")]
-        ///     public Output&lt;string&gt; Id { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["id"] = test.Apply(getDeviceResult =&gt; getDeviceResult.Id),
+        ///     };
+        /// });
         /// ```
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
-        ///     {
-        ///         var test = Output.Create(EquinixMetal.GetDevice.InvokeAsync());
-        ///         this.Ipv4 = test.Apply(test =&gt; test.AccessPublicIpv4);
-        ///     }
+        ///     var test = EquinixMetal.GetDevice.Invoke();
         /// 
-        ///     [Output("ipv4")]
-        ///     public Output&lt;string&gt; Ipv4 { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["ipv4"] = test.Apply(getDeviceResult =&gt; getDeviceResult.AccessPublicIpv4),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetDeviceResult> InvokeAsync(GetDeviceArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetDeviceResult>("equinix-metal:index/getDevice:getDevice", args ?? new GetDeviceArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetDeviceResult>("equinix-metal:index/getDevice:getDevice", args ?? new GetDeviceArgs(), options.WithDefaults());
 
         /// <summary>
         /// Provides an Equinix Metal device datasource.
@@ -77,54 +77,56 @@ namespace Pulumi.EquinixMetal
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var test = EquinixMetal.GetDevice.Invoke(new()
         ///     {
-        ///         var test = Output.Create(EquinixMetal.GetDevice.InvokeAsync(new EquinixMetal.GetDeviceArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Hostname = "mydevice",
-        ///         }));
-        ///         this.Id = test.Apply(test =&gt; test.Id);
-        ///     }
+        ///         ProjectId = local.Project_id,
+        ///         Hostname = "mydevice",
+        ///     });
         /// 
-        ///     [Output("id")]
-        ///     public Output&lt;string&gt; Id { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["id"] = test.Apply(getDeviceResult =&gt; getDeviceResult.Id),
+        ///     };
+        /// });
         /// ```
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
-        ///     {
-        ///         var test = Output.Create(EquinixMetal.GetDevice.InvokeAsync());
-        ///         this.Ipv4 = test.Apply(test =&gt; test.AccessPublicIpv4);
-        ///     }
+        ///     var test = EquinixMetal.GetDevice.Invoke();
         /// 
-        ///     [Output("ipv4")]
-        ///     public Output&lt;string&gt; Ipv4 { get; set; }
-        /// }
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["ipv4"] = test.Apply(getDeviceResult =&gt; getDeviceResult.AccessPublicIpv4),
+        ///     };
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetDeviceResult> Invoke(GetDeviceInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetDeviceResult>("equinix-metal:index/getDevice:getDevice", args ?? new GetDeviceInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetDeviceResult>("equinix-metal:index/getDevice:getDevice", args ?? new GetDeviceInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetDeviceArgs : Pulumi.InvokeArgs
+    public sealed class GetDeviceArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Device ID
+        /// 
+        /// User can lookup devices either by `device_id` or `project_id` and `hostname`.
         /// </summary>
         [Input("deviceId")]
         public string? DeviceId { get; set; }
@@ -144,12 +146,15 @@ namespace Pulumi.EquinixMetal
         public GetDeviceArgs()
         {
         }
+        public static new GetDeviceArgs Empty => new GetDeviceArgs();
     }
 
-    public sealed class GetDeviceInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetDeviceInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Device ID
+        /// 
+        /// User can lookup devices either by `device_id` or `project_id` and `hostname`.
         /// </summary>
         [Input("deviceId")]
         public Input<string>? DeviceId { get; set; }
@@ -169,6 +174,7 @@ namespace Pulumi.EquinixMetal
         public GetDeviceInvokeArgs()
         {
         }
+        public static new GetDeviceInvokeArgs Empty => new GetDeviceInvokeArgs();
     }
 
 

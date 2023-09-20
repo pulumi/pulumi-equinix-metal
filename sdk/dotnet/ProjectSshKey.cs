@@ -16,42 +16,43 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
-    ///     {
-    ///         var projectId = "&lt;UUID_of_your_project&gt;";
-    ///         var testProjectSshKey = new EquinixMetal.ProjectSshKey("testProjectSshKey", new EquinixMetal.ProjectSshKeyArgs
-    ///         {
-    ///             PublicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM/unxJeFqxsTJcu6mhqsMHSaVlpu+Jj/P+44zrm6X/MAoHSX3X9oLgujEjjZ74yLfdfe0bJrbL2YgJzNaEkIQQ1VPMHB5EhTKUBGnzlPP0hHTnxsjAm9qDHgUPgvgFDQSAMzdJRJ0Cexo16Ph9VxCoLh3dxiE7s2gaM2FdVg7P8aSxKypsxAhYV3D0AwqzoOyT6WWhBoQ0xZ85XevOTnJCpImSemEGs6nVGEsWcEc1d1YvdxFjAK4SdsKUMkj4Dsy/leKsdi/DEAf356vbMT1UHsXXvy5TlHu/Pa6qF53v32Enz+nhKy7/8W2Yt2yWx8HnQcT2rug9lvCXagJO6oauqRTO77C4QZn13ZLMZgLT66S/tNh2EX0gi6vmIs5dth8uF+K6nxIyKJXbcA4ASg7F1OJrHKFZdTc5v1cPeq6PcbqGgc+8SrPYQmzvQqLoMBuxyos2hUkYOmw3aeWJj9nFa8Wu5WaN89mUeOqSkU4S5cgUzWUOmKey56B/j/s1sVys9rMhZapVs0wL4L9GBBM48N5jAQZnnpo85A8KsZq5ME22bTLqnxsDXqDYZvS7PSI6Dxi7eleOFE/NYYDkrgDLHTQri8ucDMVeVWHgoMY2bPXdn7KKy5jW5jKsf8EPARXg77A4gRYmgKrcwIKqJEUPqyxJBe0CPoGTqgXPRsUiQ== tomk@hp2",
-    ///             ProjectId = projectId,
-    ///         });
-    ///         var testDevice = new EquinixMetal.Device("testDevice", new EquinixMetal.DeviceArgs
-    ///         {
-    ///             Hostname = "test",
-    ///             Plan = "c3.medium.x86",
-    ///             Facilities = 
-    ///             {
-    ///                 "ny5",
-    ///             },
-    ///             OperatingSystem = "ubuntu_20_04",
-    ///             BillingCycle = "hourly",
-    ///             ProjectSshKeyIds = 
-    ///             {
-    ///                 testProjectSshKey.Id,
-    ///             },
-    ///             ProjectId = projectId,
-    ///         });
-    ///     }
+    ///     var projectId = "&lt;UUID_of_your_project&gt;";
     /// 
-    /// }
+    ///     var testProjectSshKey = new EquinixMetal.ProjectSshKey("testProjectSshKey", new()
+    ///     {
+    ///         PublicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM/unxJeFqxsTJcu6mhqsMHSaVlpu+Jj/P+44zrm6X/MAoHSX3X9oLgujEjjZ74yLfdfe0bJrbL2YgJzNaEkIQQ1VPMHB5EhTKUBGnzlPP0hHTnxsjAm9qDHgUPgvgFDQSAMzdJRJ0Cexo16Ph9VxCoLh3dxiE7s2gaM2FdVg7P8aSxKypsxAhYV3D0AwqzoOyT6WWhBoQ0xZ85XevOTnJCpImSemEGs6nVGEsWcEc1d1YvdxFjAK4SdsKUMkj4Dsy/leKsdi/DEAf356vbMT1UHsXXvy5TlHu/Pa6qF53v32Enz+nhKy7/8W2Yt2yWx8HnQcT2rug9lvCXagJO6oauqRTO77C4QZn13ZLMZgLT66S/tNh2EX0gi6vmIs5dth8uF+K6nxIyKJXbcA4ASg7F1OJrHKFZdTc5v1cPeq6PcbqGgc+8SrPYQmzvQqLoMBuxyos2hUkYOmw3aeWJj9nFa8Wu5WaN89mUeOqSkU4S5cgUzWUOmKey56B/j/s1sVys9rMhZapVs0wL4L9GBBM48N5jAQZnnpo85A8KsZq5ME22bTLqnxsDXqDYZvS7PSI6Dxi7eleOFE/NYYDkrgDLHTQri8ucDMVeVWHgoMY2bPXdn7KKy5jW5jKsf8EPARXg77A4gRYmgKrcwIKqJEUPqyxJBe0CPoGTqgXPRsUiQ== tomk@hp2",
+    ///         ProjectId = projectId,
+    ///     });
+    /// 
+    ///     var testDevice = new EquinixMetal.Device("testDevice", new()
+    ///     {
+    ///         Hostname = "test",
+    ///         Plan = "c3.medium.x86",
+    ///         Facilities = new[]
+    ///         {
+    ///             "ny5",
+    ///         },
+    ///         OperatingSystem = "ubuntu_20_04",
+    ///         BillingCycle = "hourly",
+    ///         ProjectSshKeyIds = new[]
+    ///         {
+    ///             testProjectSshKey.Id,
+    ///         },
+    ///         ProjectId = projectId,
+    ///     });
+    /// 
+    /// });
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/projectSshKey:ProjectSshKey")]
-    public partial class ProjectSshKey : Pulumi.CustomResource
+    public partial class ProjectSshKey : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The timestamp for when the SSH key was created
@@ -139,7 +140,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class ProjectSshKeyArgs : Pulumi.ResourceArgs
+    public sealed class ProjectSshKeyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the SSH key for identification
@@ -162,9 +163,10 @@ namespace Pulumi.EquinixMetal
         public ProjectSshKeyArgs()
         {
         }
+        public static new ProjectSshKeyArgs Empty => new ProjectSshKeyArgs();
     }
 
-    public sealed class ProjectSshKeyState : Pulumi.ResourceArgs
+    public sealed class ProjectSshKeyState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The timestamp for when the SSH key was created
@@ -211,5 +213,6 @@ namespace Pulumi.EquinixMetal
         public ProjectSshKeyState()
         {
         }
+        public static new ProjectSshKeyState Empty => new ProjectSshKeyState();
     }
 }

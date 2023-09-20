@@ -15,65 +15,66 @@ namespace Pulumi.EquinixMetal
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Create Metal Gateway for a VLAN with a private IPv4 block with 8 IP addresses
+    ///     var testVlan = new EquinixMetal.Vlan("testVlan", new()
     ///     {
-    ///         // Create Metal Gateway for a VLAN with a private IPv4 block with 8 IP addresses
-    ///         var testVlan = new EquinixMetal.Vlan("testVlan", new EquinixMetal.VlanArgs
-    ///         {
-    ///             Description = "test VLAN in SV",
-    ///             Metro = "sv",
-    ///             ProjectId = local.Project_id,
-    ///         });
-    ///         var testGateway = new EquinixMetal.Gateway("testGateway", new EquinixMetal.GatewayArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             VlanId = testVlan.Id,
-    ///             PrivateIpv4SubnetSize = 8,
-    ///         });
-    ///     }
+    ///         Description = "test VLAN in SV",
+    ///         Metro = "sv",
+    ///         ProjectId = local.Project_id,
+    ///     });
     /// 
-    /// }
+    ///     var testGateway = new EquinixMetal.Gateway("testGateway", new()
+    ///     {
+    ///         ProjectId = local.Project_id,
+    ///         VlanId = testVlan.Id,
+    ///         PrivateIpv4SubnetSize = 8,
+    ///     });
+    /// 
+    /// });
     /// ```
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using EquinixMetal = Pulumi.EquinixMetal;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Create Metal Gateway for a VLAN and reserved IP address block
+    ///     var testVlan = new EquinixMetal.Vlan("testVlan", new()
     ///     {
-    ///         // Create Metal Gateway for a VLAN and reserved IP address block
-    ///         var testVlan = new EquinixMetal.Vlan("testVlan", new EquinixMetal.VlanArgs
-    ///         {
-    ///             Description = "test VLAN in SV",
-    ///             Metro = "sv",
-    ///             ProjectId = local.Project_id,
-    ///         });
-    ///         var testReservedIpBlock = new EquinixMetal.ReservedIpBlock("testReservedIpBlock", new EquinixMetal.ReservedIpBlockArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             Metro = "sv",
-    ///             Quantity = 2,
-    ///         });
-    ///         var testGateway = new EquinixMetal.Gateway("testGateway", new EquinixMetal.GatewayArgs
-    ///         {
-    ///             ProjectId = local.Project_id,
-    ///             VlanId = testVlan.Id,
-    ///             IpReservationId = testReservedIpBlock.Id,
-    ///         });
-    ///     }
+    ///         Description = "test VLAN in SV",
+    ///         Metro = "sv",
+    ///         ProjectId = local.Project_id,
+    ///     });
     /// 
-    /// }
+    ///     var testReservedIpBlock = new EquinixMetal.ReservedIpBlock("testReservedIpBlock", new()
+    ///     {
+    ///         ProjectId = local.Project_id,
+    ///         Metro = "sv",
+    ///         Quantity = 2,
+    ///     });
+    /// 
+    ///     var testGateway = new EquinixMetal.Gateway("testGateway", new()
+    ///     {
+    ///         ProjectId = local.Project_id,
+    ///         VlanId = testVlan.Id,
+    ///         IpReservationId = testReservedIpBlock.Id,
+    ///     });
+    /// 
+    /// });
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/gateway:Gateway")]
-    public partial class Gateway : Pulumi.CustomResource
+    public partial class Gateway : global::Pulumi.CustomResource
     {
         /// <summary>
         /// UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `private_ipv4_subnet_size`
@@ -149,7 +150,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class GatewayArgs : Pulumi.ResourceArgs
+    public sealed class GatewayArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `private_ipv4_subnet_size`
@@ -178,9 +179,10 @@ namespace Pulumi.EquinixMetal
         public GatewayArgs()
         {
         }
+        public static new GatewayArgs Empty => new GatewayArgs();
     }
 
-    public sealed class GatewayState : Pulumi.ResourceArgs
+    public sealed class GatewayState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `private_ipv4_subnet_size`
@@ -215,5 +217,6 @@ namespace Pulumi.EquinixMetal
         public GatewayState()
         {
         }
+        public static new GatewayState Empty => new GatewayState();
     }
 }

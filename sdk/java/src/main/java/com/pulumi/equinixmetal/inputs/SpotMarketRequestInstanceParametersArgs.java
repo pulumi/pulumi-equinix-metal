@@ -66,17 +66,9 @@ public final class SpotMarketRequestInstanceParametersArgs extends com.pulumi.re
         return Optional.ofNullable(this.ipxeScriptUrl);
     }
 
-    /**
-     * Blocks deletion of the SpotMarketRequest device until the lock is disabled
-     * 
-     */
     @Import(name="locked")
     private @Nullable Output<Boolean> locked;
 
-    /**
-     * @return Blocks deletion of the SpotMarketRequest device until the lock is disabled
-     * 
-     */
     public Optional<Output<Boolean>> locked() {
         return Optional.ofNullable(this.locked);
     }
@@ -235,23 +227,11 @@ public final class SpotMarketRequestInstanceParametersArgs extends com.pulumi.re
             return ipxeScriptUrl(Output.of(ipxeScriptUrl));
         }
 
-        /**
-         * @param locked Blocks deletion of the SpotMarketRequest device until the lock is disabled
-         * 
-         * @return builder
-         * 
-         */
         public Builder locked(@Nullable Output<Boolean> locked) {
             $.locked = locked;
             return this;
         }
 
-        /**
-         * @param locked Blocks deletion of the SpotMarketRequest device until the lock is disabled
-         * 
-         * @return builder
-         * 
-         */
         public Builder locked(Boolean locked) {
             return locked(Output.of(locked));
         }

@@ -22,59 +22,59 @@ namespace Pulumi.EquinixMetal
         /// Fetch a vlan by ID:
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var foovlan = new EquinixMetal.Vlan("foovlan", new()
         ///     {
-        ///         var foovlan = new EquinixMetal.Vlan("foovlan", new EquinixMetal.VlanArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Metro = "sv",
-        ///             Vxlan = 5,
-        ///         });
-        ///         var dsvlan = EquinixMetal.GetVlan.Invoke(new EquinixMetal.GetVlanInvokeArgs
-        ///         {
-        ///             VlanId = foovlan.Id,
-        ///         });
-        ///     }
+        ///         ProjectId = local.Project_id,
+        ///         Metro = "sv",
+        ///         Vxlan = 5,
+        ///     });
         /// 
-        /// }
+        ///     var dsvlan = EquinixMetal.GetVlan.Invoke(new()
+        ///     {
+        ///         VlanId = foovlan.Id,
+        ///     });
+        /// 
+        /// });
         /// ```
         /// 
         /// Fetch a vlan by project ID, vxlan and metro
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var foovlan = new EquinixMetal.Vlan("foovlan", new()
         ///     {
-        ///         var foovlan = new EquinixMetal.Vlan("foovlan", new EquinixMetal.VlanArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Metro = "sv",
-        ///             Vxlan = 5,
-        ///         });
-        ///         var dsvlan = Output.Create(EquinixMetal.GetVlan.InvokeAsync(new EquinixMetal.GetVlanArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Vxlan = 5,
-        ///             Metro = "sv",
-        ///         }));
-        ///     }
+        ///         ProjectId = local.Project_id,
+        ///         Metro = "sv",
+        ///         Vxlan = 5,
+        ///     });
         /// 
-        /// }
+        ///     var dsvlan = EquinixMetal.GetVlan.Invoke(new()
+        ///     {
+        ///         ProjectId = local.Project_id,
+        ///         Vxlan = 5,
+        ///         Metro = "sv",
+        ///     });
+        /// 
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetVlanResult> InvokeAsync(GetVlanArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetVlanResult>("equinix-metal:index/getVlan:getVlan", args ?? new GetVlanArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetVlanResult>("equinix-metal:index/getVlan:getVlan", args ?? new GetVlanArgs(), options.WithDefaults());
 
         /// <summary>
         /// Provides an Equinix Metal Virtual Network datasource. VLANs data sources can be
@@ -87,63 +87,63 @@ namespace Pulumi.EquinixMetal
         /// Fetch a vlan by ID:
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var foovlan = new EquinixMetal.Vlan("foovlan", new()
         ///     {
-        ///         var foovlan = new EquinixMetal.Vlan("foovlan", new EquinixMetal.VlanArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Metro = "sv",
-        ///             Vxlan = 5,
-        ///         });
-        ///         var dsvlan = EquinixMetal.GetVlan.Invoke(new EquinixMetal.GetVlanInvokeArgs
-        ///         {
-        ///             VlanId = foovlan.Id,
-        ///         });
-        ///     }
+        ///         ProjectId = local.Project_id,
+        ///         Metro = "sv",
+        ///         Vxlan = 5,
+        ///     });
         /// 
-        /// }
+        ///     var dsvlan = EquinixMetal.GetVlan.Invoke(new()
+        ///     {
+        ///         VlanId = foovlan.Id,
+        ///     });
+        /// 
+        /// });
         /// ```
         /// 
         /// Fetch a vlan by project ID, vxlan and metro
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using EquinixMetal = Pulumi.EquinixMetal;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var foovlan = new EquinixMetal.Vlan("foovlan", new()
         ///     {
-        ///         var foovlan = new EquinixMetal.Vlan("foovlan", new EquinixMetal.VlanArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Metro = "sv",
-        ///             Vxlan = 5,
-        ///         });
-        ///         var dsvlan = Output.Create(EquinixMetal.GetVlan.InvokeAsync(new EquinixMetal.GetVlanArgs
-        ///         {
-        ///             ProjectId = local.Project_id,
-        ///             Vxlan = 5,
-        ///             Metro = "sv",
-        ///         }));
-        ///     }
+        ///         ProjectId = local.Project_id,
+        ///         Metro = "sv",
+        ///         Vxlan = 5,
+        ///     });
         /// 
-        /// }
+        ///     var dsvlan = EquinixMetal.GetVlan.Invoke(new()
+        ///     {
+        ///         ProjectId = local.Project_id,
+        ///         Vxlan = 5,
+        ///         Metro = "sv",
+        ///     });
+        /// 
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetVlanResult> Invoke(GetVlanInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetVlanResult>("equinix-metal:index/getVlan:getVlan", args ?? new GetVlanInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetVlanResult>("equinix-metal:index/getVlan:getVlan", args ?? new GetVlanInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetVlanArgs : Pulumi.InvokeArgs
+    public sealed class GetVlanArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Facility where the VLAN is deployed
@@ -178,9 +178,10 @@ namespace Pulumi.EquinixMetal
         public GetVlanArgs()
         {
         }
+        public static new GetVlanArgs Empty => new GetVlanArgs();
     }
 
-    public sealed class GetVlanInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetVlanInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Facility where the VLAN is deployed
@@ -215,6 +216,7 @@ namespace Pulumi.EquinixMetal
         public GetVlanInvokeArgs()
         {
         }
+        public static new GetVlanInvokeArgs Empty => new GetVlanInvokeArgs();
     }
 
 

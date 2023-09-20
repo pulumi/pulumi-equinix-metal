@@ -24,6 +24,45 @@ import javax.annotation.Nullable;
  * manage spot market requests on your account. For more detail on Spot Market, see [this article in Equinix Metal documentation](https://metal.equinix.com/developers/docs/deploy/spot-market/).
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.SpotMarketRequest;
+ * import com.pulumi.equinixmetal.SpotMarketRequestArgs;
+ * import com.pulumi.equinixmetal.inputs.SpotMarketRequestInstanceParametersArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var req = new SpotMarketRequest(&#34;req&#34;, SpotMarketRequestArgs.builder()        
+ *             .projectId(local.project_id())
+ *             .maxBidPrice(0.03)
+ *             .facilities(&#34;ny5&#34;)
+ *             .devicesMin(1)
+ *             .devicesMax(1)
+ *             .instanceParameters(SpotMarketRequestInstanceParametersArgs.builder()
+ *                 .hostname(&#34;testspot&#34;)
+ *                 .billingCycle(&#34;hourly&#34;)
+ *                 .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *                 .plan(&#34;c3.small.x86&#34;)
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  * ## Import
  * 
@@ -40,7 +79,7 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
      * Maximum number devices to be created
      * 
      */
-    @Export(name="devicesMax", type=Integer.class, parameters={})
+    @Export(name="devicesMax", refs={Integer.class}, tree="[0]")
     private Output<Integer> devicesMax;
 
     /**
@@ -54,7 +93,7 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
      * Miniumum number devices to be created
      * 
      */
-    @Export(name="devicesMin", type=Integer.class, parameters={})
+    @Export(name="devicesMin", refs={Integer.class}, tree="[0]")
     private Output<Integer> devicesMin;
 
     /**
@@ -68,7 +107,7 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
      * Facility IDs where devices should be created
      * 
      */
-    @Export(name="facilities", type=List.class, parameters={String.class})
+    @Export(name="facilities", refs={List.class,String.class}, tree="[0,1]")
     private Output<List<String>> facilities;
 
     /**
@@ -80,43 +119,13 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
     }
     /**
      * Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-     * * `billing_cycle`
-     * * `plan`
-     * * `operating_system`
-     * * `hostname`
-     * * `termintation_time`
-     * * `always_pxe`
-     * * `description`
-     * * `features`
-     * * `locked`
-     * * `project_ssh_keys`
-     * * `user_ssh_keys`
-     * * `userdata`
-     * * `customdata`
-     * * `ipxe_script_url`
-     * * `tags`
      * 
      */
-    @Export(name="instanceParameters", type=SpotMarketRequestInstanceParameters.class, parameters={})
+    @Export(name="instanceParameters", refs={SpotMarketRequestInstanceParameters.class}, tree="[0]")
     private Output<SpotMarketRequestInstanceParameters> instanceParameters;
 
     /**
      * @return Parameters for devices provisioned from this request. You can find the parameter description from the equinix-metal.Device doc.
-     * * `billing_cycle`
-     * * `plan`
-     * * `operating_system`
-     * * `hostname`
-     * * `termintation_time`
-     * * `always_pxe`
-     * * `description`
-     * * `features`
-     * * `locked`
-     * * `project_ssh_keys`
-     * * `user_ssh_keys`
-     * * `userdata`
-     * * `customdata`
-     * * `ipxe_script_url`
-     * * `tags`
      * 
      */
     public Output<SpotMarketRequestInstanceParameters> instanceParameters() {
@@ -126,7 +135,7 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
      * Maximum price user is willing to pay per hour per device
      * 
      */
-    @Export(name="maxBidPrice", type=Double.class, parameters={})
+    @Export(name="maxBidPrice", refs={Double.class}, tree="[0]")
     private Output<Double> maxBidPrice;
 
     /**
@@ -140,7 +149,7 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
      * Metro where devices should be created
      * 
      */
-    @Export(name="metro", type=String.class, parameters={})
+    @Export(name="metro", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> metro;
 
     /**
@@ -154,7 +163,7 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
      * Project ID
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     /**
@@ -168,7 +177,7 @@ public class SpotMarketRequest extends com.pulumi.resources.CustomResource {
      * On resource creation - wait until all desired devices are active, on resource destruction - wait until devices are removed
      * 
      */
-    @Export(name="waitForDevices", type=Boolean.class, parameters={})
+    @Export(name="waitForDevices", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> waitForDevices;
 
     /**

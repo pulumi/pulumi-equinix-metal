@@ -139,7 +139,6 @@ public final class VirtualCircuitState extends com.pulumi.resources.ResourceArgs
 
     /**
      * Status of the virtal circuit
-     * * `vnid`
      * 
      */
     @Import(name="status")
@@ -147,7 +146,6 @@ public final class VirtualCircuitState extends com.pulumi.resources.ResourceArgs
 
     /**
      * @return Status of the virtal circuit
-     * * `vnid`
      * 
      */
     public Optional<Output<String>> status() {
@@ -404,7 +402,6 @@ public final class VirtualCircuitState extends com.pulumi.resources.ResourceArgs
 
         /**
          * @param status Status of the virtal circuit
-         * * `vnid`
          * 
          * @return builder
          * 
@@ -416,7 +413,6 @@ public final class VirtualCircuitState extends com.pulumi.resources.ResourceArgs
 
         /**
          * @param status Status of the virtal circuit
-         * * `vnid`
          * 
          * @return builder
          * 

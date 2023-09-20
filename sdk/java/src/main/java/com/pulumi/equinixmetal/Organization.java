@@ -18,6 +18,34 @@ import javax.annotation.Nullable;
  * Provides a resource to manage organization resource in Equinix Metal.
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Organization;
+ * import com.pulumi.equinixmetal.OrganizationArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var tfOrganization1 = new Organization(&#34;tfOrganization1&#34;, OrganizationArgs.builder()        
+ *             .description(&#34;quux&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  * ## Import
  * 
@@ -30,7 +58,7 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="equinix-metal:index/organization:Organization")
 public class Organization extends com.pulumi.resources.CustomResource {
-    @Export(name="created", type=String.class, parameters={})
+    @Export(name="created", refs={String.class}, tree="[0]")
     private Output<String> created;
 
     public Output<String> created() {
@@ -40,7 +68,7 @@ public class Organization extends com.pulumi.resources.CustomResource {
      * Description string
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     /**
@@ -54,7 +82,7 @@ public class Organization extends com.pulumi.resources.CustomResource {
      * Logo URL
      * 
      */
-    @Export(name="logo", type=String.class, parameters={})
+    @Export(name="logo", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> logo;
 
     /**
@@ -68,7 +96,7 @@ public class Organization extends com.pulumi.resources.CustomResource {
      * The name of the Organization
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -82,7 +110,7 @@ public class Organization extends com.pulumi.resources.CustomResource {
      * Twitter handle
      * 
      */
-    @Export(name="twitter", type=String.class, parameters={})
+    @Export(name="twitter", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> twitter;
 
     /**
@@ -92,7 +120,7 @@ public class Organization extends com.pulumi.resources.CustomResource {
     public Output<Optional<String>> twitter() {
         return Codegen.optional(this.twitter);
     }
-    @Export(name="updated", type=String.class, parameters={})
+    @Export(name="updated", refs={String.class}, tree="[0]")
     private Output<String> updated;
 
     public Output<String> updated() {
@@ -102,7 +130,7 @@ public class Organization extends com.pulumi.resources.CustomResource {
      * Website link
      * 
      */
-    @Export(name="website", type=String.class, parameters={})
+    @Export(name="website", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> website;
 
     /**

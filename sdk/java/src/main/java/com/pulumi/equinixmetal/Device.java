@@ -30,6 +30,210 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * 
+ * Create a device and add it to cool_project
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var web1 = new Device(&#34;web1&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;tf.coreos2&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .metro(&#34;sv&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectId(local.project_id())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
+ * Same as above, but boot via iPXE initially, using the Ignition Provider for provisioning
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var pxe1 = new Device(&#34;pxe1&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;tf.coreos2-pxe&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .metro(&#34;sv&#34;)
+ *             .operatingSystem(&#34;custom_ipxe&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectId(local.project_id())
+ *             .ipxeScriptUrl(&#34;https://rawgit.com/cloudnativelabs/pxe/master/metal/coreos-stable-metal.ipxe&#34;)
+ *             .alwaysPxe(&#34;false&#34;)
+ *             .userData(data.ignition_config().example().rendered())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
+ * Create a device without a public IP address in facility ny5, with only a /30 private IPv4 subnet (4 IP addresses)
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import com.pulumi.equinixmetal.inputs.DeviceIpAddressArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var web1 = new Device(&#34;web1&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;tf.coreos2&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .facilities(&#34;ny5&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectId(local.project_id())
+ *             .ipAddresses(DeviceIpAddressArgs.builder()
+ *                 .type(&#34;private_ipv4&#34;)
+ *                 .cidr(30)
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
+ * Deploy device on next-available reserved hardware and do custom partitioning.
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.equinixmetal.Device;
+ * import com.pulumi.equinixmetal.DeviceArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var web1 = new Device(&#34;web1&#34;, DeviceArgs.builder()        
+ *             .hostname(&#34;tftest&#34;)
+ *             .plan(&#34;c3.small.x86&#34;)
+ *             .facilities(&#34;ny5&#34;)
+ *             .operatingSystem(&#34;ubuntu_20_04&#34;)
+ *             .billingCycle(&#34;hourly&#34;)
+ *             .projectId(local.project_id())
+ *             .hardwareReservationId(&#34;next-available&#34;)
+ *             .storage(&#34;&#34;&#34;
+ * {
+ *   &#34;disks&#34;: [
+ *     {
+ *       &#34;device&#34;: &#34;/dev/sda&#34;,
+ *       &#34;wipeTable&#34;: true,
+ *       &#34;partitions&#34;: [
+ *         {
+ *           &#34;label&#34;: &#34;BIOS&#34;,
+ *           &#34;number&#34;: 1,
+ *           &#34;size&#34;: &#34;4096&#34;
+ *         },
+ *         {
+ *           &#34;label&#34;: &#34;SWAP&#34;,
+ *           &#34;number&#34;: 2,
+ *           &#34;size&#34;: &#34;3993600&#34;
+ *         },
+ *         {
+ *           &#34;label&#34;: &#34;ROOT&#34;,
+ *           &#34;number&#34;: 3,
+ *           &#34;size&#34;: &#34;0&#34;
+ *         }
+ *       ]
+ *     }
+ *   ],
+ *   &#34;filesystems&#34;: [
+ *     {
+ *       &#34;mount&#34;: {
+ *         &#34;device&#34;: &#34;/dev/sda3&#34;,
+ *         &#34;format&#34;: &#34;ext4&#34;,
+ *         &#34;point&#34;: &#34;/&#34;,
+ *         &#34;create&#34;: {
+ *           &#34;options&#34;: [
+ *             &#34;-L&#34;,
+ *             &#34;ROOT&#34;
+ *           ]
+ *         }
+ *       }
+ *     },
+ *     {
+ *       &#34;mount&#34;: {
+ *         &#34;device&#34;: &#34;/dev/sda2&#34;,
+ *         &#34;format&#34;: &#34;swap&#34;,
+ *         &#34;point&#34;: &#34;none&#34;,
+ *         &#34;create&#34;: {
+ *           &#34;options&#34;: [
+ *             &#34;-L&#34;,
+ *             &#34;SWAP&#34;
+ *           ]
+ *         }
+ *       }
+ *     }
+ *   ]
+ * }
+ *             &#34;&#34;&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
  * This resource can be imported using an existing device ID
@@ -45,7 +249,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The ipv4 private IP assigned to the device
      * 
      */
-    @Export(name="accessPrivateIpv4", type=String.class, parameters={})
+    @Export(name="accessPrivateIpv4", refs={String.class}, tree="[0]")
     private Output<String> accessPrivateIpv4;
 
     /**
@@ -59,7 +263,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The ipv4 maintenance IP assigned to the device
      * 
      */
-    @Export(name="accessPublicIpv4", type=String.class, parameters={})
+    @Export(name="accessPublicIpv4", refs={String.class}, tree="[0]")
     private Output<String> accessPublicIpv4;
 
     /**
@@ -73,7 +277,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The ipv6 maintenance IP assigned to the device
      * 
      */
-    @Export(name="accessPublicIpv6", type=String.class, parameters={})
+    @Export(name="accessPublicIpv6", refs={String.class}, tree="[0]")
     private Output<String> accessPublicIpv6;
 
     /**
@@ -87,7 +291,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * If true, a device with OS `custom_ipxe` will continue to boot via iPXE on reboots.
      * 
      */
-    @Export(name="alwaysPxe", type=Boolean.class, parameters={})
+    @Export(name="alwaysPxe", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> alwaysPxe;
 
     /**
@@ -101,7 +305,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * monthly or hourly
      * 
      */
-    @Export(name="billingCycle", type=String.class, parameters={})
+    @Export(name="billingCycle", refs={String.class}, tree="[0]")
     private Output<String> billingCycle;
 
     /**
@@ -115,7 +319,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The timestamp for when the device was created
      * 
      */
-    @Export(name="created", type=String.class, parameters={})
+    @Export(name="created", refs={String.class}, tree="[0]")
     private Output<String> created;
 
     /**
@@ -129,7 +333,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * A string of the desired Custom Data for the device.
      * 
      */
-    @Export(name="customData", type=String.class, parameters={})
+    @Export(name="customData", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> customData;
 
     /**
@@ -143,7 +347,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The facility where the device is deployed.
      * 
      */
-    @Export(name="deployedFacility", type=String.class, parameters={})
+    @Export(name="deployedFacility", refs={String.class}, tree="[0]")
     private Output<String> deployedFacility;
 
     /**
@@ -157,7 +361,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * ID of hardware reservation where this device was deployed. It is useful when using the `next-available` hardware reservation.
      * 
      */
-    @Export(name="deployedHardwareReservationId", type=String.class, parameters={})
+    @Export(name="deployedHardwareReservationId", refs={String.class}, tree="[0]")
     private Output<String> deployedHardwareReservationId;
 
     /**
@@ -171,7 +375,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The device description.
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     /**
@@ -185,7 +389,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * List of facility codes with deployment preferences. Equinix Metal API will go through the list and will deploy your device to first facility with free capacity. List items must be facility codes or `any` (a wildcard). To find the facility code, visit [Facilities API docs](https://metal.equinix.com/developers/api/facilities/), set your API auth token in the top of the page and see JSON from the API response. Conflicts with `metro`.
      * 
      */
-    @Export(name="facilities", type=List.class, parameters={String.class})
+    @Export(name="facilities", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> facilities;
 
     /**
@@ -199,7 +403,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Delete device even if it has volumes attached. Only applies for destroy action.
      * 
      */
-    @Export(name="forceDetachVolumes", type=Boolean.class, parameters={})
+    @Export(name="forceDetachVolumes", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> forceDetachVolumes;
 
     /**
@@ -214,7 +418,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * next available reservation automatically
      * 
      */
-    @Export(name="hardwareReservationId", type=String.class, parameters={})
+    @Export(name="hardwareReservationId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> hardwareReservationId;
 
     /**
@@ -229,7 +433,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The device hostname used in deployments taking advantage of Layer3 DHCP or metadata service configuration.
      * 
      */
-    @Export(name="hostname", type=String.class, parameters={})
+    @Export(name="hostname", refs={String.class}, tree="[0]")
     private Output<String> hostname;
 
     /**
@@ -243,7 +447,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * A list of IP address types for the device (structure is documented below).
      * 
      */
-    @Export(name="ipAddresses", type=List.class, parameters={DeviceIpAddress.class})
+    @Export(name="ipAddresses", refs={List.class,DeviceIpAddress.class}, tree="[0,1]")
     private Output</* @Nullable */ List<DeviceIpAddress>> ipAddresses;
 
     /**
@@ -257,7 +461,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * URL pointing to a hosted iPXE script. More information is in the [Custom iPXE](https://metal.equinix.com/developers/docs/servers/custom-ipxe/) doc.
      * 
      */
-    @Export(name="ipxeScriptUrl", type=String.class, parameters={})
+    @Export(name="ipxeScriptUrl", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipxeScriptUrl;
 
     /**
@@ -271,7 +475,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Whether the device is locked
      * 
      */
-    @Export(name="locked", type=Boolean.class, parameters={})
+    @Export(name="locked", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> locked;
 
     /**
@@ -285,7 +489,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Metro area for the new device. Conflicts with `facilities`.
      * 
      */
-    @Export(name="metro", type=String.class, parameters={})
+    @Export(name="metro", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> metro;
 
     /**
@@ -296,20 +500,18 @@ public class Device extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.metro);
     }
     /**
-     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     * Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      * @deprecated
      * You should handle Network Type with the new metal_device_network_type resource.
      * 
      */
     @Deprecated /* You should handle Network Type with the new metal_device_network_type resource. */
-    @Export(name="networkType", type=String.class, parameters={})
+    @Export(name="networkType", refs={String.class}, tree="[0]")
     private Output<String> networkType;
 
     /**
-     * @return Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/).
-     * Will be one of layer3, hybrid, hybrid-bonded, layer2-individual, layer2-bonded
+     * @return Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
      * 
      */
     public Output<String> networkType() {
@@ -324,7 +526,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      *   The fields of the network attributes are:
      * 
      */
-    @Export(name="networks", type=List.class, parameters={DeviceNetwork.class})
+    @Export(name="networks", refs={List.class,DeviceNetwork.class}, tree="[0,1]")
     private Output<List<DeviceNetwork>> networks;
 
     /**
@@ -343,7 +545,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The operating system slug. To find the slug, or visit [Operating Systems API docs](https://metal.equinix.com/developers/api/operatingsystems), set your API auth token in the top of the page and see JSON from the API response.
      * 
      */
-    @Export(name="operatingSystem", type=String.class, parameters={})
+    @Export(name="operatingSystem", refs={String.class}, tree="[0]")
     private Output<String> operatingSystem;
 
     /**
@@ -357,7 +559,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The device plan slug. To find the plan slug, visit [Device plans API docs](https://metal.equinix.com/developers/api/plans), set your auth token in the top of the page and see JSON from the API response.
      * 
      */
-    @Export(name="plan", type=String.class, parameters={})
+    @Export(name="plan", refs={String.class}, tree="[0]")
     private Output<String> plan;
 
     /**
@@ -371,7 +573,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Ports assigned to the device
      * 
      */
-    @Export(name="ports", type=List.class, parameters={DevicePort.class})
+    @Export(name="ports", refs={List.class,DevicePort.class}, tree="[0,1]")
     private Output<List<DevicePort>> ports;
 
     /**
@@ -385,7 +587,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The ID of the project in which to create the device
      * 
      */
-    @Export(name="projectId", type=String.class, parameters={})
+    @Export(name="projectId", refs={String.class}, tree="[0]")
     private Output<String> projectId;
 
     /**
@@ -399,7 +601,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Array of IDs of the project SSH keys which should be added to the device. If you omit this, SSH keys of all the members of the parent project will be added to the device. If you specify this array, only the listed project SSH keys will be added. Project SSH keys can be created with the equinix-metal.ProjectSshKey resource.
      * 
      */
-    @Export(name="projectSshKeyIds", type=List.class, parameters={String.class})
+    @Export(name="projectSshKeyIds", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> projectSshKeyIds;
 
     /**
@@ -413,7 +615,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Whether the device should be reinstalled instead of destroyed when modifying user_data, custom_data, or operating system.
      * 
      */
-    @Export(name="reinstall", type=DeviceReinstall.class, parameters={})
+    @Export(name="reinstall", refs={DeviceReinstall.class}, tree="[0]")
     private Output</* @Nullable */ DeviceReinstall> reinstall;
 
     /**
@@ -427,7 +629,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Root password to the server (disabled after 24 hours)
      * 
      */
-    @Export(name="rootPassword", type=String.class, parameters={})
+    @Export(name="rootPassword", refs={String.class}, tree="[0]")
     private Output<String> rootPassword;
 
     /**
@@ -441,7 +643,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * List of IDs of SSH keys deployed in the device, can be both user and project SSH keys
      * 
      */
-    @Export(name="sshKeyIds", type=List.class, parameters={String.class})
+    @Export(name="sshKeyIds", refs={List.class,String.class}, tree="[0,1]")
     private Output<List<String>> sshKeyIds;
 
     /**
@@ -455,7 +657,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The status of the device
      * 
      */
-    @Export(name="state", type=String.class, parameters={})
+    @Export(name="state", refs={String.class}, tree="[0]")
     private Output<String> state;
 
     /**
@@ -469,7 +671,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * JSON for custom partitioning. Only usable on reserved hardware. More information in in the [Custom Partitioning and RAID](https://metal.equinix.com/developers/docs/servers/custom-partitioning-raid/) doc. Please note that the disks.partitions.size attribute must be a string, not an integer. It can be a number string, or size notation string, e.g. &#34;4G&#34; or &#34;8M&#34; (for gigabytes and megabytes).
      * 
      */
-    @Export(name="storage", type=String.class, parameters={})
+    @Export(name="storage", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> storage;
 
     /**
@@ -483,7 +685,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Tags attached to the device
      * 
      */
-    @Export(name="tags", type=List.class, parameters={String.class})
+    @Export(name="tags", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> tags;
 
     /**
@@ -497,7 +699,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * Timestamp for device termination. For example `2021-09-03T16:32:00+03:00`. If you don&#39;t supply timezone info, timestamp is assumed to be in UTC.
      * 
      */
-    @Export(name="terminationTime", type=String.class, parameters={})
+    @Export(name="terminationTime", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> terminationTime;
 
     /**
@@ -511,7 +713,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * The timestamp for the last time the device was updated
      * 
      */
-    @Export(name="updated", type=String.class, parameters={})
+    @Export(name="updated", refs={String.class}, tree="[0]")
     private Output<String> updated;
 
     /**
@@ -525,7 +727,7 @@ public class Device extends com.pulumi.resources.CustomResource {
      * A string of the desired User Data for the device.
      * 
      */
-    @Export(name="userData", type=String.class, parameters={})
+    @Export(name="userData", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> userData;
 
     /**
@@ -538,12 +740,16 @@ public class Device extends com.pulumi.resources.CustomResource {
     /**
      * Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
      * 
+     * The `ip_address` block has 3 fields:
+     * 
      */
-    @Export(name="waitForReservationDeprovision", type=Boolean.class, parameters={})
+    @Export(name="waitForReservationDeprovision", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> waitForReservationDeprovision;
 
     /**
      * @return Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+     * 
+     * The `ip_address` block has 3 fields:
      * 
      */
     public Output<Optional<Boolean>> waitForReservationDeprovision() {
@@ -582,6 +788,11 @@ public class Device extends com.pulumi.resources.CustomResource {
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .additionalSecretOutputs(List.of(
+                "customData",
+                "rootPassword",
+                "userData"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

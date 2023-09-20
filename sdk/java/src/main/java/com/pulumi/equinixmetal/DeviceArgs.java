@@ -329,12 +329,16 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
      * 
+     * The `ip_address` block has 3 fields:
+     * 
      */
     @Import(name="waitForReservationDeprovision")
     private @Nullable Output<Boolean> waitForReservationDeprovision;
 
     /**
      * @return Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+     * 
+     * The `ip_address` block has 3 fields:
      * 
      */
     public Optional<Output<Boolean>> waitForReservationDeprovision() {
@@ -910,6 +914,8 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param waitForReservationDeprovision Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
          * 
+         * The `ip_address` block has 3 fields:
+         * 
          * @return builder
          * 
          */
@@ -920,6 +926,8 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param waitForReservationDeprovision Only used for devices in reserved hardware. If set, the deletion of this device will block until the hardware reservation is marked provisionable (about 4 minutes in August 2019).
+         * 
+         * The `ip_address` block has 3 fields:
          * 
          * @return builder
          * 

@@ -62,14 +62,14 @@ public final class BgpSessionState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Status of the session - up or down
+     * Status of the session - `up` or `down`
      * 
      */
     @Import(name="status")
     private @Nullable Output<String> status;
 
     /**
-     * @return Status of the session - up or down
+     * @return Status of the session - `up` or `down`
      * 
      */
     public Optional<Output<String>> status() {
@@ -167,7 +167,7 @@ public final class BgpSessionState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status Status of the session - up or down
+         * @param status Status of the session - `up` or `down`
          * 
          * @return builder
          * 
@@ -178,7 +178,7 @@ public final class BgpSessionState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status Status of the session - up or down
+         * @param status Status of the session - `up` or `down`
          * 
          * @return builder
          * 

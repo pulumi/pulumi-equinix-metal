@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this datasource to get CIDR expressions for allocated IP blocks of all the types in a project, optionally filtered by facility or metro.
@@ -23,28 +25,26 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			projectId := "<UUID_of_your_project>"
-//			test, err := equinix - metal.GetIpBlockRanges(ctx, &GetIpBlockRangesArgs{
-//				ProjectId: projectId,
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			ctx.Export("out", test)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// projectId := "<UUID_of_your_project>";
+// test, err := equinix-metal.GetIpBlockRanges(ctx, &equinix.GetIpBlockRangesArgs{
+// ProjectId: projectId,
+// }, nil);
+// if err != nil {
+// return err
+// }
+// ctx.Export("out", test)
+// return nil
+// })
+// }
 // ```
 func GetIpBlockRanges(ctx *pulumi.Context, args *GetIpBlockRangesArgs, opts ...pulumi.InvokeOption) (*GetIpBlockRangesResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetIpBlockRangesResult
 	err := ctx.Invoke("equinix-metal:index/getIpBlockRanges:getIpBlockRanges", args, &rv, opts...)
 	if err != nil {
@@ -120,6 +120,12 @@ func (o GetIpBlockRangesResultOutput) ToGetIpBlockRangesResultOutput() GetIpBloc
 
 func (o GetIpBlockRangesResultOutput) ToGetIpBlockRangesResultOutputWithContext(ctx context.Context) GetIpBlockRangesResultOutput {
 	return o
+}
+
+func (o GetIpBlockRangesResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetIpBlockRangesResult] {
+	return pulumix.Output[GetIpBlockRangesResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetIpBlockRangesResultOutput) Facility() pulumi.StringPtrOutput {

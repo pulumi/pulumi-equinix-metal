@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this datasource to retrieve attributes of a Project SSH Key API resource.
@@ -19,27 +21,25 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := equinix - metal.LookupProjectSshKey(ctx, &GetProjectSshKeyArgs{
-//				Search:    pulumi.StringRef("username@hostname"),
-//				ProjectId: local.Project_id,
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// _, err := equinix-metal.LookupProjectSshKey(ctx, &equinix.LookupProjectSshKeyArgs{
+// Search: pulumi.StringRef("username@hostname"),
+// ProjectId: local.Project_id,
+// }, nil);
+// if err != nil {
+// return err
+// }
+// return nil
+// })
+// }
 // ```
 func LookupProjectSshKey(ctx *pulumi.Context, args *LookupProjectSshKeyArgs, opts ...pulumi.InvokeOption) (*LookupProjectSshKeyResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupProjectSshKeyResult
 	err := ctx.Invoke("equinix-metal:index/getProjectSshKey:getProjectSshKey", args, &rv, opts...)
 	if err != nil {
@@ -53,6 +53,8 @@ type LookupProjectSshKeyArgs struct {
 	// The id of the SSH Key to search for in the Equinix Metal project
 	Id *string `pulumi:"id"`
 	// The Equinix Metal project id of the Equinix Metal SSH Key
+	//
+	// One of either `search` or `id` must be provided along with `projectId`.
 	ProjectId string `pulumi:"projectId"`
 	// The name, fingerprint, or publicKey of the SSH Key to search for
 	// in the Equinix Metal project
@@ -98,6 +100,8 @@ type LookupProjectSshKeyOutputArgs struct {
 	// The id of the SSH Key to search for in the Equinix Metal project
 	Id pulumi.StringPtrInput `pulumi:"id"`
 	// The Equinix Metal project id of the Equinix Metal SSH Key
+	//
+	// One of either `search` or `id` must be provided along with `projectId`.
 	ProjectId pulumi.StringInput `pulumi:"projectId"`
 	// The name, fingerprint, or publicKey of the SSH Key to search for
 	// in the Equinix Metal project
@@ -121,6 +125,12 @@ func (o LookupProjectSshKeyResultOutput) ToLookupProjectSshKeyResultOutput() Loo
 
 func (o LookupProjectSshKeyResultOutput) ToLookupProjectSshKeyResultOutputWithContext(ctx context.Context) LookupProjectSshKeyResultOutput {
 	return o
+}
+
+func (o LookupProjectSshKeyResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupProjectSshKeyResult] {
+	return pulumix.Output[LookupProjectSshKeyResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The timestamp for when the SSH key was created

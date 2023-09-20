@@ -7,7 +7,9 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Use this datasource to retrieve list of BGP neighbors of a device in the Equinix Metal host.
@@ -23,27 +25,25 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
-//	"github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix-metal"
+//	equinix-metal "github.com/pulumi/pulumi-equinix-metal/sdk/v3/go/equinix"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			test, err := equinix - metal.GetDeviceBgpNeighbors(ctx, &GetDeviceBgpNeighborsArgs{
-//				DeviceId: "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			ctx.Export("bgpNeighborsListing", test.BgpNeighbors)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// test, err := equinix-metal.GetDeviceBgpNeighbors(ctx, &equinix.GetDeviceBgpNeighborsArgs{
+// DeviceId: "4c641195-25e5-4c3c-b2b7-4cd7a42c7b40",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// ctx.Export("bgpNeighborsListing", test.BgpNeighbors)
+// return nil
+// })
+// }
 // ```
 func GetDeviceBgpNeighbors(ctx *pulumi.Context, args *GetDeviceBgpNeighborsArgs, opts ...pulumi.InvokeOption) (*GetDeviceBgpNeighborsResult, error) {
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetDeviceBgpNeighborsResult
 	err := ctx.Invoke("equinix-metal:index/getDeviceBgpNeighbors:getDeviceBgpNeighbors", args, &rv, opts...)
 	if err != nil {
@@ -103,6 +103,12 @@ func (o GetDeviceBgpNeighborsResultOutput) ToGetDeviceBgpNeighborsResultOutput()
 
 func (o GetDeviceBgpNeighborsResultOutput) ToGetDeviceBgpNeighborsResultOutputWithContext(ctx context.Context) GetDeviceBgpNeighborsResultOutput {
 	return o
+}
+
+func (o GetDeviceBgpNeighborsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetDeviceBgpNeighborsResult] {
+	return pulumix.Output[GetDeviceBgpNeighborsResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // array of BGP neighbor records with attributes:

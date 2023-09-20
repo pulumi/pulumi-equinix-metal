@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal.Inputs
 {
 
-    public sealed class DeviceNetworkArgs : Pulumi.ResourceArgs
+    public sealed class DeviceNetworkArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// IPv4 or IPv6 address string
@@ -26,7 +26,6 @@ namespace Pulumi.EquinixMetal.Inputs
 
         /// <summary>
         /// IP version - "4" or "6"
-        /// * `network_type` Network type of a device, used in [Layer 2 networking](https://metal.equinix.com/developers/docs/networking/layer2/). Will be one of `layer3`, `hybrid`, `layer2-individual` and `layer2-bonded`.
         /// </summary>
         [Input("family")]
         public Input<int>? Family { get; set; }
@@ -46,5 +45,6 @@ namespace Pulumi.EquinixMetal.Inputs
         public DeviceNetworkArgs()
         {
         }
+        public static new DeviceNetworkArgs Empty => new DeviceNetworkArgs();
     }
 }

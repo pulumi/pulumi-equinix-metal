@@ -10,6 +10,50 @@ using Pulumi.Serialization;
 namespace Pulumi.EquinixMetal
 {
     /// <summary>
+    /// Provides an Equinix Metal project resource to allow you manage devices
+    /// in your projects.
+    /// 
+    /// &gt; Keep in mind that Equinix Metal invoicing is per project, so creating many `equinix-metal.Project` resources will affect the rendered invoice. If you want to keep your Equinix Metal bill simple and easy to review, please re-use your existing projects.
+    /// 
+    /// ## Example Usage
+    /// ### Create a new project
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using EquinixMetal = Pulumi.EquinixMetal;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var tfProject1 = new EquinixMetal.Project("tfProject1");
+    /// 
+    /// });
+    /// ```
+    /// ### Example with BGP config
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using EquinixMetal = Pulumi.EquinixMetal;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     // Create a new Project
+    ///     var tfProject1 = new EquinixMetal.Project("tfProject1", new()
+    ///     {
+    ///         BgpConfig = new EquinixMetal.Inputs.ProjectBgpConfigArgs
+    ///         {
+    ///             Asn = 65000,
+    ///             DeploymentType = "local",
+    ///             Md5 = "C179c28c41a85b",
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// This resource can be imported using an existing project ID
@@ -19,7 +63,7 @@ namespace Pulumi.EquinixMetal
     /// ```
     /// </summary>
     [EquinixMetalResourceType("equinix-metal:index/project:Project")]
-    public partial class Project : Pulumi.CustomResource
+    public partial class Project : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
@@ -29,6 +73,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+        /// 
+        /// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
         /// </summary>
         [Output("bgpConfig")]
         public Output<Outputs.ProjectBgpConfig?> BgpConfig { get; private set; } = null!;
@@ -107,7 +153,7 @@ namespace Pulumi.EquinixMetal
         }
     }
 
-    public sealed class ProjectArgs : Pulumi.ResourceArgs
+    public sealed class ProjectArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
@@ -117,6 +163,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+        /// 
+        /// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
         /// </summary>
         [Input("bgpConfig")]
         public Input<Inputs.ProjectBgpConfigArgs>? BgpConfig { get; set; }
@@ -142,9 +190,10 @@ namespace Pulumi.EquinixMetal
         public ProjectArgs()
         {
         }
+        public static new ProjectArgs Empty => new ProjectArgs();
     }
 
-    public sealed class ProjectState : Pulumi.ResourceArgs
+    public sealed class ProjectState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Enable or disable [Backend Transfer](https://metal.equinix.com/developers/docs/networking/backend-transfer/), default is false
@@ -154,6 +203,8 @@ namespace Pulumi.EquinixMetal
 
         /// <summary>
         /// Optional BGP settings. Refer to [Equinix Metal guide for BGP](https://metal.equinix.com/developers/docs/networking/local-global-bgp/).
+        /// 
+        /// Once you set the BGP config in a project, it can't be removed (due to a limitation in the Equinix Metal API). It can be updated.
         /// </summary>
         [Input("bgpConfig")]
         public Input<Inputs.ProjectBgpConfigGetArgs>? BgpConfig { get; set; }
@@ -191,5 +242,6 @@ namespace Pulumi.EquinixMetal
         public ProjectState()
         {
         }
+        public static new ProjectState Empty => new ProjectState();
     }
 }
