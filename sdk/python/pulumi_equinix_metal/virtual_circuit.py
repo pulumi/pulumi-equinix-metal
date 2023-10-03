@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['VirtualCircuitArgs', 'VirtualCircuit']
@@ -35,20 +35,45 @@ class VirtualCircuitArgs:
         :param pulumi.Input[str] speed: Speed of the Virtual Circuit resource
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for the Virtual Circuit resource
         """
-        pulumi.set(__self__, "connection_id", connection_id)
-        pulumi.set(__self__, "port_id", port_id)
-        pulumi.set(__self__, "project_id", project_id)
-        pulumi.set(__self__, "vlan_id", vlan_id)
+        VirtualCircuitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            connection_id=connection_id,
+            port_id=port_id,
+            project_id=project_id,
+            vlan_id=vlan_id,
+            description=description,
+            name=name,
+            nni_vlan=nni_vlan,
+            speed=speed,
+            tags=tags,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             connection_id: pulumi.Input[str],
+             port_id: pulumi.Input[str],
+             project_id: pulumi.Input[str],
+             vlan_id: pulumi.Input[str],
+             description: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             nni_vlan: Optional[pulumi.Input[int]] = None,
+             speed: Optional[pulumi.Input[str]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("connection_id", connection_id)
+        _setter("port_id", port_id)
+        _setter("project_id", project_id)
+        _setter("vlan_id", vlan_id)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if nni_vlan is not None:
-            pulumi.set(__self__, "nni_vlan", nni_vlan)
+            _setter("nni_vlan", nni_vlan)
         if speed is not None:
-            pulumi.set(__self__, "speed", speed)
+            _setter("speed", speed)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
 
     @property
     @pulumi.getter(name="connectionId")
@@ -189,30 +214,61 @@ class _VirtualCircuitState:
         :param pulumi.Input[str] vlan_id: UUID of the VLAN to associate
         :param pulumi.Input[int] vnid: VNID VLAN parameter, see https://metal.equinix.com/developers/docs/networking/fabric/
         """
+        _VirtualCircuitState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            connection_id=connection_id,
+            description=description,
+            name=name,
+            nni_vlan=nni_vlan,
+            nni_vnid=nni_vnid,
+            port_id=port_id,
+            project_id=project_id,
+            speed=speed,
+            status=status,
+            tags=tags,
+            vlan_id=vlan_id,
+            vnid=vnid,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             connection_id: Optional[pulumi.Input[str]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             nni_vlan: Optional[pulumi.Input[int]] = None,
+             nni_vnid: Optional[pulumi.Input[int]] = None,
+             port_id: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             speed: Optional[pulumi.Input[str]] = None,
+             status: Optional[pulumi.Input[str]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             vlan_id: Optional[pulumi.Input[str]] = None,
+             vnid: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if connection_id is not None:
-            pulumi.set(__self__, "connection_id", connection_id)
+            _setter("connection_id", connection_id)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if nni_vlan is not None:
-            pulumi.set(__self__, "nni_vlan", nni_vlan)
+            _setter("nni_vlan", nni_vlan)
         if nni_vnid is not None:
-            pulumi.set(__self__, "nni_vnid", nni_vnid)
+            _setter("nni_vnid", nni_vnid)
         if port_id is not None:
-            pulumi.set(__self__, "port_id", port_id)
+            _setter("port_id", port_id)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if speed is not None:
-            pulumi.set(__self__, "speed", speed)
+            _setter("speed", speed)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
         if vlan_id is not None:
-            pulumi.set(__self__, "vlan_id", vlan_id)
+            _setter("vlan_id", vlan_id)
         if vnid is not None:
-            pulumi.set(__self__, "vnid", vnid)
+            _setter("vnid", vnid)
 
     @property
     @pulumi.getter(name="connectionId")
@@ -452,6 +508,10 @@ class VirtualCircuit(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            VirtualCircuitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

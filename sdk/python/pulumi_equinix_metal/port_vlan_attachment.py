@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['PortVlanAttachmentArgs', 'PortVlanAttachment']
@@ -27,13 +27,30 @@ class PortVlanAttachmentArgs:
         :param pulumi.Input[bool] force_bond: Add port back to the bond when this resource is removed. Default is false.
         :param pulumi.Input[bool] native: Mark this VLAN a native VLAN on the port. This can be used only if this assignment assigns second or further VLAN to the port. To ensure that this attachment is not first on a port, you can use `depends_on` pointing to another metal_port_vlan_attachment, just like in the layer2-individual example above.
         """
-        pulumi.set(__self__, "device_id", device_id)
-        pulumi.set(__self__, "port_name", port_name)
-        pulumi.set(__self__, "vlan_vnid", vlan_vnid)
+        PortVlanAttachmentArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            device_id=device_id,
+            port_name=port_name,
+            vlan_vnid=vlan_vnid,
+            force_bond=force_bond,
+            native=native,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             device_id: pulumi.Input[str],
+             port_name: pulumi.Input[str],
+             vlan_vnid: pulumi.Input[int],
+             force_bond: Optional[pulumi.Input[bool]] = None,
+             native: Optional[pulumi.Input[bool]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("device_id", device_id)
+        _setter("port_name", port_name)
+        _setter("vlan_vnid", vlan_vnid)
         if force_bond is not None:
-            pulumi.set(__self__, "force_bond", force_bond)
+            _setter("force_bond", force_bond)
         if native is not None:
-            pulumi.set(__self__, "native", native)
+            _setter("native", native)
 
     @property
     @pulumi.getter(name="deviceId")
@@ -116,20 +133,41 @@ class _PortVlanAttachmentState:
         :param pulumi.Input[str] vlan_id: UUID of VLAN API resource
         :param pulumi.Input[int] vlan_vnid: VXLAN Network Identifier, integer
         """
+        _PortVlanAttachmentState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            device_id=device_id,
+            force_bond=force_bond,
+            native=native,
+            port_id=port_id,
+            port_name=port_name,
+            vlan_id=vlan_id,
+            vlan_vnid=vlan_vnid,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             device_id: Optional[pulumi.Input[str]] = None,
+             force_bond: Optional[pulumi.Input[bool]] = None,
+             native: Optional[pulumi.Input[bool]] = None,
+             port_id: Optional[pulumi.Input[str]] = None,
+             port_name: Optional[pulumi.Input[str]] = None,
+             vlan_id: Optional[pulumi.Input[str]] = None,
+             vlan_vnid: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if device_id is not None:
-            pulumi.set(__self__, "device_id", device_id)
+            _setter("device_id", device_id)
         if force_bond is not None:
-            pulumi.set(__self__, "force_bond", force_bond)
+            _setter("force_bond", force_bond)
         if native is not None:
-            pulumi.set(__self__, "native", native)
+            _setter("native", native)
         if port_id is not None:
-            pulumi.set(__self__, "port_id", port_id)
+            _setter("port_id", port_id)
         if port_name is not None:
-            pulumi.set(__self__, "port_name", port_name)
+            _setter("port_name", port_name)
         if vlan_id is not None:
-            pulumi.set(__self__, "vlan_id", vlan_id)
+            _setter("vlan_id", vlan_id)
         if vlan_vnid is not None:
-            pulumi.set(__self__, "vlan_vnid", vlan_vnid)
+            _setter("vlan_vnid", vlan_vnid)
 
     @property
     @pulumi.getter(name="deviceId")
@@ -409,6 +447,10 @@ class PortVlanAttachment(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            PortVlanAttachmentArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

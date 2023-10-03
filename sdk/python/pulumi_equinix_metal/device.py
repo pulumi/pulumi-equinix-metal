@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._enums import *
@@ -65,45 +65,94 @@ class DeviceArgs:
                
                The `ip_address` block has 3 fields:
         """
-        pulumi.set(__self__, "operating_system", operating_system)
-        pulumi.set(__self__, "plan", plan)
-        pulumi.set(__self__, "project_id", project_id)
+        DeviceArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            operating_system=operating_system,
+            plan=plan,
+            project_id=project_id,
+            always_pxe=always_pxe,
+            billing_cycle=billing_cycle,
+            custom_data=custom_data,
+            description=description,
+            facilities=facilities,
+            force_detach_volumes=force_detach_volumes,
+            hardware_reservation_id=hardware_reservation_id,
+            hostname=hostname,
+            ip_addresses=ip_addresses,
+            ipxe_script_url=ipxe_script_url,
+            metro=metro,
+            project_ssh_key_ids=project_ssh_key_ids,
+            reinstall=reinstall,
+            storage=storage,
+            tags=tags,
+            termination_time=termination_time,
+            user_data=user_data,
+            wait_for_reservation_deprovision=wait_for_reservation_deprovision,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             operating_system: pulumi.Input[Union[str, 'OperatingSystem']],
+             plan: pulumi.Input[Union[str, 'Plan']],
+             project_id: pulumi.Input[str],
+             always_pxe: Optional[pulumi.Input[bool]] = None,
+             billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+             custom_data: Optional[pulumi.Input[str]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             facilities: Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]] = None,
+             force_detach_volumes: Optional[pulumi.Input[bool]] = None,
+             hardware_reservation_id: Optional[pulumi.Input[str]] = None,
+             hostname: Optional[pulumi.Input[str]] = None,
+             ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]] = None,
+             ipxe_script_url: Optional[pulumi.Input[str]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             project_ssh_key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             reinstall: Optional[pulumi.Input['DeviceReinstallArgs']] = None,
+             storage: Optional[pulumi.Input[str]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             termination_time: Optional[pulumi.Input[str]] = None,
+             user_data: Optional[pulumi.Input[str]] = None,
+             wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("operating_system", operating_system)
+        _setter("plan", plan)
+        _setter("project_id", project_id)
         if always_pxe is not None:
-            pulumi.set(__self__, "always_pxe", always_pxe)
+            _setter("always_pxe", always_pxe)
         if billing_cycle is not None:
-            pulumi.set(__self__, "billing_cycle", billing_cycle)
+            _setter("billing_cycle", billing_cycle)
         if custom_data is not None:
-            pulumi.set(__self__, "custom_data", custom_data)
+            _setter("custom_data", custom_data)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facilities is not None:
-            pulumi.set(__self__, "facilities", facilities)
+            _setter("facilities", facilities)
         if force_detach_volumes is not None:
-            pulumi.set(__self__, "force_detach_volumes", force_detach_volumes)
+            _setter("force_detach_volumes", force_detach_volumes)
         if hardware_reservation_id is not None:
-            pulumi.set(__self__, "hardware_reservation_id", hardware_reservation_id)
+            _setter("hardware_reservation_id", hardware_reservation_id)
         if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
+            _setter("hostname", hostname)
         if ip_addresses is not None:
-            pulumi.set(__self__, "ip_addresses", ip_addresses)
+            _setter("ip_addresses", ip_addresses)
         if ipxe_script_url is not None:
-            pulumi.set(__self__, "ipxe_script_url", ipxe_script_url)
+            _setter("ipxe_script_url", ipxe_script_url)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if project_ssh_key_ids is not None:
-            pulumi.set(__self__, "project_ssh_key_ids", project_ssh_key_ids)
+            _setter("project_ssh_key_ids", project_ssh_key_ids)
         if reinstall is not None:
-            pulumi.set(__self__, "reinstall", reinstall)
+            _setter("reinstall", reinstall)
         if storage is not None:
-            pulumi.set(__self__, "storage", storage)
+            _setter("storage", storage)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
         if termination_time is not None:
-            pulumi.set(__self__, "termination_time", termination_time)
+            _setter("termination_time", termination_time)
         if user_data is not None:
-            pulumi.set(__self__, "user_data", user_data)
+            _setter("user_data", user_data)
         if wait_for_reservation_deprovision is not None:
-            pulumi.set(__self__, "wait_for_reservation_deprovision", wait_for_reservation_deprovision)
+            _setter("wait_for_reservation_deprovision", wait_for_reservation_deprovision)
 
     @property
     @pulumi.getter(name="operatingSystem")
@@ -445,79 +494,156 @@ class _DeviceState:
                
                The `ip_address` block has 3 fields:
         """
+        _DeviceState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            access_private_ipv4=access_private_ipv4,
+            access_public_ipv4=access_public_ipv4,
+            access_public_ipv6=access_public_ipv6,
+            always_pxe=always_pxe,
+            billing_cycle=billing_cycle,
+            created=created,
+            custom_data=custom_data,
+            deployed_facility=deployed_facility,
+            deployed_hardware_reservation_id=deployed_hardware_reservation_id,
+            description=description,
+            facilities=facilities,
+            force_detach_volumes=force_detach_volumes,
+            hardware_reservation_id=hardware_reservation_id,
+            hostname=hostname,
+            ip_addresses=ip_addresses,
+            ipxe_script_url=ipxe_script_url,
+            locked=locked,
+            metro=metro,
+            network_type=network_type,
+            networks=networks,
+            operating_system=operating_system,
+            plan=plan,
+            ports=ports,
+            project_id=project_id,
+            project_ssh_key_ids=project_ssh_key_ids,
+            reinstall=reinstall,
+            root_password=root_password,
+            ssh_key_ids=ssh_key_ids,
+            state=state,
+            storage=storage,
+            tags=tags,
+            termination_time=termination_time,
+            updated=updated,
+            user_data=user_data,
+            wait_for_reservation_deprovision=wait_for_reservation_deprovision,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             access_private_ipv4: Optional[pulumi.Input[str]] = None,
+             access_public_ipv4: Optional[pulumi.Input[str]] = None,
+             access_public_ipv6: Optional[pulumi.Input[str]] = None,
+             always_pxe: Optional[pulumi.Input[bool]] = None,
+             billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+             created: Optional[pulumi.Input[str]] = None,
+             custom_data: Optional[pulumi.Input[str]] = None,
+             deployed_facility: Optional[pulumi.Input[str]] = None,
+             deployed_hardware_reservation_id: Optional[pulumi.Input[str]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             facilities: Optional[pulumi.Input[Sequence[pulumi.Input[Union[str, 'Facility']]]]] = None,
+             force_detach_volumes: Optional[pulumi.Input[bool]] = None,
+             hardware_reservation_id: Optional[pulumi.Input[str]] = None,
+             hostname: Optional[pulumi.Input[str]] = None,
+             ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceIpAddressArgs']]]] = None,
+             ipxe_script_url: Optional[pulumi.Input[str]] = None,
+             locked: Optional[pulumi.Input[bool]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             network_type: Optional[pulumi.Input[Union[str, 'NetworkType']]] = None,
+             networks: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceNetworkArgs']]]] = None,
+             operating_system: Optional[pulumi.Input[Union[str, 'OperatingSystem']]] = None,
+             plan: Optional[pulumi.Input[Union[str, 'Plan']]] = None,
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortArgs']]]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             project_ssh_key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             reinstall: Optional[pulumi.Input['DeviceReinstallArgs']] = None,
+             root_password: Optional[pulumi.Input[str]] = None,
+             ssh_key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             state: Optional[pulumi.Input[str]] = None,
+             storage: Optional[pulumi.Input[str]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             termination_time: Optional[pulumi.Input[str]] = None,
+             updated: Optional[pulumi.Input[str]] = None,
+             user_data: Optional[pulumi.Input[str]] = None,
+             wait_for_reservation_deprovision: Optional[pulumi.Input[bool]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if access_private_ipv4 is not None:
-            pulumi.set(__self__, "access_private_ipv4", access_private_ipv4)
+            _setter("access_private_ipv4", access_private_ipv4)
         if access_public_ipv4 is not None:
-            pulumi.set(__self__, "access_public_ipv4", access_public_ipv4)
+            _setter("access_public_ipv4", access_public_ipv4)
         if access_public_ipv6 is not None:
-            pulumi.set(__self__, "access_public_ipv6", access_public_ipv6)
+            _setter("access_public_ipv6", access_public_ipv6)
         if always_pxe is not None:
-            pulumi.set(__self__, "always_pxe", always_pxe)
+            _setter("always_pxe", always_pxe)
         if billing_cycle is not None:
-            pulumi.set(__self__, "billing_cycle", billing_cycle)
+            _setter("billing_cycle", billing_cycle)
         if created is not None:
-            pulumi.set(__self__, "created", created)
+            _setter("created", created)
         if custom_data is not None:
-            pulumi.set(__self__, "custom_data", custom_data)
+            _setter("custom_data", custom_data)
         if deployed_facility is not None:
-            pulumi.set(__self__, "deployed_facility", deployed_facility)
+            _setter("deployed_facility", deployed_facility)
         if deployed_hardware_reservation_id is not None:
-            pulumi.set(__self__, "deployed_hardware_reservation_id", deployed_hardware_reservation_id)
+            _setter("deployed_hardware_reservation_id", deployed_hardware_reservation_id)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facilities is not None:
-            pulumi.set(__self__, "facilities", facilities)
+            _setter("facilities", facilities)
         if force_detach_volumes is not None:
-            pulumi.set(__self__, "force_detach_volumes", force_detach_volumes)
+            _setter("force_detach_volumes", force_detach_volumes)
         if hardware_reservation_id is not None:
-            pulumi.set(__self__, "hardware_reservation_id", hardware_reservation_id)
+            _setter("hardware_reservation_id", hardware_reservation_id)
         if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
+            _setter("hostname", hostname)
         if ip_addresses is not None:
-            pulumi.set(__self__, "ip_addresses", ip_addresses)
+            _setter("ip_addresses", ip_addresses)
         if ipxe_script_url is not None:
-            pulumi.set(__self__, "ipxe_script_url", ipxe_script_url)
+            _setter("ipxe_script_url", ipxe_script_url)
         if locked is not None:
-            pulumi.set(__self__, "locked", locked)
+            _setter("locked", locked)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if network_type is not None:
             warnings.warn("""You should handle Network Type with the new metal_device_network_type resource.""", DeprecationWarning)
             pulumi.log.warn("""network_type is deprecated: You should handle Network Type with the new metal_device_network_type resource.""")
         if network_type is not None:
-            pulumi.set(__self__, "network_type", network_type)
+            _setter("network_type", network_type)
         if networks is not None:
-            pulumi.set(__self__, "networks", networks)
+            _setter("networks", networks)
         if operating_system is not None:
-            pulumi.set(__self__, "operating_system", operating_system)
+            _setter("operating_system", operating_system)
         if plan is not None:
-            pulumi.set(__self__, "plan", plan)
+            _setter("plan", plan)
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if project_ssh_key_ids is not None:
-            pulumi.set(__self__, "project_ssh_key_ids", project_ssh_key_ids)
+            _setter("project_ssh_key_ids", project_ssh_key_ids)
         if reinstall is not None:
-            pulumi.set(__self__, "reinstall", reinstall)
+            _setter("reinstall", reinstall)
         if root_password is not None:
-            pulumi.set(__self__, "root_password", root_password)
+            _setter("root_password", root_password)
         if ssh_key_ids is not None:
-            pulumi.set(__self__, "ssh_key_ids", ssh_key_ids)
+            _setter("ssh_key_ids", ssh_key_ids)
         if state is not None:
-            pulumi.set(__self__, "state", state)
+            _setter("state", state)
         if storage is not None:
-            pulumi.set(__self__, "storage", storage)
+            _setter("storage", storage)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
         if termination_time is not None:
-            pulumi.set(__self__, "termination_time", termination_time)
+            _setter("termination_time", termination_time)
         if updated is not None:
-            pulumi.set(__self__, "updated", updated)
+            _setter("updated", updated)
         if user_data is not None:
-            pulumi.set(__self__, "user_data", user_data)
+            _setter("user_data", user_data)
         if wait_for_reservation_deprovision is not None:
-            pulumi.set(__self__, "wait_for_reservation_deprovision", wait_for_reservation_deprovision)
+            _setter("wait_for_reservation_deprovision", wait_for_reservation_deprovision)
 
     @property
     @pulumi.getter(name="accessPrivateIpv4")
@@ -1301,6 +1427,10 @@ class Device(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            DeviceArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -1357,6 +1487,11 @@ class Device(pulumi.CustomResource):
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
             __props__.__dict__["project_ssh_key_ids"] = project_ssh_key_ids
+            if reinstall is not None and not isinstance(reinstall, DeviceReinstallArgs):
+                reinstall = reinstall or {}
+                def _setter(key, value):
+                    reinstall[key] = value
+                DeviceReinstallArgs._configure(_setter, **reinstall)
             __props__.__dict__["reinstall"] = reinstall
             __props__.__dict__["storage"] = storage
             __props__.__dict__["tags"] = tags

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['OrganizationArgs', 'Organization']
@@ -27,16 +27,33 @@ class OrganizationArgs:
         :param pulumi.Input[str] twitter: Twitter handle
         :param pulumi.Input[str] website: Website link
         """
+        OrganizationArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            description=description,
+            logo=logo,
+            name=name,
+            twitter=twitter,
+            website=website,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             description: Optional[pulumi.Input[str]] = None,
+             logo: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             twitter: Optional[pulumi.Input[str]] = None,
+             website: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if logo is not None:
-            pulumi.set(__self__, "logo", logo)
+            _setter("logo", logo)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if twitter is not None:
-            pulumi.set(__self__, "twitter", twitter)
+            _setter("twitter", twitter)
         if website is not None:
-            pulumi.set(__self__, "website", website)
+            _setter("website", website)
 
     @property
     @pulumi.getter
@@ -117,20 +134,41 @@ class _OrganizationState:
         :param pulumi.Input[str] twitter: Twitter handle
         :param pulumi.Input[str] website: Website link
         """
+        _OrganizationState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            created=created,
+            description=description,
+            logo=logo,
+            name=name,
+            twitter=twitter,
+            updated=updated,
+            website=website,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             created: Optional[pulumi.Input[str]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             logo: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             twitter: Optional[pulumi.Input[str]] = None,
+             updated: Optional[pulumi.Input[str]] = None,
+             website: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if created is not None:
-            pulumi.set(__self__, "created", created)
+            _setter("created", created)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if logo is not None:
-            pulumi.set(__self__, "logo", logo)
+            _setter("logo", logo)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if twitter is not None:
-            pulumi.set(__self__, "twitter", twitter)
+            _setter("twitter", twitter)
         if updated is not None:
-            pulumi.set(__self__, "updated", updated)
+            _setter("updated", updated)
         if website is not None:
-            pulumi.set(__self__, "website", website)
+            _setter("website", website)
 
     @property
     @pulumi.getter
@@ -288,6 +326,10 @@ class Organization(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            OrganizationArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
