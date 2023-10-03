@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['VolumeAttachmentInitArgs', 'VolumeAttachment']
@@ -19,8 +19,19 @@ class VolumeAttachmentInitArgs:
         """
         The set of arguments for constructing a VolumeAttachment resource.
         """
-        pulumi.set(__self__, "device_id", device_id)
-        pulumi.set(__self__, "volume_id", volume_id)
+        VolumeAttachmentInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            device_id=device_id,
+            volume_id=volume_id,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             device_id: pulumi.Input[str],
+             volume_id: pulumi.Input[str],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("device_id", device_id)
+        _setter("volume_id", volume_id)
 
     @property
     @pulumi.getter(name="deviceId")
@@ -49,10 +60,21 @@ class _VolumeAttachmentState:
         """
         Input properties used for looking up and filtering VolumeAttachment resources.
         """
+        _VolumeAttachmentState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            device_id=device_id,
+            volume_id=volume_id,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             device_id: Optional[pulumi.Input[str]] = None,
+             volume_id: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if device_id is not None:
-            pulumi.set(__self__, "device_id", device_id)
+            _setter("device_id", device_id)
         if volume_id is not None:
-            pulumi.set(__self__, "volume_id", volume_id)
+            _setter("volume_id", volume_id)
 
     @property
     @pulumi.getter(name="deviceId")
@@ -106,6 +128,10 @@ class VolumeAttachment(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            VolumeAttachmentInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

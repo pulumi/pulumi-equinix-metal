@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._enums import *
@@ -67,20 +67,41 @@ class ConnectionPort(dict):
         :param int speed: Port speed in bits per second
         :param str status: Status of the connection resource
         """
+        ConnectionPort._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            id=id,
+            link_status=link_status,
+            name=name,
+            role=role,
+            speed=speed,
+            status=status,
+            virtual_circuit_ids=virtual_circuit_ids,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             id: Optional[str] = None,
+             link_status: Optional[str] = None,
+             name: Optional[str] = None,
+             role: Optional[str] = None,
+             speed: Optional[int] = None,
+             status: Optional[str] = None,
+             virtual_circuit_ids: Optional[Sequence[Any]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if id is not None:
-            pulumi.set(__self__, "id", id)
+            _setter("id", id)
         if link_status is not None:
-            pulumi.set(__self__, "link_status", link_status)
+            _setter("link_status", link_status)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if role is not None:
-            pulumi.set(__self__, "role", role)
+            _setter("role", role)
         if speed is not None:
-            pulumi.set(__self__, "speed", speed)
+            _setter("speed", speed)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
         if virtual_circuit_ids is not None:
-            pulumi.set(__self__, "virtual_circuit_ids", virtual_circuit_ids)
+            _setter("virtual_circuit_ids", virtual_circuit_ids)
 
     @property
     @pulumi.getter
@@ -161,11 +182,24 @@ class DeviceIpAddress(dict):
                
                The `reinstall` block has 3 fields:
         """
-        pulumi.set(__self__, "type", type)
+        DeviceIpAddress._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            type=type,
+            cidr=cidr,
+            reservation_ids=reservation_ids,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             type: str,
+             cidr: Optional[int] = None,
+             reservation_ids: Optional[Sequence[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("type", type)
         if cidr is not None:
-            pulumi.set(__self__, "cidr", cidr)
+            _setter("cidr", cidr)
         if reservation_ids is not None:
-            pulumi.set(__self__, "reservation_ids", reservation_ids)
+            _setter("reservation_ids", reservation_ids)
 
     @property
     @pulumi.getter
@@ -213,16 +247,33 @@ class DeviceNetwork(dict):
         :param str gateway: address of router
         :param bool public: whether the address is routable from the Internet
         """
+        DeviceNetwork._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            address=address,
+            cidr=cidr,
+            family=family,
+            gateway=gateway,
+            public=public,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             address: Optional[str] = None,
+             cidr: Optional[int] = None,
+             family: Optional[int] = None,
+             gateway: Optional[str] = None,
+             public: Optional[bool] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if address is not None:
-            pulumi.set(__self__, "address", address)
+            _setter("address", address)
         if cidr is not None:
-            pulumi.set(__self__, "cidr", cidr)
+            _setter("cidr", cidr)
         if family is not None:
-            pulumi.set(__self__, "family", family)
+            _setter("family", family)
         if gateway is not None:
-            pulumi.set(__self__, "gateway", gateway)
+            _setter("gateway", gateway)
         if public is not None:
-            pulumi.set(__self__, "public", public)
+            _setter("public", public)
 
     @property
     @pulumi.getter
@@ -280,16 +331,33 @@ class DevicePort(dict):
         :param str name: Name of the port (e.g. `eth0`, or `bond0`)
         :param str type: One of [`private_ipv4`, `public_ipv4`, `public_ipv6`]
         """
+        DevicePort._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            bonded=bonded,
+            id=id,
+            mac=mac,
+            name=name,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             bonded: Optional[bool] = None,
+             id: Optional[str] = None,
+             mac: Optional[str] = None,
+             name: Optional[str] = None,
+             type: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if bonded is not None:
-            pulumi.set(__self__, "bonded", bonded)
+            _setter("bonded", bonded)
         if id is not None:
-            pulumi.set(__self__, "id", id)
+            _setter("id", id)
         if mac is not None:
-            pulumi.set(__self__, "mac", mac)
+            _setter("mac", mac)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter
@@ -362,12 +430,25 @@ class DeviceReinstall(dict):
         :param bool enabled: Whether the provider should favour reinstall over destroy and create. Defaults to `false`.
         :param bool preserve_data: Whether the non-OS disks should be kept or wiped during reinstall. Defaults to `false`.
         """
+        DeviceReinstall._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            deprovision_fast=deprovision_fast,
+            enabled=enabled,
+            preserve_data=preserve_data,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             deprovision_fast: Optional[bool] = None,
+             enabled: Optional[bool] = None,
+             preserve_data: Optional[bool] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if deprovision_fast is not None:
-            pulumi.set(__self__, "deprovision_fast", deprovision_fast)
+            _setter("deprovision_fast", deprovision_fast)
         if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
+            _setter("enabled", enabled)
         if preserve_data is not None:
-            pulumi.set(__self__, "preserve_data", preserve_data)
+            _setter("preserve_data", preserve_data)
 
     @property
     @pulumi.getter(name="deprovisionFast")
@@ -428,14 +509,31 @@ class ProjectBgpConfig(dict):
         :param str md5: Password for BGP session in plaintext (not a checksum)
         :param str status: status of BGP configuration in the project
         """
-        pulumi.set(__self__, "asn", asn)
-        pulumi.set(__self__, "deployment_type", deployment_type)
+        ProjectBgpConfig._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            asn=asn,
+            deployment_type=deployment_type,
+            max_prefix=max_prefix,
+            md5=md5,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             asn: int,
+             deployment_type: str,
+             max_prefix: Optional[int] = None,
+             md5: Optional[str] = None,
+             status: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("asn", asn)
+        _setter("deployment_type", deployment_type)
         if max_prefix is not None:
-            pulumi.set(__self__, "max_prefix", max_prefix)
+            _setter("max_prefix", max_prefix)
         if md5 is not None:
-            pulumi.set(__self__, "md5", md5)
+            _setter("md5", md5)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter
@@ -525,32 +623,69 @@ class SpotMarketRequestInstanceParameters(dict):
                  termintation_time: Optional[str] = None,
                  user_ssh_keys: Optional[Sequence[str]] = None,
                  userdata: Optional[str] = None):
-        pulumi.set(__self__, "billing_cycle", billing_cycle)
-        pulumi.set(__self__, "hostname", hostname)
-        pulumi.set(__self__, "operating_system", operating_system)
-        pulumi.set(__self__, "plan", plan)
+        SpotMarketRequestInstanceParameters._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            billing_cycle=billing_cycle,
+            hostname=hostname,
+            operating_system=operating_system,
+            plan=plan,
+            always_pxe=always_pxe,
+            customdata=customdata,
+            description=description,
+            features=features,
+            ipxe_script_url=ipxe_script_url,
+            locked=locked,
+            project_ssh_keys=project_ssh_keys,
+            tags=tags,
+            termintation_time=termintation_time,
+            user_ssh_keys=user_ssh_keys,
+            userdata=userdata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             billing_cycle: str,
+             hostname: str,
+             operating_system: str,
+             plan: str,
+             always_pxe: Optional[bool] = None,
+             customdata: Optional[str] = None,
+             description: Optional[str] = None,
+             features: Optional[Sequence[str]] = None,
+             ipxe_script_url: Optional[str] = None,
+             locked: Optional[bool] = None,
+             project_ssh_keys: Optional[Sequence[str]] = None,
+             tags: Optional[Sequence[str]] = None,
+             termintation_time: Optional[str] = None,
+             user_ssh_keys: Optional[Sequence[str]] = None,
+             userdata: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("billing_cycle", billing_cycle)
+        _setter("hostname", hostname)
+        _setter("operating_system", operating_system)
+        _setter("plan", plan)
         if always_pxe is not None:
-            pulumi.set(__self__, "always_pxe", always_pxe)
+            _setter("always_pxe", always_pxe)
         if customdata is not None:
-            pulumi.set(__self__, "customdata", customdata)
+            _setter("customdata", customdata)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if features is not None:
-            pulumi.set(__self__, "features", features)
+            _setter("features", features)
         if ipxe_script_url is not None:
-            pulumi.set(__self__, "ipxe_script_url", ipxe_script_url)
+            _setter("ipxe_script_url", ipxe_script_url)
         if locked is not None:
-            pulumi.set(__self__, "locked", locked)
+            _setter("locked", locked)
         if project_ssh_keys is not None:
-            pulumi.set(__self__, "project_ssh_keys", project_ssh_keys)
+            _setter("project_ssh_keys", project_ssh_keys)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
         if termintation_time is not None:
-            pulumi.set(__self__, "termintation_time", termintation_time)
+            _setter("termintation_time", termintation_time)
         if user_ssh_keys is not None:
-            pulumi.set(__self__, "user_ssh_keys", user_ssh_keys)
+            _setter("user_ssh_keys", user_ssh_keys)
         if userdata is not None:
-            pulumi.set(__self__, "userdata", userdata)
+            _setter("userdata", userdata)
 
     @property
     @pulumi.getter(name="billingCycle")
@@ -632,8 +767,17 @@ class SpotMarketRequestInstanceParameters(dict):
 class VolumeAttachment(dict):
     def __init__(__self__, *,
                  href: Optional[str] = None):
+        VolumeAttachment._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            href=href,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             href: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if href is not None:
-            pulumi.set(__self__, "href", href)
+            _setter("href", href)
 
     @property
     @pulumi.getter
@@ -665,8 +809,19 @@ class VolumeSnapshotPolicy(dict):
     def __init__(__self__, *,
                  snapshot_count: int,
                  snapshot_frequency: str):
-        pulumi.set(__self__, "snapshot_count", snapshot_count)
-        pulumi.set(__self__, "snapshot_frequency", snapshot_frequency)
+        VolumeSnapshotPolicy._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            snapshot_count=snapshot_count,
+            snapshot_frequency=snapshot_frequency,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             snapshot_count: int,
+             snapshot_frequency: str,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("snapshot_count", snapshot_count)
+        _setter("snapshot_frequency", snapshot_frequency)
 
     @property
     @pulumi.getter(name="snapshotCount")
@@ -698,13 +853,34 @@ class GetConnectionPortResult(dict):
         :param str status: Port status
         :param Sequence[Any] virtual_circuit_ids: List of IDs of virtual cicruits attached to this port
         """
-        pulumi.set(__self__, "id", id)
-        pulumi.set(__self__, "link_status", link_status)
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "role", role)
-        pulumi.set(__self__, "speed", speed)
-        pulumi.set(__self__, "status", status)
-        pulumi.set(__self__, "virtual_circuit_ids", virtual_circuit_ids)
+        GetConnectionPortResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            id=id,
+            link_status=link_status,
+            name=name,
+            role=role,
+            speed=speed,
+            status=status,
+            virtual_circuit_ids=virtual_circuit_ids,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             id: str,
+             link_status: str,
+             name: str,
+             role: str,
+             speed: int,
+             status: str,
+             virtual_circuit_ids: Sequence[Any],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("id", id)
+        _setter("link_status", link_status)
+        _setter("name", name)
+        _setter("role", role)
+        _setter("speed", speed)
+        _setter("status", status)
+        _setter("virtual_circuit_ids", virtual_circuit_ids)
 
     @property
     @pulumi.getter
@@ -788,17 +964,44 @@ class GetDeviceBgpNeighborsBgpNeighborResult(dict):
         :param Sequence['GetDeviceBgpNeighborsBgpNeighborRoutesOutArgs'] routes_outs: Array of outgoing routes in the same format
         :param Sequence[str] peer_ips: Array of IP addresses of this neighbor's peers
         """
-        pulumi.set(__self__, "address_family", address_family)
-        pulumi.set(__self__, "customer_as", customer_as)
-        pulumi.set(__self__, "customer_ip", customer_ip)
-        pulumi.set(__self__, "md5_enabled", md5_enabled)
-        pulumi.set(__self__, "md5_password", md5_password)
-        pulumi.set(__self__, "multihop", multihop)
-        pulumi.set(__self__, "peer_as", peer_as)
-        pulumi.set(__self__, "routes_ins", routes_ins)
-        pulumi.set(__self__, "routes_outs", routes_outs)
+        GetDeviceBgpNeighborsBgpNeighborResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            address_family=address_family,
+            customer_as=customer_as,
+            customer_ip=customer_ip,
+            md5_enabled=md5_enabled,
+            md5_password=md5_password,
+            multihop=multihop,
+            peer_as=peer_as,
+            routes_ins=routes_ins,
+            routes_outs=routes_outs,
+            peer_ips=peer_ips,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             address_family: int,
+             customer_as: int,
+             customer_ip: str,
+             md5_enabled: bool,
+             md5_password: str,
+             multihop: bool,
+             peer_as: int,
+             routes_ins: Sequence['outputs.GetDeviceBgpNeighborsBgpNeighborRoutesInResult'],
+             routes_outs: Sequence['outputs.GetDeviceBgpNeighborsBgpNeighborRoutesOutResult'],
+             peer_ips: Optional[Sequence[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("address_family", address_family)
+        _setter("customer_as", customer_as)
+        _setter("customer_ip", customer_ip)
+        _setter("md5_enabled", md5_enabled)
+        _setter("md5_password", md5_password)
+        _setter("multihop", multihop)
+        _setter("peer_as", peer_as)
+        _setter("routes_ins", routes_ins)
+        _setter("routes_outs", routes_outs)
         if peer_ips is not None:
-            pulumi.set(__self__, "peer_ips", peer_ips)
+            _setter("peer_ips", peer_ips)
 
     @property
     @pulumi.getter(name="addressFamily")
@@ -890,8 +1093,19 @@ class GetDeviceBgpNeighborsBgpNeighborRoutesInResult(dict):
         :param bool exact: (bool) Whether the route is exact
         :param str route: CIDR expression of route (IP/mask)
         """
-        pulumi.set(__self__, "exact", exact)
-        pulumi.set(__self__, "route", route)
+        GetDeviceBgpNeighborsBgpNeighborRoutesInResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            exact=exact,
+            route=route,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             exact: bool,
+             route: str,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("exact", exact)
+        _setter("route", route)
 
     @property
     @pulumi.getter
@@ -919,8 +1133,19 @@ class GetDeviceBgpNeighborsBgpNeighborRoutesOutResult(dict):
         :param bool exact: (bool) Whether the route is exact
         :param str route: CIDR expression of route (IP/mask)
         """
-        pulumi.set(__self__, "exact", exact)
-        pulumi.set(__self__, "route", route)
+        GetDeviceBgpNeighborsBgpNeighborRoutesOutResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            exact=exact,
+            route=route,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             exact: bool,
+             route: str,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("exact", exact)
+        _setter("route", route)
 
     @property
     @pulumi.getter
@@ -954,11 +1179,28 @@ class GetDeviceNetworkResult(dict):
         :param str gateway: Address of router
         :param bool public: Whether the address is routable from the Internet
         """
-        pulumi.set(__self__, "address", address)
-        pulumi.set(__self__, "cidr", cidr)
-        pulumi.set(__self__, "family", family)
-        pulumi.set(__self__, "gateway", gateway)
-        pulumi.set(__self__, "public", public)
+        GetDeviceNetworkResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            address=address,
+            cidr=cidr,
+            family=family,
+            gateway=gateway,
+            public=public,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             address: str,
+             cidr: int,
+             family: int,
+             gateway: str,
+             public: bool,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("address", address)
+        _setter("cidr", cidr)
+        _setter("family", family)
+        _setter("gateway", gateway)
+        _setter("public", public)
 
     @property
     @pulumi.getter
@@ -1016,11 +1258,28 @@ class GetDevicePortResult(dict):
         :param str name: Name of the port (e.g. `eth0`, or `bond0`)
         :param str type: Type of the port (e.g. `NetworkPort` or `NetworkBondPort`)
         """
-        pulumi.set(__self__, "bonded", bonded)
-        pulumi.set(__self__, "id", id)
-        pulumi.set(__self__, "mac", mac)
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "type", type)
+        GetDevicePortResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            bonded=bonded,
+            id=id,
+            mac=mac,
+            name=name,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             bonded: bool,
+             id: str,
+             mac: str,
+             name: str,
+             type: str,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("bonded", bonded)
+        _setter("id", id)
+        _setter("mac", mac)
+        _setter("name", name)
+        _setter("type", type)
 
     @property
     @pulumi.getter
@@ -1072,9 +1331,20 @@ class GetFacilityCapacityResult(dict):
         :param str plan: device plan to check
         :param int quantity: number of device to check
         """
-        pulumi.set(__self__, "plan", plan)
+        GetFacilityCapacityResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            plan=plan,
+            quantity=quantity,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             plan: str,
+             quantity: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("plan", plan)
         if quantity is not None:
-            pulumi.set(__self__, "quantity", quantity)
+            _setter("quantity", quantity)
 
     @property
     @pulumi.getter
@@ -1102,9 +1372,20 @@ class GetMetroCapacityResult(dict):
         :param str plan: device plan to check
         :param int quantity: number of device to check
         """
-        pulumi.set(__self__, "plan", plan)
+        GetMetroCapacityResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            plan=plan,
+            quantity=quantity,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             plan: str,
+             quantity: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("plan", plan)
         if quantity is not None:
-            pulumi.set(__self__, "quantity", quantity)
+            _setter("quantity", quantity)
 
     @property
     @pulumi.getter
@@ -1138,12 +1419,29 @@ class GetProjectBgpConfigResult(dict):
         :param str status: status of BGP configuration in the project
         :param str md5: Password for BGP session in plaintext (not a checksum)
         """
-        pulumi.set(__self__, "asn", asn)
-        pulumi.set(__self__, "deployment_type", deployment_type)
-        pulumi.set(__self__, "max_prefix", max_prefix)
-        pulumi.set(__self__, "status", status)
+        GetProjectBgpConfigResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            asn=asn,
+            deployment_type=deployment_type,
+            max_prefix=max_prefix,
+            status=status,
+            md5=md5,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             asn: int,
+             deployment_type: str,
+             max_prefix: int,
+             status: str,
+             md5: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("asn", asn)
+        _setter("deployment_type", deployment_type)
+        _setter("max_prefix", max_prefix)
+        _setter("status", status)
         if md5 is not None:
-            pulumi.set(__self__, "md5", md5)
+            _setter("md5", md5)
 
     @property
     @pulumi.getter
@@ -1191,8 +1489,19 @@ class GetVolumeSnapshotPolicyResult(dict):
     def __init__(__self__, *,
                  snapshot_count: int,
                  snapshot_frequency: str):
-        pulumi.set(__self__, "snapshot_count", snapshot_count)
-        pulumi.set(__self__, "snapshot_frequency", snapshot_frequency)
+        GetVolumeSnapshotPolicyResult._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            snapshot_count=snapshot_count,
+            snapshot_frequency=snapshot_frequency,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             snapshot_count: int,
+             snapshot_frequency: str,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("snapshot_count", snapshot_count)
+        _setter("snapshot_frequency", snapshot_frequency)
 
     @property
     @pulumi.getter(name="snapshotCount")

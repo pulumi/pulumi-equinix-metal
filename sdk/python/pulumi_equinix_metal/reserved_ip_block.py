@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from ._enums import *
 
@@ -32,18 +32,39 @@ class ReservedIpBlockArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: String list of tags
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
-        pulumi.set(__self__, "project_id", project_id)
-        pulumi.set(__self__, "quantity", quantity)
+        ReservedIpBlockArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            project_id=project_id,
+            quantity=quantity,
+            description=description,
+            facility=facility,
+            metro=metro,
+            tags=tags,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             project_id: pulumi.Input[str],
+             quantity: pulumi.Input[int],
+             description: Optional[pulumi.Input[str]] = None,
+             facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("project_id", project_id)
+        _setter("quantity", quantity)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facility is not None:
-            pulumi.set(__self__, "facility", facility)
+            _setter("facility", facility)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter(name="projectId")
@@ -168,42 +189,85 @@ class _ReservedIpBlockState:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: String list of tags
         :param pulumi.Input[Union[str, 'IpBlockType']] type: Either "global_ipv4" or "public_ipv4", defaults to "public_ipv4" for backward compatibility
         """
+        _ReservedIpBlockState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            address=address,
+            address_family=address_family,
+            cidr=cidr,
+            cidr_notation=cidr_notation,
+            description=description,
+            facility=facility,
+            gateway=gateway,
+            global_=global_,
+            manageable=manageable,
+            management=management,
+            metro=metro,
+            netmask=netmask,
+            network=network,
+            project_id=project_id,
+            public=public,
+            quantity=quantity,
+            tags=tags,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             address: Optional[pulumi.Input[str]] = None,
+             address_family: Optional[pulumi.Input[int]] = None,
+             cidr: Optional[pulumi.Input[int]] = None,
+             cidr_notation: Optional[pulumi.Input[str]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+             gateway: Optional[pulumi.Input[str]] = None,
+             global_: Optional[pulumi.Input[bool]] = None,
+             manageable: Optional[pulumi.Input[bool]] = None,
+             management: Optional[pulumi.Input[bool]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             netmask: Optional[pulumi.Input[str]] = None,
+             network: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             public: Optional[pulumi.Input[bool]] = None,
+             quantity: Optional[pulumi.Input[int]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             type: Optional[pulumi.Input[Union[str, 'IpBlockType']]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if address is not None:
-            pulumi.set(__self__, "address", address)
+            _setter("address", address)
         if address_family is not None:
-            pulumi.set(__self__, "address_family", address_family)
+            _setter("address_family", address_family)
         if cidr is not None:
-            pulumi.set(__self__, "cidr", cidr)
+            _setter("cidr", cidr)
         if cidr_notation is not None:
-            pulumi.set(__self__, "cidr_notation", cidr_notation)
+            _setter("cidr_notation", cidr_notation)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facility is not None:
-            pulumi.set(__self__, "facility", facility)
+            _setter("facility", facility)
         if gateway is not None:
-            pulumi.set(__self__, "gateway", gateway)
+            _setter("gateway", gateway)
         if global_ is not None:
-            pulumi.set(__self__, "global_", global_)
+            _setter("global_", global_)
         if manageable is not None:
-            pulumi.set(__self__, "manageable", manageable)
+            _setter("manageable", manageable)
         if management is not None:
-            pulumi.set(__self__, "management", management)
+            _setter("management", management)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if netmask is not None:
-            pulumi.set(__self__, "netmask", netmask)
+            _setter("netmask", netmask)
         if network is not None:
-            pulumi.set(__self__, "network", network)
+            _setter("network", network)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if public is not None:
-            pulumi.set(__self__, "public", public)
+            _setter("public", public)
         if quantity is not None:
-            pulumi.set(__self__, "quantity", quantity)
+            _setter("quantity", quantity)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter
@@ -607,6 +671,10 @@ class ReservedIpBlock(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ReservedIpBlockArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

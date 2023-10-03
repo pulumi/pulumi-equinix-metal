@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['GatewayArgs', 'Gateway']
@@ -25,12 +25,27 @@ class GatewayArgs:
         :param pulumi.Input[str] ip_reservation_id: UUID of IP reservation block to bind to the gateway, the reservation must be in the same metro as the VLAN, conflicts with `private_ipv4_subnet_size`
         :param pulumi.Input[int] private_ipv4_subnet_size: Size of the private IPv4 subnet to create for this metal gateway, must be one of (8, 16, 32, 64, 128), conflicts with `ip_reservation_id`
         """
-        pulumi.set(__self__, "project_id", project_id)
-        pulumi.set(__self__, "vlan_id", vlan_id)
+        GatewayArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            project_id=project_id,
+            vlan_id=vlan_id,
+            ip_reservation_id=ip_reservation_id,
+            private_ipv4_subnet_size=private_ipv4_subnet_size,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             project_id: pulumi.Input[str],
+             vlan_id: pulumi.Input[str],
+             ip_reservation_id: Optional[pulumi.Input[str]] = None,
+             private_ipv4_subnet_size: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("project_id", project_id)
+        _setter("vlan_id", vlan_id)
         if ip_reservation_id is not None:
-            pulumi.set(__self__, "ip_reservation_id", ip_reservation_id)
+            _setter("ip_reservation_id", ip_reservation_id)
         if private_ipv4_subnet_size is not None:
-            pulumi.set(__self__, "private_ipv4_subnet_size", private_ipv4_subnet_size)
+            _setter("private_ipv4_subnet_size", private_ipv4_subnet_size)
 
     @property
     @pulumi.getter(name="projectId")
@@ -97,16 +112,33 @@ class _GatewayState:
         :param pulumi.Input[str] state: Status of the gateway resource
         :param pulumi.Input[str] vlan_id: UUID of the VLAN where the gateway is scoped to
         """
+        _GatewayState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ip_reservation_id=ip_reservation_id,
+            private_ipv4_subnet_size=private_ipv4_subnet_size,
+            project_id=project_id,
+            state=state,
+            vlan_id=vlan_id,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ip_reservation_id: Optional[pulumi.Input[str]] = None,
+             private_ipv4_subnet_size: Optional[pulumi.Input[int]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             state: Optional[pulumi.Input[str]] = None,
+             vlan_id: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ip_reservation_id is not None:
-            pulumi.set(__self__, "ip_reservation_id", ip_reservation_id)
+            _setter("ip_reservation_id", ip_reservation_id)
         if private_ipv4_subnet_size is not None:
-            pulumi.set(__self__, "private_ipv4_subnet_size", private_ipv4_subnet_size)
+            _setter("private_ipv4_subnet_size", private_ipv4_subnet_size)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if state is not None:
-            pulumi.set(__self__, "state", state)
+            _setter("state", state)
         if vlan_id is not None:
-            pulumi.set(__self__, "vlan_id", vlan_id)
+            _setter("vlan_id", vlan_id)
 
     @property
     @pulumi.getter(name="ipReservationId")
@@ -280,6 +312,10 @@ class Gateway(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            GatewayArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

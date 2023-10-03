@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -39,23 +39,50 @@ class ConnectionArgs:
         :param pulumi.Input[str] project_id: ID of the project where the connection is scoped to, must be set for shared connection
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: String list of tags
         """
-        pulumi.set(__self__, "organization_id", organization_id)
-        pulumi.set(__self__, "redundancy", redundancy)
-        pulumi.set(__self__, "type", type)
+        ConnectionArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            organization_id=organization_id,
+            redundancy=redundancy,
+            type=type,
+            description=description,
+            facility=facility,
+            metro=metro,
+            mode=mode,
+            name=name,
+            project_id=project_id,
+            tags=tags,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             organization_id: pulumi.Input[str],
+             redundancy: pulumi.Input[str],
+             type: pulumi.Input[str],
+             description: Optional[pulumi.Input[str]] = None,
+             facility: Optional[pulumi.Input[str]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             mode: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("organization_id", organization_id)
+        _setter("redundancy", redundancy)
+        _setter("type", type)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facility is not None:
-            pulumi.set(__self__, "facility", facility)
+            _setter("facility", facility)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if mode is not None:
-            pulumi.set(__self__, "mode", mode)
+            _setter("mode", mode)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
 
     @property
     @pulumi.getter(name="organizationId")
@@ -212,34 +239,69 @@ class _ConnectionState:
         :param pulumi.Input[str] token: Fabric Token from the [Equinix Fabric Portal](https://ecxfabric.equinix.com/dashboard)
         :param pulumi.Input[str] type: Connection type - dedicated or shared
         """
+        _ConnectionState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            description=description,
+            facility=facility,
+            metro=metro,
+            mode=mode,
+            name=name,
+            organization_id=organization_id,
+            ports=ports,
+            project_id=project_id,
+            redundancy=redundancy,
+            speed=speed,
+            status=status,
+            tags=tags,
+            token=token,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             description: Optional[pulumi.Input[str]] = None,
+             facility: Optional[pulumi.Input[str]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             mode: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             organization_id: Optional[pulumi.Input[str]] = None,
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['ConnectionPortArgs']]]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             redundancy: Optional[pulumi.Input[str]] = None,
+             speed: Optional[pulumi.Input[int]] = None,
+             status: Optional[pulumi.Input[str]] = None,
+             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             token: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facility is not None:
-            pulumi.set(__self__, "facility", facility)
+            _setter("facility", facility)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if mode is not None:
-            pulumi.set(__self__, "mode", mode)
+            _setter("mode", mode)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if organization_id is not None:
-            pulumi.set(__self__, "organization_id", organization_id)
+            _setter("organization_id", organization_id)
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if redundancy is not None:
-            pulumi.set(__self__, "redundancy", redundancy)
+            _setter("redundancy", redundancy)
         if speed is not None:
-            pulumi.set(__self__, "speed", speed)
+            _setter("speed", speed)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
         if tags is not None:
-            pulumi.set(__self__, "tags", tags)
+            _setter("tags", tags)
         if token is not None:
-            pulumi.set(__self__, "token", token)
+            _setter("token", token)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter
@@ -489,6 +551,10 @@ class Connection(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ConnectionArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

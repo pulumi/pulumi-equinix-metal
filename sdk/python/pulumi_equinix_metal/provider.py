@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['ProviderArgs', 'Provider']
@@ -21,11 +21,24 @@ class ProviderArgs:
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] auth_token: The API auth key for API operations.
         """
-        pulumi.set(__self__, "auth_token", auth_token)
+        ProviderArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            auth_token=auth_token,
+            max_retries=max_retries,
+            max_retry_wait_seconds=max_retry_wait_seconds,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             auth_token: pulumi.Input[str],
+             max_retries: Optional[pulumi.Input[int]] = None,
+             max_retry_wait_seconds: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("auth_token", auth_token)
         if max_retries is not None:
-            pulumi.set(__self__, "max_retries", max_retries)
+            _setter("max_retries", max_retries)
         if max_retry_wait_seconds is not None:
-            pulumi.set(__self__, "max_retry_wait_seconds", max_retry_wait_seconds)
+            _setter("max_retry_wait_seconds", max_retry_wait_seconds)
 
     @property
     @pulumi.getter(name="authToken")
@@ -99,6 +112,10 @@ class Provider(pulumi.ProviderResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ProviderArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

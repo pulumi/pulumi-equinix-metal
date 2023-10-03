@@ -9,9 +9,9 @@ replace (
 
 require (
 	github.com/equinix/terraform-provider-metal v1.1.1-0.20211208211059-f3d7fe9ae128
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.60.0
-	github.com/pulumi/pulumi/pkg/v3 v3.81.0
-	github.com/pulumi/pulumi/sdk/v3 v3.81.0
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.61.0
+	github.com/pulumi/pulumi/pkg/v3 v3.86.0
+	github.com/pulumi/pulumi/sdk/v3 v3.86.0
 )
 
 require (
@@ -24,7 +24,7 @@ require (
 	cloud.google.com/go/longrunning v0.5.1 // indirect
 	cloud.google.com/go/storage v1.30.1 // indirect
 	dario.cat/mergo v1.0.0 // indirect
-	github.com/AlecAivazis/survey/v2 v2.0.5 // indirect
+	github.com/AlecAivazis/survey/v2 v2.3.7 // indirect
 	github.com/Azure/azure-sdk-for-go v66.0.0+incompatible // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.1.1 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.0.0 // indirect

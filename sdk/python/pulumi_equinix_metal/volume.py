@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._enums import *
@@ -28,18 +28,41 @@ class VolumeArgs:
         """
         The set of arguments for constructing a Volume resource.
         """
-        pulumi.set(__self__, "facility", facility)
-        pulumi.set(__self__, "plan", plan)
-        pulumi.set(__self__, "project_id", project_id)
-        pulumi.set(__self__, "size", size)
+        VolumeArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            facility=facility,
+            plan=plan,
+            project_id=project_id,
+            size=size,
+            billing_cycle=billing_cycle,
+            description=description,
+            locked=locked,
+            snapshot_policies=snapshot_policies,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             facility: pulumi.Input[Union[str, 'Facility']],
+             plan: pulumi.Input[str],
+             project_id: pulumi.Input[str],
+             size: pulumi.Input[int],
+             billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             locked: Optional[pulumi.Input[bool]] = None,
+             snapshot_policies: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("facility", facility)
+        _setter("plan", plan)
+        _setter("project_id", project_id)
+        _setter("size", size)
         if billing_cycle is not None:
-            pulumi.set(__self__, "billing_cycle", billing_cycle)
+            _setter("billing_cycle", billing_cycle)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if locked is not None:
-            pulumi.set(__self__, "locked", locked)
+            _setter("locked", locked)
         if snapshot_policies is not None:
-            pulumi.set(__self__, "snapshot_policies", snapshot_policies)
+            _setter("snapshot_policies", snapshot_policies)
 
     @property
     @pulumi.getter
@@ -133,32 +156,65 @@ class _VolumeState:
         """
         Input properties used for looking up and filtering Volume resources.
         """
+        _VolumeState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attachments=attachments,
+            billing_cycle=billing_cycle,
+            created=created,
+            description=description,
+            facility=facility,
+            locked=locked,
+            name=name,
+            plan=plan,
+            project_id=project_id,
+            size=size,
+            snapshot_policies=snapshot_policies,
+            state=state,
+            updated=updated,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attachments: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeAttachmentArgs']]]] = None,
+             billing_cycle: Optional[pulumi.Input[Union[str, 'BillingCycle']]] = None,
+             created: Optional[pulumi.Input[str]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+             locked: Optional[pulumi.Input[bool]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             plan: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             size: Optional[pulumi.Input[int]] = None,
+             snapshot_policies: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeSnapshotPolicyArgs']]]] = None,
+             state: Optional[pulumi.Input[str]] = None,
+             updated: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if attachments is not None:
-            pulumi.set(__self__, "attachments", attachments)
+            _setter("attachments", attachments)
         if billing_cycle is not None:
-            pulumi.set(__self__, "billing_cycle", billing_cycle)
+            _setter("billing_cycle", billing_cycle)
         if created is not None:
-            pulumi.set(__self__, "created", created)
+            _setter("created", created)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facility is not None:
-            pulumi.set(__self__, "facility", facility)
+            _setter("facility", facility)
         if locked is not None:
-            pulumi.set(__self__, "locked", locked)
+            _setter("locked", locked)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if plan is not None:
-            pulumi.set(__self__, "plan", plan)
+            _setter("plan", plan)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if size is not None:
-            pulumi.set(__self__, "size", size)
+            _setter("size", size)
         if snapshot_policies is not None:
-            pulumi.set(__self__, "snapshot_policies", snapshot_policies)
+            _setter("snapshot_policies", snapshot_policies)
         if state is not None:
-            pulumi.set(__self__, "state", state)
+            _setter("state", state)
         if updated is not None:
-            pulumi.set(__self__, "updated", updated)
+            _setter("updated", updated)
 
     @property
     @pulumi.getter
@@ -317,6 +373,10 @@ class Volume(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            VolumeArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

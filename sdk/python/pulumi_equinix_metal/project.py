@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -31,16 +31,33 @@ class ProjectArgs:
         :param pulumi.Input[str] organization_id: The UUID of organization under which you want to create the project. If you leave it out, the project will be create under your the default organization of your account.
         :param pulumi.Input[str] payment_method_id: The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
         """
+        ProjectArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            backend_transfer=backend_transfer,
+            bgp_config=bgp_config,
+            name=name,
+            organization_id=organization_id,
+            payment_method_id=payment_method_id,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             backend_transfer: Optional[pulumi.Input[bool]] = None,
+             bgp_config: Optional[pulumi.Input['ProjectBgpConfigArgs']] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             organization_id: Optional[pulumi.Input[str]] = None,
+             payment_method_id: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if backend_transfer is not None:
-            pulumi.set(__self__, "backend_transfer", backend_transfer)
+            _setter("backend_transfer", backend_transfer)
         if bgp_config is not None:
-            pulumi.set(__self__, "bgp_config", bgp_config)
+            _setter("bgp_config", bgp_config)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if organization_id is not None:
-            pulumi.set(__self__, "organization_id", organization_id)
+            _setter("organization_id", organization_id)
         if payment_method_id is not None:
-            pulumi.set(__self__, "payment_method_id", payment_method_id)
+            _setter("payment_method_id", payment_method_id)
 
     @property
     @pulumi.getter(name="backendTransfer")
@@ -127,20 +144,41 @@ class _ProjectState:
         :param pulumi.Input[str] payment_method_id: The UUID of payment method for this project. The payment method and the project need to belong to the same organization (passed with `organization_id`, or default).
         :param pulumi.Input[str] updated: The timestamp for the last time the project was updated
         """
+        _ProjectState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            backend_transfer=backend_transfer,
+            bgp_config=bgp_config,
+            created=created,
+            name=name,
+            organization_id=organization_id,
+            payment_method_id=payment_method_id,
+            updated=updated,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             backend_transfer: Optional[pulumi.Input[bool]] = None,
+             bgp_config: Optional[pulumi.Input['ProjectBgpConfigArgs']] = None,
+             created: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             organization_id: Optional[pulumi.Input[str]] = None,
+             payment_method_id: Optional[pulumi.Input[str]] = None,
+             updated: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if backend_transfer is not None:
-            pulumi.set(__self__, "backend_transfer", backend_transfer)
+            _setter("backend_transfer", backend_transfer)
         if bgp_config is not None:
-            pulumi.set(__self__, "bgp_config", bgp_config)
+            _setter("bgp_config", bgp_config)
         if created is not None:
-            pulumi.set(__self__, "created", created)
+            _setter("created", created)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if organization_id is not None:
-            pulumi.set(__self__, "organization_id", organization_id)
+            _setter("organization_id", organization_id)
         if payment_method_id is not None:
-            pulumi.set(__self__, "payment_method_id", payment_method_id)
+            _setter("payment_method_id", payment_method_id)
         if updated is not None:
-            pulumi.set(__self__, "updated", updated)
+            _setter("updated", updated)
 
     @property
     @pulumi.getter(name="backendTransfer")
@@ -340,6 +378,10 @@ class Project(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ProjectArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -360,6 +402,11 @@ class Project(pulumi.CustomResource):
             __props__ = ProjectArgs.__new__(ProjectArgs)
 
             __props__.__dict__["backend_transfer"] = backend_transfer
+            if bgp_config is not None and not isinstance(bgp_config, ProjectBgpConfigArgs):
+                bgp_config = bgp_config or {}
+                def _setter(key, value):
+                    bgp_config[key] = value
+                ProjectBgpConfigArgs._configure(_setter, **bgp_config)
             __props__.__dict__["bgp_config"] = bgp_config
             __props__.__dict__["name"] = name
             __props__.__dict__["organization_id"] = organization_id

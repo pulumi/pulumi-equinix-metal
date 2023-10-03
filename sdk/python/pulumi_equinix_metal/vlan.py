@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from ._enums import *
 
@@ -27,15 +27,32 @@ class VlanArgs:
         :param pulumi.Input[Union[str, 'Facility']] facility: Facility where to create the VLAN
         :param pulumi.Input[int] vxlan: VLAN ID, must be unique in metro
         """
-        pulumi.set(__self__, "project_id", project_id)
+        VlanArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            project_id=project_id,
+            description=description,
+            facility=facility,
+            metro=metro,
+            vxlan=vxlan,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             project_id: pulumi.Input[str],
+             description: Optional[pulumi.Input[str]] = None,
+             facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             vxlan: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("project_id", project_id)
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facility is not None:
-            pulumi.set(__self__, "facility", facility)
+            _setter("facility", facility)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if vxlan is not None:
-            pulumi.set(__self__, "vxlan", vxlan)
+            _setter("vxlan", vxlan)
 
     @property
     @pulumi.getter(name="projectId")
@@ -110,16 +127,33 @@ class _VlanState:
         :param pulumi.Input[str] project_id: ID of parent project
         :param pulumi.Input[int] vxlan: VLAN ID, must be unique in metro
         """
+        _VlanState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            description=description,
+            facility=facility,
+            metro=metro,
+            project_id=project_id,
+            vxlan=vxlan,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             description: Optional[pulumi.Input[str]] = None,
+             facility: Optional[pulumi.Input[Union[str, 'Facility']]] = None,
+             metro: Optional[pulumi.Input[str]] = None,
+             project_id: Optional[pulumi.Input[str]] = None,
+             vxlan: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if facility is not None:
-            pulumi.set(__self__, "facility", facility)
+            _setter("facility", facility)
         if metro is not None:
-            pulumi.set(__self__, "metro", metro)
+            _setter("metro", metro)
         if project_id is not None:
-            pulumi.set(__self__, "project_id", project_id)
+            _setter("project_id", project_id)
         if vxlan is not None:
-            pulumi.set(__self__, "vxlan", vxlan)
+            _setter("vxlan", vxlan)
 
     @property
     @pulumi.getter
@@ -283,6 +317,10 @@ class Vlan(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            VlanArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
