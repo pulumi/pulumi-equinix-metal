@@ -8,8 +8,7 @@
 
 # Equinix Metal provider
 
-**PLEASE NOTE:** *This provider supercedes the Pulumi Packet provider. There is no direct migration between providers. To perform a migration,
-please use the pulumi import command*
+**PLEASE NOTE:** *This provider has been DEPRECATED in favor of https://github.com/equinix/pulumi-equinix. Please use Equinix' official Pulumi provider going forward.*
 
 The Equinix Metal resource provider for Pulumi lets you use [Equinix Metal](https://metal.equinix.com/) resources in your cloud programs.  To use
 this package, please [install the Pulumi CLI first](https://pulumi.io/).
